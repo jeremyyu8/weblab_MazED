@@ -18,6 +18,9 @@
 const validator = require("./validator");
 validator.checkSetup();
 
+// require .env
+require("dotenv").config();
+
 //import libraries needed for the webserver to work!
 const http = require("http");
 const express = require("express"); // backend framework for our node server.
@@ -25,7 +28,6 @@ const session = require("express-session"); // library that stores info about ea
 const mongoose = require("mongoose"); // library to connect to MongoDB
 const path = require("path"); // provide utilities for working with file and directory paths
 
-const api = require("./api");
 const auth = require("./auth");
 
 // socket stuff
@@ -33,9 +35,10 @@ const socketManager = require("./server-socket");
 
 // Server configuration below
 // TODO change connection URL after setting up your team database
-const mongoConnectionURL = "FILL ME IN";
+const mongoConnectionURL =
+  "mongodb+srv://azliu:KoxXxZzBUVePiESU@cluster0.naha7nz.mongodb.net/?retryWrites=true&w=majority";
 // TODO change database name to the name you chose
-const databaseName = "FILL ME IN";
+const databaseName = "MazED";
 
 // connect to mongodb
 mongoose
@@ -58,7 +61,7 @@ app.use(express.json());
 app.use(
   session({
     // TODO: add a SESSION_SECRET string in your .env file, and replace the secret with process.env.SESSION_SECRET
-    secret: "session-secret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -67,8 +70,9 @@ app.use(
 // this checks if the user is logged in, and populates "req.user"
 app.use(auth.populateCurrentUser);
 
-// connect user-defined routes
-app.use("/api", api);
+// routers
+app.use("/api", require("./routes/api"));
+// app.use("/student", require("./routes/student"));
 
 // load the compiled react files, which will serve /index.html and /bundle.js
 const reactPath = path.resolve(__dirname, "..", "client", "dist");
@@ -101,5 +105,5 @@ const server = http.Server(app);
 socketManager.init(server);
 
 server.listen(port, () => {
-  console.log(`Server running on port: ${port}`);
+  console.log(`Server running on port: ${port} Sophia's IP: 10.29.25.21`);
 });
