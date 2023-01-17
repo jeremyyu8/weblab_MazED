@@ -1,8 +1,11 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+
+// import pages
 import TeacherDashboard from "./TeacherDashboard";
 import Login from "./Login";
 import Signup from "./Signup";
+import Maze from "../Maze";
 
 import "../../utilities.css";
 import "./Home.css";
@@ -74,6 +77,13 @@ const Home = ({ userId, handleLogin, handleLogout }) => {
           }}
         >
           Signup
+        </button>
+        <button
+          onClick={() => {
+            window.location.replace("/maze");
+          }}
+        >
+          Maze testing
         </button>
       </div>
     </>

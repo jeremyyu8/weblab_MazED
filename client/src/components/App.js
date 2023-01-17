@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
 import jwt_decode from "jwt-decode";
 
+// import pages
+
 import NotFound from "./pages/NotFound.js";
 import Home from "./pages/Home.js";
 import TeacherDashboard from "./pages/TeacherDashboard.js";
@@ -10,6 +12,7 @@ import Login from "./pages/Login.js";
 import Signup from "./pages/Signup.js";
 import TeacherEdit from "./pages/TeacherEdit.js";
 import StudentGame from "./pages/StudentGame.js";
+import MazePage from "./MazePage.js";
 
 import "../utilities.css";
 
@@ -58,6 +61,7 @@ const App = () => {
         <StudentGame path="/student/game" />
         <Signup path="/signup" />
         <Login path="/login" />
+        <MazePage path="/maze" />
         <NotFound default />
       </Router>
     </>

@@ -1,0 +1,32 @@
+.maze-container{
+    display: flex;
+    justify-content: center;
+    padding-top: 10vh;
+}
+
+.grid-container{
+    --maze-width: 11;
+    --maze-height: 11;
+    display: grid;
+    grid-template-columns: repeat(var(--maze-height), 1fr);
+    grid-template-rows: repeat(var(--maze-width), 1fr);
+    gap: 0px;
+    width: 30vw;
+}
+
+.maze-cell{
+    aspect-ratio: 1;
+}
+
+.toggle-button{
+    position: absolute;
+    bottom: 10vh;
+}
+
+.white{
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.black{
+    background: rgba(0, 0, 0, 0.5);
+}

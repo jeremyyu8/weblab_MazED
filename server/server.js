@@ -71,8 +71,7 @@ app.use(
 app.use(auth.populateCurrentUser);
 
 // routers
-app.use("/api", require("./routes/api"));
-// app.use("/student", require("./routes/student"));
+app.use("/api", require("./api"));
 
 // load the compiled react files, which will serve /index.html and /bundle.js
 const reactPath = path.resolve(__dirname, "..", "client", "dist");
