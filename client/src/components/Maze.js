@@ -6,7 +6,7 @@ const Maze = () => {
   const [render, setRender] = useState(true);
   const [maze, setMaze] = useState(<div>No maze yet!</div>);
 
-  const n = 11;
+  const n = 21;
 
   // using randomized kruskal's
   const generateMaze = (dim) => {
