@@ -5,17 +5,17 @@
 }
 
 .grid-container{
-    --maze-dimension: 21;
+    --maze-width: 11;
+    --maze-height: 11;
     display: grid;
-    grid-template-columns: repeat(var(--maze-dimension), 1fr);
-    grid-template-rows: repeat(var(--maze-dimension), 1fr);
+    grid-template-columns: repeat(var(--maze-height), 1fr);
+    grid-template-rows: repeat(var(--maze-width), 1fr);
     gap: 0px;
     width: 30vw;
 }
 
 .maze-cell{
     aspect-ratio: 1;
-    font-size: 10px;
 }
 
 .toggle-button{
