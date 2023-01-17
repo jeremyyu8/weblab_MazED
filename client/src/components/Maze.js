@@ -8,7 +8,8 @@ const Maze = () => {
 
   const n = 11;
 
-  const kruskal = (dim) => {
+  // using randomized kruskal's
+  const generateMaze = (dim) => {
     const n = Math.floor((dim + 1) / 2);
     const sz = Array(n * n);
     for (let i = 0; i < n * n; i++) {
@@ -64,11 +65,7 @@ const Maze = () => {
       let x = unite(edge[0][0] * n + edge[0][1], edge[1][0] * n + edge[1][1]);
       if (x) {
         let new_connector;
-        if (edge[0][0] === edge[1][0]) {
-          new_connector = [2 * edge[0][0], edge[0][1] + edge[1][1]];
-        } else {
-          new_connector = [edge[0][0] + edge[1][0], 2 * edge[0][1]];
-        }
+        new_connector = [edge[0][0] + edge[1][0], edge[0][1] + edge[1][1]];
         connectors.push(new_connector);
       }
     }
@@ -77,7 +74,7 @@ const Maze = () => {
 
   const renderMaze = () => {
     console.log("n", n);
-    var connectors = kruskal(n);
+    var connectors = generateMaze(n);
     var maze_container = [];
     for (var i = 0; i < n * n; i++) {
       var col = i % n;
