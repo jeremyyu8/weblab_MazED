@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "./modules/Navbar";
 
 import "../../utilities.css";
 import "./TeacherDashboard.css";
@@ -6,6 +7,7 @@ import "./TeacherDashboard.css";
 const TeacherDashboard = () => {
   return (
     <>
+      <Navbar />
       This is the teacher dashboard.
       <button
         onClick={() => {
