@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
 // module imports
-import Navbar from "./modules/Navbar";
+import Navbar from "../modules/Navbar";
 
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 

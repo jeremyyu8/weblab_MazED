@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
 // import modules
-import Navbar from "./modules/Navbar";
+import Navbar from "../modules/Navbar";
 
 // import pages
 import TeacherDashboard from "./TeacherDashboard";
