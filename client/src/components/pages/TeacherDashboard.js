@@ -7,6 +7,13 @@ import FlashcardSetsContainer from "../modules/TeacherDashboardComponents/Flashc
 import Games from "../modules/TeacherDashboardComponents/Games";
 import Settings from "../modules/TeacherDashboardComponents/Settings";
 
+/**
+ * LeftSideBar is a component in TeacherDashboard that holds my sets, past games, settings
+ *
+ * Proptypes
+ * @param {string} _id of the story
+ * @param {function} setRightSide for setting right side
+ */
 const TeacherDashboard = () => {
   const [rightSide, setRightSide] = useState("sets"); //options are sets, pastGames, settings
 
@@ -18,20 +25,13 @@ const TeacherDashboard = () => {
   return (
     <>
       <Navbar />
-
-      <div className="flex">
-        <div className="basis-1/7 w-40 border-solid border-rose-400">
-          <LeftSideBar setRightSide={setRightSide} />
+      <div className="mt-[4.8vw]">
+        <div className="flex">
+          <div className="basis-1/5 w-40 border-solid border-rose-400">
+            <LeftSideBar setRightSide={setRightSide} />
+          </div>
+          <div className="flex-1 border-solid border-rose-600">{rightComponent}</div>
         </div>
-        <div className="flex-1 border-solid border-rose-600">{rightComponent}</div>
-
-        {/* <button
-            onClick={() => {
-              window.location.replace("/teacher/edit");
-            }}
-          >
-            Edit
-          </button> */}
       </div>
     </>
   );
