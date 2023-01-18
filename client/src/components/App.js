@@ -15,6 +15,7 @@ import StudentGame from "./pages/StudentGame.js";
 import MazePage from "./MazePage.js";
 
 import "../utilities.css";
+import "../output.css";
 
 import { socket } from "../client-socket.js";
 

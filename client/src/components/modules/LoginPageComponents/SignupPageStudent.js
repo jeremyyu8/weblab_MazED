@@ -10,6 +10,7 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
  * @param {userId} userId userId if logged in else null
  * @param {handleLogin} handleLogin login function
  * @param {handleLogout} handleLogout logout function
+ * @param {setDisplayState} setDisplayState set display state for signin page
  */
 const SignupPageStudent = ({ userId, handleLogin, handleLogout, setDisplayState }) => {
   return (
