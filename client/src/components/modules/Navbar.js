@@ -19,7 +19,7 @@ const Navbar = () => {
           <HomeButton text="Sign Up" url="/signup" />
         </div>
       </nav> */}
-      <nav className="relative">
+      <nav className="fixed w-full top-0 bg-white z-10">
         <div className="flex items-center justify-between p-4 px-10 border-0 border-gray-200 border-solid border-b-2">
           <div
             className="pt-2 text-[36px] font-[900] hover:cursor-pointer"
