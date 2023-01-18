@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+
+import LeftSideBarSettings from "./LeftSideBarSettings";
+import LeftSideBarJoin from "./LeftSideBarJoin";
 import "./LeftSideBar.css";
-import LeftSideBarOption from "./LeftSideBarOption";
 
 /**
  * LeftSideBar is a component in StudentDashboard that holds Join Game button and Settings button
@@ -11,16 +13,14 @@ import LeftSideBarOption from "./LeftSideBarOption";
  */
 const LeftSideBar = (props) => {
   return (
-    <div>
-      <button onClick={() => props.rightSide("join")}>Join</button>
-      <button
-        onClick={() => {
-          props.rightSide("settings");
-          console.log("hit");
-        }}
-      >
-        Settings
-      </button>
+    <div className="LeftSideBar-container">
+      <div className="LeftSideBar-item" onClick={() => props.rightSide("join")}>
+        <LeftSideBarJoin />
+      </div>
+
+      <div className="LeftSideBar-item" onClick={() => props.rightSide("settings")}>
+        <LeftSideBarSettings />
+      </div>
     </div>
   );
 };
