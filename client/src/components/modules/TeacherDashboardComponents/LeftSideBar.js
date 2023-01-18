@@ -4,8 +4,6 @@ import LeftSideBarSets from "./LeftSideBarSets";
 import LeftSideBarGames from "./LeftSideBarGames";
 import LeftSideBarSettings from "./LeftSideBarSettings";
 
-import "./LeftSideBar.css";
-
 /**
  * LeftSideBar is a component in TeacherDashboard that holds my sets, past games, settings
  *
@@ -15,16 +13,19 @@ import "./LeftSideBar.css";
  */
 const LeftSideBar = (props) => {
   return (
-    <div className="LeftSideBar-container">
-      <div className="LeftSideBar-item" onClick={() => props.setRightSide("sets")}>
+    <div
+      className="left-0 h-screen m-0 
+                    flex flex-col bg-gray-900 text-white shadow-lg"
+    >
+      <div className="" onClick={() => props.setRightSide("sets")}>
         <LeftSideBarSets />
       </div>
 
-      <div className="LeftSideBar-item" onClick={() => props.setRightSide("pastGames")}>
+      <div className="" onClick={() => props.setRightSide("pastGames")}>
         <LeftSideBarGames />
       </div>
 
-      <div className="LeftSideBar-item" onClick={() => props.setRightSide("settings")}>
+      <div className="" onClick={() => props.setRightSide("settings")}>
         <LeftSideBarSettings />
       </div>
     </div>

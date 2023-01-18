@@ -13,7 +13,7 @@ const HomeButton = (props) => {
       onClick={() => {
         window.location.replace(props.url);
       }}
-      className="home-button"
+      className="p-3 px-7 text-white bg-sky-500 text-[14px] rounded-md align-baseline border-0 hover:bg-sky-300 cursor-pointer"
     >
       {props.text}
     </button>
