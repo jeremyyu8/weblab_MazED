@@ -15,7 +15,7 @@ const StudentDashboard = () => {
       <Navbar />
       <div className="StudentDashboard-container">
         <div className="StudentDashboard-leftSide">
-          <LeftSideBar rightSide={setRightSide} />
+          <LeftSideBar setRightSide={setRightSide} />
         </div>
         <div className="StudentDashboard-rightSide">
           {rightSide === "join" ? <JoinGame /> : <Settings />}

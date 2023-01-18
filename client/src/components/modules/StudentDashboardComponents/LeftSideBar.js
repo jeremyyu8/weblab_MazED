@@ -9,16 +9,16 @@ import "./LeftSideBar.css";
  *
  * Proptypes
  * @param {string} _id of the story
- * @param {function} rightSide for setting right side
+ * @param {function} setRightSide for setting right side of the screen
  */
 const LeftSideBar = (props) => {
   return (
     <div className="LeftSideBar-container">
-      <div className="LeftSideBar-item" onClick={() => props.rightSide("join")}>
+      <div className="LeftSideBar-item" onClick={() => props.setRightSide("join")}>
         <LeftSideBarJoin />
       </div>
 
-      <div className="LeftSideBar-item" onClick={() => props.rightSide("settings")}>
+      <div className="LeftSideBar-item" onClick={() => props.setRightSide("settings")}>
         <LeftSideBarSettings />
       </div>
     </div>

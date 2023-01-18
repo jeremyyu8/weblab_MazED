@@ -5,7 +5,7 @@
 }
 
 .grid-container{
-    --maze-dimension: 101;
+    --maze-dimension: 41;
     display: grid;
     grid-template-columns: repeat(var(--maze-dimension), 1fr);
     grid-template-rows: repeat(var(--maze-dimension), 1fr);
