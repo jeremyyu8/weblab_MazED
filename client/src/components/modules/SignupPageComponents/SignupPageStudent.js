@@ -4,7 +4,7 @@ import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/goo
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
 /**
- * display signup for students
+ * display signup for teachers
  *
  * Proptypes
  * @param {userId} userId userId if logged in else null

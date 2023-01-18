@@ -17,8 +17,8 @@ function verify(token) {
     .then((ticket) => ticket.getPayload());
 }
 
-// gets user from DB, or makes a new account if it doesn't exist yet
-function getOrCreateUser(user) {
+// gets user from DB, or makes a new teacher account if it doesn't exist yet
+function getOrCreateUserTeacher(user) {
   // the "sub" field means "subject", which is a unique identifier for each user
   return User.findOne({ googleid: user.sub }).then((existingUser) => {
     if (existingUser) return existingUser;
@@ -26,16 +26,81 @@ function getOrCreateUser(user) {
     const newUser = new User({
       name: user.name,
       googleid: user.sub,
-      role: "n/a",
+      role: "teacher",
     });
 
     return newUser.save();
   });
 }
 
+// gets user from DB, or makes a new student account if it doesn't exist yet
+function getOrCreateUserStudent(user) {
+  // the "sub" field means "subject", which is a unique identifier for each user
+  return User.findOne({ googleid: user.sub }).then((existingUser) => {
+    if (existingUser) return existingUser;
+
+    const newUser = new User({
+      name: user.name,
+      googleid: user.sub,
+      role: "student",
+    });
+
+    return newUser.save();
+  });
+}
+
+function getUser(user) {
+  // the "sub" field means "subject", which is a unique identifier for each user
+  return User.findOne({ googleid: user.sub }).then((existingUser) => {
+    console.log("I am inside of getUser");
+    if (existingUser) return existingUser;
+    else {
+      console.log("I found an error inside of getUser");
+      throw "User not found. Create a new account at the /signup route!";
+    }
+  });
+}
+
+// regular log in request.
+// if the user does not exist, the user is asked to sign up instead
+
 function login(req, res) {
   verify(req.body.token)
-    .then((user) => getOrCreateUser(user))
+    .then((user) => getUser(user))
+    .then((user) => {
+      // persist user in the session
+      req.session.user = user;
+      res.send(user);
+    })
+    .catch((err) => {
+      console.log(`Failed to log in: ${err}`);
+      res.status(401).send({ err });
+    });
+}
+
+// sign up as a new teacher account. if this is requested
+// and an account (teacher/student) already exists, that account is logged in
+
+function signupteacher(req, res) {
+  verify(req.body.token)
+    .then((user) => getOrCreateUserTeacher(user))
+    .then((user) => {
+      // persist user in the session
+      req.session.user = user;
+      res.send(user);
+    })
+    .catch((err) => {
+      console.log(`Failed to log in: ${err}`);
+      res.status(401).send({ err });
+    });
+}
+
+// sign up as a new student account. if this is requested
+// and an account (teacher/student) already exists, that account is logged in
+
+function signupstudent(req, res) {
+  verify(req.body.token)
+    .then((user) => getOrCreateUserStudent(user))
     .then((user) => {
       // persist user in the session
       req.session.user = user;
@@ -69,6 +134,8 @@ function ensureLoggedIn(req, res, next) {
 module.exports = {
   login,
   logout,
+  signupteacher,
+  signupstudent,
   populateCurrentUser,
   ensureLoggedIn,
 };

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
 // module imports
 import Navbar from "../modules/Navbar";
 import SignupPageStudent from "../modules/SignupPageComponents/SignupPageStudent";
 import SignupPageTeacher from "../modules/SignupPageComponents/SignupPageTeacher";
 
-const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
-
-const Signup = ({ userId, handleLogin, handleLogout }) => {
+const Signup = ({
+  userId,
+  userRole,
+  handleNewTeacherAccount,
+  handleNewStudentAccount,
+  handleLogout,
+}) => {
   const [displayState, setDisplayState] = useState(0);
   const [display, setDisplay] = useState(null);
   // 0: display options
@@ -39,7 +42,7 @@ const Signup = ({ userId, handleLogin, handleLogout }) => {
       setDisplay(
         <SignupPageTeacher
           userId={userId}
-          handleLogin={handleLogin}
+          handleLogin={handleNewTeacherAccount}
           handleLogout={handleLogout}
           setDisplayState={setDisplayState}
         />
@@ -48,24 +51,28 @@ const Signup = ({ userId, handleLogin, handleLogout }) => {
       setDisplay(
         <SignupPageStudent
           userId={userId}
-          handleLogin={handleLogin}
+          handleLogin={handleNewStudentAccount}
           handleLogout={handleLogout}
           setDisplayState={setDisplayState}
         />
       );
     }
-  }, [displayState]);
+  }, [displayState, userId]);
 
   return (
     <>
       <Navbar />
-      {display}
-      {userId ? (
-        <div>You are currently logged in with userId: {userId}</div>
-      ) : (
-        <div>You are not logged in</div>
-      )}
-      <br />
+      <div className="mt-[18vh]">
+        {display}
+        {userId ? (
+          <div>
+            You are currently logged in with userId: {userId}. Your account type is: {userRole}
+          </div>
+        ) : (
+          <div>Create an account. You are not currently logged in.</div>
+        )}
+        <br />
+      </div>
     </>
   );
 };
