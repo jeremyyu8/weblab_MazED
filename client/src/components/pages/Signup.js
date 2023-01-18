@@ -3,8 +3,8 @@ import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/goo
 
 // module imports
 import Navbar from "../modules/Navbar";
-import SignupPageStudent from "../modules/LoginPageComponents/SignupPageStudent";
-import SignupPageTeacher from "../modules/LoginPageComponents/SignupPageTeacher";
+import SignupPageStudent from "../modules/SignupPageComponents/SignupPageStudent";
+import SignupPageTeacher from "../modules/SignupPageComponents/SignupPageTeacher";
 
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 

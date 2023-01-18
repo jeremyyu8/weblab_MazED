@@ -373,6 +373,14 @@ Set the default cursor for buttons.
 button,
 [role="button"] {
   cursor: pointer;
+  border: lightgray solid;
+  background-color: white;
+  transition: background-color 150ms;
+}
+
+button:hover,
+button:focus {
+  background-color: lightgray;
 }
 
 /*
@@ -654,7 +662,7 @@ form {
 }
 
 .grid-container{
-  --maze-dimension: 21;
+  --maze-dimension: 41;
   display: grid;
   grid-template-columns: repeat(var(--maze-dimension), 1fr);
   grid-template-rows: repeat(var(--maze-dimension), 1fr);
@@ -680,9 +688,26 @@ form {
   background: rgba(0, 0, 0, 0.5);
 }
 
+/* student dashboard */
+
+.StudentDashboard-container {
+  display: flex;
+  /* or inline-flex */
+  align-items: stretch flex-start;
+}
+
+.StudentDashboard-leftSide{
+  flex-grow: 1;
+  border: red solid;
+}
+
+.StudentDashboard-rightSide{
+  flex-grow: 4;
+  border: red solid;
+}
+
 .hover\:bg-sky-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(3 105 161 / var(--tw-bg-opacity));
 }
-
 

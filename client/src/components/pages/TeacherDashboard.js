@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import Navbar from "../modules/Navbar";
 import LeftSideBar from "../modules/TeacherDashboardComponents/LeftSideBar";
 
-import "../../utilities.css";
-import "./TeacherDashboard.css";
 import FlashcardSetsContainer from "../modules/TeacherDashboardComponents/FlashcardSetsContainer";
 import Games from "../modules/TeacherDashboardComponents/Games";
 import Settings from "../modules/TeacherDashboardComponents/Settings";

@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./HomeButton.css";
-
 /**
  * Navbar Button
  *

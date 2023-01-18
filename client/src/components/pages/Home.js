@@ -10,9 +10,6 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Maze from "../Maze";
 
-import "../../utilities.css";
-import "./Home.css";
-
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
 const Home = () => {

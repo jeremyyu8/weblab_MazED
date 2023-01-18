@@ -1,8 +1,6 @@
 import React from "react";
 import HomeButton from "./HomeButton";
 
-import "./Navbar.css";
-
 /**
  * Navbar
  *

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Maze from "./Maze";
 
-import "./Maze.css";
-
 const MazePage = () => {
   return (
     <>

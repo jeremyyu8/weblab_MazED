@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import "./Maze.css";
-
 const Maze = () => {
   const [render, setRender] = useState(true);
   const [maze, setMaze] = useState(<div>No maze yet!</div>);
