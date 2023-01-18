@@ -14,7 +14,7 @@ import LeftSideBarSettings from "./LeftSideBarSettings";
 const LeftSideBar = (props) => {
   return (
     <div
-      className="fixed top-[85px] left-0 h-screen m-0 w-40
+      className="left-0 h-screen m-0 
                     flex flex-col bg-gray-900 text-white shadow-lg"
     >
       <div className="" onClick={() => props.setRightSide("sets")}>

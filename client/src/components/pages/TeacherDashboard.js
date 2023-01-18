@@ -20,19 +20,18 @@ const TeacherDashboard = () => {
       <Navbar />
 
       <div className="flex">
-        <div className="flex-1 border-solid border-rose-400">
+        <div className="basis-1/7 w-40 border-solid border-rose-400">
           <LeftSideBar setRightSide={setRightSide} />
         </div>
         <div className="flex-1 border-solid border-rose-600">{rightComponent}</div>
-        <div className="flex-1 border-solid border-rose-900">
-          <button
+
+        {/* <button
             onClick={() => {
               window.location.replace("/teacher/edit");
             }}
           >
             Edit
-          </button>
-        </div>
+          </button> */}
       </div>
     </>
   );
