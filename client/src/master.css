@@ -1,10 +1,11 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* utilities.css */
-
-@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
 :root {
   --primary: #396dff;
@@ -136,7 +137,7 @@ form {
 }
 
 .grid-container{
-    --maze-dimension: 21;
+    --maze-dimension: 41;
     display: grid;
     grid-template-columns: repeat(var(--maze-dimension), 1fr);
     grid-template-rows: repeat(var(--maze-dimension), 1fr);
