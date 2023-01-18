@@ -18,19 +18,22 @@ const TeacherDashboard = () => {
   return (
     <>
       <Navbar />
-      <div>
-        <LeftSideBar setRightSide={setRightSide} />
 
-        {rightComponent}
+      <div className="flex">
+        <div className="flex-1 border-solid border-rose-400">
+          <LeftSideBar setRightSide={setRightSide} />
+        </div>
+        <div className="flex-1 border-solid border-rose-600">{rightComponent}</div>
+        <div className="flex-1 border-solid border-rose-900">
+          <button
+            onClick={() => {
+              window.location.replace("/teacher/edit");
+            }}
+          >
+            Edit
+          </button>
+        </div>
       </div>
-
-      <button
-        onClick={() => {
-          window.location.replace("/teacher/edit");
-        }}
-      >
-        Edit
-      </button>
     </>
   );
 };

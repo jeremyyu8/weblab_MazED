@@ -1,7 +1,7 @@
 import React from "react";
 
 const LeftSideBarSets = () => {
-  return <div>LeftSideBarSets</div>;
+  return <div className="leftbar-icon">My Sets</div>;
 };
 
 export default LeftSideBarSets;

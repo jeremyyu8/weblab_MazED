@@ -1,7 +1,7 @@
 import React from "react";
 
 const LeftSideBarGames = () => {
-  return <div>LeftSideBarGames</div>;
+  return <div className="leftbar-icon">Past Games</div>;
 };
 
 export default LeftSideBarGames;
