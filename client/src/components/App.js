@@ -53,14 +53,19 @@ const App = () => {
   return (
     <>
       <Router>
-        <Home path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+        <Home path="/" />
 
         <TeacherEdit path="/teacher/edit" />
         <TeacherDashboard path="/teacher" />
         <StudentDashboard path="/student" />
         <StudentGame path="/student/game" />
         <Signup path="/signup" />
-        <Login path="/login" />
+        <Login
+          path="/login"
+          handleLogin={handleLogin}
+          handleLogout={handleLogout}
+          userId={userId}
+        />
         <MazePage path="/maze" />
         <NotFound default />
       </Router>
