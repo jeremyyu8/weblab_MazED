@@ -19,6 +19,7 @@ import "../output.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import GameLobby from "./pages/GameLobby.js";
 
 /**
  * Define the "App" component
@@ -55,6 +56,7 @@ const App = () => {
       <Router>
         <Home path="/" />
 
+        <GameLobby path="/lobby" />
         <TeacherEdit path="/teacher/edit" />
         <TeacherDashboard path="/teacher" />
         <StudentDashboard path="/student" />

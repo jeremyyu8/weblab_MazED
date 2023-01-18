@@ -14,11 +14,13 @@ const FlashcardSetsContainer = () => {
 
   return (
     <>
-      <div className="flex border-solid mt-10 ml-10">
+      <div className="flex border-solid mt-10 mx-10">
         <div className="text-6xl text-blue-900 border-solid flex-1">Flashcard Sets</div>
         <button
-          className="mx-10 h-7 my-auto flex-1 border-solid hover:bg-sky-300 cursor-pointer transition-all"
-          onClick={() => console.log("hi")}
+          className="my-auto mx-10 flex-none border-solid hover:bg-sky-300 cursor-pointer transition-all text-4xl"
+          onClick={() => {
+            window.location.replace("/teacher/edit");
+          }}
         >
           Create New Set
         </button>

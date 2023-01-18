@@ -31,14 +31,6 @@ const TeacherDashboard = () => {
             <LeftSideBar setRightSide={setRightSide} />
           </div>
           <div className="flex-1 border-solid border-rose-600">{rightComponent}</div>
-
-          {/* <button
-            onClick={() => {
-              window.location.replace("/teacher/edit");
-            }}
-          >
-            Edit
-          </button> */}
         </div>
       </div>
     </>

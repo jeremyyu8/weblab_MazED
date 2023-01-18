@@ -5,7 +5,9 @@ const TeacherEdit = () => {
   return (
     <>
       <Navbar />
-      <div>This is the teacher edit page!</div>
+      <div className="mt-[6vw]">
+        <div>This is the teacher edit page!</div>
+      </div>
     </>
   );
 };
