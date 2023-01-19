@@ -408,6 +408,10 @@
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
+.bg-spaceimg{
+  background-image: url('/client/src/public/img/space.jpg');
+}
+
 .p-3{
   padding: 0.75rem;
 }
@@ -509,6 +513,16 @@
 .text-black{
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-rose-50{
+  --tw-text-opacity: 1;
+  color: rgb(255 241 242 / var(--tw-text-opacity));
+}
+
+.text-rose-100{
+  --tw-text-opacity: 1;
+  color: rgb(255 228 230 / var(--tw-text-opacity));
 }
 
 .text-blue-400{

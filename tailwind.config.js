@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         Roboto: ["Roboto", "sans-serif"],
       },
+      backgroundImage: {
+        spaceimg: "url('/client/src/public/img/space.jpg')",
+      },
     },
   },
   plugins: [],
