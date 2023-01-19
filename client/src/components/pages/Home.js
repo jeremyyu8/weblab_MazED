@@ -24,9 +24,9 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="relative max-w-[50%] px-6 mx-auto mt-[18vh] border border-solid border-black rounded-xl h-[70vh] bg-spaceimg">
-        <div className="text-5xl pt-20 text-center text-rose-50">Can you find your way out?</div>
-        <div className="text-3xl pt-16 text-center text-rose-50">Sign up for free!</div>
+      <div className="relative max-w-[50%] px-6 mx-auto mt-[18vh] border border-solid border-black rounded-xl h-[70vh]">
+        <div className="text-5xl pt-20 text-center">Can you find your way out?</div>
+        <div className="text-3xl pt-16 text-center">Sign up for free!</div>
         <div className="pt-16 text-center">
           <button
             onClick={() => {

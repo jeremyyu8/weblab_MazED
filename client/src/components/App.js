@@ -88,7 +88,7 @@ const App = () => {
         <TeacherEdit path="/teacher/edit/" />
         <TeacherDashboard path="/teacher/" />
         <StudentDashboard path="/student/" />
-        <StudentGame path="/student/game/" />
+        <StudentGame path="/student/game" />
         <Signup
           path="/signup/"
           handleNewStudentAccount={handleNewStudentAccount}
