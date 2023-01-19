@@ -1,7 +1,15 @@
 import React from "react";
 
-const Titlecard = () => {
-  return <div>Titlecard</div>;
+const Titlecard = (props) => {
+  return (
+    <div
+      onClick={() => {
+        props.setFlash({ title: "goodbye", cards: [] });
+      }}
+    >
+      Titlecard
+    </div>
+  );
 };
 
 export default Titlecard;
