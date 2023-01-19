@@ -17,6 +17,7 @@ const FlashcardSetsContainer = () => {
 
   // on mount
   useEffect(() => {
+    console.log("in use effect");
     get("/api/setmetadata").then((sets) => {
       const metadata = sets.metadata;
       setFlashCardSets(

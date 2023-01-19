@@ -1,4 +1,5 @@
 import React from "react";
+import { get, post } from "../../utilities";
 
 // import modules
 import Navbar from "../modules/Navbar";
@@ -6,6 +7,19 @@ import Navbar from "../modules/Navbar";
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
 const Home = () => {
+  const temp_func = () => {
+    const body = {
+      title: "test_set_1",
+      size: 30,
+      cards: [
+        { questions: "why", choices: ["a", "b", "c", "d"], answers: [1] },
+        { questions: "who", choices: ["asd", "b", "c", "d"], answers: [2] },
+        { questions: "as", choices: ["a", "b", "c", "s"], answers: [3, 0] },
+      ],
+    };
+
+    post("/api/newset", body).then(console.log("new set created successfully"));
+  };
   return (
     <>
       <Navbar />
@@ -45,6 +59,7 @@ const Home = () => {
         >
           Maze testing
         </button>
+        <button onClick={temp_func}>click me</button>;
       </div>
     </>
   );

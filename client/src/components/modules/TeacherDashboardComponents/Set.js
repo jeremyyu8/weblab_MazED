@@ -16,6 +16,7 @@ const Set = (props) => {
         <div className="flex-1 border-green-700 border-solid text-4xl m-2">
           <div>{props.title}</div>
           <div>{props.date}</div>
+          <div>{props.size}</div>
         </div>
         <div className="flex-none flex-col border-green-700 border-solid m-2">
           <div className="flex-1 border-solid">

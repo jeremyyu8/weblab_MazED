@@ -51,7 +51,7 @@ router.post("/initsocket", (req, res) => {
  *
  */
 router.get("/setmetadata", (req, res) => {
-  const metadata = [];
+  let metadata = [];
   const setMeta = async () => {
     console.log("inside of setMeta");
     console.log(req.user);
@@ -60,7 +60,7 @@ router.get("/setmetadata", (req, res) => {
       return;
     }
     const curUser = await User.findById(req.user._id);
-    curUser.sets.forEach(async (setId) => {
+    for (const setId of curUser.sets) {
       curSet = await Set.findById(setId);
       const set_metadata = {
         _id: curSet._id,
@@ -70,8 +70,10 @@ router.get("/setmetadata", (req, res) => {
         size: curSet.size,
       };
       metadata.push(set_metadata);
-    });
+    }
     res.send({ metadata: metadata });
+    console.log("successfully retrieved metadata");
+    console.log(metadata);
   };
 
   setMeta();
@@ -102,9 +104,9 @@ router.get("/cardbyid", (req, res) => {
 router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
   const saveNewSet = async () => {
     const curSet = await Set.findOne({ _id: req.body.setid });
-    const cardIds = [];
+    let cardIds = [];
 
-    req.body.cards.forEach(async (card) => {
+    for (const card of req.body.cards) {
       // get card to modify
       if (card._id == null) {
         const newCard = new Card({
@@ -122,14 +124,15 @@ router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
         await curCard.save();
         cardIds.push(curCard._id);
       }
-    });
+    }
 
     curSet.cards = cardIds;
     curSet.last_modified_date = Date.now;
     curSet.size = cardIds.length;
     await curSet.save();
     console.log("set updated successfully");
-    res.send(200);
+    res.status(200);
+    // res.sendStatus(200).send({ msg: "set updated successfully" });
   };
 
   saveNewSet();
@@ -144,33 +147,39 @@ router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
  */
 router.post("/newset", auth.ensureLoggedIn, (req, res) => {
   const createNewSet = async () => {
-    const cardIds = [];
+    let cardIds = [];
+    console.log("inside of new set!");
+    console.log(req.body);
 
-    req.body.cards.forEach(async (card) => {
-      // get card to modify
+    for (const card of req.body.cards) {
       const newCard = new Card({
         question: card.question,
         choices: card.choices,
         answers: card.answers,
       });
       await newCard.save();
+      console.log("just saved a new card");
+      console.log(cardIds);
       cardIds.push(newCard._id); //
-    });
+    }
 
+    console.log("about to createa  new set");
+    console.log(cardIds);
     const newSet = new Set({
-      title: req.body.set.title,
-      size: req.body.set.cards.length,
+      title: req.body.title,
+      size: req.body.cards.length,
       cards: cardIds,
     });
 
     await newSet.save();
 
     // get current user
-    const curUser = User.findOne({ _id: req.user._id });
+    const curUser = await User.findOne({ _id: req.user._id });
     curUser.sets.push(newSet._id);
     await curUser.save();
     console.log("set created successfully");
-    res.send(200);
+    res.status(200);
+    // res.sendStatus(200).send({ msg: " set created successfully" });
   };
 
   createNewSet();
