@@ -1,7 +1,7 @@
 import React from "react";
 
 const LeftSideBarSettings = () => {
-  return <div>Settings</div>;
+  return <div className="leftbar-icon">Settings</div>;
 };
 
 export default LeftSideBarSettings;

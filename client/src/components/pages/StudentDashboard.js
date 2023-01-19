@@ -8,15 +8,19 @@ import Settings from "../modules/StudentDashboardComponents/Settings";
 const StudentDashboard = () => {
   const [rightSide, setRightSide] = useState("join"); //options are join or settings, default to join
 
+  let rightComponent;
+  if (rightSide === "join") rightComponent = <JoinGame />;
+  else if (rightSide == "settings") rightComponent = <Settings />;
+
   return (
     <>
       <Navbar />
-      <div className="StudentDashboard-container">
-        <div className="StudentDashboard-leftSide">
-          <LeftSideBar setRightSide={setRightSide} />
-        </div>
-        <div className="StudentDashboard-rightSide">
-          {rightSide === "join" ? <JoinGame /> : <Settings />}
+      <div className="mt-[4.8vw]">
+        <div className="flex">
+          <div className="basis-1/5 w-40 border-solid border-rose-400">
+            <LeftSideBar setRightSide={setRightSide} />
+          </div>
+          <div className="flex-1 border-solid border-rose-600">{rightComponent} </div>
         </div>
       </div>
     </>
