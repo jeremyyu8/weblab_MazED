@@ -26,7 +26,7 @@ const FlashcardSetsContainer = () => {
         </button>
       </div>
 
-      <div className="relative overflow-scroll max-w-[70%] px-6 mx-auto mt-[4vw] border border-solid border-black rounded-xl h-screen">
+      <div className="overflow-scroll max-w-[70%] px-6 mx-auto mt-[4vw] border border-solid border-black rounded-xl h-screen">
         {flashCardSets}
       </div>
     </>
