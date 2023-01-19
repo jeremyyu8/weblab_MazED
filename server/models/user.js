@@ -4,8 +4,8 @@ const UserSchema = new mongoose.Schema({
   name: String,
   googleid: String,
   role: String,
-  date: Date,
-  sets: mongoose.Schema.Types.Mixed,
+  creation_date: String,
+  sets: [String],
 });
 
 // compile model from schema

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Set from "./Set";
+import { get, post } from "../../../utilities";
 
 const temp_sets = [
   { name: "math", date: "1/1/2022" },
@@ -8,9 +9,28 @@ const temp_sets = [
 ];
 
 const FlashcardSetsContainer = () => {
-  const flashCardSets = temp_sets.map((user, i) => (
-    <Set key={i} name={user.name} date={user.date} />
-  ));
+  const [flashCardSets, setFlashCardSets] = useState([]);
+
+  // const flashCardSets = temp_sets.map((user, i) => (
+  //   <Set key={i} title={user.name} date={user.date} />
+  // ));
+
+  // on mount
+  useEffect(() => {
+    get("/api/setmetadata").then((sets) => {
+      const metadata = sets.metadata;
+      setFlashCardSets(
+        metadata.map((setData) => (
+          <Set
+            key={setData._id}
+            title={setData.title}
+            date={setData.last_modified_date}
+            size={setData.size}
+          />
+        ))
+      );
+    });
+  }, []);
 
   return (
     <>

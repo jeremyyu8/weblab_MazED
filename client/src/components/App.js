@@ -13,7 +13,6 @@ import Signup from "./pages/Signup.js";
 import TeacherEdit from "./pages/TeacherEdit.js";
 import StudentGame from "./pages/StudentGame.js";
 import MazePage from "./MazePage.js";
-
 import "../output.css";
 
 import { socket } from "../client-socket.js";

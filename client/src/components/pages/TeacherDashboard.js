@@ -22,6 +22,11 @@ const TeacherDashboard = () => {
   else if (rightSide == "pastGames") rightComponent = <Games />;
   else rightComponent = <Settings />;
 
+  //on mount
+  // useEffect(() => {
+  //   document.title = "Teacher Dashboard";
+  // }, []);
+
   return (
     <>
       <Navbar />
