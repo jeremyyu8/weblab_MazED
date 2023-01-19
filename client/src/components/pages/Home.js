@@ -1,5 +1,6 @@
 import React from "react";
 import { get, post } from "../../utilities";
+import { Link } from "@reach/router";
 
 // import modules
 import Navbar from "../modules/Navbar";
@@ -27,38 +28,24 @@ const Home = () => {
         <div className="text-5xl pt-20 text-center">Can you find your way out?</div>
         <div className="text-3xl pt-16 text-center">Sign up for free!</div>
         <div className="pt-16 text-center">
-          <button
-            onClick={() => {
-              window.location.replace("/signup");
-            }}
-            className="text-white bg-sky-500 text-[14px] rounded-md border-0 transition-colors duration-250 hover:bg-sky-300 cursor-pointer p-4 px-12"
+          <Link
+            to="/signup"
+            className="text-white bg-sky-500 text-[14px] rounded-md border-0 transition-colors duration-250 hover:bg-sky-300 cursor-pointer p-4 px-12 no-underline"
           >
             Sign Up
-          </button>
+          </Link>
         </div>
       </div>
       <div>
-        <button
-          onClick={() => {
-            window.location.replace("/teacher");
-          }}
-        >
-          Teacher Dashboard
-        </button>
-        <button
-          onClick={() => {
-            window.location.replace("/student");
-          }}
-        >
-          Student Dashboard
-        </button>
-        <button
-          onClick={() => {
-            window.location.replace("/maze");
-          }}
-        >
-          Maze testing
-        </button>
+        <Link to="/teacher">
+          <button>Teacher Dashboard</button>
+        </Link>
+        <Link to="/student">
+          <button>Student Dashboard</button>
+        </Link>
+        <Link to="/maze">
+          <button>maze testing</button>
+        </Link>
         <button onClick={temp_func}>click me</button>;
       </div>
     </>
