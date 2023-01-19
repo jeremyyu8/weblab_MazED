@@ -84,13 +84,13 @@ const App = () => {
       <Router>
         <Home path="/" />
 
-        <GameLobby path="/lobby" />
-        <TeacherEdit path="/teacher/edit" />
-        <TeacherDashboard path="/teacher" />
-        <StudentDashboard path="/student" />
+        <GameLobby path="/lobby/" />
+        <TeacherEdit path="/teacher/edit/" />
+        <TeacherDashboard path="/teacher/" />
+        <StudentDashboard path="/student/" />
         <StudentGame path="/student/game" />
         <Signup
-          path="/signup"
+          path="/signup/"
           handleNewStudentAccount={handleNewStudentAccount}
           handleNewTeacherAccount={handleNewTeacherAccount}
           handleLogout={handleLogout}
@@ -98,13 +98,13 @@ const App = () => {
           userRole={userRole}
         />
         <Login
-          path="/login"
+          path="/login/"
           handleLogin={handleLogin}
           handleLogout={handleLogout}
           userId={userId}
           userRole={userRole}
         />
-        <MazePage path="/maze" />
+        <MazePage path="/maze/" />
         <NotFound default />
       </Router>
     </>

@@ -35,7 +35,7 @@ const TeacherDashboard = () => {
           <div className="basis-1/5 w-40 border-solid border-rose-400">
             <LeftSideBar setRightSide={setRightSide} />
           </div>
-          <div className="flex-1 border-solid border-rose-600">{rightComponent}</div>
+          <div className="flex-1 border-solid border-blue-600">{rightComponent}</div>
         </div>
       </div>
     </>
