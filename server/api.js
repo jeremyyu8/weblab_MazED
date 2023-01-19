@@ -185,6 +185,20 @@ router.post("/newset", auth.ensureLoggedIn, (req, res) => {
   createNewSet();
 });
 
+// router.post("/spawn", (req, res) => {
+//   if (req.user) {
+//     socketManager.addUserToGame(req.user);
+//   }
+//   res.send({});
+// });
+
+// router.post("/despawn", (req, res) => {
+//   if (req.user) {
+//     socketManager.removeUserFromGame(req.user);
+//   }
+//   res.send({});
+// });
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
