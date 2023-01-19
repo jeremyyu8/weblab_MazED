@@ -562,11 +562,6 @@
   color: rgb(30 58 138 / var(--tw-text-opacity));
 }
 
-.text-black{
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 .no-underline{
   text-decoration-line: none;
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { get, post } from "../../utilities";
-import { Link } from "@reach/router";
 
 // import modules
 import Navbar from "../modules/Navbar";
@@ -35,7 +34,7 @@ const Home = () => {
             className="text-white bg-sky-500 text-[14px] rounded-md border-0 transition-colors duration-250 hover:bg-sky-300 cursor-pointer p-4 px-12"
           >
             Sign Up
-          </Link>
+          </button>
         </div>
       </div>
       <div>
