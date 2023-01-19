@@ -32,10 +32,10 @@ const TeacherDashboard = () => {
       <Navbar />
       <div className="mt-[4.8vw]">
         <div className="flex">
-          <div className="basis-1/5 w-40 border-solid border-rose-400">
+          <div className="basis-1/5 w-40 border-solid border-red-400">
             <LeftSideBar setRightSide={setRightSide} />
           </div>
-          <div className="flex-1 border-solid border-blue-600">{rightComponent}</div>
+          <div className="flex-1 border-solid border-red-400">{rightComponent}</div>
         </div>
       </div>
     </>
