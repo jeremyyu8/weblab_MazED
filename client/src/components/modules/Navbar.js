@@ -1,5 +1,6 @@
 import React from "react";
 import HomeButton from "./HomeButton";
+import { Link } from "@reach/router";
 
 /**
  * Navbar
@@ -21,14 +22,12 @@ const Navbar = () => {
       </nav> */}
       <nav className="fixed w-full top-0 bg-white z-10">
         <div className="flex items-center justify-between p-4 px-10 border-0 border-gray-200 border-solid border-b-2">
-          <div
-            className="pt-2 text-[36px] font-[900] hover:cursor-pointer"
-            onClick={() => {
-              window.location.replace("/");
-            }}
+          <Link
+            to="/"
+            className="pt-2 text-[36px] font-[900] hover:cursor-pointer text-black no-underline"
           >
             MazeEd
-          </div>
+          </Link>
           <div className="hidden md:flex space-x-6">
             <HomeButton text="Log In" url="/login" />
             <HomeButton text="Sign Up" url="/signup" />
