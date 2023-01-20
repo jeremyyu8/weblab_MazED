@@ -42,17 +42,18 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav className="fixed w-full top-0 bg-white z-10">
-        <div className="flex items-center justify-between p-4 px-10 border-0 border-gray-200 border-solid border-b-2">
+      <nav className="fixed h-[10vh] w-screen top-0 bg-white border-0 border-gray-200 border-solid border-b-2 z-10">
+        <div className="flex items-center justify-between p-4 px-8">
           <Link
             to="/"
-            className="pt-2 text-[36px] font-[900] hover:cursor-pointer text-black no-underline"
+            className="text-[36px] font-[900] my-auto hover:cursor-pointer text-black no-underline"
           >
             MazeEd
           </Link>
-          {rightside}
+          <div> {rightside}</div>
         </div>
       </nav>
+      <div className="h-[10vh] mb-[8vh]"></div>
     </>
   );
 };

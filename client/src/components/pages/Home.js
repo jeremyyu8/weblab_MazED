@@ -37,7 +37,7 @@ const Home = ({ userId, userRole, userName }) => {
       ) : (
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
-          <div className="relative max-w-[50%] px-6 mx-auto mt-[18vh] border border-solid border-black rounded-xl h-[70vh] bg-spaceimg">
+          <div className="relative max-w-[50%] px-6 mx-auto border border-solid border-black rounded-xl h-[70vh] bg-spaceimg">
             <div className="text-6  xl pt-20 text-center text-rose-50">
               Can you find your way out?
             </div>

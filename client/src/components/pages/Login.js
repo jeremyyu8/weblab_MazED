@@ -37,7 +37,7 @@ const Login = ({ userId, userRole, handleLogin, handleLogout }) => {
       ) : (
         <>
           <Navbar />
-          <div className="mt-[18vh]">
+          <div>
             This is the login page.
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               {userId ? (

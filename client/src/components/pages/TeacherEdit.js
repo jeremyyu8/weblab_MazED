@@ -9,7 +9,7 @@ import Set from "../modules/TeacherEditComponents/Set";
  * Teacher Edit page for editing flashcards
  *
  * Proptypes
- * none
+ * none for now
  */
 const TeacherEdit = () => {
   const [flashCardSet, setFlashCardSet] = useState({ title: "fash", cards: [] });
@@ -24,7 +24,7 @@ const TeacherEdit = () => {
   return (
     <>
       <Navbar edit={true} />
-      <div className="mt-[6vw] flex-col">
+      <div className="mt-[-8vh] flex-col">
         <div>{flashCardSet.title}</div>
 
         <div className="flex flex-1 justify-between">

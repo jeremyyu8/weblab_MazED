@@ -80,7 +80,7 @@ const Signup = ({
       ) : (
         <>
           <Navbar />
-          <div className="mt-[18vh]">
+          <div>
             {display}
             {userId ? (
               <div>
