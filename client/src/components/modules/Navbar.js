@@ -43,10 +43,10 @@ const Navbar = (props) => {
   return (
     <>
       <nav className="fixed h-[10vh] w-screen top-0 bg-white border-0 border-gray-200 border-solid border-b-2 z-10">
-        <div className="flex items-center justify-between p-4 px-8">
+        <div className="flex items-center justify-between py-[2vh] px-8">
           <Link
             to="/"
-            className="text-[36px] font-[900] my-auto hover:cursor-pointer text-black no-underline"
+            className="text-[36px] font-[900] py-8px hover:cursor-pointer text-black no-underline"
           >
             MazeEd
           </Link>

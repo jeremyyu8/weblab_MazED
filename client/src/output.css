@@ -646,6 +646,46 @@
   padding-right: 2rem;
 }
 
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.py-4{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-10{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.py-\[5vh\]{
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.py-\[4vh\]{
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.py-\[3vh\]{
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+.py-\[1vh\]{
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+.py-\[2vh\]{
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
 .pt-2{
   padding-top: 0.5rem;
 }
