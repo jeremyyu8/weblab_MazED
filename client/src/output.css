@@ -127,6 +127,18 @@
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
 
+.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .fixed{
   position: fixed;
 }
@@ -308,6 +320,14 @@
   height: 100vh;
 }
 
+.h-56{
+  height: 14rem;
+}
+
+.h-8{
+  height: 2rem;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -330,6 +350,14 @@
 
 .w-auto{
   width: auto;
+}
+
+.w-56{
+  width: 14rem;
+}
+
+.w-8{
+  width: 2rem;
 }
 
 .max-w-\[50\%\]{
@@ -378,6 +406,16 @@
 
 .basis-3\/4{
   flex-basis: 75%;
+}
+
+@keyframes spin{
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin{
+  animation: spin 1s linear infinite;
 }
 
 .cursor-pointer{
@@ -513,8 +551,17 @@
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
+.bg-gray-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
 .bg-spaceimg{
   background-image: url('/client/src/public/img/space.jpg');
+}
+
+.fill-blue-600{
+  fill: #2563eb;
 }
 
 .p-4{
@@ -676,6 +723,11 @@
 .text-blue-900{
   --tw-text-opacity: 1;
   color: rgb(30 58 138 / var(--tw-text-opacity));
+}
+
+.text-gray-200{
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .no-underline{
@@ -874,6 +926,23 @@ form {
 
 .focus\:ring-\[\#4285F4\]\/50:focus{
   --tw-ring-color: rgb(66 133 244 / 0.5);
+}
+
+@media (prefers-color-scheme: dark){
+  .dark\:border-gray-700{
+    --tw-border-opacity: 1;
+    border-color: rgb(55 65 81 / var(--tw-border-opacity));
+  }
+
+  .dark\:bg-gray-800{
+    --tw-bg-opacity: 1;
+    background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  }
+
+  .dark\:text-gray-600{
+    --tw-text-opacity: 1;
+    color: rgb(75 85 99 / var(--tw-text-opacity));
+  }
 }
 
 @media (min-width: 768px){
