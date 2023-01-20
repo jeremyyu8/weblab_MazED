@@ -2,24 +2,41 @@ import React from "react";
 import HomeButton from "./HomeButton";
 import { Link } from "@reach/router";
 
+const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
+
 /**
  * Navbar
  *
  * Proptypes
- * None
+ * @param {userId} userId user id
+ * @param {userRole} userRole user role (teacher or student)
+ * @param {userName} userName display name of user
  */
-const Navbar = () => {
+const Navbar = (props) => {
+  let rightside;
+  console.log(props);
+  if (!props.userId) {
+    rightside = (
+      <div className="hidden md:flex space-x-6">
+        <Link
+          to="/login"
+          className="no-underline text-blue-500 text-center text-[15px] py-3 transition-colors duration-250 hover:text-sky-400"
+        >
+          Login
+        </Link>
+        <HomeButton text="Sign Up" url="/signup" />
+      </div>
+    );
+  } else {
+    rightside = (
+      <div className="hidden md:flex no-underline text-black text-center text-[18px] py-3">
+        You are: {props.userName} ({props.userRole})
+      </div>
+    );
+  }
+
   return (
     <>
-      {/* <nav className="nav-container">
-        <div className="nav-title" onClick={() => window.location.replace("/")}>
-          <div className={"font-[900]"}>MazEd</div>
-        </div>
-        <div className="nav-items">
-          <HomeButton text="Log In" url="/login" />
-          <HomeButton text="Sign Up" url="/signup" />
-        </div>
-      </nav> */}
       <nav className="fixed w-full top-0 bg-white z-10">
         <div className="flex items-center justify-between p-4 px-10 border-0 border-gray-200 border-solid border-b-2">
           <Link
@@ -28,10 +45,7 @@ const Navbar = () => {
           >
             MazeEd
           </Link>
-          <div className="hidden md:flex space-x-6">
-            <HomeButton text="Log In" url="/login" />
-            <HomeButton text="Sign Up" url="/signup" />
-          </div>
+          {rightside}
         </div>
       </nav>
     </>

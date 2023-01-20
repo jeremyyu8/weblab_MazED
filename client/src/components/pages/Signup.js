@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "@reach/router";
 
 // module imports
 import Navbar from "../modules/Navbar";
@@ -17,6 +18,15 @@ const Signup = ({
   // 0: display options
   // 1: display teacher log-in
   // 2: display student log-in
+  const [redirect, setRedirect] = useState(userId ? true : undefined);
+
+  useEffect(() => {
+    if (userId) {
+      setRedirect(true);
+    } else {
+      setRedirect(undefined);
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (displayState === 0) {
@@ -61,18 +71,28 @@ const Signup = ({
 
   return (
     <>
-      <Navbar />
-      <div className="mt-[18vh]">
-        {display}
-        {userId ? (
-          <div>
-            You are currently logged in with userId: {userId}. Your account type is: {userRole}
-          </div>
+      {redirect ? (
+        userRole === "teacher" ? (
+          <Redirect noThrow from="/signup" to="/teacher" />
         ) : (
-          <div>Create an account. You are not currently logged in.</div>
-        )}
-        <br />
-      </div>
+          <Redirect noThrow from="/signup" to="/student" />
+        )
+      ) : (
+        <>
+          <Navbar />
+          <div className="mt-[18vh]">
+            {display}
+            {userId ? (
+              <div>
+                You are currently logged in with userId: {userId}. Your account type is: {userRole}
+              </div>
+            ) : (
+              <div>Create an account. You are not currently logged in.</div>
+            )}
+            <br />
+          </div>
+        </>
+      )}
     </>
   );
 };

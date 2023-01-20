@@ -26,6 +26,7 @@ import GameLobby from "./pages/GameLobby.js";
 const App = () => {
   const [userId, setUserId] = useState(undefined);
   const [userRole, setUserRole] = useState(undefined);
+  const [userName, setUserName] = useState(undefined);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -33,6 +34,7 @@ const App = () => {
         // they are registed in the database, and currently logged in.
         setUserId(user._id);
         setUserRole(user.role);
+        setUserName(user.name);
       }
     });
   }, []);
@@ -77,20 +79,32 @@ const App = () => {
   const handleLogout = () => {
     setUserId(undefined);
     post("/api/logout");
+    window.location.replace("/");
   };
 
   return (
     <>
       <Router>
-        <Home path="/" />
-
-        <GameLobby path="/lobby/" />
-        <TeacherEdit path="/teacher/edit/" />
-        <TeacherDashboard path="/teacher/" />
-        <StudentDashboard path="/student/" />
+        <Home path="/" userId={userId} userRole={userRole} userName={userName} />
+        <GameLobby path="/lobby" />
+        <TeacherEdit path="/teacher/edit" />
+        <TeacherDashboard
+          path="/teacher"
+          userId={userId}
+          userRole={userRole}
+          userName={userName}
+          hl={handleLogout}
+        />
+        <StudentDashboard
+          path="/student"
+          userId={userId}
+          userRole={userRole}
+          userName={userName}
+          hl={handleLogout}
+        />
         <StudentGame path="/student/game" />
         <Signup
-          path="/signup/"
+          path="/signup"
           handleNewStudentAccount={handleNewStudentAccount}
           handleNewTeacherAccount={handleNewTeacherAccount}
           handleLogout={handleLogout}
@@ -98,13 +112,13 @@ const App = () => {
           userRole={userRole}
         />
         <Login
-          path="/login/"
+          path="/login"
           handleLogin={handleLogin}
           handleLogout={handleLogout}
           userId={userId}
           userRole={userRole}
         />
-        <MazePage path="/maze/" />
+        <MazePage path="/maze" />
         <NotFound default />
       </Router>
     </>
