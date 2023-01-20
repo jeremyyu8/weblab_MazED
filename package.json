@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "hotloader": "webpack serve --config ./webpack.config.js --mode development --port 5050",
+    "hotloader": "concurrently \"npx tailwindcss -i ./client/src/master.css -o ./client/src/output.css --watch\" \"webpack serve --config ./webpack.config.js --mode development --port 5050\"",
     "start": "nodemon --ignore client/",
     "build": "webpack"
   },
@@ -19,8 +19,11 @@
     "node": ">=18.x"
   },
   "dependencies": {
+    "@ion-phaser/core": "^1.3.0",
+    "@ion-phaser/react": "^1.3.0",
     "@reach/router": "^1.3.4",
     "@react-oauth/google": "^0.6.0",
+    "concurrently": "^7.6.0",
     "connect-ensure-login": "^0.1.1",
     "core-js": "^3.8.1",
     "dotenv": "^16.0.3",
@@ -30,6 +33,7 @@
     "jwt-decode": "^3.1.2",
     "mongoose": "^5.11.9",
     "nodemon": "^2.0.6",
+    "phaser": "^3.55.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.3.4",
