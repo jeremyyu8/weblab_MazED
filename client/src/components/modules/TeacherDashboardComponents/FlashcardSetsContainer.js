@@ -12,32 +12,11 @@ const temp_sets = [
  * FlashcardSetsContainer renders flashcard metadata for teachers in their dashboard
  *
  * Proptypes
- * None
+ * @param {metadata} metadata flashcard set metadata, in the form of an array of flashcard objects
  */
-const FlashcardSetsContainer = () => {
-  const [flashCardSets, setFlashCardSets] = useState([]);
-
-  // const flashCardSets = temp_sets.map((user, i) => (
-  //   <Set key={i} title={user.name} date={user.date} />
-  // ));
-
-  // on mount
-  useEffect(() => {
-    get("/api/setmetadata").then((sets) => {
-      const metadata = sets.metadata;
-      setFlashCardSets(
-        metadata.map((setData, i) => (
-          <Set
-            key={i}
-            _id={setData._id}
-            title={setData.title}
-            date={setData.last_modified_date}
-            size={setData.size}
-          />
-        ))
-      );
-    });
-  }, []);
+const FlashcardSetsContainer = (props) => {
+  console.log("props of flashcardsetscontainer");
+  console.log(props.metadata);
 
   return (
     <>
@@ -52,9 +31,17 @@ const FlashcardSetsContainer = () => {
           Create New Set
         </button>
       </div>
-
       <div className="overflow-scroll max-w-[70%] px-6 mx-auto mt-[4vw] border border-solid border-black rounded-xl h-screen">
-        {flashCardSets}
+        {/* {loading ? <div>Fetching flashcard data...</div> : <>{flashCardSets}</>} */}
+        {props.metadata.map((setData, i) => (
+          <Set
+            key={i}
+            _id={setData._id}
+            title={setData.title}
+            date={setData.last_modified_date}
+            size={setData.size}
+          />
+        ))}
       </div>
     </>
   );

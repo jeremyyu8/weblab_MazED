@@ -7,6 +7,7 @@ import LeftSideBar from "../modules/TeacherDashboardComponents/LeftSideBar";
 import FlashcardSetsContainer from "../modules/TeacherDashboardComponents/FlashcardSetsContainer";
 import Games from "../modules/TeacherDashboardComponents/Games";
 import Settings from "../modules/TeacherDashboardComponents/Settings";
+import Set from "../modules/TeacherDashboardComponents/Set";
 
 import { get, post } from "../../utilities";
 
@@ -22,14 +23,17 @@ import { get, post } from "../../utilities";
  */
 const TeacherDashboard = (props) => {
   const [rightSide, setRightSide] = useState("sets"); //options are sets, pastGames, settings
+  const [rightComponent, setRightComponent] = useState("");
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(undefined);
   const [userData, setUserData] = useState(undefined);
+  const [setsMetadata, setSetsMetadata] = useState([]);
 
-  let rightComponent;
-  if (rightSide === "sets") rightComponent = <FlashcardSetsContainer />;
-  else if (rightSide == "pastGames") rightComponent = <Games />;
-  else rightComponent = <Settings hl={props.hl} userData={userData} />;
+  useEffect(() => {
+    if (rightSide === "sets") setRightComponent(<FlashcardSetsContainer metadata={setsMetadata} />);
+    else if (rightSide == "pastGames") setRightComponent(<Games />);
+    else setRightComponent(<Settings hl={props.hl} userData={userData} />);
+  }, [rightSide, setsMetadata]);
 
   // TODO DELETE THIS TEMPORARY FUNCTION!
   const temp_func = () => {
@@ -51,6 +55,8 @@ const TeacherDashboard = (props) => {
     const renderDisplay = async () => {
       try {
         const data = await get("/api/userbyid");
+        const metadata = await get("/api/setmetadata");
+        setSetsMetadata(metadata.metadata);
         setUserData(data);
         if (data.role !== "teacher") {
           setRedirect(true);
@@ -58,10 +64,10 @@ const TeacherDashboard = (props) => {
         } else {
           setLoading(false);
         }
-      } catch {
+      } catch (error) {
+        console.log(error);
         setRedirect(true);
       }
-      console.log("done with render display");
     };
     renderDisplay();
   }, []);
@@ -71,7 +77,7 @@ const TeacherDashboard = (props) => {
       {redirect ? (
         <Redirect noThrow from="/teacher" to="/login" />
       ) : loading === true ? (
-        <div>loading...</div>
+        <div>loading user data and importing flashcards...</div>
       ) : (
         <>
           <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />

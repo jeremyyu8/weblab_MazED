@@ -10,7 +10,6 @@ import React from "react";
  * @param {size} size the length of the set
  */
 const Set = (props) => {
-  console.log(props);
   return (
     <>
       <div className="flex relative max-w-[95%] mx-auto border-solid border-black m-3">
