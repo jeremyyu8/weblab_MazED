@@ -80,15 +80,30 @@ router.get("/setmetadata", (req, res) => {
 });
 
 router.get("/setbyid", (req, res) => {
-  Set.findById(req.query._id).then((set) => {
+  const findSet = async () => {
+    const set = await Set.findById(req.query._id);
     res.send(set);
-  });
+  };
+  findSet();
 });
 
 router.get("/cardbyid", (req, res) => {
-  Card.findById(req.query._id).then((card) => {
-    res.send(card);
-  });
+  const findCard = async () => {
+    const card = await Card.findById(req.query._id);
+    res.send(Card);
+  };
+  findCard();
+});
+
+router.get("/userbyid", (req, res) => {
+  if (!req.user) {
+    throw "not logged in";
+  }
+  const findUser = async () => {
+    const user = await User.findById(req.user._id);
+    res.send(user);
+  };
+  findUser();
 });
 
 //our post requests
@@ -142,8 +157,8 @@ router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
  * /api/newset creates a new set existing set
  *
  * req.body
- * @param {userid} _id id of the set to modify
- * @param {set} set an object holding title and cards of the new set
+ * @param {title} title title of new set
+ * @param {cards} cards array of Objects, each card has keys: "question, choices, answers"
  */
 router.post("/newset", auth.ensureLoggedIn, (req, res) => {
   const createNewSet = async () => {
@@ -160,7 +175,7 @@ router.post("/newset", auth.ensureLoggedIn, (req, res) => {
       await newCard.save();
       console.log("just saved a new card");
       console.log(cardIds);
-      cardIds.push(newCard._id); //
+      cardIds.push(newCard._id);
     }
 
     console.log("about to createa  new set");
