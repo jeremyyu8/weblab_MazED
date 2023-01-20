@@ -80,9 +80,20 @@ router.get("/setmetadata", (req, res) => {
 });
 
 router.get("/setbyid", (req, res) => {
+  console.log("inside api call");
   const findSet = async () => {
-    const set = await Set.findById(req.query._id);
-    res.send(set);
+    try {
+      const set = await Set.findById(req.query._id);
+      let cardsInSet = [];
+      for (let cardid of set.cards) {
+        console.log(`retrieving card with cardid: ${cardid}`);
+        const card = await Card.findById(cardid);
+        cardsInSet.push(card);
+      }
+      res.send(cardsInSet);
+    } catch (error) {
+      res.send({ err: "error" });
+    }
   };
   findSet();
 });

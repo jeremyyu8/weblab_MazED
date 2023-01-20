@@ -18,20 +18,6 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
 const Home = ({ userId, userRole, userName }) => {
   const [redirect, setRedirect] = useState(userId ? true : undefined);
 
-  const temp_func = () => {
-    const body = {
-      title: "test_set_1",
-      size: 30,
-      cards: [
-        { questions: "why", choices: ["a", "b", "c", "d"], answers: [1] },
-        { questions: "who", choices: ["asd", "b", "c", "d"], answers: [2] },
-        { questions: "as", choices: ["a", "b", "c", "s"], answers: [3, 0] },
-      ],
-    };
-
-    post("/api/newset", body).then(console.log("new set created successfully"));
-  };
-
   useEffect(() => {
     if (userId) {
       setRedirect(true);
@@ -75,7 +61,6 @@ const Home = ({ userId, userRole, userName }) => {
             <Link to="/maze">
               <button>maze testing</button>
             </Link>
-            <button onClick={temp_func}>click me (log in first please)</button>;
           </div>
         </>
       )}

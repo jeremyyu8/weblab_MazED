@@ -1,14 +1,16 @@
 import React from "react";
 
 /**
- * LeftSideBar is a component in TeacherDashboard that holds my sets, past games, settings
+ * Set is a single flashcard set rendered on the teacher dashboard
  *
  * Proptypes
- * @param {string} _id of the story
- * @param {function} setRightSide for setting right side
+ * @param {_id} _id the unique id of the set
+ * @param {title} title the title of the set
+ * @param {date} date the date that the set was last modified
+ * @param {size} size the length of the set
  */
 const Set = (props) => {
-  //{props.title} {props.date}
+  console.log(props);
   return (
     <>
       <div className="flex relative max-w-[95%] mx-auto border-solid border-black m-3">
@@ -33,7 +35,7 @@ const Set = (props) => {
             <button
               className="flex-1 hover:bg-sky-300 cursor-pointer transition-all text-3xl mr-20 p-2"
               onClick={() => {
-                window.location.replace("/teacher/edit");
+                window.location.replace(`/teacher/edit/${props._id}`);
               }}
             >
               Edit

@@ -4,6 +4,13 @@ import Titlecard from "../modules/TeacherEditComponents/Titlecard";
 
 import Image from "../modules/TeacherEditComponents/Image";
 import Set from "../modules/TeacherEditComponents/Set";
+
+/**
+ * Teacher Edit page for editing flashcards
+ *
+ * Proptypes
+ * none
+ */
 const TeacherEdit = () => {
   const [flashCardSet, setFlashCardSet] = useState({ title: "fash", cards: [] });
 
@@ -16,7 +23,7 @@ const TeacherEdit = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar edit={true} />
       <div className="mt-[6vw] flex-col">
         <div>{flashCardSet.title}</div>
 

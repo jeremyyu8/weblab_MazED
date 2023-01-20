@@ -8,6 +8,12 @@ const temp_sets = [
   { name: "science", date: "1/3/2022" },
 ];
 
+/**
+ * FlashcardSetsContainer renders flashcard metadata for teachers in their dashboard
+ *
+ * Proptypes
+ * None
+ */
 const FlashcardSetsContainer = () => {
   const [flashCardSets, setFlashCardSets] = useState([]);
 
@@ -20,9 +26,10 @@ const FlashcardSetsContainer = () => {
     get("/api/setmetadata").then((sets) => {
       const metadata = sets.metadata;
       setFlashCardSets(
-        metadata.map((setData) => (
+        metadata.map((setData, i) => (
           <Set
-            key={setData._id}
+            key={i}
+            _id={setData._id}
             title={setData.title}
             date={setData.last_modified_date}
             size={setData.size}

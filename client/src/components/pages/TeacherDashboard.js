@@ -8,7 +8,7 @@ import FlashcardSetsContainer from "../modules/TeacherDashboardComponents/Flashc
 import Games from "../modules/TeacherDashboardComponents/Games";
 import Settings from "../modules/TeacherDashboardComponents/Settings";
 
-import { get } from "../../utilities";
+import { get, post } from "../../utilities";
 
 /**
  * Teacher Dashboard page
@@ -31,6 +31,22 @@ const TeacherDashboard = (props) => {
   else if (rightSide == "pastGames") rightComponent = <Games />;
   else rightComponent = <Settings hl={props.hl} userData={userData} />;
 
+  // TODO DELETE THIS TEMPORARY FUNCTION!
+  const temp_func = () => {
+    const body = {
+      title: "test_set_1",
+      size: 30,
+      cards: [
+        { question: "why", choices: ["a", "b", "c", "d"], answers: [1] },
+        { question: "who", choices: ["asd", "b", "c", "d"], answers: [2] },
+        { question: "as", choices: ["a", "b", "c", "s"], answers: [3, 0] },
+      ],
+    };
+
+    post("/api/newset", body).then(console.log("new set created successfully"));
+  };
+
+  // get teacher data
   useEffect(() => {
     const renderDisplay = async () => {
       try {
@@ -66,6 +82,7 @@ const TeacherDashboard = (props) => {
               </div>
               <div className="flex-1 border-solid border-blue-600">{rightComponent}</div>
             </div>
+            <button onClick={temp_func}>click me (log in first please)</button>;
           </div>
         </>
       )}

@@ -87,7 +87,7 @@ const App = () => {
       <Router>
         <Home path="/" userId={userId} userRole={userRole} userName={userName} />
         <GameLobby path="/lobby" />
-        <TeacherEdit path="/teacher/edit" />
+        <TeacherEdit path="/teacher/edit/*" />
         <TeacherDashboard
           path="/teacher"
           userId={userId}
