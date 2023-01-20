@@ -16,6 +16,7 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
 const Navbar = (props) => {
   let rightside;
   console.log(props);
+
   if (!props.userId) {
     if (!props.edit) {
       rightside = (
@@ -30,7 +31,12 @@ const Navbar = (props) => {
         </div>
       );
     } else {
-      rightside = <div className="text-lg">Editing...</div>;
+      rightside = (
+        <div className="flex">
+          <div className="text-lg mr-10">Editing</div>
+          <div className="dot-pulse"></div>
+        </div>
+      );
     }
   } else {
     rightside = (
@@ -46,7 +52,7 @@ const Navbar = (props) => {
         <div className="my-auto px-8">
           <Link
             to="/"
-            className="text-[36px] font-[900] my-auto hover:cursor-pointer text-black no-underline"
+            className="text-[36px] font-[900] py-8px hover:cursor-pointer text-black no-underline"
           >
             MazeEd
           </Link>
