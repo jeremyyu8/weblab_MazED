@@ -41,54 +41,6 @@ form {
   flex-grow: 1;
 }
 
-/* homebutton.css */
-
-.home-button {
-    background-color: rgb(0, 157, 255);
-    border-radius: 8px;
-    border-style: none;
-    color: white;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    height: 40px;
-    margin: 5px;
-    padding: 10px 16px;
-    transition: background-color 150ms;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  
-  .home-button:hover,
-  .home-button:focus {
-    background-color: rgb(109, 199, 255);
-  }
-
-/* navbar.css */
-
-.nav-container{
-    display: flex;
-    padding: 16px 24px; 
-    border-bottom: lightgray solid;
-    background-color: white;
-    justify-content: space-between;
-}
-
-.nav-title{
-    font-size: 36px;
-    font-weight: 700;
-    font-family: 'Open Sans', sans-serif;
-    font-family: 'Roboto', sans-serif;
-    padding-top: 4px;
-    cursor: pointer;
-}
-
-.nav-item{
-    align-items: right;
-}
-
 /* maze.css */
 
 .maze-container{
@@ -124,20 +76,73 @@ form {
     background: rgba(0, 0, 0, 0.5);
 }
 
-/* student dashboard */
-.StudentDashboard-container {
-  display: flex; /* or inline-flex */
-  align-items: stretch flex-start;
+/* dot pulse css  */
+
+.dot-pulse {
+  position: relative;
+  left: -9999px;
+  width: 10px;
+  height: 10px;
+  top: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  box-shadow: 9999px 0 0 -5px;
+  animation: dot-pulse 1.5s infinite linear;
+  animation-delay: 0.25s;
+}
+.dot-pulse::before, .dot-pulse::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+}
+.dot-pulse::before {
+  box-shadow: 9984px 0 0 -5px;
+  animation: dot-pulse-before 1.5s infinite linear;
+  animation-delay: 0s;
+}
+.dot-pulse::after {
+  box-shadow: 10014px 0 0 -5px;
+  animation: dot-pulse-after 1.5s infinite linear;
+  animation-delay: 0.5s;
 }
 
-.StudentDashboard-leftSide{
-  flex-grow: 1;
-  border: red solid;
+@keyframes dot-pulse-before {
+  0% {
+    box-shadow: 9984px 0 0 -5px;
+  }
+  30% {
+    box-shadow: 9984px 0 0 2px;
+  }
+  60%, 100% {
+    box-shadow: 9984px 0 0 -5px;
+  }
 }
-
-
-.StudentDashboard-rightSide{
-  flex-grow: 4;
-  border: red solid; 
+@keyframes dot-pulse {
+  0% {
+    box-shadow: 9999px 0 0 -5px;
+  }
+  30% {
+    box-shadow: 9999px 0 0 2px;
+  }
+  60%, 100% {
+    box-shadow: 9999px 0 0 -5px;
+  }
 }
-
+@keyframes dot-pulse-after {
+  0% {
+    box-shadow: 10014px 0 0 -5px;
+  }
+  30% {
+    box-shadow: 10014px 0 0 2px;
+  }
+  60%, 100% {
+    box-shadow: 10014px 0 0 -5px;
+  }
+}
