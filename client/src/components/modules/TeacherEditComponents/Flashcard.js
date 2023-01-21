@@ -15,13 +15,13 @@ const Flashcard = (props) => {
     <div className="border-solid w-[50%] m-5 mx-auto">
       <div className="flex flex-col m-2">
         <div className="flex-1">Question</div>
-        <input className="mt-1" defaultValue={props.cardid ? props.question : ""}></input>
+        <input className="mt-1 input-box" defaultValue={props.cardid ? props.question : ""}></input>
         <div className="basis-3/4 flex flex-col">
           <div className="mt-2">Answers</div>
           <div className="flex mt-1 justify-between">
             <label className="flex-none">1.</label>
             <input
-              className="flex-1 mx-2"
+              className="flex-1 mx-2 input-box"
               defaultValue={props.cardid ? props.choices[0] : ""}
             ></input>
             <input
@@ -33,7 +33,7 @@ const Flashcard = (props) => {
           <div className="flex mt-1 justify-between">
             <label className="flex-none">2.</label>
             <input
-              className="flex-1 mx-2"
+              className="flex-1 mx-2 input-box"
               defaultValue={props.cardid ? props.choices[1] : ""}
             ></input>
             <input
@@ -45,7 +45,7 @@ const Flashcard = (props) => {
           <div className="flex mt-1 justify-between">
             <label className="flex-none">3.</label>
             <input
-              className="flex-1 mx-2"
+              className="flex-1 mx-2 input-box"
               defaultValue={props.cardid ? props.choices[2] : ""}
             ></input>
             <input
@@ -57,7 +57,7 @@ const Flashcard = (props) => {
           <div className="flex mt-1 justify-between">
             <label className="flex-none">4.</label>
             <input
-              className="flex-1 mx-2"
+              className="flex-1 mx-2 input-box"
               defaultValue={props.cardid ? props.choices[3] : ""}
             ></input>
             <input
