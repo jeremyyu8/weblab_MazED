@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
 import jwt_decode from "jwt-decode";
 
-import Phaser from "phaser";
-import { IonPhaser } from "@ion-phaser/react";
-
 // import pages
 
 import NotFound from "./pages/NotFound.js";
@@ -14,7 +11,7 @@ import StudentDashboard from "./pages/StudentDashboard.js";
 import Login from "./pages/Login.js";
 import Signup from "./pages/Signup.js";
 import TeacherEdit from "./pages/TeacherEdit.js";
-import StudentGame from "./pages/StudentGame.js";
+import Game from "./pages/Game.js";
 import MazePage from "./MazePage.js";
 import "../output.css";
 
@@ -85,36 +82,9 @@ const App = () => {
     window.location.replace("/");
   };
 
-  //phaser
-  const game = {
-    width: "100%",
-    height: "100%",
-    type: Phaser.AUTO,
-    scene: {
-      init: function () {
-        this.cameras.main.setBackgroundColor("#24252A");
-      },
-      create: function () {
-        this.helloWorld = this.add.text(
-          this.cameras.main.centerX,
-          this.cameras.main.centerY,
-          "Hello World",
-          {
-            font: "40px Arial",
-            fill: "#ffffff",
-          }
-        );
-        this.helloWorld.setOrigin(0.5);
-      },
-      update: function () {
-        this.helloWorld.angle += 1;
-      },
-    },
-  };
   return (
     <>
       <Router>
-        <IonPhaser path="/game" game={game} />
         <Home path="/" userId={userId} userRole={userRole} userName={userName} />
         <GameLobby path="/lobby" />
         <TeacherEdit path="/teacher/edit/*" userId={userId} />
@@ -132,7 +102,7 @@ const App = () => {
           userName={userName}
           hl={handleLogout}
         />
-        <StudentGame path="/student/game" />
+        <Game path="/game" />
         <Signup
           path="/signup"
           handleNewStudentAccount={handleNewStudentAccount}

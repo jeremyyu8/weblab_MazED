@@ -1,3 +1,5 @@
+const gameLogic = require("./game-logic");
+
 let io;
 
 const userToSocketMap = {}; // maps user ID to socket object
@@ -25,6 +27,32 @@ const removeUser = (user, socket) => {
   delete socketToUserMap[socket.id];
 };
 
+const sendGameState = () => {
+  // console.log(gameLogic.games);
+  // console.log("emitting game state");
+  io.emit("update", gameLogic.games);
+};
+
+const startRunningGame = () => {
+  // let winResetTimer = 0;
+  gameLogic.generateMap();
+  setInterval(() => {
+    gameLogic.updateGameState();
+    sendGameState();
+
+    // // Reset game 5 seconds after someone wins.
+    // if (gameLogic.gameState.winner != null) {
+    //   winResetTimer += 1;
+    // }
+    // if (winResetTimer > 60 * 5) {
+    //   winResetTimer = 0;
+    //   gameLogic.resetWinner();
+    // }
+  }, 1000 / 60); // 60 frames per second
+};
+
+startRunningGame();
+
 module.exports = {
   init: (http) => {
     io = require("socket.io")(http);
@@ -34,6 +62,14 @@ module.exports = {
       socket.on("disconnect", (reason) => {
         const user = getUserFromSocketID(socket.id);
         removeUser(user, socket);
+      });
+
+      socket.on("move", (dir) => {
+        const user = getUserFromSocketID(socket.id);
+        // console.log("received movement on server side");
+        // if (user) gameLogic.movePlayer(user._id, dir);
+        // TODO uncomment
+        gameLogic.movePlayer(0, dir);
       });
     });
   },

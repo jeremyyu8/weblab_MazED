@@ -53,8 +53,8 @@ router.post("/initsocket", (req, res) => {
 router.get("/setmetadata", (req, res) => {
   let metadata = [];
   const setMeta = async () => {
-    console.log("inside of setMeta");
-    console.log(req.user);
+    // console.log("inside of setMeta");
+    // console.log(req.user);
     if (req.user == null) {
       console.log("user undefined");
       return;
