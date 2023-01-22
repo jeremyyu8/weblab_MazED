@@ -30,7 +30,7 @@ const TeacherEdit = () => {
       );
     }
 
-    //window.location.replace("/teacher");
+    window.location.replace("/teacher");
   };
 
   return (
@@ -38,8 +38,6 @@ const TeacherEdit = () => {
       <Navbar edit={true} />
       <flashCardContext.Provider value={[flashCardSet, setFlashCardSet]}>
         <div className="mt-[-8vh] flex-col">
-          <div>{flashCardSet.title}</div>
-
           <div className="flex flex-1 justify-between">
             <div className="basis-1/3 border-solid text-6xl bg-green-50 m-5 p-5">
               <Titlecard />

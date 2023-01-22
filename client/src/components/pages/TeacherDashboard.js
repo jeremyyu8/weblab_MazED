@@ -30,25 +30,13 @@ const TeacherDashboard = (props) => {
   const [setsMetadata, setSetsMetadata] = useState([]);
 
   useEffect(() => {
-    if (rightSide === "sets") setRightComponent(<FlashcardSetsContainer metadata={setsMetadata} />);
+    if (rightSide === "sets")
+      setRightComponent(
+        <FlashcardSetsContainer metadata={setsMetadata} setSetsMetadata={setSetsMetadata} />
+      );
     else if (rightSide == "pastGames") setRightComponent(<Games />);
     else setRightComponent(<Settings hl={props.hl} userData={userData} />);
   }, [rightSide, setsMetadata]);
-
-  // TODO DELETE THIS TEMPORARY FUNCTION!
-  const temp_func = () => {
-    const body = {
-      title: "test_set_1",
-      size: 30,
-      cards: [
-        { question: "why", choices: ["a", "b", "c", "d"], answers: [1] },
-        { question: "who", choices: ["asd", "b", "c", "d"], answers: [2] },
-        { question: "as", choices: ["a", "b", "c", "s"], answers: [3, 0] },
-      ],
-    };
-
-    post("/api/newset", body).then(console.log("new set created successfully"));
-  };
 
   // get teacher data
   useEffect(() => {
@@ -108,7 +96,6 @@ const TeacherDashboard = (props) => {
               </div>
               <div className="flex-1 border-solid border-blue-600">{rightComponent}</div>
             </div>
-            <button onClick={temp_func}>click me (log in first please)</button>;
           </div>
         </>
       )}

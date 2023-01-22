@@ -62,6 +62,7 @@ router.get("/setmetadata", (req, res) => {
     const curUser = await User.findById(req.user._id);
     for (const setId of curUser.sets) {
       curSet = await Set.findById(setId);
+      if (!curSet) continue;
       const set_metadata = {
         _id: curSet._id,
         creation_date: curSet.creation_date,
@@ -90,7 +91,7 @@ router.get("/setbyid", (req, res) => {
         const card = await Card.findById(cardid);
         cardsInSet.push(card);
       }
-      res.send(cardsInSet);
+      res.send({ title: set.title, cards: cardsInSet });
     } catch (error) {
       res.send({ err: "error" });
     }
@@ -155,7 +156,7 @@ router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
 
     curSet.title = req.body.title;
     curSet.cards = cardIds;
-    curSet.last_modified_date = Date.now;
+    curSet.last_modified_date = Date.now();
     curSet.size = cardIds.length;
     await curSet.save();
     console.log("set updated successfully");
@@ -211,6 +212,10 @@ router.post("/newset", auth.ensureLoggedIn, (req, res) => {
   };
 
   createNewSet();
+});
+
+router.post("/deleteset", (req, res) => {
+  Set.deleteOne({ _id: req.body.setid }).then(() => console.log(`Delete set ${req.body.setid}`));
 });
 
 // router.post("/spawn", (req, res) => {
