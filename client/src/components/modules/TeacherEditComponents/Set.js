@@ -83,7 +83,7 @@ const Set = (props) => {
           <div className="flex flex-col justify-center border-solid border-red-600 grow-0 mx-auto w-[100%]">
             <div className="flex-col overflow-scroll border-solid border-green-300">
               {flashCardSet.cards.map((card, i) => {
-                return <Flashcard idx={i} />;
+                return <Flashcard key={i} idx={i} />;
               })}
               <div ref={setContainerRef}></div>
             </div>

@@ -368,10 +368,6 @@
   height: 100vh;
 }
 
-.h-3{
-  height: 0.75rem;
-}
-
 .w-screen{
   width: 100vw;
 }
@@ -396,20 +392,16 @@
   width: 2rem;
 }
 
+.w-\[10\%\]{
+  width: 10%;
+}
+
 .w-\[100\%\]{
   width: 100%;
 }
 
 .w-auto{
   width: auto;
-}
-
-.w-\[20\%\]{
-  width: 20%;
-}
-
-.w-\[10\%\]{
-  width: 10%;
 }
 
 .max-w-\[50\%\]{
@@ -689,14 +681,14 @@
   font-size: 36px;
 }
 
-.text-3xl{
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
 .text-6xl{
   font-size: 3.75rem;
   line-height: 1;
+}
+
+.text-3xl{
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-4xl{

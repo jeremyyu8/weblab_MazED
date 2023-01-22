@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { socket, move } from "../../client-socket.js";
+import { socket, move, updateWindowSize } from "../../client-socket.js";
 
 import { drawCanvas } from "../../canvasManager";
 
@@ -15,6 +15,7 @@ const Game = () => {
     // drawCanvas({ p: { x: 0, y: 0 } }, canvasRef);
   }, []);
 
+  // add event listener to user key inputs
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
@@ -22,6 +23,11 @@ const Game = () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
+  }, []);
+
+  // set the window size when they log in
+  useEffect(() => {
+    updateWindowSize({ x: window.innerWidth, y: window.innerHeight });
   }, []);
 
   const handleKeyUp = (e) => {
@@ -37,25 +43,23 @@ const Game = () => {
     if (e.key === "ArrowRight") {
       pressed["right"] = false;
     }
+    move(pressed);
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowUp") {
       pressed["up"] = true;
-      move(pressed);
     }
     if (e.key === "ArrowDown") {
       pressed["down"] = true;
-      move(pressed);
     }
     if (e.key === "ArrowLeft") {
       pressed["left"] = true;
-      move(pressed);
     }
     if (e.key === "ArrowRight") {
       pressed["right"] = true;
-      move(pressed);
     }
+    move(pressed);
   };
 
   const processUpdate = (update) => {
@@ -64,8 +68,10 @@ const Game = () => {
 
   return (
     <>
-      <div className="text-blue-400">Game page</div>
-      <canvas ref={canvasRef} width="1260" height="700" />
+      {/* <div className="text-blue-400">Game page</div> */}
+      <div className="fixed">
+        <canvas ref={canvasRef} width={window.innerWidth} height={window.innerHeight} />
+      </div>
     </>
   );
 };

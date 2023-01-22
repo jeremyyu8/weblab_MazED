@@ -72,21 +72,17 @@ router.get("/setmetadata", (req, res) => {
       metadata.push(set_metadata);
     }
     res.send({ metadata: metadata });
-    console.log("successfully retrieved metadata");
-    console.log(metadata);
   };
 
   setMeta();
 });
 
 router.get("/setbyid", (req, res) => {
-  console.log("inside api call");
   const findSet = async () => {
     try {
       const set = await Set.findById(req.query._id);
       let cardsInSet = [];
       for (let cardid of set.cards) {
-        console.log(`retrieving card with cardid: ${cardid}`);
         const card = await Card.findById(cardid);
         cardsInSet.push(card);
       }
@@ -128,8 +124,14 @@ router.get("/userbyid", (req, res) => {
  * cards.card._id is null if the card is new, otherwise the card is being modified
  */
 router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
+  console.log("inside of post set by id");
   const saveNewSet = async () => {
     const curSet = await Set.findOne({ _id: req.body.setid });
+    if (!curSet) {
+      console.log("error retrieving set");
+      res.status(404);
+      return;
+    }
 
     let cardIds = [];
 
@@ -155,11 +157,12 @@ router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
 
     curSet.title = req.body.title;
     curSet.cards = cardIds;
-    curSet.last_modified_date = Date.now;
+    curSet.last_modified_date = Date.now();
     curSet.size = cardIds.length;
     await curSet.save();
     console.log("set updated successfully");
     res.status(200);
+    res.send({});
     // res.sendStatus(200).send({ msg: "set updated successfully" });
   };
 
@@ -207,6 +210,7 @@ router.post("/newset", auth.ensureLoggedIn, (req, res) => {
     await curUser.save();
     console.log("set created successfully");
     res.status(200);
+    res.send({});
     // res.sendStatus(200).send({ msg: " set created successfully" });
   };
 
