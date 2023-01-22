@@ -23,6 +23,26 @@ const TeacherEdit = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
+    if (flashCardSet.title.length === 0) {
+      alert("please enter a title for your set!");
+      return;
+    }
+    for (let card of flashCardSet.cards) {
+      if (card.question.length === 0) {
+        alert("questions cannot be empty");
+        return;
+      }
+      for (let choice of card.choices) {
+        if (choice.length === 0) {
+          alert("answer choices cannot be empty");
+          return;
+        }
+      }
+      if (card.answers.length === 0) {
+        alert("please select answers for your flashcards!");
+        return;
+      }
+    }
     setLoading(true);
     if (setId === "new") {
       const newSet = async () => {
@@ -77,8 +97,8 @@ const TeacherEdit = () => {
                   <Image />
                 </div>
               </div>
-              <div className="flex-1 border-solid">
-                <div className="flex border-solid border-black max-w-[80%] h-[25vw] m-10 mx-auto">
+              <div className="flex-2 border-solid">
+                <div className="flex border-solid border-black max-w-[80%] h-[40vw] m-10 mx-auto">
                   <Set setSetId={setSetId} />
                 </div>
               </div>

@@ -41,27 +41,21 @@ const Set = (props) => {
     loadSet();
   }, []);
 
-  //fix?
-  // useEffect(() => {
-  //   console.log("length change to these cards", flashCardSet.cards);
-
-  //   setFlashCardSet({ title: flashCardSet.title, cards: flashCardSet.cards });
-  // }, [flashCardSet.cards.length]);
-
   // scroll behavior
   // (scroll to bottom when user adds new card)
 
-  const handleAutoScroll = () => {
+  useEffect(() => {
     if (setContainerRef.current) {
       setContainerRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "end",
-        inline: "nearest",
+        block: "nearest",
+        inline: "start",
       });
     }
-  };
-  const handleNewCard = async () => {
-    await setFlashCardSet({
+  }, [flashCardSet.cards.length]);
+
+  const handleNewCard = () => {
+    setFlashCardSet({
       title: flashCardSet.title,
       cards: flashCardSet.cards.concat({
         question: "",
@@ -69,7 +63,28 @@ const Set = (props) => {
         answers: [],
       }),
     });
-    handleAutoScroll();
+  };
+
+  const handleDelete = (idx) => {
+    // console.log("deleting");
+    // console.log(idx);
+    // let newcards = [];
+    // for (let i = 0; i < flashCardSet.cards.length; i++) {
+    //   console.log("i", i, "idx", idx);
+    //   if (i !== idx) {
+    //     console.log("pushing");
+    //     newcards.push(flashCardSet.cards[i]);
+    //   }
+    // }
+    // console.log(newcards);
+    setFlashCardSet({
+      title: flashCardSet.title,
+      cards: flashCardSet.cards.slice(0, idx).concat(flashCardSet.cards.slice(idx + 1)),
+    });
+    // setFlashCardSet({
+    //   title: flashCardSet.title,
+    //   cards: newcards,
+    // });
   };
 
   return (
@@ -83,14 +98,23 @@ const Set = (props) => {
           <div className="flex flex-col justify-center border-solid border-red-600 grow-0 mx-auto w-[100%]">
             <div className="flex-col overflow-scroll border-solid border-green-300">
               {flashCardSet.cards.map((card, i) => {
-                return <Flashcard key={i} idx={i} />;
+                return (
+                  <Flashcard
+                    key={i}
+                    idx={i}
+                    question={card.question}
+                    choices={card.choices}
+                    answers={card.answers}
+                    handleDelete={handleDelete}
+                  />
+                );
               })}
               <div ref={setContainerRef}></div>
             </div>
 
             <button
               onClick={handleNewCard}
-              className="basis-1/6 border-solid hover:bg-sky-300 cursor-pointer transition-all text-4xl m-5 p-2 w-auto mx-auto"
+              className="flex-col border-solid hover:bg-sky-300 cursor-pointer transition-all text-4xl m-5 p-2 w-auto mx-auto"
             >
               Add New Card
             </button>

@@ -368,6 +368,42 @@
   height: 100vh;
 }
 
+.h-1\/2{
+  height: 50%;
+}
+
+.h-\[100px\]{
+  height: 100px;
+}
+
+.h-\[1000px\]{
+  height: 1000px;
+}
+
+.h-\[200px\]{
+  height: 200px;
+}
+
+.h-\[300px\]{
+  height: 300px;
+}
+
+.h-\[400px\]{
+  height: 400px;
+}
+
+.h-\[50vw\]{
+  height: 50vw;
+}
+
+.h-\[30vw\]{
+  height: 30vw;
+}
+
+.h-\[40vw\]{
+  height: 40vw;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -450,6 +486,10 @@
 
 .basis-3\/4{
   flex-basis: 75%;
+}
+
+.basis-5\/6{
+  flex-basis: 83.333333%;
 }
 
 @keyframes spin{

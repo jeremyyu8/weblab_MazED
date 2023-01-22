@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { flashCardContext } from "../../pages/TeacherEdit";
 /**
@@ -12,6 +12,14 @@ import { flashCardContext } from "../../pages/TeacherEdit";
  */
 const Flashcard = (props) => {
   const [flashCardSet, setFlashCardSet] = useContext(flashCardContext);
+
+  // defaultValue={flashCardSet.cards[idx].choices[0]}
+  // ></input>
+  // <input
+  //   onChange={handleAnswer0}
+  //   type="checkbox"
+  //   className="basis-1/8"
+  //   defaultChecked={flashCardSet.cards[idx].answers.includes(0)}
 
   // useEffect(() => {}, []);
   const idx = props.idx;
@@ -58,7 +66,7 @@ const Flashcard = (props) => {
   const handleAnswer1 = (event) => {
     let newCard = flashCardSet.cards[idx];
     if (event.target.checked) {
-      if (!newCard.answers.includes(1)) newCard.answers.push(0);
+      if (!newCard.answers.includes(1)) newCard.answers.push(1);
     } else {
       if (newCard.answers.includes(1)) newCard.answers = newCard.answers.filter((val) => val != 1);
     }
@@ -95,23 +103,21 @@ const Flashcard = (props) => {
     handleNewCard(newCard);
   };
 
-  const handleDelete = () => {
-    console.log("deletion");
-    setFlashCardSet({
-      title: flashCardSet.title,
-      cards: flashCardSet.cards.slice(0, idx).concat(flashCardSet.cards.slice(idx + 1)),
-    });
-  };
+  // const handleDelete = () => {
+  //   console.log("deletion");
+  //   console.log(idx);
+  //   setFlashCardSet({
+  //     title: flashCardSet.title,
+  //     cards: flashCardSet.cards.slice(0, idx).concat(flashCardSet.cards.slice(idx + 1)),
+  //   });
+  //   console.log(flashCardSet);
+  // };
 
   return (
     <div className="border-solid w-[50%] m-5 mx-auto">
       <div className="flex flex-col m-2">
         <div className="flex-1">Question</div>
-        <input
-          onChange={handleQuestion}
-          className="mt-1 input-box"
-          defaultValue={flashCardSet.cards[idx].question}
-        ></input>
+        <input onChange={handleQuestion} className="mt-1 input-box" value={props.question}></input>
         <div className="basis-3/4 flex flex-col">
           <div className="mt-2">Answers</div>
           <div className="flex mt-1 justify-between">
@@ -119,13 +125,13 @@ const Flashcard = (props) => {
             <input
               onChange={handleChoice0}
               className="flex-1 mx-2 input-box"
-              defaultValue={flashCardSet.cards[idx].choices[0]}
+              value={props.choices[0]}
             ></input>
             <input
               onChange={handleAnswer0}
               type="checkbox"
               className="basis-1/8"
-              defaultChecked={flashCardSet.cards[idx].answers.includes(0)}
+              checked={props.answers.includes(0)}
             ></input>
           </div>
           <div className="flex mt-1 justify-between">
@@ -133,13 +139,13 @@ const Flashcard = (props) => {
             <input
               onChange={handleChoice1}
               className="flex-1 mx-2 input-box"
-              defaultValue={flashCardSet.cards[idx].choices[1]}
+              value={props.choices[1]}
             ></input>
             <input
               onChange={handleAnswer1}
               type="checkbox"
               className="basis-1/8"
-              defaultChecked={flashCardSet.cards[idx].answers.includes(1)}
+              checked={props.answers.includes(1)}
             ></input>
           </div>
           <div className="flex mt-1 justify-between">
@@ -147,13 +153,13 @@ const Flashcard = (props) => {
             <input
               onChange={handleChoice2}
               className="flex-1 mx-2 input-box"
-              defaultValue={flashCardSet.cards[idx].choices[2]}
+              value={props.choices[2]}
             ></input>
             <input
               onChange={handleAnswer2}
               type="checkbox"
               className="basis-1/8"
-              defaultChecked={flashCardSet.cards[idx].answers.includes(2)}
+              checked={props.answers.includes(2)}
             ></input>
           </div>
           <div className="flex mt-1 justify-between">
@@ -161,16 +167,16 @@ const Flashcard = (props) => {
             <input
               onChange={handleChoice3}
               className="flex-1 mx-2 input-box"
-              defaultValue={flashCardSet.cards[idx].choices[3]}
+              value={props.choices[3]}
             ></input>
             <input
               onChange={handleAnswer3}
               type="checkbox"
               className="basis-1/8"
-              defaultChecked={flashCardSet.cards[idx].answers.includes(3)}
+              checked={props.answers.includes(3)}
             ></input>
           </div>
-          <button className="w-[10%] mx-auto mt-2" onClick={handleDelete}>
+          <button className="w-[10%] mx-auto mt-2" onClick={() => props.handleDelete(idx)}>
             Delete
           </button>
         </div>
