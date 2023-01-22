@@ -7,11 +7,9 @@ import { get, post } from "../../../utilities";
  *
  * Proptypes
  * @param {metadata} metadata flashcard set metadata, in the form of an array of flashcard objects
+ * @param {function} setSetsMetadata setter for metadata
  */
 const FlashcardSetsContainer = (props) => {
-  console.log("props of flashcardsetscontainer");
-  console.log(props.metadata);
-
   return (
     <>
       <div className="flex border-solid mt-10 mx-10">
@@ -25,8 +23,7 @@ const FlashcardSetsContainer = (props) => {
           Create New Set
         </button>
       </div>
-      <div className="overflow-scroll max-w-[70%] px-6 mx-auto mt-[4vw] border border-solid border-black rounded-xl h-screen">
-        {/* {loading ? <div>Fetching flashcard data...</div> : <>{flashCardSets}</>} */}
+      <div className="overflow-scroll max-w-[70%] px-6 mx-auto mt-[4vw] border border-solid border-black rounded-xl h-[50%]">
         {props.metadata.map((setData, i) => (
           <Set
             key={i}
@@ -34,6 +31,8 @@ const FlashcardSetsContainer = (props) => {
             title={setData.title}
             date={setData.last_modified_date}
             size={setData.size}
+            setSetsMetadata={props.setSetsMetadata}
+            metadata={props.metadata}
           />
         ))}
       </div>
