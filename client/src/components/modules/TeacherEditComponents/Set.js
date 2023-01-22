@@ -1,26 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Redirect } from "@reach/router";
 import Flashcard from "./Flashcard";
 
+import { flashCardContext } from "../../pages/TeacherEdit";
 import { get, post } from "../../../utilities";
 
-const Set = () => {
+//only prop is setSetId function
+const Set = (props) => {
   const [redirect, setRedirect] = useState(undefined);
   const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState([
-    {
-      _id: "_id1",
-      question: "hi",
-      choices: ["choice 1", "choice 2", "choice 3", "choice 4"],
-      answers: [0, 1],
-    },
-    {
-      _id: "_id2",
-      question: "cringecringecringecringecringecringe",
-      choices: ["1", "2", "3", "4"],
-      answers: [2, 3],
-    },
-  ]);
+
+  const [flashCardSet, setFlashCardSet] = useContext(flashCardContext);
 
   const setContainerRef = useRef(null);
 
@@ -28,24 +18,40 @@ const Set = () => {
   useEffect(() => {
     const loadSet = async () => {
       const _id = window.location.pathname.substring(window.location.pathname.lastIndexOf("/") + 1);
-      try {
-        const set = await get("/api/setbyid", { _id: _id });
-        setCards(set);
-        if (set.err) {
-          setRedirect(true); // TODO why is this like this?
+      props.setSetId(_id);
+
+      if (_id == "new") {
+        setFlashCardSet({ title: "", cards: [] });
+        setLoading(false);
+      } else {
+        try {
+          const set = await get("/api/setbyid", { _id: _id });
+          setFlashCardSet({ title: flashCardSet.title, cards: set });
+
+          if (set.err) {
+            setRedirect(true); // TODO why is this like this?
+          }
+          setLoading(false);
+        } catch {
+          setRedirect(true);
+          setLoading(false);
         }
-        setLoading(false);
-      } catch {
-        setRedirect(true);
-        setLoading(false);
       }
     };
     loadSet();
   }, []);
 
+  //fix?
+  useEffect(() => {
+    console.log("length change to these cards", flashCardSet.cards);
+
+    setFlashCardSet({ title: flashCardSet.title, cards: flashCardSet.cards });
+  }, [flashCardSet.cards.length]);
+
   // scroll behavior
   // (scroll to bottom when user adds new card)
-  useEffect(() => {
+
+  const handleAutoScroll = () => {
     if (setContainerRef.current) {
       setContainerRef.current.scrollIntoView({
         behavior: "smooth",
@@ -53,7 +59,18 @@ const Set = () => {
         inline: "nearest",
       });
     }
-  }, [cards]);
+  };
+  const handleNewCard = async () => {
+    await setFlashCardSet({
+      title: flashCardSet.title,
+      cards: flashCardSet.cards.concat({
+        question: "",
+        choices: ["", "", "", ""],
+        answers: [],
+      }),
+    });
+    handleAutoScroll();
+  };
 
   return (
     <>
@@ -65,24 +82,14 @@ const Set = () => {
         <>
           <div className="flex flex-col justify-center border-solid border-red-600 grow-0 mx-auto w-[100%]">
             <div className="flex-col overflow-scroll border-solid border-green-300">
-              {cards.map((card, i) => {
-                return (
-                  <Flashcard
-                    key={i}
-                    cardid={card._id}
-                    question={card.question}
-                    choices={card.choices}
-                    answers={card.answers}
-                  />
-                );
+              {flashCardSet.cards.map((card, i) => {
+                return <Flashcard idx={i} />;
               })}
               <div ref={setContainerRef}></div>
             </div>
 
             <button
-              onClick={() => {
-                setCards([...cards, { question: "cringe" }]);
-              }}
+              onClick={handleNewCard}
               className="basis-1/6 border-solid hover:bg-sky-300 cursor-pointer transition-all text-4xl m-5 p-2 w-auto mx-auto"
             >
               Add New Card

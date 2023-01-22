@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 
-const Titlecard = (props) => {
-  return (
-    <div
-      onClick={() => {
-        props.setFlash({ title: "goodbye", cards: [] });
-      }}
-    >
-      Titlecard
-    </div>
-  );
+import { flashCardContext } from "../../pages/TeacherEdit";
+const Titlecard = () => {
+  const [flashCardSet, setFlashCardSet] = useContext(flashCardContext);
+
+  const handleChange = (event) => {
+    setFlashCardSet({ title: event.target.value, cards: flashCardSet.cards });
+  };
+  return <input onChange={handleChange} defaultValue={flashCardSet.title}></input>;
 };
 
 export default Titlecard;

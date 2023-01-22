@@ -130,6 +130,7 @@ router.get("/userbyid", (req, res) => {
 router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
   const saveNewSet = async () => {
     const curSet = await Set.findOne({ _id: req.body.setid });
+
     let cardIds = [];
 
     for (const card of req.body.cards) {
@@ -152,6 +153,7 @@ router.post("/setbyid", auth.ensureLoggedIn, (req, res) => {
       }
     }
 
+    curSet.title = req.body.title;
     curSet.cards = cardIds;
     curSet.last_modified_date = Date.now;
     curSet.size = cardIds.length;

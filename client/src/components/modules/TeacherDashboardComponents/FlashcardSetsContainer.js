@@ -2,12 +2,6 @@ import React, { useState, useEffect } from "react";
 import Set from "./Set";
 import { get, post } from "../../../utilities";
 
-const temp_sets = [
-  { name: "math", date: "1/1/2022" },
-  { name: "history", date: "1/2/2022" },
-  { name: "science", date: "1/3/2022" },
-];
-
 /**
  * FlashcardSetsContainer renders flashcard metadata for teachers in their dashboard
  *
@@ -25,7 +19,7 @@ const FlashcardSetsContainer = (props) => {
         <button
           className="my-auto mx-10 flex-none border-solid hover:bg-sky-300 cursor-pointer transition-all text-4xl"
           onClick={() => {
-            window.location.replace("/teacher/edit");
+            window.location.replace("/teacher/edit/new");
           }}
         >
           Create New Set

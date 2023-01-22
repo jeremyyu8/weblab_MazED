@@ -368,6 +368,10 @@
   height: 100vh;
 }
 
+.h-3{
+  height: 0.75rem;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -398,6 +402,14 @@
 
 .w-auto{
   width: auto;
+}
+
+.w-\[20\%\]{
+  width: 20%;
+}
+
+.w-\[10\%\]{
+  width: 10%;
 }
 
 .max-w-\[50\%\]{
@@ -749,6 +761,10 @@
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.filter{
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition-colors{
