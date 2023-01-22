@@ -71,6 +71,10 @@ module.exports = {
         // TODO uncomment
         gameLogic.movePlayer(0, dir);
       });
+
+      socket.on("updateWindowSize", (windowSize) => {
+        gameLogic.setWindowSize(windowSize.x, windowSize.y);
+      });
     });
   },
 

@@ -9,3 +9,7 @@ socket.on("connect", () => {
 export const move = (dir) => {
   socket.emit("move", dir);
 };
+
+export const updateWindowSize = (windowSize) => {
+  socket.emit("updateWindowSize", windowSize);
+};

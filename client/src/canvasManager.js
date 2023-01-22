@@ -1,11 +1,9 @@
-const xsize = 1260;
-const ysize = 700;
+const xsize = window.innerWidth;
+const ysize = window.innerHeight;
 const mapxsize = 4000;
 const mapysize = 4000;
 const tilewidth = 80;
-const tile = new Image(tilewidth, tilewidth);
 const sprite = new Image(tilewidth, tilewidth);
-tile.src = "../gameassets/tile.png";
 sprite.src = "../gameassets/astronaut.png";
 
 const tiles = {
@@ -13,7 +11,7 @@ const tiles = {
   1: null,
 };
 tiles[0] = new Image(tilewidth, tilewidth);
-tiles[0].src = "../gameassets/tile.png";
+tiles[0].src = "../gameassets/grass.png";
 tiles[1] = new Image(tilewidth, tilewidth);
 tiles[1].src = "../gameassets/tree.png";
 
@@ -79,16 +77,18 @@ export const drawCanvas = (drawState, canvasRef) => {
   let vx = drawState.v.x;
   let vy = drawState.v.y;
   let xdir = 0;
-  if (vx > 0) {
-    xdir = 2;
-  } else if (vx < 0) {
-    xdir = -2;
+  if (drawState.k["right"] === true) {
+    xdir += 2;
+  }
+  if (drawState.k["left"] === true) {
+    xdir += -2;
   }
   let ydir = 0;
-  if (vy > 0) {
-    ydir = 2;
-  } else if (vy < 0) {
-    ydir = -2;
+  if (drawState.k["up"] === true) {
+    ydir += -2;
+  }
+  if (drawState.k["down"] === true) {
+    ydir += 2;
   }
   if (xdir !== 0 && ydir !== 0) {
     xdir /= Math.sqrt(2);

@@ -25,10 +25,10 @@ const Set = (props) => {
         setLoading(false);
       } else {
         try {
-          const set = await get("/api/setbyid", { _id: _id });
-          setFlashCardSet({ title: flashCardSet.title, cards: set });
+          const setData = await get("/api/setbyid", { _id: _id });
+          setFlashCardSet({ title: setData.title, cards: setData.cards });
 
-          if (set.err) {
+          if (setData.err) {
             setRedirect(true); // TODO why is this like this?
           }
           setLoading(false);
@@ -42,11 +42,11 @@ const Set = (props) => {
   }, []);
 
   //fix?
-  useEffect(() => {
-    console.log("length change to these cards", flashCardSet.cards);
+  // useEffect(() => {
+  //   console.log("length change to these cards", flashCardSet.cards);
 
-    setFlashCardSet({ title: flashCardSet.title, cards: flashCardSet.cards });
-  }, [flashCardSet.cards.length]);
+  //   setFlashCardSet({ title: flashCardSet.title, cards: flashCardSet.cards });
+  // }, [flashCardSet.cards.length]);
 
   // scroll behavior
   // (scroll to bottom when user adds new card)

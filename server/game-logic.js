@@ -1,20 +1,28 @@
 // canvas constants
-const xsize = 1260;
-const ysize = 700;
 const mapxsize = 4000;
 const mapysize = 4000;
 const tilewidth = 80;
 
 // for moving logic
-const ACCEL = 0.1;
-const DRAG_COEFFICIENT = 1.6;
-const VCUTOFF = 0.03;
+const ACCEL = 0.02; // higher speeds: increment by ~0.01 or something
+const DRAG_COEFFICIENT = 4;
+const VCUTOFF = 0.02;
 
 // p = position
 // v = velocity
 // m = map
+// k = keys down
 // camera = camera
-games = [{ p: { x: 0, y: 0 }, v: { x: 0, y: 0 }, camera: { x: 0, y: 0 } }];
+// windowsize = {x: window.innerWidth, y: window.innerHeight} for the player's computer
+games = [
+  {
+    p: { x: 0, y: 0 },
+    v: { x: 0, y: 0 },
+    camera: { x: 0, y: 0 },
+    k: { up: false, down: false, right: false, left: false },
+    windowSize: { x: 1260, y: 700 },
+  },
+];
 
 // generate entire map
 // this represents a 4000 x 4000 map
@@ -32,27 +40,51 @@ const generateMap = () => {
   games[0].m = map;
 };
 
+// set player window size
+const setWindowSize = (x, y) => {
+  games[0].windowSize.x = x;
+  games[0].windowSize.y = y;
+};
+
 // move player on player input
 const movePlayer = (id, dir) => {
-  if (dir["up"] === true) {
-    games[0].v.y -= ACCEL;
-  }
-  if (dir["down"] === true) {
-    games[0].v.y += ACCEL;
-  }
-  if (dir["left"] === true) {
-    games[0].v.x -= ACCEL;
-  }
-  if (dir["right"] === true) {
-    games[0].v.x += ACCEL;
-  }
-  console.log("velocity:");
-  console.log(games[0].v);
-  console.log(games[0].p);
+  games[0].k["up"] = dir["up"];
+  games[0].k["down"] = dir["down"];
+  games[0].k["left"] = dir["left"];
+  games[0].k["right"] = dir["right"];
+  console.log(games[0].windowSize);
 };
 
 // update game statistics. running at 60fps
 const updateGameState = () => {
+  // velocity update logic
+  let movingx = games[0].k["right"] === true || games[0].k["left"] === true;
+  let movingy = games[0].k["up"] === true || games[0].k["down"] === true;
+  if (games[0].k["up"] === true) {
+    games[0].v.y -= ACCEL;
+    if (movingx && Math.abs(games[0].v.y) < Math.abs(games[0].v.x)) {
+      games[0].v.y = -Math.abs(games[0].v.x);
+    }
+  }
+  if (games[0].k["down"] === true) {
+    games[0].v.y += ACCEL;
+    if (movingx && Math.abs(games[0].v.y) < Math.abs(games[0].v.x)) {
+      games[0].v.y = Math.abs(games[0].v.x);
+    }
+  }
+  if (games[0].k["left"] === true) {
+    games[0].v.x -= ACCEL;
+    if (movingy && Math.abs(games[0].v.x) < Math.abs(games[0].v.y)) {
+      games[0].v.x = -Math.abs(games[0].v.y);
+    }
+  }
+  if (games[0].k["right"] === true) {
+    games[0].v.x += ACCEL;
+    if (movingy && Math.abs(games[0].v.x) < Math.abs(games[0].v.y)) {
+      games[0].v.x = Math.abs(games[0].v.y);
+    }
+  }
+
   // position update logic
   games[0].p.x += games[0].v.x;
   games[0].p.y += games[0].v.y;
@@ -103,17 +135,17 @@ const updateGameState = () => {
 
   // camera update logic
   // camera coordinates are top left of camera screen
-  games[0].camera.x = games[0].p.x + 0.5 - xsize / tilewidth / 2;
-  games[0].camera.y = games[0].p.y + 0.5 - ysize / tilewidth / 2;
+  games[0].camera.x = games[0].p.x + 0.5 - games[0].windowSize.x / tilewidth / 2;
+  games[0].camera.y = games[0].p.y + 0.5 - games[0].windowSize.y / tilewidth / 2;
   if (games[0].camera.x < 0) {
     games[0].camera.x = 0;
-  } else if (games[0].camera.x > mapxsize / tilewidth - xsize / tilewidth) {
-    games[0].camera.x = mapxsize / tilewidth - xsize / tilewidth;
+  } else if (games[0].camera.x > mapxsize / tilewidth - games[0].windowSize.x / tilewidth) {
+    games[0].camera.x = mapxsize / tilewidth - games[0].windowSize.x / tilewidth;
   }
   if (games[0].camera.y < 0) {
     games[0].camera.y = 0;
-  } else if (games[0].camera.y > mapysize / tilewidth - ysize / tilewidth) {
-    games[0].camera.y = mapysize / tilewidth - ysize / tilewidth;
+  } else if (games[0].camera.y > mapysize / tilewidth - games[0].windowSize.y / tilewidth) {
+    games[0].camera.y = mapysize / tilewidth - games[0].windowSize.y / tilewidth;
   }
 };
 
@@ -122,4 +154,5 @@ module.exports = {
   movePlayer,
   updateGameState,
   generateMap,
+  setWindowSize,
 };

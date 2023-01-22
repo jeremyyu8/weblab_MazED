@@ -62,6 +62,7 @@ router.get("/setmetadata", (req, res) => {
     const curUser = await User.findById(req.user._id);
     for (const setId of curUser.sets) {
       curSet = await Set.findById(setId);
+      if (!curSet) continue;
       const set_metadata = {
         _id: curSet._id,
         creation_date: curSet.creation_date,
@@ -86,7 +87,7 @@ router.get("/setbyid", (req, res) => {
         const card = await Card.findById(cardid);
         cardsInSet.push(card);
       }
-      res.send(cardsInSet);
+      res.send({ title: set.title, cards: cardsInSet });
     } catch (error) {
       res.send({ err: "error" });
     }
@@ -215,6 +216,48 @@ router.post("/newset", auth.ensureLoggedIn, (req, res) => {
   };
 
   createNewSet();
+});
+
+// router.post("/deleteset", (req, res) => {
+//   Set.deleteOne({ _id: req.body.setid }).then(() => console.log(`Delete set ${req.body.setid}`));
+// });
+
+// body: { setid: the id of the set to delete }
+router.post("/deleteset", auth.ensureLoggedIn, (req, res) => {
+  const deleteSet = async () => {
+    const set = await Set.findById(req.body.setid);
+    if (!set) {
+      console.log("error retrieving set");
+      res.status(404);
+      res.send({});
+    }
+
+    // delete all cards in the set
+    let query = { $or: [] };
+    for (let cardid of set.cards) {
+      query["$or"].push({ _id: cardid });
+    }
+    if (query["$or"].length) {
+      await Card.deleteMany(query);
+    }
+
+    // get current user, remove set from user set list
+    const curUser = await User.findOne({ _id: req.user._id });
+    const idx = curUser.sets.indexOf(set._id);
+    if (idx !== -1) {
+      // in case of db errors
+      curUser.sets.splice(idx, 1);
+      await curUser.save();
+    }
+
+    await Set.deleteOne({ _id: set._id });
+
+    console.log("set deleted successfully");
+    res.status(200);
+    res.send({});
+  };
+
+  deleteSet();
 });
 
 // router.post("/spawn", (req, res) => {
