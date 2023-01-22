@@ -146,6 +146,8 @@ const FlashcardSetsContainer = (props) => {
           size={setData.size}
           setSetsMetadata={props.setSetsMetadata}
           metadata={props.metadata}
+          userData={props.userData}
+          setUserData={props.setUserData}
         />
       ))
     );

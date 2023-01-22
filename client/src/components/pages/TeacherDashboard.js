@@ -32,7 +32,12 @@ const TeacherDashboard = (props) => {
   useEffect(() => {
     if (rightSide === "sets")
       setRightComponent(
-        <FlashcardSetsContainer metadata={setsMetadata} setSetsMetadata={setSetsMetadata} />
+        <FlashcardSetsContainer
+          metadata={setsMetadata}
+          setSetsMetadata={setSetsMetadata}
+          setUserData={setUserData}
+          userData={userData}
+        />
       );
     else if (rightSide == "pastGames") setRightComponent(<Games />);
     else setRightComponent(<Settings hl={props.hl} userData={userData} />);

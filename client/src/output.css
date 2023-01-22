@@ -404,6 +404,26 @@
   height: 40vw;
 }
 
+.h-\[10px\]{
+  height: 10px;
+}
+
+.h-\[15vh\]{
+  height: 15vh;
+}
+
+.h-\[20vh\]{
+  height: 20vh;
+}
+
+.h-\[25vh\]{
+  height: 25vh;
+}
+
+.h-\[30vh\]{
+  height: 30vh;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -438,6 +458,10 @@
 
 .w-auto{
   width: auto;
+}
+
+.w-\[50vw\]{
+  width: 50vw;
 }
 
 .max-w-\[50\%\]{
@@ -530,6 +554,14 @@
 
 .overflow-scroll{
   overflow: scroll;
+}
+
+.overflow-x-scroll{
+  overflow-x: scroll;
+}
+
+.overflow-y-scroll{
+  overflow-y: scroll;
 }
 
 .rounded-md{
@@ -698,6 +730,10 @@
 
 .align-baseline{
   vertical-align: baseline;
+}
+
+.align-middle{
+  vertical-align: middle;
 }
 
 .text-\[14px\]{
