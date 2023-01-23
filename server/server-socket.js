@@ -27,6 +27,8 @@ const addUser = (user, socket) => {
       if (_id === user._id) {
         userToPinMap[user._id] = pin;
         gameLogic.games[pin]["players"][user._id]["active"] = true;
+        gameLogic.games[pin]["players"][user._id].v.x = 0;
+        gameLogic.games[pin]["players"][user._id].v.y = 0;
         console.log("setting player active to true");
         socket.join(pin);
       }

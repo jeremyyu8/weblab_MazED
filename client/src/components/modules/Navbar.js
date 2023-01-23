@@ -58,7 +58,7 @@ const Navbar = (props) => {
         </div>
         <div className="my-auto mr-8"> {rightside}</div>
       </nav>
-      {/* <div className="h-[75px] mb-[8vh]"></div> */}
+      <div className="h-[75px] mb-[8vh]"></div>
     </>
   );
 };
