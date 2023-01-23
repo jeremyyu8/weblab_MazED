@@ -608,6 +608,14 @@
   border-radius: 0.75rem;
 }
 
+.rounded-3xl{
+  border-radius: 1.5rem;
+}
+
+.rounded-full{
+  border-radius: 9999px;
+}
+
 .border-0{
   border-width: 0px;
 }
@@ -851,6 +859,10 @@
 
 .pt-\[18vh\]{
   padding-top: 18vh;
+}
+
+.pt-32{
+  padding-top: 8rem;
 }
 
 .text-center{
