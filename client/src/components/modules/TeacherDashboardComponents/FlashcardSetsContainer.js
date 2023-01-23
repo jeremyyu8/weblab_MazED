@@ -10,6 +10,7 @@ import { get, post } from "../../../utilities";
  * @param {metadata} metadata flashcard set metadata, in the form of an array of flashcard objects
  * @param {function} setSetsMetadata setter for metadata
  * @param {function} setUserData setter for user data
+ * @param {userData} userData data of the user
  */
 const FlashcardSetsContainer = (props) => {
   const [sets, setSets] = useState([]);
@@ -117,6 +118,7 @@ const FlashcardSetsContainer = (props) => {
           setSetsMetadata={props.setSetsMetadata}
           metadata={props.metadata}
           setUserData={props.setUserData}
+          userId={props.userId}
         />
       ))
     );

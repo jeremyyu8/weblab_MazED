@@ -18,7 +18,7 @@ tiles[1].src = "../gameassets/tree.png";
 // right now,
 // drawState looks like:
 // {p: {x: 0, y: 0}}
-export const drawCanvas = (drawState, canvasRef) => {
+export const drawCanvas = (drawState, canvasRef, _id) => {
   //   console.log(drawState.p.x);
   //   console.log(drawState.p.y);
   // use canvas reference of canvas element to get reference to canvas object
@@ -33,72 +33,72 @@ export const drawCanvas = (drawState, canvasRef) => {
   // draw tile
   // draw image (img, canvasx, canvasy, xwidth, ywdith)
   for (
-    let i = Math.floor(drawState.camera.x);
-    i < Math.ceil(drawState.camera.x + canvas.width / tilewidth);
+    let i = Math.floor(drawState["players"][_id].camera.x);
+    i < Math.ceil(drawState["players"][_id].camera.x + canvas.width / tilewidth);
     i++
   ) {
     for (
-      let j = Math.floor(drawState.camera.y);
-      j < Math.ceil(drawState.camera.y + canvas.height / tilewidth);
+      let j = Math.floor(drawState["players"][_id].camera.y);
+      j < Math.ceil(drawState["players"][_id].camera.y + canvas.height / tilewidth);
       j++
     ) {
       // get tile at coordinate i,j
-      const tile_idx = drawState.m[(j * mapxsize) / tilewidth + i];
+      const tile_idx = drawState["mazes"]["lobby"][(j * mapxsize) / tilewidth + i];
       //   console.log((j * canvas.width) / tilewidth + i);
-      //   console.log(drawState.m);
+      //   console.log(drawState["players"][_id].m);
       //   console.log(tile_idx);
       const tile_render = tiles[tile_idx];
       ctx.drawImage(
         tile_render,
-        (i - drawState.camera.x) * tilewidth,
-        (j - drawState.camera.y) * tilewidth,
+        (i - drawState["players"][_id].camera.x) * tilewidth,
+        (j - drawState["players"][_id].camera.y) * tilewidth,
         tilewidth,
         tilewidth
       );
     }
   }
 
-  let x = drawState.p.x - drawState.camera.x;
-  let y = drawState.p.y - drawState.camera.y;
+  Object.values(drawState["players"]).forEach((player) => {
+    let x = player.p.x - player.camera.x;
+    let y = player.p.y - player.camera.y;
 
-  // draw sprite
-  ctx.drawImage(sprite, x * tilewidth, y * tilewidth, tilewidth, tilewidth);
+    // draw sprite
+    ctx.drawImage(sprite, x * tilewidth, y * tilewidth, tilewidth, tilewidth);
 
-  // draw sprite hitbox
-  ctx.beginPath();
-  ctx.rect(x * tilewidth, y * tilewidth, tilewidth, tilewidth);
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = "red";
-  ctx.stroke();
+    // draw sprite hitbox
+    ctx.beginPath();
+    ctx.rect(x * tilewidth, y * tilewidth, tilewidth, tilewidth);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "red";
+    ctx.stroke();
 
-  // sprite dir vector
-  let cx = x + 1 / 2;
-  let cy = y + 1 / 2;
-  let vx = drawState.v.x;
-  let vy = drawState.v.y;
-  let xdir = 0;
-  if (drawState.k["right"] === true) {
-    xdir += 2;
-  }
-  if (drawState.k["left"] === true) {
-    xdir += -2;
-  }
-  let ydir = 0;
-  if (drawState.k["up"] === true) {
-    ydir += -2;
-  }
-  if (drawState.k["down"] === true) {
-    ydir += 2;
-  }
-  if (xdir !== 0 && ydir !== 0) {
-    xdir /= Math.sqrt(2);
-    ydir /= Math.sqrt(2);
-  }
-  ctx.beginPath();
-  ctx.moveTo(cx * tilewidth, cy * tilewidth);
-  ctx.lineTo((cx + xdir) * tilewidth, (cy + ydir) * tilewidth);
-  ctx.strokeStyle = "green";
-  ctx.stroke();
+    // sprite dir vector
+    let cx = x + 1 / 2;
+    let cy = y + 1 / 2;
+    let xdir = 0;
+    if (player.k["right"] === true) {
+      xdir += 2;
+    }
+    if (player.k["left"] === true) {
+      xdir += -2;
+    }
+    let ydir = 0;
+    if (player.k["up"] === true) {
+      ydir += -2;
+    }
+    if (player.k["down"] === true) {
+      ydir += 2;
+    }
+    if (xdir !== 0 && ydir !== 0) {
+      xdir /= Math.sqrt(2);
+      ydir /= Math.sqrt(2);
+    }
+    ctx.beginPath();
+    ctx.moveTo(cx * tilewidth, cy * tilewidth);
+    ctx.lineTo((cx + xdir) * tilewidth, (cy + ydir) * tilewidth);
+    ctx.strokeStyle = "green";
+    ctx.stroke();
+  });
 
   //   // draw all the players
   //   Object.values(drawState.players).forEach((p) => {

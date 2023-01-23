@@ -24,7 +24,7 @@ const StudentDashboard = (props) => {
   const [userData, setUserData] = useState(undefined);
 
   let rightComponent;
-  if (rightSide === "join") rightComponent = <JoinGame />;
+  if (rightSide === "join") rightComponent = <JoinGame userId={props.userId} />;
   else if (rightSide == "settings") rightComponent = <Settings hl={props.hl} userData={userData} />;
 
   // get student data

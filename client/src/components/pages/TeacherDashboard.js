@@ -36,7 +36,7 @@ const TeacherDashboard = (props) => {
           metadata={setsMetadata}
           setSetsMetadata={setSetsMetadata}
           setUserData={setUserData}
-          userData={userData}
+          userId={props.userId}
         />
       );
     else if (rightSide == "pastGames") setRightComponent(<Games />);

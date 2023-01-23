@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "@reach/router";
 import { get, post } from "../../../utilities";
+import { makeNewLobby } from "../../../client-socket";
 
 // _id={setData._id}
 // title={setData.title}
@@ -19,6 +20,7 @@ import { get, post } from "../../../utilities";
  * @param {metadata} metadata flashcard set metadata, in the form of an array of flashcard objects
  * @param {function} setSetsMetadata setter for set metadata
  * @param {function} setUserData setter for user data
+ * @param {userId} userId the user id to pass into the game
  */
 const Set = (props) => {
   const [redirect, setRedirect] = useState(false);
@@ -47,8 +49,22 @@ const Set = (props) => {
     setConfirmDelete(false);
   };
 
-  const newLobby = () => {
-    setRedirect("/game");
+  const newLobby = (setid) => {
+    const initializeLobby = async () => {
+      try {
+        const set = await get("/api/setbyid", { _id: setid });
+        let pin = "";
+        for (let i = 0; i < 6; i++) {
+          pin += String(Math.floor(Math.random() * 10));
+        }
+        makeNewLobby({ pin: pin, cards: set.cards, teacherid: props.userId });
+        setRedirect("/game");
+      } catch (error) {
+        alert("error retrieving set");
+        console.log(error);
+      }
+    };
+    initializeLobby();
   };
 
   const editCards = () => {
@@ -104,7 +120,9 @@ const Set = (props) => {
                       <div className="flex-1 border-solid">
                         <button
                           className="flex-1 hover:bg-sky-300 cursor-pointer transition-all text-3xl mr-20 p-2"
-                          onClick={newLobby}
+                          onClick={() => {
+                            newLobby(props._id);
+                          }}
                         >
                           Play
                         </button>

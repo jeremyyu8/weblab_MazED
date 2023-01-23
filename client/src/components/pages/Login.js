@@ -22,10 +22,6 @@ const Login = ({ userId, userRole, handleLogin, handleLogout }) => {
     }
   }, [userId]);
 
-  // const custom_google_login = useGoogleLogin({
-  //   onSuccess: handleLogin,
-  // });
-
   return (
     <>
       {redirect ? (
