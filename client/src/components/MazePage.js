@@ -6,6 +6,7 @@ const MazePage = () => {
   return (
     <>
       <Navbar />
+      <div class="h-[75px]"></div>
       <div>Maze</div>
       <Maze />
     </>

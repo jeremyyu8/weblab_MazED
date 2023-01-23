@@ -74,7 +74,8 @@ const TeacherDashboard = (props) => {
       ) : (
         <>
           <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
-          <div className="mt-[-8vh]">
+          <div className="bg-white bg-fixed bg-cover h-screen">
+            <div class="h-[75px]"></div>
             <div className="flex">
               <div className="basis-1/5 w-40 border-solid border-rose-400 overflow-y-hidden h-[calc(100vh_-_78px)]">
                 <LeftSideBar setRightSide={setRightSide} />
