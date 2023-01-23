@@ -37,7 +37,7 @@ const Home = ({ userId, userRole, userName }) => {
       ) : (
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
-          <div className="bg-spaceimg2 bg-cover">
+          <div className="bg-spaceimg2 bg-cover bg-fixed">
             <div className="relative max-w-[50%] px-6 mx-auto border border-solid border-black rounded-xl h-[70vh]">
               <div className="text-6xl pt-20 text-center text-stone-50">
                 Can you find your way out?

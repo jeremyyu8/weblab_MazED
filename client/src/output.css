@@ -659,6 +659,10 @@
   background-size: cover;
 }
 
+.bg-fixed{
+  background-attachment: fixed;
+}
+
 .object-contain{
   -o-object-fit: contain;
      object-fit: contain;
