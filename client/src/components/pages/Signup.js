@@ -32,20 +32,34 @@ const Signup = ({
     if (displayState === 0) {
       setDisplay(
         <>
-          <button
-            onClick={() => {
-              setDisplayState(1);
-            }}
-          >
-            Sign up as teacher
-          </button>
-          <button
-            onClick={() => {
-              setDisplayState(2);
-            }}
-          >
-            Sign up as student
-          </button>
+          <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
+            <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+              <div className="text-blue-200 text-7xl">Create an account as</div>
+              <div className="flex flex-row flex-wrap gap-20 mt-8">
+                <a href="#" class="flex flex-col items-center group gap-2">
+                  <img
+                    className="object-contain h-52 w-48 group-hover:scale-125 transition duration-300 ease-in-out"
+                    src="https://upload.wikimedia.org/wikipedia/commons/6/60/Bringer_of_War_Planet.png"
+                    onClick={() => {
+                      setDisplayState(1);
+                    }}
+                  ></img>
+                  <p className="text-blue-500 text-2xl group-hover:text-gray-300">Teacher</p>
+                </a>
+
+                <a href="#" class="flex flex-col items-center group gap-2">
+                  <img
+                    className="object-contain h-52 w-48 group-hover:scale-125 transition duration-300 ease-in-out"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ice_planet.png/1200px-Ice_planet.png"
+                    onClick={() => {
+                      setDisplayState(2);
+                    }}
+                  ></img>
+                  <p className="text-blue-500 text-2xl group-hover:text-gray-300">Student</p>
+                </a>
+              </div>
+            </div>
+          </div>
         </>
       );
     } else if (displayState === 1) {
