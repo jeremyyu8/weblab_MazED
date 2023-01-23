@@ -51,17 +51,19 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
             </div>
             <div>
-              <Link to="/teacher">
+              {/* <Link to="/teacher">
                 <button>Teacher Dashboard</button>
               </Link>
               <Link to="/student">
                 <button>Student Dashboard</button>
-              </Link>
+              </Link> */}
               <Link to="/maze">
                 <button>maze testing</button>
               </Link>
             </div>
           </div>
+
+          <div className="bg-stone-900 bg-fixed bg-cover h-screen"></div>
         </>
       )}
     </>
