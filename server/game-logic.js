@@ -1,3 +1,5 @@
+const e = require("express");
+
 // canvas constants
 const mapxsize = 4000;
 const mapysize = 4000;
@@ -7,6 +9,12 @@ const tilewidth = 80;
 const ACCEL = 0.02; // higher speeds: increment by ~0.01 or something
 const DRAG_COEFFICIENT = 4;
 const VCUTOFF = 0.02;
+
+//in-game constants
+const TOKEN_GAIN = 100;
+const TOKEN_LOSS = 100;
+const SPEED_LEVEL_UP_COST = 300;
+const POWER_LEVEL_UP_COST = 200;
 
 // p = position
 // v = velocity
@@ -93,6 +101,32 @@ const generateLobby = () => {
     }
   }
   return map;
+};
+
+const changeTokens = (_id, pin, result) => {
+  if (result === "correct") {
+    games[pin]["players"][_id]["tokens"] += TOKEN_GAIN;
+  } else {
+    games[pin]["players"][_id]["tokens"] += TOKEN_LOSS;
+  }
+};
+
+const upgradeSpeed = (_id, pin) => {
+  if (games[pin]["players"][_id]["tokens"] >= SPEED_LEVEL_UP_COST) {
+    games[pin]["players"][_id]["tokens"] -= SPEED_LEVEL_UP_COST;
+    games[pin]["players"][_id]["speed"] += 1;
+    return "success";
+  }
+  return "failure";
+};
+
+const upgradePower = (_id, pin) => {
+  if (games[pin]["players"][_id]["tokens"] >= POWER_LEVEL_UP_COST) {
+    games[pin]["players"][_id]["tokens"] -= POWER_LEVEL_UP_COST;
+    games[pin]["players"][_id]["power"] += 1;
+    return "success";
+  }
+  return "failure";
 };
 
 //note: id is user id, not socket id (in case socket disconnects)
@@ -261,4 +295,7 @@ module.exports = {
   makeNewGame,
   playerJoin,
   gameStart,
+  changeTokens,
+  upgradeSpeed,
+  upgradePower,
 };
