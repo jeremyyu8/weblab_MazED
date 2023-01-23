@@ -26,9 +26,6 @@ const Flashcard = (props) => {
 
   //idx is idx in flashCardSet
   const handleNewCard = (newCard) => {
-    console.log(
-      flashCardSet.cards.slice(0, idx).concat([newCard].concat(flashCardSet.cards.slice(idx + 1)))
-    );
     setFlashCardSet({
       title: flashCardSet.title,
       cards: flashCardSet.cards

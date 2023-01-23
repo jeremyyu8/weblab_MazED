@@ -5,7 +5,6 @@ const Titlecard = () => {
   const [flashCardSet, setFlashCardSet] = useContext(flashCardContext);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setFlashCardSet({ title: event.target.value, cards: flashCardSet.cards });
   };
 

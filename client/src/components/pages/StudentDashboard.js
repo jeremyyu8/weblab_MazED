@@ -58,11 +58,12 @@ const StudentDashboard = (props) => {
           <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
           <div className="mt-[-8vh]">
             <div className="flex">
-              <div className="basis-1/5 w-40 border-solid border-rose-400">
+              <div className="basis-1/5 w-40 border-solid border-rose-400 overflow-y-hidden h-[calc(100vh_-_78px)]">
                 <LeftSideBar setRightSide={setRightSide} />
-                <div>{userData.userRole}</div>
               </div>
-              <div className="flex-1 border-solid border-rose-600">{rightComponent} </div>
+              <div className="flex-1 border-solid border-rose-600 overflow-y-hidden h-[calc(100vh_-_78px)]">
+                {rightComponent}
+              </div>
             </div>
           </div>
         </>

@@ -15,7 +15,6 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
  */
 const Navbar = (props) => {
   let rightside;
-  console.log(props);
 
   if (!props.userId) {
     if (!props.edit) {
@@ -48,7 +47,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav className="fixed h-[10vh] w-screen top-0 bg-white border-0 border-gray-200 border-solid border-b-2 z-10 flex justify-between">
+      <nav className="fixed h-[75px] w-screen top-0 bg-white border-0 border-gray-200 border-solid border-b-2 z-10 flex justify-between">
         <div className="my-auto px-8">
           <Link
             to="/"
@@ -59,7 +58,7 @@ const Navbar = (props) => {
         </div>
         <div className="my-auto mr-8"> {rightside}</div>
       </nav>
-      <div className="h-[10vh] mb-[8vh]"></div>
+      <div className="h-[75px] mb-[8vh]"></div>
     </>
   );
 };

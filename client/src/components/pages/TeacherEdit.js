@@ -23,6 +23,7 @@ const TeacherEdit = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
+    console.log(flashCardSet);
     if (flashCardSet.title.length === 0) {
       alert("please enter a title for your set!");
       return;
@@ -83,12 +84,15 @@ const TeacherEdit = () => {
       {redirect ? (
         <Redirect noThrow from="/teacher" to="/login" />
       ) : loading === true ? (
-        <div>loading....</div>
+        <div>saving flashcards...</div>
       ) : (
         <>
           <Navbar edit={true} />
           <flashCardContext.Provider value={[flashCardSet, setFlashCardSet]}>
             <div className="mt-[-8vh] flex-col">
+              {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
+                Error: please give your flashcard set a title{" "}
+              </div> */}
               <div className="flex flex-1 justify-between">
                 <div className="basis-1/3 border-solid text-6xl bg-green-50 m-5 p-5">
                   <Titlecard />
@@ -111,7 +115,7 @@ const TeacherEdit = () => {
                 </button>
               </div>
             </div>
-          </flashCardContext.Provider>{" "}
+          </flashCardContext.Provider>
         </>
       )}
     </>
