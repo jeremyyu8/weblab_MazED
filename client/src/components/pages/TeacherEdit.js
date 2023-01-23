@@ -88,8 +88,9 @@ const TeacherEdit = () => {
       ) : (
         <>
           <Navbar edit={true} />
+          <div class="h-[75px]"></div>
           <flashCardContext.Provider value={[flashCardSet, setFlashCardSet]}>
-            <div className="mt-[-8vh] flex-col">
+            <div className="flex-col">
               {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
                 Error: please give your flashcard set a title{" "}
               </div> */}
