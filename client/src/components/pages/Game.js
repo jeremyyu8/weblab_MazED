@@ -14,7 +14,6 @@ const Game = () => {
   const [level, setLevel] = useState("lobby");
   const [questionShowing, setQuestionShowing] = useState(false);
   const [flashCardSet, setFlashCardSet] = useState(undefined);
-  const [curQuestion, setCurQuestion] = useState(undefined);
   const canvasRef = useRef(null); // canvas reference
 
   // authentication
@@ -121,13 +120,6 @@ const Game = () => {
     drawCanvas(update, canvasRef, _id);
   };
 
-  const handleNewQuestion = () => {
-    if (flashCardSet) {
-      setCurQuestion(flashCardSet[Math.random() * flashCardSet.length]);
-      setQuestionShowing(true);
-    }
-  };
-
   return (
     <>
       {redirect ? (
@@ -152,18 +144,16 @@ const Game = () => {
               </div>
             </>
           )}
-          {level !== "lobby" && userData && userData.role === "student" && gamePin && (
-            <button onClick={handleNewQuestion} className="">
+          {level === "lobby" && userData && userData.role === "student" && gamePin && (
+            <button
+              onClick={() => setQuestionShowing(true)}
+              className="z-20 fixed left-[5vh] bottom-[5vh] text-3xl p-3"
+            >
               Answer Question
             </button>
           )}
           {questionShowing && (
-            <Question
-              question={curQuestion.question}
-              choices={curQuestion.choices}
-              answers={curQuestion.answers}
-              setQuestionShowing={setQuestionShowing}
-            />
+            <Question flashCardSet={flashCardSet} setQuestionShowing={setQuestionShowing} />
           )}
         </>
       )}
