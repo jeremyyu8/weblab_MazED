@@ -7,7 +7,6 @@ socket.on("connect", () => {
 });
 
 export const move = (dir, _id, pin) => {
-  console.log("moving");
   socket.emit("move", { dir: dir, _id: _id, pin: pin });
 };
 
@@ -27,5 +26,11 @@ export const makeNewLobby = (data) => {
 
 export const joinLobby = (data) => {
   console.log(data);
+  console.log("inside of join lobby");
   socket.emit("joinLobby", data);
+};
+
+export const startGame = (pin) => {
+  console.log("starting game with pin", pin);
+  socket.emit("startGame", pin);
 };

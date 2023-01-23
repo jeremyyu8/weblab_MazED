@@ -27,6 +27,7 @@ const addUser = (user, socket) => {
       if (_id === user._id) {
         userToPinMap[user._id] = pin;
         gameLogic.games[pin]["players"][user._id]["active"] = true;
+        console.log("setting player active to true");
         socket.join(pin);
       }
     }
@@ -40,7 +41,7 @@ const removeUser = (user, socket) => {
     if (userToPinMap[user._id]) {
       let pin = userToPinMap[user._id];
       gameLogic.games[pin]["players"][user._id]["active"] = false;
-      console.log("setting to false");
+      console.log("setting player active to false");
       delete userToPinMap[user._id];
     }
     delete userToSocketMap[user._id];
@@ -94,7 +95,7 @@ module.exports = {
       });
 
       // description: student attempts to join lobby
-      // data: { studentid: id, pin: gamepin }
+      // data: { studentid: id, pin: gamepin, studentname: username of student }
       socket.on("joinLobby", (data) => {
         if (!gameLogic.games[data.pin]) {
           socket.emit("joinFail", { err: "pin does not exist" });
@@ -102,6 +103,8 @@ module.exports = {
           socket.emit("joinSuccess");
           socket.join(data.pin);
           userToPinMap[data.studentid] = data.pin;
+          console.log("joining lobby");
+          console.log(data);
           gameLogic.playerJoin(data);
         }
       });
@@ -142,6 +145,10 @@ module.exports = {
       // data: {windowsize.x: , windowsize.y: , _id: , pin: }
       socket.on("updateWindowSize", (data) => {
         gameLogic.setWindowSize(data._id, data.pin, data.x, data.y);
+      });
+
+      socket.on("startGame", (pin) => {
+        gameLogic.gameStart(pin);
       });
     });
   },

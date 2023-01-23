@@ -27,7 +27,7 @@ gamestate =
 teacher: 
 {_id: userId of the teacher}
 status: 
-"lobby" or "game"
+"lobby" or "game" or "end"
 mazes: 
 {level 1: maze object, 
 level 2: maze object,
@@ -53,11 +53,13 @@ const makeNewGame = (data) => {
   };
 
   games[data.pin] = newGame;
-  makeNewPlayer(data.teacherid, data.pin);
+  makeNewPlayer(data.teacherid, data.pin, "teacher");
 };
 
 const playerJoin = (data) => {
-  makeNewPlayer(data.studentid, data.pin);
+  console.log("inside of playerjoin");
+  console.log(data);
+  makeNewPlayer(data.studentid, data.pin, data.studentname);
 };
 
 // TODO make this legit
@@ -109,8 +111,9 @@ const generateLobby = () => {
 //     questions_correct: int,
 //     visited_tiles: array}
 
-const makeNewPlayer = (_id, pin) => {
+const makeNewPlayer = (_id, pin, name) => {
   const newPlayer = {
+    name: name,
     p: { x: 0, y: 0 },
     v: { x: 0, y: 0 },
     camera: { x: 0, y: 0 },
@@ -120,10 +123,10 @@ const makeNewPlayer = (_id, pin) => {
     power: 0,
     speed: 0,
     active: true,
+    level: 0,
   };
 
   games[pin]["players"][_id] = newPlayer;
-  console.log(games[pin]);
 };
 
 // set player window size
@@ -149,31 +152,28 @@ const updateGameState = () => {
       let curPlayer = games[pin]["players"][_id];
 
       // velocity update logic
-      let movingx = curPlayer.k["right"] === true || curPlayer.k["left"] === true;
-      let movingy = curPlayer.k["up"] === true || curPlayer.k["down"] === true;
+      let movingx =
+        (curPlayer.k["right"] === true || curPlayer.k["left"] === true) &&
+        !(curPlayer.k["right"] === true && curPlayer.k["left"] === true);
+      let movingy =
+        (curPlayer.k["up"] === true || curPlayer.k["down"] === true) &&
+        !(curPlayer.k["up"] === true && curPlayer.k["down"] === true);
       if (curPlayer.k["up"] === true) {
         curPlayer.v.y -= ACCEL;
-        if (movingx && Math.abs(curPlayer.v.y) < Math.abs(curPlayer.v.x)) {
-          curPlayer.v.y = -Math.abs(curPlayer.v.x);
-        }
       }
       if (curPlayer.k["down"] === true) {
         curPlayer.v.y += ACCEL;
-        if (movingx && Math.abs(curPlayer.v.y) < Math.abs(curPlayer.v.x)) {
-          curPlayer.v.y = Math.abs(curPlayer.v.x);
-        }
       }
       if (curPlayer.k["left"] === true) {
         curPlayer.v.x -= ACCEL;
-        if (movingy && Math.abs(curPlayer.v.x) < Math.abs(curPlayer.v.y)) {
-          curPlayer.v.x = -Math.abs(curPlayer.v.y);
-        }
       }
       if (curPlayer.k["right"] === true) {
         curPlayer.v.x += ACCEL;
-        if (movingy && Math.abs(curPlayer.v.x) < Math.abs(curPlayer.v.y)) {
-          curPlayer.v.x = Math.abs(curPlayer.v.y);
-        }
+      }
+      if (movingx && movingy) {
+        let v = Math.max(Math.abs(curPlayer.v.y), Math.abs(curPlayer.v.x));
+        curPlayer.v.y /= Math.abs(curPlayer.v.y) / v;
+        curPlayer.v.x /= Math.abs(curPlayer.v.x) / v;
       }
 
       // position update logic
@@ -244,6 +244,14 @@ const updateGameState = () => {
   }
 };
 
+const gameStart = (pin) => {
+  games[pin]["status"] = "game";
+  Object.values(games[pin]["players"]).forEach((player) => {
+    player.level = 1;
+    console.log(player);
+  });
+};
+
 module.exports = {
   games,
   movePlayer,
@@ -252,4 +260,5 @@ module.exports = {
   setWindowSize,
   makeNewGame,
   playerJoin,
+  gameStart,
 };

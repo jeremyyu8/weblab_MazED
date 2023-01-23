@@ -3,8 +3,8 @@ const ysize = window.innerHeight;
 const mapxsize = 4000;
 const mapysize = 4000;
 const tilewidth = 80;
-const sprite = new Image(tilewidth, tilewidth);
-sprite.src = "../gameassets/astronaut.png";
+// const sprite = new Image(tilewidth, tilewidth);
+// sprite.src = "../gameassets/astronaut.png";
 
 const tiles = {
   0: null,
@@ -14,6 +14,15 @@ tiles[0] = new Image(tilewidth, tilewidth);
 tiles[0].src = "../gameassets/grass.png";
 tiles[1] = new Image(tilewidth, tilewidth);
 tiles[1].src = "../gameassets/tree.png";
+
+const sprites = {
+  teacher: null,
+  student: null,
+};
+sprites["teacher"] = new Image(tilewidth, tilewidth);
+sprites["teacher"].src = "../gameassets/astronaut_teacher.png";
+sprites["student"] = new Image(tilewidth, tilewidth);
+sprites["student"].src = "../gameassets/astronaut.png";
 
 // right now,
 // drawState looks like:
@@ -30,7 +39,16 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // draw tile
+  // get current user level to render
+  let map;
+  if (drawState["players"][_id]["level"] !== 0) {
+    let level = "level" + drawState["players"][_id]["level"];
+    map = drawState["mazes"][level];
+  } else {
+    map = drawState["mazes"]["lobby"];
+  }
+
+  // draw tiles
   // draw image (img, canvasx, canvasy, xwidth, ywdith)
   for (
     let i = Math.floor(drawState["players"][_id].camera.x);
@@ -43,7 +61,7 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
       j++
     ) {
       // get tile at coordinate i,j
-      const tile_idx = drawState["mazes"]["lobby"][(j * mapxsize) / tilewidth + i];
+      const tile_idx = map[(j * mapxsize) / tilewidth + i];
       //   console.log((j * canvas.width) / tilewidth + i);
       //   console.log(drawState["players"][_id].m);
       //   console.log(tile_idx);
@@ -58,12 +76,21 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
     }
   }
 
-  Object.values(drawState["players"]).forEach((player) => {
-    if (player.active === true) {
+  for (let playerid in drawState["players"]) {
+    if (drawState["players"][playerid].active === true) {
+      // don't render teacher if not in the lobby
+      if (drawState["teacher"]["_id"] === playerid && drawState["status"] !== "lobby") {
+        continue;
+      }
+      let player = drawState["players"][playerid];
       let x = player.p.x - drawState["players"][_id].camera.x;
       let y = player.p.y - drawState["players"][_id].camera.y;
 
       // draw sprite
+      let sprite = sprites["student"];
+      if (drawState["teacher"]["_id"] === playerid) {
+        sprite = sprites["teacher"];
+      }
       ctx.drawImage(sprite, x * tilewidth, y * tilewidth, tilewidth, tilewidth);
 
       // draw sprite hitbox
@@ -71,6 +98,10 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
       ctx.rect(x * tilewidth, y * tilewidth, tilewidth, tilewidth);
       ctx.lineWidth = 2;
       ctx.strokeStyle = "red";
+      if (drawState["teacher"]["_id"] === playerid) {
+        ctx.strokeStyle = "black";
+      }
+
       ctx.stroke();
 
       // sprite dir vector
@@ -100,7 +131,14 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
       ctx.strokeStyle = "green";
       ctx.stroke();
     }
-  });
+  }
+  // draw players
+  //   Object.values(drawState["players"]).forEach((player) => {
+  //     // only draw active players
+  //     if (player.active === true) {
+
+  //     }
+  //   });
 
   //   // draw all the players
   //   Object.values(drawState.players).forEach((p) => {

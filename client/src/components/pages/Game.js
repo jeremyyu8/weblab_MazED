@@ -24,6 +24,7 @@ const Game = () => {
   const [newLevelCard, setNewLevelCard] = useState(false);
 
   // game data
+  const [gameState, setGameState] = useState(undefined);
   const [level, setLevel] = useState(undefined);
   const [tokens, setTokens] = useState(undefined);
   const [speed, setSpeed] = useState(undefined);
@@ -160,13 +161,7 @@ const Game = () => {
     if (update["players"][_id]["power"] !== power) {
       setPower(update["players"][_id]["power"]);
     }
-  };
-
-  const handleNewQuestion = () => {
-    if (flashCardSet) {
-      setCurQuestion(flashCardSet[Math.random() * flashCardSet.length]);
-      setQuestionShowing(true);
-    }
+    setGameState(update);
   };
 
   const handleStartGame = () => {
@@ -218,10 +213,13 @@ const Game = () => {
           )}
           {status !== "lobby" && userData && userData.role === "student" && gamePin && (
             <>
-              <button onClick={handleNewQuestion} className="">
+              <button
+                onClick={() => setQuestionShowing(true)}
+                className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl p-5 hover:bg-opacity-70"
+              >
                 Answer Question
               </button>
-              <div className="bg-white bg-opacity-30 fixed z-10 w-[20vh] h-[20vh] top-[2vh] border-solid">
+              <div className="bg-white bg-opacity-30 fixed z-10 w-[20vh] h-[20vh] top-[2vh] left-[2vh] border-solid">
                 <div className="text-center text-xl mt-[2vh]">Upgrades</div>
                 <div className="my-[1vh] mx-[2vw]">
                   <table className="table-auto text-md">
@@ -239,7 +237,7 @@ const Game = () => {
                   </table>
                 </div>
               </div>
-              <div className="bg-white bg-opacity-30 fixed z-10 w-[25vh] h-[25vh] bottom-[2vh] right-0 border-solid">
+              <div className="bg-white bg-opacity-30 fixed z-10 w-[25vh] h-[25vh] bottom-[2vh] right-[2vh] border-solid">
                 <div>Minimap</div>
                 <div>Level: {level}</div>
               </div>
@@ -247,17 +245,11 @@ const Game = () => {
           )}
           {status !== "lobby" && userData && userData.role === "teacher" && gamePin && (
             <>
-              <TeacherGamePage />
-              <div>pin: {gamePin}</div>
+              <TeacherGamePage gameState={gameState} pin={gamePin} />
             </>
           )}
           {questionShowing && (
-            <Question
-              question={curQuestion.question}
-              choices={curQuestion.choices}
-              answers={curQuestion.answers}
-              setQuestionShowing={setQuestionShowing}
-            />
+            <Question flashCardSet={flashCardSet} setQuestionShowing={setQuestionShowing} />
           )}
         </>
       )}

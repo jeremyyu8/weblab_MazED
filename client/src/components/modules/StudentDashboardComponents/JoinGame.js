@@ -7,6 +7,7 @@ import { joinLobby } from "../../../client-socket";
  * Join game component for student users to join new lobbies
  *
  * @param {string} userId the user id
+ * @param {string} userName display name of user
  */
 const JoinGame = (props) => {
   const [gamepin, setGamepin] = useState("");
@@ -16,8 +17,10 @@ const JoinGame = (props) => {
     setGamepin(event.target.value);
   };
 
-  const handleJoin = (id) => {
-    joinLobby({ studentid: id, pin: gamepin });
+  const handleJoin = (id, username) => {
+    console.log("inside of handle join");
+    console.log(id, username);
+    joinLobby({ studentid: id, pin: gamepin, studentname: username });
   };
 
   useEffect(() => {
@@ -45,7 +48,7 @@ const JoinGame = (props) => {
             ></input>
             <button
               className="mx-auto my-4 text-5xl border-solid hover:bg-sky-300 cursor-pointer transition-all"
-              onClick={() => handleJoin(props.userId)}
+              onClick={() => handleJoin(props.userId, props.userName)}
             >
               Enter
             </button>

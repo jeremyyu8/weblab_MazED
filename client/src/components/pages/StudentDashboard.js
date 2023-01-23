@@ -12,20 +12,27 @@ import { get } from "../../utilities";
  * Student dashboard page
  *
  * Proptypes
- * @param {userId} userId user id
- * @param {userRole} userRole user role (teacher or student)
- * @param {userName} userName display name of user
- * @param {hl} hl handle logout
+ * @param {string} userId user id
+ * @param {string} userRole user role (teacher or student)
+ * @param {string} userName display name of user
+ * @param {function} hl handle logout
  */
 const StudentDashboard = (props) => {
   const [rightSide, setRightSide] = useState("join"); //options are join or settings, default to join
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(undefined);
   const [userData, setUserData] = useState(undefined);
+  const [rightComponent, setRightComponent] = useState(undefined);
 
-  let rightComponent;
-  if (rightSide === "join") rightComponent = <JoinGame userId={props.userId} />;
-  else if (rightSide == "settings") rightComponent = <Settings hl={props.hl} userData={userData} />;
+  useEffect(() => {
+    if (userData) {
+      if (rightSide === "join") {
+        setRightComponent(<JoinGame userId={userData._id} userName={userData.name} />);
+      } else if (rightSide === "settings") {
+        setRightComponent(<Settings hl={props.hl} userData={userData} />);
+      }
+    }
+  }, [userData]);
 
   // get student data
   useEffect(() => {
