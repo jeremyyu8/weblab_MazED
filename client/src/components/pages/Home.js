@@ -37,30 +37,32 @@ const Home = ({ userId, userRole, userName }) => {
       ) : (
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
-          <div className="relative max-w-[50%] px-6 mx-auto border border-solid border-black rounded-xl h-[70vh] bg-spaceimg">
-            <div className="text-6xl pt-20 text-center text-rose-50">
-              Can you find your way out?
+          <div className="bg-spaceimg2 bg-cover">
+            <div className="relative max-w-[50%] px-6 mx-auto border border-solid border-black rounded-xl h-[70vh]">
+              <div className="text-6xl pt-20 text-center text-stone-50">
+                Can you find your way out?
+              </div>
+              <div className="text-3xl pt-16 text-center text-stone-100">Sign up for free!</div>
+              <div className="pt-16 text-center">
+                <Link
+                  to="/signup"
+                  className="text-white bg-sky-500 text-[14px] rounded-md border-0 transition-colors duration-250 hover:bg-sky-300 cursor-pointer p-4 px-12 no-underline"
+                >
+                  Sign Up
+                </Link>
+              </div>
             </div>
-            <div className="text-3xl pt-16 text-center text-rose-100">Sign up for free!</div>
-            <div className="pt-16 text-center">
-              <Link
-                to="/signup"
-                className="text-white bg-sky-500 text-[14px] rounded-md border-0 transition-colors duration-250 hover:bg-sky-300 cursor-pointer p-4 px-12 no-underline"
-              >
-                Sign Up
+            <div>
+              <Link to="/teacher">
+                <button>Teacher Dashboard</button>
+              </Link>
+              <Link to="/student">
+                <button>Student Dashboard</button>
+              </Link>
+              <Link to="/maze">
+                <button>maze testing</button>
               </Link>
             </div>
-          </div>
-          <div>
-            <Link to="/teacher">
-              <button>Teacher Dashboard</button>
-            </Link>
-            <Link to="/student">
-              <button>Student Dashboard</button>
-            </Link>
-            <Link to="/maze">
-              <button>maze testing</button>
-            </Link>
           </div>
         </>
       )}
