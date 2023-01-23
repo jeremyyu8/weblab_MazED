@@ -32,7 +32,7 @@ const StudentDashboard = (props) => {
         setRightComponent(<Settings hl={props.hl} userData={userData} />);
       }
     }
-  }, [userData]);
+  }, [userData, rightSide]);
 
   // get student data
   useEffect(() => {
