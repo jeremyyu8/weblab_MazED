@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../modules/Navbar";
 import { Redirect } from "@reach/router";
+import { Link } from "@reach/router";
 
 import {
   GoogleOAuthProvider,
@@ -34,34 +35,44 @@ const Login = ({ userId, userRole, handleLogin, handleLogout }) => {
         <>
           <Navbar />
 
-          <div className="flex flex-col border-solid mx-auto w-[30%]">
-            <div className="mx-auto m-3 text-3xl">This is the login page.</div>
-            <div className="mx-auto m-3">
-              <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
+            <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+              <div className="text-blue-200 text-7xl">You are not currently logged in</div>
+              <div className="mx-auto m-3">
+                <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+                  {userId ? (
+                    <button
+                      onClick={() => {
+                        console.log(userId);
+                        googleLogout();
+                        handleLogout();
+                      }}
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+                  )}
+                </GoogleOAuthProvider>
+              </div>
+              <div className="text-blue-200 text-2xl">
                 {userId ? (
-                  <button
-                    onClick={() => {
-                      console.log(userId);
-                      googleLogout();
-                      handleLogout();
-                    }}
-                  >
-                    Logout
-                  </button>
+                  <div>
+                    You are currently logged in with userId: {userId}. Your account type is:{" "}
+                    {userRole}
+                  </div>
                 ) : (
-                  <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+                  <div>
+                    Log in or{" "}
+                    <Link
+                      to="/signup"
+                      className="no-underline text-blue-500 text-2xl transition-colors duration-250 hover:text-blue-300"
+                    >
+                      create a new account
+                    </Link>
+                  </div>
                 )}
-              </GoogleOAuthProvider>
-            </div>
-            <div className="mx-auto m-3">
-              {userId ? (
-                <div>
-                  You are currently logged in with userId: {userId}. Your account type is:{" "}
-                  {userRole}
-                </div>
-              ) : (
-                <div>You are not currently logged in. Log in or create a new account.</div>
-              )}
+              </div>
             </div>
           </div>
         </>

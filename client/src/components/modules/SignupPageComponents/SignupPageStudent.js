@@ -15,29 +15,33 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
 const SignupPageStudent = ({ userId, handleLogin, handleLogout, setDisplayState }) => {
   return (
     <>
-      <div>This is the signup display for students</div>
-      <button
-        onClick={() => {
-          setDisplayState(0);
-        }}
-      >
-        back
-      </button>
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        {userId ? (
+      <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
+        <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+          <div className="text-blue-200 text-3xl">Signup as student</div>
+          <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            {userId ? (
+              <button
+                onClick={() => {
+                  console.log(userId);
+                  googleLogout();
+                  handleLogout();
+                }}
+              >
+                Logout
+              </button>
+            ) : (
+              <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+            )}
+          </GoogleOAuthProvider>
           <button
             onClick={() => {
-              console.log(userId);
-              googleLogout();
-              handleLogout();
+              setDisplayState(0);
             }}
           >
-            Logout
+            back
           </button>
-        ) : (
-          <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-        )}
-      </GoogleOAuthProvider>
+        </div>
+      </div>
     </>
   );
 };
