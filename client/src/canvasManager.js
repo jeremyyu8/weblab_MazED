@@ -59,45 +59,47 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
   }
 
   Object.values(drawState["players"]).forEach((player) => {
-    let x = player.p.x - player.camera.x;
-    let y = player.p.y - player.camera.y;
+    if (player.active === true) {
+      let x = player.p.x - drawState["players"][_id].camera.x;
+      let y = player.p.y - drawState["players"][_id].camera.y;
 
-    // draw sprite
-    ctx.drawImage(sprite, x * tilewidth, y * tilewidth, tilewidth, tilewidth);
+      // draw sprite
+      ctx.drawImage(sprite, x * tilewidth, y * tilewidth, tilewidth, tilewidth);
 
-    // draw sprite hitbox
-    ctx.beginPath();
-    ctx.rect(x * tilewidth, y * tilewidth, tilewidth, tilewidth);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "red";
-    ctx.stroke();
+      // draw sprite hitbox
+      ctx.beginPath();
+      ctx.rect(x * tilewidth, y * tilewidth, tilewidth, tilewidth);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "red";
+      ctx.stroke();
 
-    // sprite dir vector
-    let cx = x + 1 / 2;
-    let cy = y + 1 / 2;
-    let xdir = 0;
-    if (player.k["right"] === true) {
-      xdir += 2;
+      // sprite dir vector
+      let cx = x + 1 / 2;
+      let cy = y + 1 / 2;
+      let xdir = 0;
+      if (player.k["right"] === true) {
+        xdir += 2;
+      }
+      if (player.k["left"] === true) {
+        xdir += -2;
+      }
+      let ydir = 0;
+      if (player.k["up"] === true) {
+        ydir += -2;
+      }
+      if (player.k["down"] === true) {
+        ydir += 2;
+      }
+      if (xdir !== 0 && ydir !== 0) {
+        xdir /= Math.sqrt(2);
+        ydir /= Math.sqrt(2);
+      }
+      ctx.beginPath();
+      ctx.moveTo(cx * tilewidth, cy * tilewidth);
+      ctx.lineTo((cx + xdir) * tilewidth, (cy + ydir) * tilewidth);
+      ctx.strokeStyle = "green";
+      ctx.stroke();
     }
-    if (player.k["left"] === true) {
-      xdir += -2;
-    }
-    let ydir = 0;
-    if (player.k["up"] === true) {
-      ydir += -2;
-    }
-    if (player.k["down"] === true) {
-      ydir += 2;
-    }
-    if (xdir !== 0 && ydir !== 0) {
-      xdir /= Math.sqrt(2);
-      ydir /= Math.sqrt(2);
-    }
-    ctx.beginPath();
-    ctx.moveTo(cx * tilewidth, cy * tilewidth);
-    ctx.lineTo((cx + xdir) * tilewidth, (cy + ydir) * tilewidth);
-    ctx.strokeStyle = "green";
-    ctx.stroke();
   });
 
   //   // draw all the players

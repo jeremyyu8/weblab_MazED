@@ -22,7 +22,7 @@ const Navbar = (props) => {
         <div className="hidden md:flex space-x-6">
           <Link
             to="/login"
-            className="no-underline text-stone-100 text-center text-[15px] my-auto transition-colors duration-250 hover:text-sky-400"
+            className="no-underline text-blue-500 text-center text-[15px] my-auto transition-colors duration-250 hover:text-sky-400"
           >
             Login
           </Link>
@@ -47,21 +47,22 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav className="fixed h-[75px] w-screen bg-opacity-80 z-10 flex justify-between">
+      <nav className="fixed h-[75px] w-screen top-0 bg-white border-0 border-gray-200 border-solid border-b-2 z-10 flex justify-between">
         <div className="my-auto px-8">
           <Link
             to="/"
-            className="text-[36px] font-[900] py-8px hover:cursor-pointer text-white no-underline"
+            className="text-[36px] font-[900] py-8px hover:cursor-pointer text-black no-underline"
           >
             MazeEd
           </Link>
         </div>
         <div className="my-auto mr-8"> {rightside}</div>
       </nav>
+      <div className="h-[75px] mb-[8vh]"></div>
     </>
   );
 };
 
 export default Navbar;
 
-/*bye*/
+/* bye */

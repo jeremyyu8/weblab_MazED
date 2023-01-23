@@ -25,6 +25,8 @@ const addUser = (user, socket) => {
   for (let pin in gameLogic.games) {
     for (let _id in gameLogic.games[pin]["players"]) {
       if (_id === user._id) {
+        userToPinMap[user._id] = pin;
+        gameLogic.games[pin]["players"][user._id]["active"] = true;
         socket.join(pin);
       }
     }
@@ -32,11 +34,16 @@ const addUser = (user, socket) => {
 };
 
 const removeUser = (user, socket) => {
+  console.log("remove user being called");
+  console.log(user);
   if (user) {
-    delete userToSocketMap[user._id];
     if (userToPinMap[user._id]) {
+      let pin = userToPinMap[user._id];
+      gameLogic.games[pin]["players"][user._id]["active"] = false;
+      console.log("setting to false");
       delete userToPinMap[user._id];
     }
+    delete userToSocketMap[user._id];
   }
   delete socketToUserMap[socket.id];
 };
@@ -109,13 +116,24 @@ module.exports = {
 
       socket.on("getPin", (userId) => {
         if (userId) {
-          if (!userToPinMap[userId]) {
-            console.log("user pin does not exist");
-          } else {
-            socket.emit("receivePin", userToPinMap[userId]);
+          if (userToPinMap[userId]) {
+            // user found in userToPinMap
+            let pin = userToPinMap[userId];
+            socket.emit("receivePin", { pin: pin, cards: gameLogic.games[pin]["cards"] });
+            return;
           }
+          // check if user was already in a game
+          for (let pin in gameLogic.games) {
+            for (let _id in gameLogic.games[pin]["players"]) {
+              if (_id === userId) {
+                socket.emit("receivePin", { pin, pin, cards: gameLogic.games[pin]["cards"] });
+                return;
+              }
+            }
+          }
+          console.log("user pin not found");
         } else {
-          console.log("user is not logged in");
+          console.log("user not logged in");
         }
       });
       // getPin

@@ -5,27 +5,20 @@ import { drawCanvas } from "../../canvasManager";
 import { Redirect } from "@reach/router";
 import { get, post } from "../../utilities.js";
 
+import Question from "../modules/GamePageComponents/Question.js";
+
 const Game = () => {
   const [gamePin, setGamePin] = useState(undefined); // user game pin
   const [userData, setUserData] = useState(undefined); // user data
   const [redirect, setRedirect] = useState(false);
+  const [level, setLevel] = useState("lobby");
+  const [questionShowing, setQuestionShowing] = useState(false);
+  const [flashCardSet, setFlashCardSet] = useState(undefined);
+  const [curQuestion, setCurQuestion] = useState(undefined);
   const canvasRef = useRef(null); // canvas reference
 
   // authentication
   useEffect(() => {
-    // const checkAuth = async () => {
-    //   try {
-    //     const data = await get("/api/userbyid");
-    //     console.log("done fetching data", data);
-    //     await setUserData(data);
-    //     console.log("userData", userData);
-    //     socket.emit("getPin", data._id);
-    //   } catch (error) {
-    //     console.log(error);
-    //     setRedirect(true);
-    //   }
-    // };
-    // checkAuth();
     get("/api/userbyid")
       .then((data) => {
         console.log(data);
@@ -41,10 +34,12 @@ const Game = () => {
 
   // load game pin
   useEffect(() => {
-    socket.on("receivePin", (pin) => {
-      setGamePin(pin);
+    socket.on("receivePin", (data) => {
+      console.log(data);
+      setGamePin(data.pin);
+      setFlashCardSet(data.cards);
       console.log("gamepin", gamePin);
-      console.log("pin", pin);
+      console.log("pin", data.pin);
     });
   }, [gamePin, userData]);
 
@@ -126,16 +121,50 @@ const Game = () => {
     drawCanvas(update, canvasRef, _id);
   };
 
+  const handleNewQuestion = () => {
+    if (flashCardSet) {
+      setCurQuestion(flashCardSet[Math.random() * flashCardSet.length]);
+      setQuestionShowing(true);
+    }
+  };
+
   return (
     <>
       {redirect ? (
         <Redirect from="/game" to="/login" />
       ) : (
         <>
-          {/* <div className="text-blue-400">Game page</div> */}
-          <div className="fixed">
+          <div className="fixed w-full h-full z-0">
             <canvas ref={canvasRef} width={window.innerWidth} height={window.innerHeight} />
           </div>
+          {level === "lobby" && userData && userData.role === "teacher" && gamePin && (
+            <>
+              <div className="bg-white bg-opacity-30 fixed z-10 w-full h-auto p-[4vh]">
+                <div className="text-center text-4xl">Join at localhost:5050</div>
+                <div className="text-center text-4xl">PIN: {gamePin}</div>
+              </div>
+              <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">
+                <div className="flex justify-between text-3xl">
+                  <div className="p-[3vh]">Active players</div>
+                  <div className="p-[3vh]">Start Game</div>
+                  <div className="p-[3vh]">Rules and settings</div>
+                </div>
+              </div>
+            </>
+          )}
+          {level !== "lobby" && userData && userData.role === "student" && gamePin && (
+            <button onClick={handleNewQuestion} className="">
+              Answer Question
+            </button>
+          )}
+          {questionShowing && (
+            <Question
+              question={curQuestion.question}
+              choices={curQuestion.choices}
+              answers={curQuestion.answers}
+              setQuestionShowing={setQuestionShowing}
+            />
+          )}
         </>
       )}
     </>

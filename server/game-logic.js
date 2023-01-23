@@ -49,6 +49,7 @@ const makeNewGame = (data) => {
     teacher: { _id: data.teacherid },
     mazes: { lobby: lobby, level1: map1, level2: map2, level3: map3 },
     status: "lobby",
+    cards: data.cards,
   };
 
   games[data.pin] = newGame;
@@ -118,6 +119,7 @@ const makeNewPlayer = (_id, pin) => {
     tokens: 0,
     power: 0,
     speed: 0,
+    active: true,
   };
 
   games[pin]["players"][_id] = newPlayer;
