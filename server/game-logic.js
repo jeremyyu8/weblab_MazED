@@ -2,8 +2,8 @@ const mazeLogic = require("./maze-logic");
 const e = require("express");
 
 // canvas constants
-const mapxsize = 7200;
-const mapysize = 7200;
+// const mapxsize = 7200;
+// const mapysize = 7200;
 const tilewidth = 80;
 
 // for moving logic
@@ -52,8 +52,8 @@ let games = {};
 // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacher id}
 const makeNewGame = (data) => {
   const lobby = mazeLogic.generateLobby();
-  const map1 = mazeLogic.generateFullMaze(25);
-  const map2 = mazeLogic.generateFullMaze(25);
+  const map1 = mazeLogic.generateFullMaze(11);
+  const map2 = mazeLogic.generateFullMaze(15);
   const map3 = mazeLogic.generateFullMaze(25);
 
   const gameLength = 600; //seconds
@@ -123,10 +123,11 @@ const untagMe = (_id, pin) => {
   }, 5000);
 };
 const unlockBorder = (_id, pin, bordersToUnlock) => {
+  let level = "level" + games[pin]["players"][_id]["level"];
   if (games[pin]["players"][_id]["tokens"] >= UNLOCK_BORDER_COST) {
     games[pin]["players"][_id]["tokens"] -= UNLOCK_BORDER_COST;
     let newBorders = [];
-    for (border of games[pin]["players"][_id]["borders"]["level1"]) {
+    for (border of games[pin]["players"][_id]["borders"][level]) {
       let keep = true;
       for (toUnlock of bordersToUnlock) {
         if (border.x === toUnlock.x && border.y === toUnlock.y) {
@@ -136,7 +137,7 @@ const unlockBorder = (_id, pin, bordersToUnlock) => {
       }
       if (keep) newBorders.push(border);
     }
-    games[pin]["players"][_id]["borders"]["level1"] = newBorders;
+    games[pin]["players"][_id]["borders"][level] = newBorders;
     return "success";
   }
   return "failure";
@@ -182,7 +183,7 @@ const makeNewPlayer = (_id, pin, name) => {
   const level3width = Math.floor(Math.sqrt(games[pin]["mazes"]["level3"].length));
   for (let r = 0; r < level3width; r++) {
     for (let c = 0; c < level3width; c++) {
-      if (games[pin]["mazes"]["level1"][r * level3width + c] === 2) {
+      if (games[pin]["mazes"]["level3"][r * level3width + c] === 2) {
         borders3.push({ x: c, y: r });
       }
     }
@@ -220,7 +221,7 @@ const setWindowSize = (_id, pin, x, y) => {
 
 // // move player on player input
 const movePlayer = (_id, pin, dir) => {
-  if (!games) {
+  if (!games || !games[pin]) {
     return;
   }
   let curPlayer = games[pin]["players"][_id];
@@ -270,7 +271,21 @@ const updateGameState = () => {
     }
 
     for (let _id in games[pin]["players"]) {
-      detectMapCollisions(_id, pin);
+      // map size to use for each player
+      let level;
+      if (games[pin]["players"][_id]["level"] === 0) {
+        level = "lobby";
+      } else {
+        level = "level" + games[pin]["players"][_id]["level"];
+      }
+      let mapxsize = Math.floor(Math.sqrt(games[pin]["mazes"][level].length)) * tilewidth;
+      let mapysize = mapxsize;
+
+      let promoted = detectMapCollisions(_id, pin);
+      if (promoted) {
+        return;
+      }
+
       let curPlayer = games[pin]["players"][_id];
       // freeze movement if tagged
       if (curPlayer["tagged"] !== false) {
@@ -380,12 +395,15 @@ const updateGameState = () => {
 const detectMapCollisions = (_id, pin) => {
   let player = games[pin]["players"][_id];
   let map;
+  let level;
   if (player["level"] !== 0) {
-    let level = "level" + player["level"];
+    level = "level" + player["level"];
     map = games[pin]["mazes"][level];
   } else {
     map = games[pin]["mazes"]["lobby"];
   }
+
+  let mapxsize = Math.floor(Math.sqrt(map.length)) * tilewidth;
 
   let l1 = player.p.x + 2 * player.v.x;
   let t1 = player.p.y + 2 * player.v.y;
@@ -397,26 +415,27 @@ const detectMapCollisions = (_id, pin) => {
   tiles.push({ x: tiles[0].x + 1, y: tiles[0].y + 1 });
 
   //removing the unlocked borders
-  let newTiles = [];
-  for (const tile of tiles) {
-    const mazeLength = Math.floor(Math.sqrt(games[pin]["mazes"]["level1"].length));
-    let add = true;
-    if (games[pin]["mazes"]["level1"][tile.y * mazeLength + tile.x] === 2) {
-      let found = false;
-      for (border of games[pin]["players"][_id]["borders"]["level1"]) {
-        if (border.x === tile.x && border.y === tile.y) {
-          found = true;
-          break;
+  if (games[pin]["status"] !== "lobby") {
+    let newTiles = [];
+    for (const tile of tiles) {
+      let add = true;
+      if (map[(tile.y * mapxsize) / tilewidth + tile.x] === 2) {
+        let found = false;
+        for (border of games[pin]["players"][_id]["borders"][level]) {
+          if (border.x === tile.x && border.y === tile.y) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          add = false;
         }
       }
-      if (!found) {
-        add = false;
-      }
+      if (add) newTiles.push(tile);
     }
-    if (add) newTiles.push(tile);
-  }
 
-  tiles = newTiles;
+    tiles = newTiles;
+  }
 
   for (let i = 0; i < tiles.length; i++) {
     let tile = tiles[i];
@@ -449,6 +468,14 @@ const detectMapCollisions = (_id, pin) => {
       // do the translation
       player.p.x += minx;
       player.p.y += miny;
+    } else if (tile_idx === 4) {
+      player.p.x = 0;
+      player.p.y = 0;
+      player.v.x = 0;
+      player.v.y = 0;
+      console.log("player level upgrading from ", player["level"]);
+      player["level"] += 1;
+      return true;
     }
   }
 };
@@ -497,11 +524,10 @@ const gameStart = (pin) => {
   });
 
   interval = setInterval(() => {
-    if (games[pin]["timeRemaining"] === 1) {
+    if (games[pin]["timeRemaining"] === 0) {
       endGame(pin);
       clearInterval(interval);
     }
-
     games[pin]["timeRemaining"] -= 1;
   }, 1000);
 };

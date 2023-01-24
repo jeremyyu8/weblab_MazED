@@ -29,7 +29,7 @@ const addUser = (user, socket) => {
         gameLogic.games[pin]["players"][user._id]["active"] = true;
         gameLogic.games[pin]["players"][user._id].v.x = 0;
         gameLogic.games[pin]["players"][user._id].v.y = 0;
-        // if user leaves during lobby and rejoins after lobby has already started, add them to level
+        // if user leaves during lobby and rejoins after lobby has already started, add them to level 1
         if (
           gameLogic.games[pin]["status"] !== "lobby" &&
           gameLogic.games[pin]["players"][user._id]["level"] === 0

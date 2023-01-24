@@ -1,7 +1,7 @@
 const xsize = window.innerWidth;
 const ysize = window.innerHeight;
-const mapxsize = 7200;
-const mapysize = 7200;
+// const mapxsize = 7200;
+// const mapysize = 7200;
 const tilewidth = 80;
 // const sprite = new Image(tilewidth, tilewidth);
 // sprite.src = "../gameassets/astronaut.png";
@@ -11,6 +11,7 @@ const tiles = {
   1: null,
   2: null,
   3: null,
+  4: null,
 };
 tiles[0] = new Image(tilewidth, tilewidth);
 tiles[0].src = "../gameassets/wall.png";
@@ -20,6 +21,8 @@ tiles[2] = new Image(tilewidth, tilewidth);
 tiles[2].src = "../gameassets/border.png";
 tiles[3] = new Image(tilewidth, tilewidth);
 tiles[3].src = "../gameassets/tree.png";
+tiles[4] = new Image(tilewidth, tilewidth);
+tiles[4].src = "../gameassets/end.png";
 
 const sprites = {
   teacher: null,
@@ -53,6 +56,7 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
   } else {
     map = drawState["mazes"]["lobby"];
   }
+  let mapxsize = Math.floor(Math.sqrt(map.length)) * tilewidth;
 
   // draw tiles
   // draw image (img, canvasx, canvasy, xwidth, ywdith)
@@ -70,16 +74,17 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
       const tile_idx = map[(j * mapxsize) / tilewidth + i];
       let tile_render = tiles[tile_idx];
 
-      if (tile_idx === 2) {
+      if (tile_idx === 2 && drawState["players"][_id]["level"] > 0) {
+        let level = `level${drawState["players"][_id]["level"]}`;
         let found = false;
-        for (const border of drawState["players"][_id]["borders"]["level1"]) {
+        for (const border of drawState["players"][_id]["borders"][level]) {
           if (border.x === i && border.y === j) {
             found = true;
             break;
           }
         }
         if (!found) {
-          console.log(i, j);
+          // console.log(i, j);
           // console.log(drawState["players"][_id]["borders"]["level1"]);
           tile_render = tiles[1];
         }

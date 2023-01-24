@@ -45,6 +45,7 @@ const Game = () => {
   const [tagged, setTagged] = useState(false);
   const [taggedDisplay, setTaggedDisplay] = useState(false);
   const [taggedDisplayTimer, setTaggedDisplayTimer] = useState(undefined);
+  const [promoted, setPromoted] = useState(false);
   const [inBorderRange, setInBorderRange] = useState(false);
   const [bordersToUnlock, setBordersToUnlock] = useState([]);
 
@@ -137,7 +138,7 @@ const Game = () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("resize", handleResize);
     };
-  }, [userData, gamePin, questionShowing]);
+  }, [userData, gamePin, questionShowing, promoted]);
 
   // set the window size when they log in
   useEffect(() => {
@@ -178,7 +179,7 @@ const Game = () => {
     if (e.key === "ArrowRight") {
       pressed["right"] = false;
     }
-    if (userData && gamePin && !questionShowing) {
+    if (userData && gamePin && !questionShowing && !promoted) {
       move(pressed, userData._id, gamePin);
     }
   };
@@ -196,7 +197,7 @@ const Game = () => {
     if (e.key === "ArrowRight") {
       pressed["right"] = true;
     }
-    if (userData && gamePin && !questionShowing) {
+    if (userData && gamePin && !questionShowing && !promoted) {
       move(pressed, userData._id, gamePin);
     }
   };
@@ -210,8 +211,7 @@ const Game = () => {
     setSpeed(update["players"][_id]["speed"]);
     setPower(update["players"][_id]["power"]);
     setTagged(update["players"][_id]["tagged"]);
-    if (counter % 100 === 0) {
-      console.log(counter);
+    if (counter % 60 === 0) {
       setGameState(update);
     }
     // if (update["status"] !== status) {
@@ -240,29 +240,32 @@ const Game = () => {
     let toOpen = [];
     let inRange = false;
 
-    for (const border of update["players"][_id]["borders"]["level1"]) {
+    let leveltag = "level" + update["players"][_id]["level"];
+    for (const border of update["players"][_id]["borders"][leveltag]) {
       const dist = Math.sqrt(
         (playerX - border.x) * (playerX - border.x) + (playerY - border.y) * (playerY - border.y)
       );
+      // console.log(dist);
 
       if (dist < 1.2) {
-        const mazeLength = Math.floor(Math.sqrt(update["mazes"]["level1"].length));
-
+        const mazeLength = Math.floor(Math.sqrt(update["mazes"][leveltag].length));
         let nearby = [];
         for (let i = border.x - 3; i <= border.x + 3; i++) {
           for (let j = border.y - 3; j <= border.y + 3; j++) {
-            nearby.push(update["mazes"]["level1"][i + j * mazeLength]);
-            if (update["mazes"]["level1"][i + j * mazeLength] === 2) {
+            nearby.push(update["mazes"][leveltag][i + j * mazeLength]);
+            if (update["mazes"][leveltag][i + j * mazeLength] === 2) {
               toOpen.push({ x: i, y: j });
             }
           }
         }
         inRange = true;
-        break;
+        // break;
       }
+
+      setBordersToUnlock(toOpen);
+      setInBorderRange(inRange);
+      // console.log(inRange);
     }
-    setBordersToUnlock(toOpen);
-    setInBorderRange(inRange);
   };
 
   const handleStartGame = () => {
@@ -301,8 +304,22 @@ const Game = () => {
     }
   }, [tagged]);
 
+  useEffect(() => {
+    console.log(level);
+    if (level) {
+      if (promoted === false) {
+        console.log("level");
+        console.log(level);
+        setPromoted(true);
+      }
+    }
+  }, [level]);
+
   const handleBorderUnlock = () => {
+    console.log("clicking the button!");
+    console.log(questionShowing);
     if (questionShowing) return;
+    console.log("inside of handleborderunlock");
     console.log("toUnlock", bordersToUnlock);
     unlockBorder(userData._id, gamePin, bordersToUnlock);
   };
@@ -404,10 +421,10 @@ const Game = () => {
             inBorderRange && (
               <>
                 <button
-                  className="text-3xl fixed top-[47%] left-[46%] z-20"
+                  className="text-2xl fixed top-[47%] left-[46%] z-20"
                   onClick={handleBorderUnlock}
                 >
-                  Press to unlock border
+                  500 tokens to unlock
                 </button>
               </>
             )}
@@ -454,6 +471,16 @@ const Game = () => {
               <div className="text-4xl text-center mt-[10vh]">You just got tagged by {tagged}!</div>
               <div className="text-4xl text-center">{taggedDisplayTimer}</div>
             </div>
+          )}
+          {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
+            <>
+              <div className="bg-white bg-opacity-80 fixed w-[50vw] h-[30vh] left-[25vw] top-[35vh] border-solid z-50">
+                <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
+                <div className="flex justify-center">
+                  <button onClick={() => setPromoted(false)}>Close</button>
+                </div>
+              </div>
+            </>
           )}
           {status !== "lobby" &&
             status !== "end" &&

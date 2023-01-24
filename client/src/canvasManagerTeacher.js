@@ -1,9 +1,8 @@
 const xsize = 400;
 const ysize = 400;
-const mapxsize = 7200;
-const mapysize = 7200;
+// const mapxsize = 7200;
+// const mapysize = 7200;
 const tilewidth = 80;
-const scale = tilewidth / (mapxsize / xsize);
 
 // drawState:
 // {
@@ -15,16 +14,14 @@ const scale = tilewidth / (mapxsize / xsize);
 export const drawTeacherCanvas = (drawState, canvasRef) => {
   //   console.log(drawState.p.x);
   //   console.log(drawState.p.y);
-  // use canvas reference of canvas element to get reference to canvas object
   const canvas = canvasRef.current;
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  // clear the canvas to black
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  let mapxsize = Math.floor(Math.sqrt(drawState.map.length)) * tilewidth;
+  let scale = tilewidth / (mapxsize / xsize);
 
-  for (let i = 0; i < mapysize / tilewidth; i++) {
+  for (let i = 0; i < mapxsize / tilewidth; i++) {
     for (let j = 0; j < mapxsize / tilewidth; j++) {
       // get tile at coordinate i,j
       const tile_idx = drawState["map"][(j * mapxsize) / tilewidth + i];
@@ -34,6 +31,8 @@ export const drawTeacherCanvas = (drawState, canvasRef) => {
         ctx.fillStyle = "green";
       } else if (tile_idx === 2) {
         ctx.fillStyle = "blue";
+      } else if (tile_idx === 4) {
+        ctx.fillStyle = "purple";
       }
 
       ctx.fillRect(i * scale, j * scale, scale, scale);

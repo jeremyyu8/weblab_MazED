@@ -101,6 +101,7 @@ const generateMaze = (dim) => {
       }
     }
   }
+  traversible[dim - 1][dim - 1] = 4;
   return traversible;
 };
 

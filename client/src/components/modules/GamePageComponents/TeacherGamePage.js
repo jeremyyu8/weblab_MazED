@@ -95,18 +95,32 @@ const TeacherGamePage = (props) => {
   return (
     <>
       <div>This is the teacher game page.</div>
-      <div className="text-center text-6xl">Pin: {props.pin}</div>
-      <div className="flex border-solid overflow-x-scroll h-[400px]">
-        <canvas className="p-4" ref={teacherCanvasRef1} width="400px" height="400px" />
-        <canvas className="p-4" ref={teacherCanvasRef2} width="400px" height="400px" />
-        <canvas className="p-4" ref={teacherCanvasRef3} width="400px" height="400px" />
+      <div className="flex justify-center">
+        <div className="text-6xl p-8">Pin: {props.pin}</div>
+        <div className="text-6xl p-8">Time remaining: {convertToTime(timeRemaining)}</div>
+      </div>
+      <div className="flex">
+        <div className="basis-1/3 mx-auto border-solid overflow-y-scroll">
+          <div className="text-4xl p-4">Players:</div>
+          <div className="border-solid h-[450px] p-4">{players}</div>
+        </div>
+        <div className="flex border-solid overflow-x-scroll h-[500px] mr-[3vw]">
+          <div>
+            <div className="pt-4">Level 1</div>
+            <canvas className="p-4" ref={teacherCanvasRef1} width="400px" height="400px" />
+          </div>
+          <div>
+            <div className="pt-4">Level 2</div>
+            <canvas className="p-4" ref={teacherCanvasRef2} width="400px" height="400px" />
+          </div>
+          <div>
+            <div className="pt-4">Level 3</div>
+            <canvas className="p-4" ref={teacherCanvasRef3} width="400px" height="400px" />
+          </div>
+        </div>
       </div>
       <div>
-        <div className="text-4xl">Players:</div>
-        <div>{players}</div>
         <hr />
-        <div>Time Remaining:</div>
-        <div>{timeRemaining}</div>
       </div>
       <button onClick={() => endGame(props.pin)}>End game</button>
       <button onClick={() => extendGame(props.pin)}>Extend game</button>

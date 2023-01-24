@@ -443,6 +443,10 @@
   margin-top: 3vh;
 }
 
+.mr-\[3vw\]{
+  margin-right: 3vw;
+}
+
 .mt-1{
   margin-top: 0.25rem;
 }
@@ -539,20 +543,16 @@
   height: 80%;
 }
 
+.h-\[450px\]{
+  height: 450px;
+}
+
+.h-\[500px\]{
+  height: 500px;
+}
+
 .h-\[70vh\]{
   height: 70vh;
-}
-
-.h-\[300px\]{
-  height: 300px;
-}
-
-.h-\[720px\]{
-  height: 720px;
-}
-
-.h-\[400px\]{
-  height: 400px;
 }
 
 .w-screen{
@@ -942,6 +942,10 @@
 
 .p-3{
   padding: 0.75rem;
+}
+
+.p-8{
+  padding: 2rem;
 }
 
 .py-3{
