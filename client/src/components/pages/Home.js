@@ -38,28 +38,83 @@ const Home = ({ userId, userRole, userName }) => {
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
           <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
-            <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+            <div class="rounded-3xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
               <div className="text-blue-200 text-7xl">Can you find your way out?</div>
-              <div className="text-3xl pt-16 text-center text-stone-100">Sign up for free!</div>
               <div className="pt-16 text-center">
                 <Link
                   to="/signup"
-                  className="text-white bg-blue-800 text-[14px] rounded-md border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-12 no-underline"
+                  className="text-white bg-blue-800 text-3xl rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-12 no-underline"
                 >
-                  Sign Up
+                  Sign Up for free
                 </Link>
               </div>
             </div>
             <div>
-              <Link to="/teacher">
+              {/* <Link to="/teacher">
                 <button>Teacher Dashboard</button>
               </Link>
               <Link to="/student">
                 <button>Student Dashboard</button>
-              </Link>
+              </Link> */}
               <Link to="/maze">
                 <button>maze testing</button>
               </Link>
+            </div>
+          </div>
+
+          <div className="bg-stone-900 bg-fixed bg-cover h-screen flex flex-col justify-evenly">
+            <div className="flex flex-wrap justify-evenly">
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">Flashcards</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">Create</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">MazED</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">Review</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </>
