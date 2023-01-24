@@ -130,8 +130,8 @@ const FlashcardSetsContainer = (props) => {
         <Redirect from="/teacher" to={redirect} />
       ) : (
         <>
-          <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
-            <div class="rounded-3xl bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+          <div className="background">
+            <div class="sheerbox">
               <div className="flex mt-8 mx-10">
                 <div className="text-4xl mt-1 text-blue-200 flex-1">Flashcard Sets</div>
                 <button className="bigbutton" onClick={newSet}>

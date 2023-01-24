@@ -38,8 +38,8 @@ const Home = ({ userId, userRole, userName }) => {
       ) : (
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
-          <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
-            <div class="rounded-3xl bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+          <div className="background">
+            <div class="sheerbox">
               <div className="text-blue-200 pt-16 text-7xl">Can you find your way out?</div>
               <div className="pt-16 pb-16 text-center">
                 <Link
