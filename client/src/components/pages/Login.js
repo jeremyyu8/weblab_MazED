@@ -35,8 +35,8 @@ const Login = ({ userId, userRole, handleLogin, handleLogout }) => {
         <>
           <Navbar />
 
-          <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
-            <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+          <div className="background">
+            <div class="sheerbox">
               <div className="text-blue-200 text-7xl">You are not currently logged in</div>
               <div className="mx-auto m-3">
                 <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>

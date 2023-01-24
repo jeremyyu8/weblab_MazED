@@ -7,14 +7,30 @@
 
 @layer components {
   .leftbar-icon {
-    @apply relative flex items-center justify-center h-12 w-auto my-10 mx-4 text-xl bg-gray-800
-     text-green-400 hover:bg-green-600 rounded-3xl hover:rounded-xl transition-all 
+    @apply relative flex items-center justify-center h-12 w-auto my-10 mx-4 text-xl bg-blue-900
+     text-blue-100 hover:bg-blue-500 rounded-3xl hover:rounded-xl transition-all 
      duration-300 ease-in cursor-pointer;
   }
   .input-box {
     @apply block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs 
     focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  }
+
+  .bigbutton {
+    @apply mx-10 flex-none text-3xl rounded-xl text-blue-200 bg-blue-800 hover:bg-blue-500 cursor-pointer transition-all;
+  }
+
+  .editfbuttons {
+    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2;
+  }
+
+  .background {
+    @apply bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center;
+  }
+
+  .sheerbox {
+    @apply rounded-3xl text-blue-200 bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
   }
 }
 
@@ -47,19 +63,19 @@ form {
 
 /* maze.css */
 
-.maze-container{
-    display: flex;
-    justify-content: center;
-    padding-top: 10vh;
+.maze-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 10vh;
 }
 
-.grid-container{
-    --maze-dimension: 90;
-    display: grid;
-    grid-template-columns: repeat(var(--maze-dimension), 1fr);
-    grid-template-rows: repeat(var(--maze-dimension), 1fr);
-    gap: 0px;
-    width: 30vw;
+.grid-container {
+  --maze-dimension: 90;
+  display: grid;
+  grid-template-columns: repeat(var(--maze-dimension), 1fr);
+  grid-template-rows: repeat(var(--maze-dimension), 1fr);
+  gap: 0px;
+  width: 30vw;
 }
 
 .maze-cell {

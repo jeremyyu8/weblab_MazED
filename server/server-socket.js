@@ -152,6 +152,10 @@ module.exports = {
         gameLogic.gameStart(pin);
       });
 
+      socket.on("extendGame", (pin) => {
+        gameLogic.gameExtend(pin);
+      });
+
       socket.on("changeTokens", (data) => {
         gameLogic.changeTokens(data._id, data.pin, data.result);
       });

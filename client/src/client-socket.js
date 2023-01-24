@@ -35,6 +35,11 @@ export const startGame = (pin) => {
   socket.emit("startGame", pin);
 };
 
+export const extendGame = (pin) => {
+  console.log("extending game with pin", pin);
+  socket.emit("extendGame", pin);
+};
+
 export const changeTokens = (_id, pin, result) => {
   console.log("modifying tokens");
   socket.emit("changeTokens", { _id: _id, pin: pin, result: result });

@@ -230,16 +230,16 @@ const updateGameState = () => {
         (curPlayer.k["up"] === true || curPlayer.k["down"] === true) &&
         !(curPlayer.k["up"] === true && curPlayer.k["down"] === true);
       if (curPlayer.k["up"] === true) {
-        curPlayer.v.y -= ACCEL;
+        curPlayer.v.y = curPlayer.v.y - ACCEL - 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["down"] === true) {
-        curPlayer.v.y += ACCEL;
+        curPlayer.v.y += ACCEL + +0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["left"] === true) {
-        curPlayer.v.x -= ACCEL;
+        curPlayer.v.x = curPlayer.v.x - ACCEL - 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["right"] === true) {
-        curPlayer.v.x += ACCEL;
+        curPlayer.v.x += ACCEL + +0.01 * curPlayer["speed"];
       }
       if (movingx && movingy) {
         let v = Math.max(Math.abs(curPlayer.v.y), Math.abs(curPlayer.v.x));
@@ -442,6 +442,10 @@ const gameStart = (pin) => {
   }, 1000);
 };
 
+const gameExtend = (pin) => {
+  games[pin]["timeRemaining"] += 300;
+};
+
 module.exports = {
   games,
   movePlayer,
@@ -450,6 +454,7 @@ module.exports = {
   makeNewGame,
   playerJoin,
   gameStart,
+  gameExtend,
   changeTokens,
   upgradeSpeed,
   upgradePower,

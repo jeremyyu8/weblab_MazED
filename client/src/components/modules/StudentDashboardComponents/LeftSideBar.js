@@ -13,8 +13,8 @@ import LeftSideBarJoin from "./LeftSideBarJoin";
 const LeftSideBar = (props) => {
   return (
     <div
-      className="left-0 h-screen m-0 
-                    flex flex-col bg-gray-900 text-white shadow-lg"
+      className="left-0 h-screen m-0
+                    flex flex-col bg-slate-900 text-white"
     >
       <div className="" onClick={() => props.setRightSide("join")}>
         <LeftSideBarJoin />
