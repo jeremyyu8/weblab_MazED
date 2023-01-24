@@ -211,6 +211,7 @@ const Game = () => {
     setSpeed(update["players"][_id]["speed"]);
     setPower(update["players"][_id]["power"]);
     setTagged(update["players"][_id]["tagged"]);
+    // setGameState(update);
     if (counter % 60 === 0) {
       setGameState(update);
     }
@@ -262,8 +263,10 @@ const Game = () => {
         // break;
       }
 
-      setBordersToUnlock(toOpen);
-      setInBorderRange(inRange);
+      if (counter % 30 === 0) {
+        setBordersToUnlock(toOpen);
+        setInBorderRange(inRange);
+      }
       // console.log(inRange);
     }
   };
@@ -314,6 +317,12 @@ const Game = () => {
       }
     }
   }, [level]);
+
+  useEffect(() => {
+    if (status === "end") {
+      setQuestionShowing(false);
+    }
+  }, [status]);
 
   const handleBorderUnlock = () => {
     console.log("clicking the button!");
@@ -501,8 +510,12 @@ const Game = () => {
               taggedDisplay={taggedDisplay}
             />
           )}
-          {status === "end" && userData && userData.role === "teacher" && <TeacherEndPage />}
-          {status === "end" && userData && userData.role === "student" && <StudentEndPage />}
+          {status === "end" && userData && userData.role === "teacher" && (
+            <TeacherEndPage _id={userData._id} gameState={gameState} />
+          )}
+          {status === "end" && userData && userData.role === "student" && (
+            <StudentEndPage _id={userData._id} gameState={gameState} />
+          )}
         </>
       )}
     </>

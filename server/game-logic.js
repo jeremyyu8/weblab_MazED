@@ -75,6 +75,7 @@ const endGame = (pin) => {
 
   const twoMinutes = 120 * 1000;
   setTimeout(() => {
+    console.log("deleting");
     delete games[pin];
   }, twoMinutes);
 };
@@ -496,6 +497,9 @@ const detectPlayerCollisions = (pin) => {
       // can't collide with teacher
       if (_id1 === games[pin]["teacher"]["_id"] || _id2 === games[pin]["teacher"]["_id"]) continue;
 
+      // can't collide with players on different levels
+      if (games[pin]["players"][_id1]["level"] !== games[pin]["players"][_id2]["level"]) continue;
+
       let player1 = games[pin]["players"][_id1];
       let player2 = games[pin]["players"][_id2];
 
@@ -524,11 +528,11 @@ const gameStart = (pin) => {
   });
 
   interval = setInterval(() => {
+    games[pin]["timeRemaining"] -= 1;
     if (games[pin]["timeRemaining"] === 0) {
       endGame(pin);
       clearInterval(interval);
     }
-    games[pin]["timeRemaining"] -= 1;
   }, 1000);
 };
 

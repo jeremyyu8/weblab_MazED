@@ -106,6 +106,10 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
       if (drawState["teacher"]["_id"] === playerid && drawState["status"] !== "lobby") {
         continue;
       }
+      // only render players in the same level
+      if (drawState["players"][playerid]["level"] !== drawState["players"][_id]["level"]) {
+        continue;
+      }
       let player = drawState["players"][playerid];
       let x = player.p.x - drawState["players"][_id].camera.x;
       let y = player.p.y - drawState["players"][_id].camera.y;
