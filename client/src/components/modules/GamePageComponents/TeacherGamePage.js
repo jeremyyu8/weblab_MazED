@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { endGame } from "../../../client-socket";
 
 /**
  * teacher game page to display during the game
@@ -36,6 +37,21 @@ const TeacherGamePage = (props) => {
     }
   }, [props.gameState]);
 
+  const convertToTime = (seconds) => {
+    let minutes = Math.floor(seconds / 60);
+    let secs = seconds - 60 * minutes;
+    if (minutes === 0) {
+      minutes = minutes.toString() + "0";
+    } else if (minutes < 10) {
+      minutes = "0" + minutes.toString();
+    }
+    if (secs === 0) {
+      secs = secs.toString() + "0";
+    } else if (secs < 10) {
+      secs = "0" + secs.toString();
+    }
+    return `${minutes}:${secs}`;
+  };
   return (
     <>
       <div>This is the teacher game page.</div>
@@ -44,7 +60,10 @@ const TeacherGamePage = (props) => {
         Game state:
         <div>Players:</div>
         <div>{players}</div>
+        <div>Time Remaining:</div>
+        <div>{convertToTime(props.gameState["timeRemaining"])}</div>
       </div>
+      <button onClick={() => endGame(props.pin)}>End game</button>
     </>
   );
 };

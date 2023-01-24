@@ -152,6 +152,24 @@ module.exports = {
       socket.on("startGame", (pin) => {
         gameLogic.gameStart(pin);
       });
+
+      socket.on("changeTokens", (data) => {
+        gameLogic.changeTokens(data._id, data.pin, data.result);
+      });
+
+      socket.on("upgradeSpeed", (data) => {
+        result = gameLogic.upgradeSpeed(data._id, data.pin); //"success" or "failure"
+        socket.emit("upgradeSpeedResult", { result: result, _id: data._id, pin: data.pin });
+      });
+
+      socket.on("upgradePower", (data) => {
+        result = gameLogic.upgradePower(data._id, data.pin); //"success" or "failure"
+        socket.emit("upgradePowerResult", { result: result, _id: data._id, pin: data.pin });
+      });
+
+      socket.on("endGame", (data) => {
+        gameLogic.endGame(data.pin);
+      });
     });
   },
 

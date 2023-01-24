@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { changeTokens } from "../../../client-socket";
 
-//flashCardSet[Math.floor(Math.random() * flashCardSet.length)
-//props are flashCardSet, setQuestionShowing,
+//props are flashCardSet, setQuestionShowing, userData, gamePin
 const Question = (props) => {
   const [questionState, setQuestionState] = useState("question"); //moves between question, right, wrong
   const [curQuestion, setCurQuestion] = useState({ question: "", choices: ["", "", "", ""] });
@@ -22,7 +22,6 @@ const Question = (props) => {
 
   const handleNewQuestion = () => {
     const card = props.flashCardSet[Math.floor(Math.random() * props.flashCardSet.length)];
-    console.log("old question, pre gen", card);
     const oldAnswers = [0, 1, 2, 3].map((val) => {
       if (card.answers.includes(val)) return true;
       return false;
@@ -33,11 +32,6 @@ const Question = (props) => {
       if (answers[i] === true) newAnswers.push(i);
     }
 
-    console.log("on gen", {
-      question: card.question,
-      choices: newChoices.map((idx) => card.choices[idx]),
-      answers: newAnswers,
-    });
     setCurQuestion({
       question: card.question,
       choices: newChoices.map((idx) => card.choices[idx]),
@@ -49,8 +43,10 @@ const Question = (props) => {
     console.log("on answer", curQuestion, answerSelected);
     if (curQuestion.answers.includes(answerSelected)) {
       setQuestionState("right");
+      changeTokens(props.userData._id, props.gamePin, "correct");
     } else {
       setQuestionState("wrong");
+      changeTokens(props.userData._id, props.gamePin, "incorrect");
     }
   };
 
@@ -102,7 +98,7 @@ const Question = (props) => {
           <>
             <div className=" w-[80%] h-[80%] mx-auto my-auto bg-white relative flex-col flex justify-center">
               <div className="flex-1 text-6xl w-full flex bg-green-600">
-                <div className="mx-auto my-auto">Correct!</div>
+                <div className="mx-auto my-auto">Correct! (+100)</div>
               </div>
               <div
                 onClick={() => {
@@ -121,7 +117,7 @@ const Question = (props) => {
             <div className=" w-[80%] h-[80%] mx-auto my-auto bg-white relative flex-col flex justify-center">
               <div className="flex-1 w-full bg-red-600 flex justify-center">
                 <div className="mx-auto my-auto flex flex-col">
-                  <div className="text-6xl mx-auto my-auto">Wrong, Try Again</div>
+                  <div className="text-6xl mx-auto my-auto">Wrong, Try Again (-100)</div>
                   <div className="text-3xl mt-[3vh] mx-auto">
                     (Correct answer was {curQuestion.choices[curQuestion.answers]})
                   </div>

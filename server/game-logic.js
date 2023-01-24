@@ -52,16 +52,28 @@ const makeNewGame = (data) => {
   const map1 = generateMap();
   const map2 = generateMap();
   const map3 = generateMap();
+
+  const gameLength = 600; //seconds
   const newGame = {
     players: {},
     teacher: { _id: data.teacherid },
     mazes: { lobby: lobby, level1: map1, level2: map2, level3: map3 },
     status: "lobby",
     cards: data.cards,
+    timeRemaining: gameLength,
   };
 
   games[data.pin] = newGame;
   makeNewPlayer(data.teacherid, data.pin, "teacher");
+};
+
+const endGame = (pin) => {
+  games[pin]["status"] = "end";
+
+  const twoMinutes = 120 * 1000;
+  setTimeout(() => {
+    delete games[pin];
+  }, twoMinutes);
 };
 
 const playerJoin = (data) => {
@@ -284,6 +296,15 @@ const gameStart = (pin) => {
     player.level = 1;
     console.log(player);
   });
+
+  interval = setInterval(() => {
+    if (games[pin]["timeRemaining"] === 0) {
+      endGame(pin);
+      clearInterval(interval);
+    }
+
+    games[pin]["timeRemaining"] -= 1;
+  }, 1000);
 };
 
 module.exports = {
@@ -298,4 +319,5 @@ module.exports = {
   changeTokens,
   upgradeSpeed,
   upgradePower,
+  endGame,
 };

@@ -8,6 +8,10 @@ import { get, post } from "../../utilities.js";
 import Question from "../modules/GamePageComponents/Question.js";
 import TeacherGamePage from "../modules/GamePageComponents/TeacherGamePage.js";
 
+import { upgradeSpeed, upgradePower } from "../../client-socket.js";
+import TeacherEndPage from "../modules/GamePageComponents/TeacherEndPage.js";
+import StudentEndPage from "../modules/GamePageComponents/StudentEndPage.js";
+
 const Game = () => {
   // metadata
   const [gamePin, setGamePin] = useState(undefined); // user game pin
@@ -20,8 +24,6 @@ const Game = () => {
   // flashcards
   const [questionShowing, setQuestionShowing] = useState(false);
   const [flashCardSet, setFlashCardSet] = useState(undefined);
-  const [curQuestion, setCurQuestion] = useState(undefined);
-  const [newLevelCard, setNewLevelCard] = useState(false);
 
   // game data
   const [gameState, setGameState] = useState(undefined);
@@ -58,17 +60,39 @@ const Game = () => {
       setGamePin(data.pin);
       setFlashCardSet(data.cards);
     });
-  }, [gamePin, userData]);
 
-  let pressed = { up: false, down: false, left: false, right: false };
-
-  useEffect(() => {
     socket.on("update", (update) => {
       if (userData && gamePin) {
         processUpdate(update[gamePin], userData._id);
       }
     });
-  }, [userData, gamePin]);
+
+    socket.on("upgradeSpeedResult", (data) => {
+      if (
+        userData &&
+        gamePin &&
+        data.result == "failure" &&
+        userData._id === data._id &&
+        gamePin === data.pin
+      ) {
+        alert("Need more tokens");
+      }
+    });
+
+    socket.on("upgradePowerResult", (data) => {
+      if (
+        userData &&
+        gamePin &&
+        data.result == "failure" &&
+        userData._id === data._id &&
+        gamePin === data.pin
+      ) {
+        alert("Need more tokens");
+      }
+    });
+  }, [gamePin, userData]);
+
+  let pressed = { up: false, down: false, left: false, right: false };
 
   // add event listener to user key inputs
   useEffect(() => {
@@ -170,6 +194,14 @@ const Game = () => {
     startGame(gamePin);
   };
 
+  const handleUpgradeSpeed = () => {
+    upgradeSpeed(userData._id, gamePin);
+  };
+
+  const handleUpgradePower = () => {
+    upgradePower(userData._id, gamePin);
+  };
+
   return (
     <>
       {redirect ? (
@@ -178,7 +210,7 @@ const Game = () => {
         <>
           {userData &&
             ((userData.role === "teacher" && status === "lobby") ||
-              userData.role === "student") && (
+              (userData.role === "student" && status !== "end")) && (
               <div className="fixed w-full h-full z-0">
                 <canvas
                   ref={canvasRef}
@@ -211,46 +243,63 @@ const Game = () => {
               </div>
             </>
           )}
-          {status !== "lobby" && userData && userData.role === "student" && gamePin && (
-            <>
-              <button
-                onClick={() => setQuestionShowing(true)}
-                className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl p-5 hover:bg-opacity-70"
-              >
-                Answer Question
-              </button>
-              <div className="bg-white bg-opacity-30 fixed z-10 w-[20vh] h-[20vh] top-[2vh] left-[2vh] border-solid">
-                <div className="text-center text-xl mt-[2vh]">Upgrades</div>
-                <div className="my-[1vh] mx-[2vw]">
-                  <table className="table-auto text-md">
-                    <tbody>
-                      <tr>
-                        <td>Tokens:</td> <td>{tokens}</td>
-                      </tr>
-                      <tr>
-                        <td>Speed:</td> <td>{speed}</td>
-                      </tr>
-                      <tr>
-                        <td>Power:</td> <td>{power}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+          {status !== "lobby" &&
+            status !== "end" &&
+            userData &&
+            userData.role === "student" &&
+            gamePin && (
+              <>
+                <button
+                  onClick={() => setQuestionShowing(true)}
+                  className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl p-5 hover:bg-opacity-70"
+                >
+                  Answer Question
+                </button>
+                <div className="bg-white bg-opacity-30 fixed z-10 w-[20vh] h-[20vh] top-[2vh] left-[2vh] border-solid">
+                  <div className="text-center text-xl mt-[2vh]">Upgrades</div>
+                  <div className="my-[1vh] mx-[2vw]">
+                    <table className="table-auto text-md">
+                      <tbody>
+                        <tr>
+                          <td>Tokens:</td> <td>{tokens}</td>
+                        </tr>
+                        <tr>
+                          <td>Speed:</td> <td>{speed}</td>{" "}
+                          <button onClick={handleUpgradeSpeed}>upgrade</button>
+                        </tr>
+                        <tr>
+                          <td>Power:</td> <td>{power}</td>{" "}
+                          <button onClick={handleUpgradePower}>upgrade</button>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white bg-opacity-30 fixed z-10 w-[25vh] h-[25vh] bottom-[2vh] right-[2vh] border-solid">
-                <div>Minimap</div>
-                <div>Level: {level}</div>
-              </div>
-            </>
-          )}
-          {status !== "lobby" && userData && userData.role === "teacher" && gamePin && (
-            <>
-              <TeacherGamePage gameState={gameState} pin={gamePin} />
-            </>
-          )}
+                <div className="bg-white bg-opacity-30 fixed z-10 w-[25vh] h-[25vh] bottom-[2vh] right-[2vh] border-solid">
+                  <div>Minimap</div>
+                  <div>Level: {level}</div>
+                </div>
+              </>
+            )}
+          {status !== "lobby" &&
+            status !== "end" &&
+            userData &&
+            userData.role === "teacher" &&
+            gamePin && (
+              <>
+                <TeacherGamePage gameState={gameState} pin={gamePin} />
+              </>
+            )}
           {questionShowing && (
-            <Question flashCardSet={flashCardSet} setQuestionShowing={setQuestionShowing} />
+            <Question
+              flashCardSet={flashCardSet}
+              setQuestionShowing={setQuestionShowing}
+              userData={userData}
+              gamePin={gamePin}
+            />
           )}
+          {status === "end" && userData && userData.role === "teacher" && <TeacherEndPage />}
+          {status === "end" && userData && userData.role === "student" && <StudentEndPage />}
         </>
       )}
     </>
