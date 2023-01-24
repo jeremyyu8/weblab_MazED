@@ -68,7 +68,23 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
     ) {
       // get tile at coordinate i,j
       const tile_idx = map[(j * mapxsize) / tilewidth + i];
-      const tile_render = tiles[tile_idx];
+      let tile_render = tiles[tile_idx];
+
+      if (tile_idx === 2) {
+        let found = false;
+        for (const border of drawState["players"][_id]["borders"]["level1"]) {
+          if (border.x === i && border.y === j) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          console.log(i, j);
+          // console.log(drawState["players"][_id]["borders"]["level1"]);
+          tile_render = tiles[1];
+        }
+      }
+
       ctx.drawImage(
         tile_render,
         (i - drawState["players"][_id].camera.x) * tilewidth,

@@ -50,6 +50,11 @@ export const upgradePower = (_id, pin) => {
   socket.emit("upgradePower", { _id: _id, pin: pin });
 };
 
+export const unlockBorder = (_id, pin, bordersToUnlock) => {
+  console.log("attempting to unlock border", bordersToUnlock);
+  socket.emit("unlockBorder", { _id: _id, pin: pin, bordersToUnlock: bordersToUnlock });
+};
+
 export const endGame = (pin) => {
   console.log(`ending game ${pin}`);
   socket.emit("endGame", { pin: pin });

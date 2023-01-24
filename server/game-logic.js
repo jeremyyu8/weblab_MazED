@@ -13,9 +13,10 @@ const VCUTOFF = 0.02;
 
 //in-game constants
 const TOKEN_GAIN = 100;
-const TOKEN_LOSS = 100;
+const TOKEN_LOSS = -100;
 const SPEED_LEVEL_UP_COST = 300;
 const POWER_LEVEL_UP_COST = 200;
+const UNLOCK_BORDER_COST = 500;
 
 // p = position
 // v = velocity
@@ -23,6 +24,7 @@ const POWER_LEVEL_UP_COST = 200;
 // k = keys down
 // camera = camera
 // windowsize = {x: window.innerWidth, y: window.innerHeight} for the player's computer
+// borders = {level1: [array of positions], level2: [array of positions], level3: [arrayof positions]}
 
 /**
  * 
@@ -38,11 +40,11 @@ teacher:
 status: 
 "lobby" or "game" or "end"
 mazes: 
-{level 1: maze object, 
-level 2: maze object,
-level 3: maze object}
+{
+level1: maze object, 
+level2: maze object,
+level3: maze object}
 }
-
  */
 
 let games = {};
@@ -101,14 +103,33 @@ const upgradeSpeed = (_id, pin) => {
 };
 
 const upgradePower = (_id, pin) => {
-  if (games[pin]["players"][_id]["tokens"] >= POWER_LEVEL_UP_COST) {
-    games[pin]["players"][_id]["tokens"] -= POWER_LEVEL_UP_COST;
+  if (games[pin]["players"][_id]["tokens"] >= UNLOCK_BORDER_COST) {
+    games[pin]["players"][_id]["tokens"] -= UNLOCK_BORDER_COST;
     games[pin]["players"][_id]["power"] += 1;
     return "success";
   }
   return "failure";
 };
 
+const unlockBorder = (_id, pin, bordersToUnlock) => {
+  if (games[pin]["players"][_id]["tokens"] >= UNLOCK_BORDER_COST) {
+    games[pin]["players"][_id]["tokens"] -= UNLOCK_BORDER_COST;
+    let newBorders = [];
+    for (border of games[pin]["players"][_id]["borders"]["level1"]) {
+      let keep = true;
+      for (toUnlock of bordersToUnlock) {
+        if (border.x === toUnlock.x && border.y === toUnlock.y) {
+          keep = false;
+          break;
+        }
+      }
+      if (keep) newBorders.push(border);
+    }
+    games[pin]["players"][_id]["borders"]["level1"] = newBorders;
+    return "success";
+  }
+  return "failure";
+};
 //note: id is user id, not socket id (in case socket disconnects)
 // r =
 // {_id: userid from mongo,
@@ -126,6 +147,36 @@ const upgradePower = (_id, pin) => {
 //     visited_tiles: array}
 
 const makeNewPlayer = (_id, pin, name) => {
+  let borders1 = [];
+  const level1width = Math.floor(Math.sqrt(games[pin]["mazes"]["level1"].length));
+  for (let r = 0; r < level1width; r++) {
+    for (let c = 0; c < level1width; c++) {
+      if (games[pin]["mazes"]["level1"][r * level1width + c] === 2) {
+        borders1.push({ x: c, y: r });
+      }
+    }
+  }
+
+  let borders2 = [];
+  const level2width = Math.floor(Math.sqrt(games[pin]["mazes"]["level2"].length));
+  for (let r = 0; r < level2width; r++) {
+    for (let c = 0; c < level2width; c++) {
+      if (games[pin]["mazes"]["level2"][r * level2width + c] === 2) {
+        borders2.push({ x: c, y: r });
+      }
+    }
+  }
+
+  let borders3 = [];
+  const level3width = Math.floor(Math.sqrt(games[pin]["mazes"]["level3"].length));
+  for (let r = 0; r < level3width; r++) {
+    for (let c = 0; c < level3width; c++) {
+      if (games[pin]["mazes"]["level1"][r * level3width + c] === 2) {
+        borders3.push({ x: c, y: r });
+      }
+    }
+  }
+
   const newPlayer = {
     name: name,
     p: { x: 0, y: 0 },
@@ -138,6 +189,7 @@ const makeNewPlayer = (_id, pin, name) => {
     speed: 0,
     active: true,
     level: 0,
+    borders: { level1: borders1, level2: borders2, level3: borders3 },
   };
 
   games[pin]["players"][_id] = newPlayer;
@@ -276,13 +328,36 @@ const detectMapCollisions = (_id, pin) => {
 
   let l1 = player.p.x + 2 * player.v.x;
   let t1 = player.p.y + 2 * player.v.y;
-  // tiles that player could potentially with
+  // tiles that player could potentially collide with
   let tiles = [];
   tiles.push({ x: Math.floor(l1), y: Math.floor(t1) });
   tiles.push({ x: tiles[0].x + 1, y: tiles[0].y });
   tiles.push({ x: tiles[0].x, y: tiles[0].y + 1 });
   tiles.push({ x: tiles[0].x + 1, y: tiles[0].y + 1 });
-  for (let i = 0; i < 4; i++) {
+
+  //removing the unlocked borders
+  let newTiles = [];
+  for (const tile of tiles) {
+    const mazeLength = Math.floor(Math.sqrt(games[pin]["mazes"]["level1"].length));
+    let add = true;
+    if (games[pin]["mazes"]["level1"][tile.y * mazeLength + tile.x] === 2) {
+      let found = false;
+      for (border of games[pin]["players"][_id]["borders"]["level1"]) {
+        if (border.x === tile.x && border.y === tile.y) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        add = false;
+      }
+    }
+    if (add) newTiles.push(tile);
+  }
+
+  tiles = newTiles;
+
+  for (let i = 0; i < tiles.length; i++) {
     let tile = tiles[i];
     // console.log(tile.x, tile.y);
     // console.log((tile.y * mapxsize) / tilewidth + tile.x);
@@ -378,5 +453,6 @@ module.exports = {
   changeTokens,
   upgradeSpeed,
   upgradePower,
+  unlockBorder,
   endGame,
 };

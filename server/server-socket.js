@@ -166,6 +166,11 @@ module.exports = {
         socket.emit("upgradePowerResult", { result: result, _id: data._id, pin: data.pin });
       });
 
+      socket.on("unlockBorder", (data) => {
+        result = gameLogic.unlockBorder(data._id, data.pin, data.bordersToUnlock); //"success" or "failure"
+        socket.emit("unlockBorderResult", { result: result, _id: data._id, pin: data.pin });
+      });
+
       socket.on("endGame", (data) => {
         gameLogic.endGame(data.pin);
       });
