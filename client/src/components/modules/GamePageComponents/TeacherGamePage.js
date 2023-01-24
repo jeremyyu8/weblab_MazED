@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { endGame, extendGame } from "../../../client-socket";
+import { drawTeacherCanvas } from "../../../canvasManagerTeacher";
 
 /**
  * teacher game page to display during the game
@@ -11,6 +12,11 @@ import { endGame, extendGame } from "../../../client-socket";
 const TeacherGamePage = (props) => {
   const [players, setPlayers] = useState(undefined);
   const [timeRemaining, setTimeRemaining] = useState(undefined);
+
+  // canvas reference
+  const teacherCanvasRef1 = useRef(null);
+  const teacherCanvasRef2 = useRef(null);
+  const teacherCanvasRef3 = useRef(null);
 
   useEffect(() => {
     if (props.gameState) {
@@ -37,6 +43,34 @@ const TeacherGamePage = (props) => {
           }
         }
       }
+
+      drawTeacherCanvas(
+        {
+          players: props.gameState["players"],
+          map: props.gameState["mazes"]["level1"],
+          teacherid: props.gameState["teacher"]["_id"],
+          level: 1,
+        },
+        teacherCanvasRef1
+      );
+      drawTeacherCanvas(
+        {
+          players: props.gameState["players"],
+          map: props.gameState["mazes"]["level2"],
+          teacherid: props.gameState["teacher"]["_id"],
+          level: 2,
+        },
+        teacherCanvasRef2
+      );
+      drawTeacherCanvas(
+        {
+          players: props.gameState["players"],
+          map: props.gameState["mazes"]["level3"],
+          teacherid: props.gameState["teacher"]["_id"],
+          level: 3,
+        },
+        teacherCanvasRef3
+      );
       setPlayers(playerData);
       setTimeRemaining(props.gameState["timeRemaining"]);
     }
@@ -57,10 +91,16 @@ const TeacherGamePage = (props) => {
     }
     return `${minutes}:${secs}`;
   };
+
   return (
     <>
       <div>This is the teacher game page.</div>
-      <div className="text-center text-4xl">Pin: {props.pin}</div>
+      <div className="text-center text-6xl">Pin: {props.pin}</div>
+      <div className="flex border-solid overflow-x-scroll h-[400px]">
+        <canvas className="p-4" ref={teacherCanvasRef1} width="400px" height="400px" />
+        <canvas className="p-4" ref={teacherCanvasRef2} width="400px" height="400px" />
+        <canvas className="p-4" ref={teacherCanvasRef3} width="400px" height="400px" />
+      </div>
       <div>
         <div className="text-4xl">Players:</div>
         <div>{players}</div>

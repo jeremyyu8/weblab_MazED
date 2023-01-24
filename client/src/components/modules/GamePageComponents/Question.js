@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { changeTokens } from "../../../client-socket";
+import { changeTokens, untagMe } from "../../../client-socket";
 
-//props are flashCardSet, setQuestionShowing, userData, gamePin
+/**
+ * Question page for rendering questions
+ *
+ * @param {flashCardSet} flashCardSet set of flashcards to randomize while showing question
+ * @param {function} setQuestionShowing set whether the question is showing or not
+ * @param {object} userData user data object
+ * @param {string} gamePin game pin
+ * @param {string} tagged whether or not the user is currently tagged
+ * @param {function} setTagged change tagged
+ * @param {bool} taggedDisplay player tagged display
+ */
 const Question = (props) => {
   const [questionState, setQuestionState] = useState("question"); //moves between question, right, wrong
   const [curQuestion, setCurQuestion] = useState({ question: "", choices: ["", "", "", ""] });
+  const [numQuestions, setNumQuestions] = useState(3);
 
   useEffect(() => {
     handleNewQuestion();
   }, []);
+
+  useEffect(() => {
+    if (numQuestions === 0 && props.tagged) {
+      untagMe(props.userData._id, props.gamePin);
+    }
+  }, [numQuestions]);
 
   const shuffle = (a, b) => {
     for (let i = a.length - 1; i > 0; i--) {
@@ -40,11 +57,14 @@ const Question = (props) => {
   };
 
   const handleAnswerQuestion = (answerSelected) => {
+    if (props.taggedDisplay) return;
     console.log("on answer", curQuestion, answerSelected);
     if (curQuestion.answers.includes(answerSelected)) {
       setQuestionState("right");
       changeTokens(props.userData._id, props.gamePin, "correct");
+      setNumQuestions(numQuestions - 1);
     } else {
+      console.log("wrong");
       setQuestionState("wrong");
       changeTokens(props.userData._id, props.gamePin, "incorrect");
     }
@@ -52,7 +72,7 @@ const Question = (props) => {
 
   return (
     <>
-      <div className="flex fixed z-50 w-full h-full">
+      <div className="flex fixed z-30 w-full h-full">
         {questionState === "question" && (
           <div className=" w-[80%] h-[80%] mx-auto my-auto bg-white relative flex-col flex justify-center">
             <div className="basis-[40%]  text-6xl flex w-full bg-blue-600">
@@ -86,12 +106,19 @@ const Question = (props) => {
                 <div className="mx-auto my-auto">{curQuestion.choices[3]}</div>
               </div>
             </div>
-            <button
-              onClick={() => props.setQuestionShowing(false)}
-              className="absolute right-[3vh] top-[3vh] text-3xl p-3"
-            >
-              Exit
-            </button>
+            {!props.tagged && (
+              <button
+                onClick={() => props.setQuestionShowing(false)}
+                className="absolute right-[3vh] top-[3vh] text-3xl p-3"
+              >
+                Exit
+              </button>
+            )}
+            {props.tagged && (
+              <div className="absolute top-[2vh] left-[2vh] text-xl p-3">
+                Questions remaining: {numQuestions}
+              </div>
+            )}
           </div>
         )}
         {questionState === "right" && (
@@ -109,6 +136,14 @@ const Question = (props) => {
               >
                 <div className="mx-auto my-auto">Next Question</div>
               </div>
+              {!props.tagged && (
+                <button
+                  onClick={() => props.setQuestionShowing(false)}
+                  className="absolute right-[3vh] top-[3vh] text-3xl p-3"
+                >
+                  Exit
+                </button>
+              )}
             </div>
           </>
         )}
@@ -132,6 +167,14 @@ const Question = (props) => {
               >
                 <div className="mx-auto my-auto">Next Question</div>
               </div>
+              {!props.tagged && (
+                <button
+                  onClick={() => props.setQuestionShowing(false)}
+                  className="absolute right-[3vh] top-[3vh] text-3xl p-3"
+                >
+                  Exit
+                </button>
+              )}
             </div>
           </>
         )}

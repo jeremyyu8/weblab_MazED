@@ -53,7 +53,12 @@ const Game = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const canvasRef = useRef(null); // canvas reference
+
+  // canvas reference
+  const canvasRef = useRef(null);
+
+  // frame counter
+  let counter = 0;
 
   // authentication
   useEffect(() => {
@@ -197,6 +202,7 @@ const Game = () => {
   };
 
   const processUpdate = (update, _id) => {
+    counter++;
     drawCanvas(update, canvasRef, _id);
     setStatus(update["status"]);
     setLevel(update["players"][_id]["level"]);
@@ -204,7 +210,10 @@ const Game = () => {
     setSpeed(update["players"][_id]["speed"]);
     setPower(update["players"][_id]["power"]);
     setTagged(update["players"][_id]["tagged"]);
-    setGameState(update);
+    if (counter % 100 === 0) {
+      console.log(counter);
+      setGameState(update);
+    }
     // if (update["status"] !== status) {
     //   setStatus(update["status"]);
     // }
@@ -286,60 +295,6 @@ const Game = () => {
     setTaggedDisplayTimer(5);
   };
 
-  // useEffect(() => {
-  //   if (taggedDisplayTimer === 5) {
-  //     const runTimer = () => {
-  //       let timer = setInterval(() => {
-  //         console.log(taggedDisplayTimer);
-  //         setTaggedDisplayTimer(taggedDisplayTimer - 1);
-  //       }, 1000);
-  //       setTimeout(() => {
-  //         setTaggedDisplay(false);
-  //         clearInterval(timer);
-  //       }, 5000);
-  //     };
-  //     runTimer();
-  //   }
-  // }, [taggedDisplayTimer]);
-
-  useEffect(() => {
-    if (tagged !== false) {
-      handleTagged();
-    }
-  }, [tagged]);
-
-  const handleTagged = () => {
-    setQuestionShowing(true);
-    setTaggedDisplay(true);
-    let time = 5;
-    let timer = setInterval(() => {
-      console.log(time);
-      setTaggedDisplayTimer(time);
-      time--;
-    }, 1000);
-    setTimeout(() => {
-      setTaggedDisplay(false);
-      clearInterval(timer);
-    }, 6000);
-    setTaggedDisplayTimer(5);
-  };
-
-  // useEffect(() => {
-  //   if (taggedDisplayTimer === 5) {
-  //     const runTimer = () => {
-  //       let timer = setInterval(() => {
-  //         console.log(taggedDisplayTimer);
-  //         setTaggedDisplayTimer(taggedDisplayTimer - 1);
-  //       }, 1000);
-  //       setTimeout(() => {
-  //         setTaggedDisplay(false);
-  //         clearInterval(timer);
-  //       }, 5000);
-  //     };
-  //     runTimer();
-  //   }
-  // }, [taggedDisplayTimer]);
-
   useEffect(() => {
     if (tagged !== false) {
       handleTagged();
@@ -347,9 +302,11 @@ const Game = () => {
   }, [tagged]);
 
   const handleBorderUnlock = () => {
+    if (questionShowing) return;
     console.log("toUnlock", bordersToUnlock);
     unlockBorder(userData._id, gamePin, bordersToUnlock);
   };
+
   return (
     <>
       {redirect ? (
@@ -447,7 +404,7 @@ const Game = () => {
             inBorderRange && (
               <>
                 <button
-                  className="text-3xl fixed top-[47%] left-[46%] z-50"
+                  className="text-3xl fixed top-[47%] left-[46%] z-20"
                   onClick={handleBorderUnlock}
                 >
                   Press to unlock border

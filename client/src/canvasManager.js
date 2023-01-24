@@ -112,6 +112,22 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
       }
       ctx.drawImage(sprite, x * tilewidth, y * tilewidth, tilewidth, tilewidth);
 
+      // draw sprite power level
+      if (drawState["status"] !== "lobby") {
+        ctx.font = "20px serif";
+        if (drawState["players"][playerid]["tagged"] !== false) {
+          ctx.fillText("tagged", x * tilewidth, y * tilewidth);
+        } else if (drawState["players"][playerid]["invincible"] === true) {
+          ctx.fillText("invincible", x * tilewidth, y * tilewidth);
+        } else {
+          ctx.fillText(
+            `power: ${drawState["players"][playerid]["power"]}`,
+            x * tilewidth,
+            y * tilewidth
+          );
+        }
+      }
+
       // draw sprite hitbox
       ctx.beginPath();
       ctx.rect(x * tilewidth, y * tilewidth, tilewidth, tilewidth);

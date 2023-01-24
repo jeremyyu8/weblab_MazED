@@ -252,6 +252,7 @@ const updateGameState = () => {
         }
 
         // if powers are equal, both players get tagged
+        // players freeze on tag
         console.log("someone got tagged");
         if (player1["power"] === player2["power"]) {
           player1["tagged"] = player2["name"];
@@ -271,6 +272,16 @@ const updateGameState = () => {
     for (let _id in games[pin]["players"]) {
       detectMapCollisions(_id, pin);
       let curPlayer = games[pin]["players"][_id];
+      // freeze movement if tagged
+      if (curPlayer["tagged"] !== false) {
+        curPlayer.k["right"] === false;
+        curPlayer.k["left"] === false;
+        curPlayer.k["up"] === false;
+        curPlayer.k["down"] === false;
+        curPlayer.v.x = 0;
+        curPlayer.v.y = 0;
+        continue;
+      }
 
       // velocity update logic
       let movingx =
