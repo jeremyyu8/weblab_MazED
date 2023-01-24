@@ -62,7 +62,61 @@ const Home = ({ userId, userRole, userName }) => {
             </div>
           </div>
 
-          <div className="bg-stone-900 bg-fixed bg-cover h-screen"></div>
+          <div className="bg-stone-900 bg-fixed bg-cover h-screen flex flex-col justify-evenly">
+            <div className="flex flex-wrap justify-evenly">
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">Flashcards</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">Create</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">MazED</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 xl:w-1/3 md:w-1/2 w-7/12 mb-12">
+                <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-80 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                  <div class="text-4xl text-blue-100 mt-4 ml-4">Review</div>
+                  <div className="pt-8 pl-4 pr-4 flex rounded-lg items-center text-gray-900">
+                    <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi unde maiores
+                      nihil officiis voluptatum numquam quisquam, veritatis placeat aliquid velit,
+                      saepe, quae totam cupiditate. Iure quas quam dolorem magnam ut.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </>
