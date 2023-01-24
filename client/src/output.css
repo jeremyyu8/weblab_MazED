@@ -374,6 +374,10 @@
   margin-top: 0.5rem;
 }
 
+.ml-8{
+  margin-left: 2rem;
+}
+
 .block{
   display: block;
 }
@@ -910,6 +914,18 @@
   padding-top: 18vh;
 }
 
+.pt-4{
+  padding-top: 1rem;
+}
+
+.pl-8{
+  padding-left: 2rem;
+}
+
+.pr-8{
+  padding-right: 2rem;
+}
+
 .text-center{
   text-align: center;
 }
@@ -1286,6 +1302,10 @@ form {
 
 .hover\:bg-opacity-80:hover{
   --tw-bg-opacity: 0.8;
+}
+
+.hover\:bg-opacity-90:hover{
+  --tw-bg-opacity: 0.9;
 }
 
 .hover\:text-sky-400:hover{
