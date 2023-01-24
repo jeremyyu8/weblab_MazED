@@ -7,8 +7,8 @@
 
 @layer components {
   .leftbar-icon {
-    @apply relative flex items-center justify-center h-12 w-auto my-10 mx-4 text-xl bg-gray-800
-     text-green-400 hover:bg-green-600 rounded-3xl hover:rounded-xl transition-all 
+    @apply relative flex items-center justify-center h-12 w-auto my-10 mx-4 text-xl bg-blue-900
+     text-blue-300 hover:bg-blue-700 rounded-3xl hover:rounded-xl transition-all 
      duration-300 ease-in cursor-pointer;
   }
   .input-box {
@@ -47,19 +47,19 @@ form {
 
 /* maze.css */
 
-.maze-container{
-    display: flex;
-    justify-content: center;
-    padding-top: 10vh;
+.maze-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 10vh;
 }
 
-.grid-container{
-    --maze-dimension: 90;
-    display: grid;
-    grid-template-columns: repeat(var(--maze-dimension), 1fr);
-    grid-template-rows: repeat(var(--maze-dimension), 1fr);
-    gap: 0px;
-    width: 30vw;
+.grid-container {
+  --maze-dimension: 90;
+  display: grid;
+  grid-template-columns: repeat(var(--maze-dimension), 1fr);
+  grid-template-rows: repeat(var(--maze-dimension), 1fr);
+  gap: 0px;
+  width: 30vw;
 }
 
 .maze-cell {

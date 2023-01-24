@@ -110,11 +110,11 @@
   justify-content: center;
   border-radius: 1.5rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  background-color: rgb(30 58 138 / var(--tw-bg-opacity));
   font-size: 1.25rem;
   line-height: 1.75rem;
   --tw-text-opacity: 1;
-  color: rgb(74 222 128 / var(--tw-text-opacity));
+  color: rgb(147 197 253 / var(--tw-text-opacity));
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
@@ -124,7 +124,7 @@
 .leftbar-icon:hover{
   border-radius: 0.75rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
 .input-box{
@@ -368,6 +368,10 @@
 
 .mt-2{
   margin-top: 0.5rem;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
 }
 
 .block{
@@ -674,11 +678,6 @@
   border-color: rgb(251 113 133 / var(--tw-border-opacity));
 }
 
-.border-rose-600{
-  --tw-border-opacity: 1;
-  border-color: rgb(225 29 72 / var(--tw-border-opacity));
-}
-
 .border-blue-600{
   --tw-border-opacity: 1;
   border-color: rgb(37 99 235 / var(--tw-border-opacity));
@@ -754,9 +753,9 @@
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
-.bg-black{
+.bg-blue-700{
   --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
 .bg-green-50{
@@ -784,6 +783,11 @@
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
 
+.bg-slate-900{
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+
 .bg-gray-900{
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
@@ -807,6 +811,10 @@
 
 .bg-spaceimg2{
   background-image: url('/client/src/public/img/17520.jpg');
+}
+
+.bg-spaceimg{
+  background-image: url('/client/src/public/img/space.jpg');
 }
 
 .bg-cover{
@@ -1037,6 +1045,16 @@
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
+.text-blue-50{
+  --tw-text-opacity: 1;
+  color: rgb(239 246 255 / var(--tw-text-opacity));
+}
+
+.text-blue-700{
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+
 .no-underline{
   text-decoration-line: none;
 }
@@ -1117,13 +1135,13 @@ form {
 
 /* maze.css */
 
-.maze-container{
+.maze-container {
   display: flex;
   justify-content: center;
   padding-top: 10vh;
 }
 
-.grid-container{
+.grid-container {
   --maze-dimension: 90;
   display: grid;
   grid-template-columns: repeat(var(--maze-dimension), 1fr);
