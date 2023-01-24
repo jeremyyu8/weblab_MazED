@@ -109,22 +109,6 @@ const upgradePower = (_id, pin) => {
   return "failure";
 };
 
-//note: id is user id, not socket id (in case socket disconnects)
-// r =
-// {_id: userid from mongo,
-//     pos:
-//     x: x-position,
-//     y: y-position,
-//     tokens: number of tokens,
-//     power: tagging power,
-//     speed: user speed,
-//     level: current map level,
-//     tagged: boolean
-//     invincibility: boolean
-//     questions_answerwed: int,
-//     questions_correct: int,
-//     visited_tiles: array}
-
 const makeNewPlayer = (_id, pin, name) => {
   const newPlayer = {
     name: name,
@@ -162,7 +146,7 @@ const movePlayer = (_id, pin, dir) => {
   curPlayer.k["right"] = dir["right"];
 };
 
-// // update game statistics. running at 60fps
+// update game statistics. running at 60fps
 const updateGameState = () => {
   if (!games) return;
   for (let pin in games) {
