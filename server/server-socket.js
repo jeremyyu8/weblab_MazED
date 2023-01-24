@@ -1,5 +1,7 @@
 const gameLogic = require("./game-logic");
 
+require("dotenv").config();
+
 let io;
 
 const userToSocketMap = {}; // maps user ID to socket object
@@ -80,7 +82,7 @@ const startRunningGame = () => {
     //   winResetTimer = 0;
     //   gameLogic.resetWinner();
     // }
-  }, 1000 / 60); // 60 frames per second
+  }, 1000 / process.env.FPS); // 60 frames per second
 };
 
 startRunningGame();
