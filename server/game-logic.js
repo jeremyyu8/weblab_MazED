@@ -367,6 +367,10 @@ const gameStart = (pin) => {
   }, 1000);
 };
 
+const gameExtend = (pin) => {
+  games[pin]["timeRemaining"] += 300;
+};
+
 module.exports = {
   games,
   movePlayer,
@@ -375,6 +379,7 @@ module.exports = {
   makeNewGame,
   playerJoin,
   gameStart,
+  gameExtend,
   changeTokens,
   upgradeSpeed,
   upgradePower,
