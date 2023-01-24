@@ -50,16 +50,15 @@ form {
 .maze-container{
     display: flex;
     justify-content: center;
-    padding-top: 10vh;
 }
 
 .grid-container{
-    --maze-dimension: 41;
+    --maze-dimension: 90;
     display: grid;
     grid-template-columns: repeat(var(--maze-dimension), 1fr);
     grid-template-rows: repeat(var(--maze-dimension), 1fr);
     gap: 0px;
-    width: 30vw;
+    width: 40vw;
 }
 
 .maze-cell{
@@ -78,6 +77,10 @@ form {
 
 .black{
     background: rgba(0, 0, 0, 0.5);
+}
+
+.red {
+  background: rgba(255, 0, 0, 0.5);
 }
 
 /* dot pulse css  */

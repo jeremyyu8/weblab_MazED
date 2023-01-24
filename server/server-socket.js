@@ -59,7 +59,6 @@ const sendGameState = () => {
 
 const startRunningGame = () => {
   // let winResetTimer = 0;
-  gameLogic.generateMap();
   setInterval(() => {
     gameLogic.updateGameState();
     sendGameState();

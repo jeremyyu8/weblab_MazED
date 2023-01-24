@@ -1,6 +1,8 @@
+const mazeLogic = require("./maze-logic");
+
 // canvas constants
-const mapxsize = 4000;
-const mapysize = 4000;
+const mapxsize = 7200;
+const mapysize = 7200;
 const tilewidth = 80;
 
 // for moving logic
@@ -40,10 +42,10 @@ let games = {};
 
 // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacher id}
 const makeNewGame = (data) => {
-  const lobby = generateLobby();
-  const map1 = generateMap();
-  const map2 = generateMap();
-  const map3 = generateMap();
+  const lobby = mazeLogic.generateLobby();
+  const map1 = mazeLogic.generateFullMaze(25);
+  const map2 = mazeLogic.generateFullMaze(25);
+  const map3 = mazeLogic.generateFullMaze(25);
   const newGame = {
     players: {},
     teacher: { _id: data.teacherid },
@@ -60,39 +62,6 @@ const playerJoin = (data) => {
   console.log("inside of playerjoin");
   console.log(data);
   makeNewPlayer(data.studentid, data.pin, data.studentname);
-};
-
-// TODO make this legit
-const generateMap = () => {
-  // generate random map
-  let map = [];
-  for (let i = 0; i < mapysize / tilewidth; i++) {
-    for (let j = 0; j < mapxsize / tilewidth; j++) {
-      if ((i == 5 && j == 6) || (i == 7 && j == 10) || (i == 35 && j == 35)) {
-        map.push(1);
-      } else {
-        map.push(0);
-      }
-    }
-  }
-  return map;
-  //   games[0].m = map;
-};
-
-// TODO make this legit
-const generateLobby = () => {
-  // generate lobby
-  let map = [];
-  for (let i = 0; i < mapysize / tilewidth; i++) {
-    for (let j = 0; j < mapxsize / tilewidth; j++) {
-      if ((i == 5 && j == 6) || (i == 7 && j == 10) || (i == 35 && j == 35)) {
-        map.push(1);
-      } else {
-        map.push(0);
-      }
-    }
-  }
-  return map;
 };
 
 //note: id is user id, not socket id (in case socket disconnects)
@@ -138,6 +107,9 @@ const setWindowSize = (_id, pin, x, y) => {
 
 // // move player on player input
 const movePlayer = (_id, pin, dir) => {
+  if (!games) {
+    return;
+  }
   let curPlayer = games[pin]["players"][_id];
   curPlayer.k["up"] = dir["up"];
   curPlayer.k["down"] = dir["down"];
@@ -147,8 +119,10 @@ const movePlayer = (_id, pin, dir) => {
 
 // // update game statistics. running at 60fps
 const updateGameState = () => {
+  if (!games) return;
   for (let pin in games) {
     for (let _id in games[pin]["players"]) {
+      detectMapCollisions(_id, pin);
       let curPlayer = games[pin]["players"][_id];
 
       // velocity update logic
@@ -244,11 +218,98 @@ const updateGameState = () => {
   }
 };
 
+// detect collision between player and map objects
+const detectMapCollisions = (_id, pin) => {
+  let player = games[pin]["players"][_id];
+  let map;
+  if (player["level"] !== 0) {
+    let level = "level" + player["level"];
+    map = games[pin]["mazes"][level];
+  } else {
+    map = games[pin]["mazes"]["lobby"];
+  }
+
+  let l1 = player.p.x + 2 * player.v.x;
+  let t1 = player.p.y + 2 * player.v.y;
+  // tiles that player could potentially with
+  let tiles = [];
+  tiles.push({ x: Math.floor(l1), y: Math.floor(t1) });
+  tiles.push({ x: tiles[0].x + 1, y: tiles[0].y });
+  tiles.push({ x: tiles[0].x, y: tiles[0].y + 1 });
+  tiles.push({ x: tiles[0].x + 1, y: tiles[0].y + 1 });
+  for (let i = 0; i < 4; i++) {
+    let tile = tiles[i];
+    // console.log(tile.x, tile.y);
+    // console.log((tile.y * mapxsize) / tilewidth + tile.x);
+    let tile_idx = map[(tile.y * mapxsize) / tilewidth + tile.x];
+    if (tile_idx === 0 || tile_idx === 2 || tile_idx === 3) {
+      // border, wall, or tree, respectively
+      // compute smallest translation vector to undo collision
+      console.log("collision detected");
+      let [minx, miny] = [0, 0];
+      if (Math.abs(tile.x - 1 - l1) < Math.abs(tile.x + 1 - l1)) {
+        minx = tile.x - 1 - l1;
+      } else {
+        minx = tile.x + 1 - l1;
+      }
+
+      if (Math.abs(tile.y - 1 - t1) < Math.abs(tile.y + 1 - t1)) {
+        miny = tile.y - 1 - t1;
+      } else {
+        miny = tile.y + 1 - t1;
+      }
+
+      if (Math.abs(minx) < Math.abs(miny)) {
+        [minx, miny] = [minx, 0];
+      } else {
+        [minx, miny] = [0, miny];
+      }
+
+      // do the translation
+      player.p.x += minx;
+      player.p.y += miny;
+    }
+  }
+};
+
+// detect collisions between players and other players
+const detectPlayerCollisions = (pin) => {
+  let game = games[pin]["players"];
+  let collisions = [];
+
+  for (let _id1 in game) {
+    for (let _id2 in game) {
+      // can't collide with self
+      if (_id1 === _id2) continue;
+
+      // can't collide with teacher
+      if (_id1 === games[pin]["teacher"] || _id2 === games[pin]["teacher"]) continue;
+
+      let player1 = games[pin]["players"][_id1];
+      let player2 = games[pin]["players"][_id2];
+
+      let [l1, t1] = [player1.p.x, player1.p.y];
+      let [l2, t2] = [player2.p.x, player2.p.y];
+
+      if ((l2 <= l1 && l1 <= l2 + 1) || (l1 <= l2 && l2 <= l1 + 1)) {
+        if ((t2 <= t1 && t1 <= t2 + 1) || (t1 <= t2 && t2 <= t1 + 1)) {
+          collisions.push([_id1, _id2]);
+        }
+      }
+    }
+  }
+
+  return collisions;
+};
+
 const gameStart = (pin) => {
   games[pin]["status"] = "game";
   Object.values(games[pin]["players"]).forEach((player) => {
     player.level = 1;
-    console.log(player);
+    player.p.x = 0;
+    player.p.y = 0;
+    player.v.x = 0;
+    player.v.y = 0;
   });
 };
 
@@ -256,7 +317,6 @@ module.exports = {
   games,
   movePlayer,
   updateGameState,
-  generateMap,
   setWindowSize,
   makeNewGame,
   playerJoin,
