@@ -51,7 +51,7 @@ const Navbar = (props) => {
         <div className="my-auto px-8">
           <Link
             to="/"
-            className="text-[36px] font-[900] py-8px hover:cursor-pointer text-blue-900 no-underline"
+            className="text-[42px] font-[900] py-8px hover:cursor-pointer text-blue-900 no-underline"
           >
             MazeEd
           </Link>

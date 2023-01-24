@@ -130,28 +130,32 @@ const FlashcardSetsContainer = (props) => {
         <Redirect from="/teacher" to={redirect} />
       ) : (
         <>
-          <div className="flex border-solid mt-8 mx-10">
-            <div className="text-4xl text-blue-900 border-solid flex-1">Flashcard Sets</div>
-            <button
-              className="my-auto mx-10 flex-none border-solid hover:bg-sky-300 cursor-pointer transition-all text-3xl"
-              onClick={newSet}
-            >
-              Create New Set
-            </button>
-          </div>
-          <div className="overflow-scroll max-w-[70%] px-6 mx-auto mt-[2vw] border border-solid border-black rounded-xl h-[70vh]">
-            {sets.length ? (
-              sets
-            ) : (
-              <>
-                <div
-                  className="text-xl text-gray-300 text-center mt-[35vh] hover:text-gray-600 cursor-pointer duration-150"
+          <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
+            <div class="rounded-3xl bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+              <div className="flex mt-8 mx-10">
+                <div className="text-4xl mt-1 text-blue-200 flex-1">Flashcard Sets</div>
+                <button
+                  className="mx-10 flex-none text-3xl rounded-xl text-blue-200 bg-blue-800 hover:bg-blue-500 cursor-pointer transition-all"
                   onClick={newSet}
                 >
-                  No sets to display. Create a new set!
-                </div>
-              </>
-            )}
+                  Create New Set
+                </button>
+              </div>
+              <div className="overflow-scroll max-w-[95%] px-6 mx-auto mt-[2vw] rounded-xl h-[70vh]">
+                {sets.length ? (
+                  sets
+                ) : (
+                  <>
+                    <div
+                      className="text-xl text-gray-300 text-center mt-[35vh] hover:text-gray-600 cursor-pointer duration-150"
+                      onClick={newSet}
+                    >
+                      No sets to display. Create a new set!
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         </>
       )}

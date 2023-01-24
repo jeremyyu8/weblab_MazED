@@ -77,10 +77,10 @@ const TeacherDashboard = (props) => {
           <div className="bg-white bg-fixed bg-cover h-screen">
             <div class="h-[75px]"></div>
             <div className="flex">
-              <div className="basis-1/5 w-40 border-solid border-rose-400 overflow-y-hidden h-[calc(100vh_-_78px)]">
+              <div className="basis-1/5 w-40 overflow-y-hidden h-[calc(100vh_-_78px)]">
                 <LeftSideBar setRightSide={setRightSide} />
               </div>
-              <div className="flex-1 border-solid border-blue-600 overflow-y-hidden h-[calc(100vh_-_78px)]">
+              <div className="flex-1 overflow-y-hidden h-[calc(100vh_-_78px)]">
                 {rightComponent}
               </div>
             </div>
