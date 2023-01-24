@@ -134,10 +134,7 @@ const FlashcardSetsContainer = (props) => {
             <div class="rounded-3xl bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
               <div className="flex mt-8 mx-10">
                 <div className="text-4xl mt-1 text-blue-200 flex-1">Flashcard Sets</div>
-                <button
-                  className="mx-10 flex-none text-3xl rounded-xl text-blue-200 bg-blue-800 hover:bg-blue-500 cursor-pointer transition-all"
-                  onClick={newSet}
-                >
+                <button className="bigbutton" onClick={newSet}>
                   Create New Set
                 </button>
               </div>
@@ -147,7 +144,7 @@ const FlashcardSetsContainer = (props) => {
                 ) : (
                   <>
                     <div
-                      className="text-xl text-gray-300 text-center mt-[35vh] hover:text-gray-600 cursor-pointer duration-150"
+                      className="text-xl text-blue-300 text-center mt-[35vh] hover:text-blue-600 cursor-pointer duration-150"
                       onClick={newSet}
                     >
                       No sets to display. Create a new set!

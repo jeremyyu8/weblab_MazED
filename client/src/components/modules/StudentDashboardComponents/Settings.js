@@ -16,8 +16,8 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
 const Settings = (props) => {
   return (
     <>
-      <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
-        <div class="rounded-3xl bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+      <div className="background">
+        <div class="sheerbox">
           <div className="pt-[1vh] pb-[1vh] text-blue-200">
             <div>your id: {props.userData._id}</div>
             <div>your name: {props.userData.name} </div>

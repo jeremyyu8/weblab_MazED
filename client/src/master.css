@@ -16,6 +16,22 @@
     focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
   }
+
+  .bigbutton {
+    @apply mx-10 flex-none text-3xl rounded-xl text-blue-200 bg-blue-800 hover:bg-blue-500 cursor-pointer transition-all;
+  }
+
+  .editfbuttons {
+    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2;
+  }
+
+  .background {
+    @apply bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center;
+  }
+
+  .sheerbox {
+    @apply rounded-3xl text-blue-200 bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
+  }
 }
 
 /* utilities.css */
