@@ -34,3 +34,23 @@ export const startGame = (pin) => {
   console.log("starting game with pin", pin);
   socket.emit("startGame", pin);
 };
+
+export const changeTokens = (_id, pin, result) => {
+  console.log("modifying tokens");
+  socket.emit("changeTokens", { _id: _id, pin: pin, result: result });
+};
+
+export const upgradeSpeed = (_id, pin) => {
+  console.log("attempting to upgrade speed");
+  socket.emit("upgradeSpeed", { _id: _id, pin: pin });
+};
+
+export const upgradePower = (_id, pin) => {
+  console.log("attempting to upgrade power");
+  socket.emit("upgradePower", { _id: _id, pin: pin });
+};
+
+export const endGame = (pin) => {
+  console.log(`ending game ${pin}`);
+  socket.emit("endGame", { pin: pin });
+};

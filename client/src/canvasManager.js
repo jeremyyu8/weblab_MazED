@@ -1,7 +1,7 @@
 const xsize = window.innerWidth;
 const ysize = window.innerHeight;
-const mapxsize = 4000;
-const mapysize = 4000;
+const mapxsize = 7200;
+const mapysize = 7200;
 const tilewidth = 80;
 // const sprite = new Image(tilewidth, tilewidth);
 // sprite.src = "../gameassets/astronaut.png";
@@ -9,11 +9,17 @@ const tilewidth = 80;
 const tiles = {
   0: null,
   1: null,
+  2: null,
+  3: null,
 };
 tiles[0] = new Image(tilewidth, tilewidth);
-tiles[0].src = "../gameassets/grass.png";
+tiles[0].src = "../gameassets/wall.png";
 tiles[1] = new Image(tilewidth, tilewidth);
-tiles[1].src = "../gameassets/tree.png";
+tiles[1].src = "../gameassets/grass.png";
+tiles[2] = new Image(tilewidth, tilewidth);
+tiles[2].src = "../gameassets/border.png";
+tiles[3] = new Image(tilewidth, tilewidth);
+tiles[3].src = "../gameassets/tree.png";
 
 const sprites = {
   teacher: null,
@@ -62,9 +68,6 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
     ) {
       // get tile at coordinate i,j
       const tile_idx = map[(j * mapxsize) / tilewidth + i];
-      //   console.log((j * canvas.width) / tilewidth + i);
-      //   console.log(drawState["players"][_id].m);
-      //   console.log(tile_idx);
       const tile_render = tiles[tile_idx];
       ctx.drawImage(
         tile_render,

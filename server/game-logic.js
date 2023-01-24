@@ -1,4 +1,5 @@
 const mazeLogic = require("./maze-logic");
+const e = require("express");
 
 // canvas constants
 const mapxsize = 7200;
@@ -9,6 +10,12 @@ const tilewidth = 80;
 const ACCEL = 0.02; // higher speeds: increment by ~0.01 or something
 const DRAG_COEFFICIENT = 4;
 const VCUTOFF = 0.02;
+
+//in-game constants
+const TOKEN_GAIN = 100;
+const TOKEN_LOSS = 100;
+const SPEED_LEVEL_UP_COST = 300;
+const POWER_LEVEL_UP_COST = 200;
 
 // p = position
 // v = velocity
@@ -46,22 +53,60 @@ const makeNewGame = (data) => {
   const map1 = mazeLogic.generateFullMaze(25);
   const map2 = mazeLogic.generateFullMaze(25);
   const map3 = mazeLogic.generateFullMaze(25);
+
+  const gameLength = 600; //seconds
   const newGame = {
     players: {},
     teacher: { _id: data.teacherid },
     mazes: { lobby: lobby, level1: map1, level2: map2, level3: map3 },
     status: "lobby",
     cards: data.cards,
+    timeRemaining: gameLength,
   };
 
   games[data.pin] = newGame;
   makeNewPlayer(data.teacherid, data.pin, "teacher");
 };
 
+const endGame = (pin) => {
+  games[pin]["status"] = "end";
+
+  const twoMinutes = 120 * 1000;
+  setTimeout(() => {
+    delete games[pin];
+  }, twoMinutes);
+};
+
 const playerJoin = (data) => {
   console.log("inside of playerjoin");
   console.log(data);
   makeNewPlayer(data.studentid, data.pin, data.studentname);
+};
+
+const changeTokens = (_id, pin, result) => {
+  if (result === "correct") {
+    games[pin]["players"][_id]["tokens"] += TOKEN_GAIN;
+  } else {
+    games[pin]["players"][_id]["tokens"] += TOKEN_LOSS;
+  }
+};
+
+const upgradeSpeed = (_id, pin) => {
+  if (games[pin]["players"][_id]["tokens"] >= SPEED_LEVEL_UP_COST) {
+    games[pin]["players"][_id]["tokens"] -= SPEED_LEVEL_UP_COST;
+    games[pin]["players"][_id]["speed"] += 1;
+    return "success";
+  }
+  return "failure";
+};
+
+const upgradePower = (_id, pin) => {
+  if (games[pin]["players"][_id]["tokens"] >= POWER_LEVEL_UP_COST) {
+    games[pin]["players"][_id]["tokens"] -= POWER_LEVEL_UP_COST;
+    games[pin]["players"][_id]["power"] += 1;
+    return "success";
+  }
+  return "failure";
 };
 
 //note: id is user id, not socket id (in case socket disconnects)
@@ -311,6 +356,15 @@ const gameStart = (pin) => {
     player.v.x = 0;
     player.v.y = 0;
   });
+
+  interval = setInterval(() => {
+    if (games[pin]["timeRemaining"] === 0) {
+      endGame(pin);
+      clearInterval(interval);
+    }
+
+    games[pin]["timeRemaining"] -= 1;
+  }, 1000);
 };
 
 module.exports = {
@@ -321,4 +375,8 @@ module.exports = {
   makeNewGame,
   playerJoin,
   gameStart,
+  changeTokens,
+  upgradeSpeed,
+  upgradePower,
+  endGame,
 };

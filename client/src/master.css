@@ -1,5 +1,5 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url("https://fonts.cdnfonts.com/css/ubuntu-mono-2");
 
 @tailwind base;
 @tailwind components;
@@ -14,8 +14,8 @@
   .input-box {
     @apply block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs 
     focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-     dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-  } 
+     dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  }
 }
 
 /* utilities.css */
@@ -37,7 +37,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Ubuntu Mono", sans-serif;
   font-weight: 300;
 }
 
@@ -50,6 +50,7 @@ form {
 .maze-container{
     display: flex;
     justify-content: center;
+    padding-top: 10vh;
 }
 
 .grid-container{
@@ -58,25 +59,25 @@ form {
     grid-template-columns: repeat(var(--maze-dimension), 1fr);
     grid-template-rows: repeat(var(--maze-dimension), 1fr);
     gap: 0px;
-    width: 40vw;
+    width: 30vw;
 }
 
-.maze-cell{
-    aspect-ratio: 1;
-    font-size: 10px;
+.maze-cell {
+  aspect-ratio: 1;
+  font-size: 10px;
 }
 
-.toggle-button{
-    position: absolute;
-    bottom: 10vh;
+.toggle-button {
+  position: absolute;
+  bottom: 10vh;
 }
 
-.white{
-    background: rgba(128, 128, 128, 0.1);
+.white {
+  background: rgba(128, 128, 128, 0.1);
 }
 
-.black{
-    background: rgba(0, 0, 0, 0.5);
+.black {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .red {
@@ -98,7 +99,8 @@ form {
   animation: dot-pulse 1.5s infinite linear;
   animation-delay: 0.25s;
 }
-.dot-pulse::before, .dot-pulse::after {
+.dot-pulse::before,
+.dot-pulse::after {
   content: "";
   display: inline-block;
   position: absolute;
@@ -127,7 +129,8 @@ form {
   30% {
     box-shadow: 9984px 0 0 2px;
   }
-  60%, 100% {
+  60%,
+  100% {
     box-shadow: 9984px 0 0 -5px;
   }
 }
@@ -138,7 +141,8 @@ form {
   30% {
     box-shadow: 9999px 0 0 2px;
   }
-  60%, 100% {
+  60%,
+  100% {
     box-shadow: 9999px 0 0 -5px;
   }
 }
@@ -149,7 +153,8 @@ form {
   30% {
     box-shadow: 10014px 0 0 2px;
   }
-  60%, 100% {
+  60%,
+  100% {
     box-shadow: 10014px 0 0 -5px;
   }
 }
