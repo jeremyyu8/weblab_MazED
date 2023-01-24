@@ -130,28 +130,29 @@ const FlashcardSetsContainer = (props) => {
         <Redirect from="/teacher" to={redirect} />
       ) : (
         <>
-          <div className="flex border-solid mt-8 mx-10">
-            <div className="text-4xl text-blue-900 border-solid flex-1">Flashcard Sets</div>
-            <button
-              className="my-auto mx-10 flex-none border-solid hover:bg-sky-300 cursor-pointer transition-all text-3xl"
-              onClick={newSet}
-            >
-              Create New Set
-            </button>
-          </div>
-          <div className="overflow-scroll max-w-[70%] px-6 mx-auto mt-[2vw] border border-solid border-black rounded-xl h-[70vh]">
-            {sets.length ? (
-              sets
-            ) : (
-              <>
-                <div
-                  className="text-xl text-gray-300 text-center mt-[35vh] hover:text-gray-600 cursor-pointer duration-150"
-                  onClick={newSet}
-                >
-                  No sets to display. Create a new set!
-                </div>
-              </>
-            )}
+          <div className="background">
+            <div class="sheerbox">
+              <div className="flex mt-8 mx-10">
+                <div className="text-4xl mt-1 text-blue-200 flex-1">Flashcard Sets</div>
+                <button className="bigbutton" onClick={newSet}>
+                  Create New Set
+                </button>
+              </div>
+              <div className="overflow-scroll max-w-[95%] px-6 mx-auto mt-[2vw] rounded-xl h-[70vh]">
+                {sets.length ? (
+                  sets
+                ) : (
+                  <>
+                    <div
+                      className="text-xl text-blue-300 text-center mt-[35vh] hover:text-blue-600 cursor-pointer duration-150"
+                      onClick={newSet}
+                    >
+                      No sets to display. Create a new set!
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         </>
       )}

@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { socket, move, updateWindowSize, startGame } from "../../client-socket.js";
+import {
+  socket,
+  move,
+  updateWindowSize,
+  startGame,
+  upgradeSpeed,
+  upgradePower,
+  unlockBorder,
+} from "../../client-socket.js";
 
 import { drawCanvas } from "../../canvasManager";
 import { Redirect } from "@reach/router";
@@ -8,7 +16,6 @@ import { get, post } from "../../utilities.js";
 import Question from "../modules/GamePageComponents/Question.js";
 import TeacherGamePage from "../modules/GamePageComponents/TeacherGamePage.js";
 
-import { upgradeSpeed, upgradePower } from "../../client-socket.js";
 import TeacherEndPage from "../modules/GamePageComponents/TeacherEndPage.js";
 import StudentEndPage from "../modules/GamePageComponents/StudentEndPage.js";
 import RulesAndSettings from "../modules/GamePageComponents/RulesAndSettings.js";
@@ -38,6 +45,8 @@ const Game = () => {
   const [tagged, setTagged] = useState(false);
   const [taggedDisplay, setTaggedDisplay] = useState(false);
   const [taggedDisplayTimer, setTaggedDisplayTimer] = useState(undefined);
+  const [inBorderRange, setInBorderRange] = useState(false);
+  const [bordersToUnlock, setBordersToUnlock] = useState([]);
 
   // dimension of game window
   const [windowDimension, setWindowDimension] = useState({
@@ -61,7 +70,7 @@ const Game = () => {
       });
   }, []);
 
-  // load game pin
+  // load sockets
   useEffect(() => {
     socket.on("receivePin", (data) => {
       setGamePin(data.pin);
@@ -82,7 +91,7 @@ const Game = () => {
         userData._id === data._id &&
         gamePin === data.pin
       ) {
-        alert("Need more tokens");
+        alert("Need more tokens to upgrade speed");
       }
     });
 
@@ -94,7 +103,19 @@ const Game = () => {
         userData._id === data._id &&
         gamePin === data.pin
       ) {
-        alert("Need more tokens");
+        alert("Need more tokens to upgrade power");
+      }
+    });
+
+    socket.on("unlockBorderResult", (data) => {
+      if (
+        userData &&
+        gamePin &&
+        data.result == "failure" &&
+        userData._id === data._id &&
+        gamePin === data.pin
+      ) {
+        alert("Need more tokens to unlock border");
       }
     });
   }, [gamePin, userData]);
@@ -202,6 +223,37 @@ const Game = () => {
     // if (update["players"][_id]["tagged"] !== false && update["players"][_id]["tagged"] !== tagged) {
     //   setTagged(update["players"][_id]["tagged"]);
     // }
+
+    //border distance checking
+    let playerX = update["players"][_id].p.x;
+    let playerY = update["players"][_id].p.y;
+
+    let toOpen = [];
+    let inRange = false;
+
+    for (const border of update["players"][_id]["borders"]["level1"]) {
+      const dist = Math.sqrt(
+        (playerX - border.x) * (playerX - border.x) + (playerY - border.y) * (playerY - border.y)
+      );
+
+      if (dist < 1.2) {
+        const mazeLength = Math.floor(Math.sqrt(update["mazes"]["level1"].length));
+
+        let nearby = [];
+        for (let i = border.x - 3; i <= border.x + 3; i++) {
+          for (let j = border.y - 3; j <= border.y + 3; j++) {
+            nearby.push(update["mazes"]["level1"][i + j * mazeLength]);
+            if (update["mazes"]["level1"][i + j * mazeLength] === 2) {
+              toOpen.push({ x: i, y: j });
+            }
+          }
+        }
+        inRange = true;
+        break;
+      }
+    }
+    setBordersToUnlock(toOpen);
+    setInBorderRange(inRange);
   };
 
   const handleStartGame = () => {
@@ -256,6 +308,48 @@ const Game = () => {
     }
   }, [tagged]);
 
+  const handleTagged = () => {
+    setQuestionShowing(true);
+    setTaggedDisplay(true);
+    let time = 5;
+    let timer = setInterval(() => {
+      console.log(time);
+      setTaggedDisplayTimer(time);
+      time--;
+    }, 1000);
+    setTimeout(() => {
+      setTaggedDisplay(false);
+      clearInterval(timer);
+    }, 6000);
+    setTaggedDisplayTimer(5);
+  };
+
+  // useEffect(() => {
+  //   if (taggedDisplayTimer === 5) {
+  //     const runTimer = () => {
+  //       let timer = setInterval(() => {
+  //         console.log(taggedDisplayTimer);
+  //         setTaggedDisplayTimer(taggedDisplayTimer - 1);
+  //       }, 1000);
+  //       setTimeout(() => {
+  //         setTaggedDisplay(false);
+  //         clearInterval(timer);
+  //       }, 5000);
+  //     };
+  //     runTimer();
+  //   }
+  // }, [taggedDisplayTimer]);
+
+  useEffect(() => {
+    if (tagged !== false) {
+      handleTagged();
+    }
+  }, [tagged]);
+
+  const handleBorderUnlock = () => {
+    console.log("toUnlock", bordersToUnlock);
+    unlockBorder(userData._id, gamePin, bordersToUnlock);
+  };
   return (
     <>
       {redirect ? (
@@ -344,6 +438,22 @@ const Game = () => {
               ;
             </>
           )}
+
+          {status !== "lobby" &&
+            status !== "end" &&
+            userData &&
+            userData.role === "student" &&
+            gamePin &&
+            inBorderRange && (
+              <>
+                <button
+                  className="text-3xl fixed top-[47%] left-[46%] z-50"
+                  onClick={handleBorderUnlock}
+                >
+                  Press to unlock border
+                </button>
+              </>
+            )}
           {status !== "lobby" &&
             status !== "end" &&
             userData &&

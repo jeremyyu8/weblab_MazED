@@ -95,7 +95,6 @@ module.exports = {
         const user = getUserFromSocketID(socket.id);
         removeUser(user, socket);
       });
-
       // description: teacher makes a new lobby
       // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacherid}
       socket.on("makeNewLobby", (data) => {
@@ -182,6 +181,10 @@ module.exports = {
         gameLogic.gameStart(pin);
       });
 
+      socket.on("extendGame", (pin) => {
+        gameLogic.gameExtend(pin);
+      });
+
       socket.on("changeTokens", (data) => {
         gameLogic.changeTokens(data._id, data.pin, data.result);
       });
@@ -198,6 +201,11 @@ module.exports = {
 
       socket.on("untagMe", (data) => {
         gameLogic.untagMe(data._id, data.pin);
+      });
+
+      socket.on("unlockBorder", (data) => {
+        result = gameLogic.unlockBorder(data._id, data.pin, data.bordersToUnlock); //"success" or "failure"
+        socket.emit("unlockBorderResult", { result: result, _id: data._id, pin: data.pin });
       });
 
       socket.on("endGame", (data) => {

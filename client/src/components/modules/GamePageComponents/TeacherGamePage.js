@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { endGame } from "../../../client-socket";
+import { endGame, extendGame } from "../../../client-socket";
 
 /**
  * teacher game page to display during the game
@@ -69,6 +69,7 @@ const TeacherGamePage = (props) => {
         <div>{timeRemaining}</div>
       </div>
       <button onClick={() => endGame(props.pin)}>End game</button>
+      <button onClick={() => extendGame(props.pin)}>Extend game</button>
     </>
   );
 };

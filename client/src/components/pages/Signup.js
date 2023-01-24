@@ -32,8 +32,8 @@ const Signup = ({
     if (displayState === 0) {
       setDisplay(
         <>
-          <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
-            <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
+          <div className="background">
+            <div class="sheerbox">
               <div className="text-blue-200 text-7xl">Create an account as</div>
               <div className="flex flex-row flex-wrap gap-20 mt-8">
                 <a href="#" class="no-underline flex flex-col items-center group gap-2">

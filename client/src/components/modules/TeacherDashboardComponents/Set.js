@@ -77,7 +77,7 @@ const Set = (props) => {
         <Redirect from="/teacher" to={redirect} />
       ) : (
         <>
-          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-black m-3">
+          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 rounded-lg m-3">
             {loading ? (
               <div className="text-center mx-auto my-auto align-middle border-solid">
                 deleting set...
@@ -86,19 +86,13 @@ const Set = (props) => {
               <>
                 {confirmDelete ? (
                   <>
-                    <div className="mx-auto mt-[10vh] justify-center">
+                    <div className="mx-auto mt-[10vh] text-blue-200 text-md">
                       Confirm you want to delete this set
-                      <div className="mt-[1vh]">
-                        <button
-                          className="px-10 hover:bg-sky-300 cursor-pointer transition-all text-md p-2"
-                          onClick={handleDeletion}
-                        >
+                      <div className="mt-[1vh] flex justify-center">
+                        <button className="editfbuttons" onClick={handleDeletion}>
                           Delete
                         </button>
-                        <button
-                          className="px-10 hover:bg-sky-300 cursor-pointer transition-all text-md p-2"
-                          onClick={handleBack}
-                        >
+                        <button className="editfbuttons" onClick={handleBack}>
                           Back
                         </button>
                       </div>
@@ -109,17 +103,17 @@ const Set = (props) => {
                     <div className="basis-1/6 text-center border-green-900 border-solid m-2">
                       image
                     </div>
-                    <div className="flex-1 border-green-700 border-solid m-2 overflow-y-scroll overflow-x-scroll ">
-                      <div className="text-3xl">
+                    <div className="flex-1 border-blue-700 rounded-xl border-solid m-2 overflow-y-scroll overflow-x-scroll ">
+                      <div className="px-4 pt-2 text-3xl text-blue-200">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
-                      <div className="text-2xl">Flashcards: {props.size}</div>
-                      <div className="text-sm text-gray-500">{props.date}</div>
+                      <div className="px-4 text-2xl text-blue-200">Flashcards: {props.size}</div>
+                      <div className="px-4 text-sm text-blue-200">{props.date}</div>
                     </div>
-                    <div className="flex-none flex-col border-green-700 border-solid m-2">
-                      <div className="flex-1 border-solid">
+                    <div className="flex-none flex-col m-2">
+                      <div className="flex-1">
                         <button
-                          className="flex-1 hover:bg-sky-300 cursor-pointer transition-all text-3xl mr-20 p-2"
+                          className="editfbuttons pt-2"
                           onClick={() => {
                             newLobby(props._id);
                           }}
@@ -127,19 +121,13 @@ const Set = (props) => {
                           Play
                         </button>
                       </div>
-                      <div className="flex-1 border-solid">
-                        <button
-                          className="flex-1 hover:bg-sky-300 cursor-pointer transition-all text-3xl mr-20 p-2"
-                          onClick={editCards}
-                        >
+                      <div className="flex-1">
+                        <button className="editfbuttons" onClick={editCards}>
                           Edit
                         </button>
                       </div>
-                      <div className="flex-1 border-solid">
-                        <button
-                          className="flex-1 hover:bg-sky-300 cursor-pointer transition-all text-3xl mr-20 p-2"
-                          onClick={handleFirstDelete}
-                        >
+                      <div className="flex-1">
+                        <button className="editfbuttons" onClick={handleFirstDelete}>
                           Delete
                         </button>
                       </div>
