@@ -54,3 +54,7 @@ export const endGame = (pin) => {
   console.log(`ending game ${pin}`);
   socket.emit("endGame", { pin: pin });
 };
+
+export const untagMe = (_id, pin) => {
+  socket.emit("untagMe", { _id: _id, pin: pin });
+};

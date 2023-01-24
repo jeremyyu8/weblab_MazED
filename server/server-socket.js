@@ -29,6 +29,15 @@ const addUser = (user, socket) => {
         gameLogic.games[pin]["players"][user._id]["active"] = true;
         gameLogic.games[pin]["players"][user._id].v.x = 0;
         gameLogic.games[pin]["players"][user._id].v.y = 0;
+        // if user leaves during lobby and rejoins after lobby has already started, add them to level
+        if (
+          gameLogic.games[pin]["status"] !== "lobby" &&
+          gameLogic.games[pin]["players"][user._id]["level"] === 0
+        ) {
+          gameLogic.games[pin]["players"][user._id].p.x = 0;
+          gameLogic.games[pin]["players"][user._id].p.y = 0;
+          gameLogic.games[pin]["players"][user._id]["level"] = 1;
+        }
         console.log("setting player active to true");
         socket.join(pin);
       }
@@ -99,14 +108,35 @@ module.exports = {
       // data: { studentid: id, pin: gamepin, studentname: username of student }
       socket.on("joinLobby", (data) => {
         if (!gameLogic.games[data.pin]) {
+          console.log(data.pin);
           socket.emit("joinFail", { err: "pin does not exist" });
         } else {
+          console.log("hi???");
           socket.emit("joinSuccess");
           socket.join(data.pin);
           userToPinMap[data.studentid] = data.pin;
-          console.log("joining lobby");
-          console.log(data);
+
+          // check if user was already in game before
+          for (let _id in gameLogic.games[data.pin]["players"]) {
+            if (_id === data.studentid) {
+              // check if game started while they were disconnected, then update player level
+              if (
+                gameLogic.games[data.pin]["status"] !== "lobby" &&
+                gameLogic.games[data.pin]["players"][_id]["level"] === 0
+              ) {
+                gameLogic.games[data.pin]["players"][_id]["level"] = 1;
+              }
+              return;
+            }
+          }
+
+          // otherwise, this is a new user
           gameLogic.playerJoin(data);
+
+          // user joined late and game already started, put user in level 1
+          if (gameLogic.games[data.pin]["status"] !== "lobby") {
+            gameLogic.games[data.pin]["players"][data.studentid]["level"] = 1;
+          }
         }
       });
 
@@ -164,6 +194,10 @@ module.exports = {
       socket.on("upgradePower", (data) => {
         result = gameLogic.upgradePower(data._id, data.pin); //"success" or "failure"
         socket.emit("upgradePowerResult", { result: result, _id: data._id, pin: data.pin });
+      });
+
+      socket.on("untagMe", (data) => {
+        gameLogic.untagMe(data._id, data.pin);
       });
 
       socket.on("endGame", (data) => {

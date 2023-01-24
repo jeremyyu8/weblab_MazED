@@ -11,12 +11,16 @@ import TeacherGamePage from "../modules/GamePageComponents/TeacherGamePage.js";
 import { upgradeSpeed, upgradePower } from "../../client-socket.js";
 import TeacherEndPage from "../modules/GamePageComponents/TeacherEndPage.js";
 import StudentEndPage from "../modules/GamePageComponents/StudentEndPage.js";
+import RulesAndSettings from "../modules/GamePageComponents/RulesAndSettings.js";
+import ActivePlayers from "../modules/GamePageComponents/ActivePlayers.js";
 
 const Game = () => {
   // metadata
   const [gamePin, setGamePin] = useState(undefined); // user game pin
   const [userData, setUserData] = useState(undefined); // user data
   const [status, setStatus] = useState("lobby");
+  const [showRules, setShowRules] = useState(false);
+  const [showActivePlayers, setShowActivePlayers] = useState(false);
 
   // redirect logic
   const [redirect, setRedirect] = useState(false);
@@ -31,6 +35,9 @@ const Game = () => {
   const [tokens, setTokens] = useState(undefined);
   const [speed, setSpeed] = useState(undefined);
   const [power, setPower] = useState(undefined);
+  const [tagged, setTagged] = useState(false);
+  const [taggedDisplay, setTaggedDisplay] = useState(false);
+  const [taggedDisplayTimer, setTaggedDisplayTimer] = useState(undefined);
 
   // dimension of game window
   const [windowDimension, setWindowDimension] = useState({
@@ -104,7 +111,7 @@ const Game = () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("resize", handleResize);
     };
-  }, [userData, gamePin]);
+  }, [userData, gamePin, questionShowing]);
 
   // set the window size when they log in
   useEffect(() => {
@@ -145,7 +152,7 @@ const Game = () => {
     if (e.key === "ArrowRight") {
       pressed["right"] = false;
     }
-    if (userData && gamePin) {
+    if (userData && gamePin && !questionShowing) {
       move(pressed, userData._id, gamePin);
     }
   };
@@ -163,29 +170,38 @@ const Game = () => {
     if (e.key === "ArrowRight") {
       pressed["right"] = true;
     }
-    if (userData && gamePin) {
+    if (userData && gamePin && !questionShowing) {
       move(pressed, userData._id, gamePin);
     }
   };
 
   const processUpdate = (update, _id) => {
     drawCanvas(update, canvasRef, _id);
-    if (update["status"] !== status) {
-      setStatus(update["status"]);
-    }
-    if (update["players"][_id]["level"] !== level) {
-      setLevel(update["players"][_id]["level"]);
-    }
-    if (update["players"][_id]["tokens"] !== tokens) {
-      setTokens(update["players"][_id]["tokens"]);
-    }
-    if (update["players"][_id]["speed"] !== speed) {
-      setSpeed(update["players"][_id]["speed"]);
-    }
-    if (update["players"][_id]["power"] !== power) {
-      setPower(update["players"][_id]["power"]);
-    }
+    setStatus(update["status"]);
+    setLevel(update["players"][_id]["level"]);
+    setTokens(update["players"][_id]["tokens"]);
+    setSpeed(update["players"][_id]["speed"]);
+    setPower(update["players"][_id]["power"]);
+    setTagged(update["players"][_id]["tagged"]);
     setGameState(update);
+    // if (update["status"] !== status) {
+    //   setStatus(update["status"]);
+    // }
+    // if (update["players"][_id]["level"] !== level) {
+    //   setLevel(update["players"][_id]["level"]);
+    // }
+    // if (update["players"][_id]["tokens"] !== tokens) {
+    //   setTokens(update["players"][_id]["tokens"]);
+    // }
+    // if (update["players"][_id]["speed"] !== speed) {
+    //   setSpeed(update["players"][_id]["speed"]);
+    // }
+    // if (update["players"][_id]["power"] !== power) {
+    //   setPower(update["players"][_id]["power"]);
+    // }
+    // if (update["players"][_id]["tagged"] !== false && update["players"][_id]["tagged"] !== tagged) {
+    //   setTagged(update["players"][_id]["tagged"]);
+    // }
   };
 
   const handleStartGame = () => {
@@ -201,6 +217,44 @@ const Game = () => {
   const handleUpgradePower = () => {
     upgradePower(userData._id, gamePin);
   };
+
+  const handleTagged = () => {
+    setQuestionShowing(true);
+    setTaggedDisplay(true);
+    let time = 5;
+    let timer = setInterval(() => {
+      console.log(time);
+      setTaggedDisplayTimer(time);
+      time--;
+    }, 1000);
+    setTimeout(() => {
+      setTaggedDisplay(false);
+      clearInterval(timer);
+    }, 6000);
+    setTaggedDisplayTimer(5);
+  };
+
+  // useEffect(() => {
+  //   if (taggedDisplayTimer === 5) {
+  //     const runTimer = () => {
+  //       let timer = setInterval(() => {
+  //         console.log(taggedDisplayTimer);
+  //         setTaggedDisplayTimer(taggedDisplayTimer - 1);
+  //       }, 1000);
+  //       setTimeout(() => {
+  //         setTaggedDisplay(false);
+  //         clearInterval(timer);
+  //       }, 5000);
+  //     };
+  //     runTimer();
+  //   }
+  // }, [taggedDisplayTimer]);
+
+  useEffect(() => {
+    if (tagged !== false) {
+      handleTagged();
+    }
+  }, [tagged]);
 
   return (
     <>
@@ -219,6 +273,24 @@ const Game = () => {
                 />
               </div>
             )}
+          {status === "lobby" && userData && userData.role === "student" && (
+            <>
+              <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">
+                <div className="flex justify-between text-3xl">
+                  <div className="p-[3vh]">Welcome, {userData.name}</div>
+                  <div
+                    className="p-[3vh] hover:text-blue-500 cursor-pointer transition-all text-md"
+                    onClick={() => {
+                      setShowRules(true);
+                    }}
+                  >
+                    Rules and settings
+                  </div>
+                </div>
+              </div>
+              {showRules && <RulesAndSettings setShowRules={setShowRules} />};
+            </>
+          )}
           {status === "lobby" && userData && userData.role === "teacher" && gamePin && (
             <>
               <div className="bg-white bg-opacity-30 fixed z-10 w-full h-auto p-[4vh]">
@@ -227,7 +299,17 @@ const Game = () => {
               </div>
               <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">
                 <div className="flex justify-between text-3xl">
-                  <div className="p-[3vh] hover:text-blue-500 cursor-pointer transition-all text-md">
+                  <div
+                    className="p-[3vh] hover:text-blue-500 cursor-pointer transition-all text-md"
+                    onClick={() => {
+                      if (!showRules) {
+                        setShowActivePlayers(true);
+                      } else {
+                        setShowRules(false);
+                        setShowActivePlayers(true);
+                      }
+                    }}
+                  >
                     Active players
                   </div>
                   <div
@@ -236,11 +318,30 @@ const Game = () => {
                   >
                     Start Game
                   </div>
-                  <div className="p-[3vh] hover:text-blue-500 cursor-pointer transition-all text-md">
+                  <div
+                    className="p-[3vh] hover:text-blue-500 cursor-pointer transition-all text-md"
+                    onClick={() => {
+                      if (!showActivePlayers) {
+                        setShowRules(true);
+                      } else {
+                        setShowActivePlayers(false);
+                        setShowRules(true);
+                      }
+                    }}
+                  >
                     Rules and settings
                   </div>
                 </div>
               </div>
+              {showRules && <RulesAndSettings setShowRules={setShowRules} />};
+              {showActivePlayers && gameState && gamePin && (
+                <ActivePlayers
+                  setShowActivePlayers={setShowActivePlayers}
+                  activePlayers={gameState["players"]}
+                  teacherId={gameState["teacher"]["_id"]}
+                />
+              )}
+              ;
             </>
           )}
           {status !== "lobby" &&
@@ -281,6 +382,12 @@ const Game = () => {
                 </div>
               </>
             )}
+          {taggedDisplay !== false && (
+            <div className="bg-red-600 bg-opacity-80 fixed w-[50vw] h-[30vh] left-[25vw] top-[35vh] border-solid z-50">
+              <div className="text-4xl text-center mt-[10vh]">You just got tagged by {tagged}!</div>
+              <div className="text-4xl text-center">{taggedDisplayTimer}</div>
+            </div>
+          )}
           {status !== "lobby" &&
             status !== "end" &&
             userData &&
@@ -296,6 +403,8 @@ const Game = () => {
               setQuestionShowing={setQuestionShowing}
               userData={userData}
               gamePin={gamePin}
+              tagged={tagged}
+              taggedDisplay={taggedDisplay}
             />
           )}
           {status === "end" && userData && userData.role === "teacher" && <TeacherEndPage />}

@@ -13,7 +13,7 @@ const VCUTOFF = 0.02;
 
 //in-game constants
 const TOKEN_GAIN = 100;
-const TOKEN_LOSS = 100;
+const TOKEN_LOSS = -100;
 const SPEED_LEVEL_UP_COST = 300;
 const POWER_LEVEL_UP_COST = 200;
 
@@ -32,7 +32,7 @@ each gamestate: gamestate = {winner: X, maze: X, players: X, flashcardset: X,}
 each player: player = {position: X, health: X … }
 gamestate = 
 {players:
-{player: player object}
+{playerid: player object}
 teacher: 
 {_id: userId of the teacher}
 status: 
@@ -86,9 +86,11 @@ const playerJoin = (data) => {
 const changeTokens = (_id, pin, result) => {
   if (result === "correct") {
     games[pin]["players"][_id]["tokens"] += TOKEN_GAIN;
+    games[pin]["players"][_id]["flashcards_correct"] += 1;
   } else {
     games[pin]["players"][_id]["tokens"] += TOKEN_LOSS;
   }
+  games[pin]["players"][_id]["flashcards_total"] += 1;
 };
 
 const upgradeSpeed = (_id, pin) => {
@@ -109,6 +111,16 @@ const upgradePower = (_id, pin) => {
   return "failure";
 };
 
+const untagMe = (_id, pin) => {
+  // 5 second invincibility period
+  games[pin]["players"][_id]["invincible"] = true;
+  games[pin]["players"][_id]["tagged"] = false;
+  setTimeout(() => {
+    games[pin]["players"][_id]["invincible"] = false;
+    console.log("untagging me!");
+  }, 5000);
+};
+
 const makeNewPlayer = (_id, pin, name) => {
   const newPlayer = {
     name: name,
@@ -122,6 +134,11 @@ const makeNewPlayer = (_id, pin, name) => {
     speed: 0,
     active: true,
     level: 0,
+    tagged: false, // currently tagged?
+    tags: 0, // number of people that you tagged
+    flashcards_correct: 0, // number of flashcards correct
+    flashcards_total: 0, // total number of flashcards answered
+    invincible: false, // invincible after getting tagged
   };
 
   games[pin]["players"][_id] = newPlayer;
@@ -150,6 +167,40 @@ const movePlayer = (_id, pin, dir) => {
 const updateGameState = () => {
   if (!games) return;
   for (let pin in games) {
+    // if the game is not lobby, check for collisions
+    if (games[pin]["status"] !== "lobby") {
+      let collisions = detectPlayerCollisions(pin);
+      for (let collision of collisions) {
+        let player1 = games[pin]["players"][collision[0]];
+        let player2 = games[pin]["players"][collision[1]];
+
+        // can't tag someone who is already tagged, or is invincible
+        if (
+          player1["tagged"] !== false ||
+          player2["tagged"] !== false ||
+          player1["invincible"] === true ||
+          player2["invincible"] === true
+        ) {
+          continue;
+        }
+
+        // if powers are equal, both players get tagged
+        console.log("someone got tagged");
+        if (player1["power"] === player2["power"]) {
+          player1["tagged"] = player2["name"];
+          player2["tagged"] = player1["name"];
+          player1["tags"] += 1;
+          player2["tags"] += 1;
+        } else if (player1["power"] > player2["power"]) {
+          player2["tagged"] = player1["name"];
+          player1["tags"] += 1;
+        } else {
+          player1["tagged"] = player2["name"];
+          player2["tags"] += 1;
+        }
+      }
+    }
+
     for (let _id in games[pin]["players"]) {
       detectMapCollisions(_id, pin);
       let curPlayer = games[pin]["players"][_id];
@@ -162,16 +213,16 @@ const updateGameState = () => {
         (curPlayer.k["up"] === true || curPlayer.k["down"] === true) &&
         !(curPlayer.k["up"] === true && curPlayer.k["down"] === true);
       if (curPlayer.k["up"] === true) {
-        curPlayer.v.y = curPlayer.v.y - ACCEL - 0.01 * curPlayer["speed"];
+        curPlayer.v.y -= ACCEL + 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["down"] === true) {
-        curPlayer.v.y += ACCEL + +0.01 * curPlayer["speed"];
+        curPlayer.v.y += ACCEL + 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["left"] === true) {
-        curPlayer.v.x = curPlayer.v.x - ACCEL - 0.01 * curPlayer["speed"];
+        curPlayer.v.x -= ACCEL + 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["right"] === true) {
-        curPlayer.v.x += ACCEL + +0.01 * curPlayer["speed"];
+        curPlayer.v.x += ACCEL + 0.01 * curPlayer["speed"];
       }
       if (movingx && movingy) {
         let v = Math.max(Math.abs(curPlayer.v.y), Math.abs(curPlayer.v.x));
@@ -303,16 +354,19 @@ const detectMapCollisions = (_id, pin) => {
 
 // detect collisions between players and other players
 const detectPlayerCollisions = (pin) => {
-  let game = games[pin]["players"];
   let collisions = [];
 
-  for (let _id1 in game) {
-    for (let _id2 in game) {
+  let ids = Object.keys(games[pin]["players"]);
+  for (let i = 0; i < ids.length; i++) {
+    for (let j = i + 1; j < ids.length; j++) {
+      let _id1 = ids[i];
+      let _id2 = ids[j];
+
       // can't collide with self
       if (_id1 === _id2) continue;
 
       // can't collide with teacher
-      if (_id1 === games[pin]["teacher"] || _id2 === games[pin]["teacher"]) continue;
+      if (_id1 === games[pin]["teacher"]["_id"] || _id2 === games[pin]["teacher"]["_id"]) continue;
 
       let player1 = games[pin]["players"][_id1];
       let player2 = games[pin]["players"][_id2];
@@ -342,7 +396,7 @@ const gameStart = (pin) => {
   });
 
   interval = setInterval(() => {
-    if (games[pin]["timeRemaining"] === 0) {
+    if (games[pin]["timeRemaining"] === 1) {
       endGame(pin);
       clearInterval(interval);
     }
@@ -362,5 +416,6 @@ module.exports = {
   changeTokens,
   upgradeSpeed,
   upgradePower,
+  untagMe,
   endGame,
 };

@@ -219,8 +219,20 @@
   right: 2vh;
 }
 
+.left-\[25vw\]{
+  left: 25vw;
+}
+
+.top-\[25vh\]{
+  top: 25vh;
+}
+
 .top-11{
   top: 2.75rem;
+}
+
+.left-\[12\.5vw\]{
+  left: 12.5vw;
 }
 
 .right-\[3vh\]{
@@ -235,6 +247,22 @@
   left: 0px;
 }
 
+.left-\[40vw\]{
+  left: 40vw;
+}
+
+.top-\[35vh\]{
+  top: 35vh;
+}
+
+.left-\[35vw\]{
+  left: 35vw;
+}
+
+.left-\[3vh\]{
+  left: 3vh;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -245,6 +273,10 @@
 
 .z-50{
   z-index: 50;
+}
+
+.z-30{
+  z-index: 30;
 }
 
 .m-3{
@@ -370,6 +402,10 @@
   margin-top: 0.5rem;
 }
 
+.mt-\[20\%\]{
+  margin-top: 20%;
+}
+
 .block{
   display: block;
 }
@@ -408,6 +444,10 @@
 
 .h-\[25vh\]{
   height: 25vh;
+}
+
+.h-\[50vh\]{
+  height: 50vh;
 }
 
 .h-\[50\%\]{
@@ -466,6 +506,10 @@
   width: 25vh;
 }
 
+.w-\[50vw\]{
+  width: 50vw;
+}
+
 .w-\[50\%\]{
   width: 50%;
 }
@@ -482,12 +526,12 @@
   width: 10rem;
 }
 
-.w-\[80\%\]{
-  width: 80%;
+.w-\[75vw\]{
+  width: 75vw;
 }
 
-.w-\[50vw\]{
-  width: 50vw;
+.w-\[80\%\]{
+  width: 80%;
 }
 
 .w-\[10\%\]{
@@ -496,6 +540,10 @@
 
 .w-auto{
   width: auto;
+}
+
+.w-\[30vw\]{
+  width: 30vw;
 }
 
 .max-w-\[80\%\]{
@@ -789,6 +837,11 @@
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
+.bg-red-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-80{
   --tw-bg-opacity: 0.8;
 }
@@ -803,6 +856,10 @@
 
 .bg-opacity-60{
   --tw-bg-opacity: 0.6;
+}
+
+.bg-opacity-70{
+  --tw-bg-opacity: 0.7;
 }
 
 .bg-spaceimg2{
@@ -822,12 +879,12 @@
      object-fit: contain;
 }
 
-.p-\[4vh\]{
-  padding: 4vh;
-}
-
 .p-\[3vh\]{
   padding: 3vh;
+}
+
+.p-\[4vh\]{
+  padding: 4vh;
 }
 
 .p-5{
@@ -886,6 +943,16 @@
   padding-right: 2.5rem;
 }
 
+.py-\[3vh\]{
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+.py-\[12vh\]{
+  padding-top: 12vh;
+  padding-bottom: 12vh;
+}
+
 .pt-16{
   padding-top: 4rem;
 }
@@ -900,10 +967,6 @@
 
 .pr-8{
   padding-right: 2rem;
-}
-
-.pr-4{
-  padding-right: 1rem;
 }
 
 .pt-\[18vh\]{
@@ -943,14 +1006,14 @@
   font-size: 36px;
 }
 
-.text-4xl{
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
 .text-3xl{
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-4xl{
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .text-2xl{
@@ -1025,6 +1088,11 @@
 .text-red-600{
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.text-gray-400{
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .text-gray-300{

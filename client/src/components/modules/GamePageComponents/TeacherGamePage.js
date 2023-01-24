@@ -10,6 +10,7 @@ import { endGame } from "../../../client-socket";
  */
 const TeacherGamePage = (props) => {
   const [players, setPlayers] = useState(undefined);
+  const [timeRemaining, setTimeRemaining] = useState(undefined);
 
   useEffect(() => {
     if (props.gameState) {
@@ -17,23 +18,27 @@ const TeacherGamePage = (props) => {
       let playerData = [];
       for (let playerid in props.gameState["players"]) {
         if (playerid !== props.gameState["teacher"]["_id"]) {
-          playerData.push(
-            <div key={playerData.length} className="flex">
-              <div className="pr-4">Player: {props.gameState["players"][playerid]["name"]}</div>
-              <div className="pr-4">
-                Current Level: {props.gameState["players"][playerid]["level"]}
+          let curPlayer = (
+            <div key={playerData.length}>
+              <div className="text-3xl">{props.gameState["players"][playerid]["name"]}</div>
+              <div>Current Level: {props.gameState["players"][playerid]["level"]}</div>
+              <div>x: {Math.round(props.gameState["players"][playerid].p.x * 100) / 100}</div>
+              <div>y: {Math.round(props.gameState["players"][playerid].p.y * 100) / 100}</div>
+              <div>
+                questions answered: {props.gameState["players"][playerid]["flashcards_total"]}
               </div>
-              <div className="pr-4">
-                x: {Math.round(props.gameState["players"][playerid].p.x * 100) / 100}
-              </div>
-              <div className="pr-4">
-                y: {Math.round(props.gameState["players"][playerid].p.y * 100) / 100}
-              </div>
+              <div>active: {props.gameState["players"][playerid]["active"] ? "true" : "false"}</div>
             </div>
           );
+          if (props.gameState["players"][playerid]["active"]) {
+            playerData.push(curPlayer);
+          } else {
+            playerData.push(<div className="text-gray-400">{curPlayer}</div>);
+          }
         }
       }
       setPlayers(playerData);
+      setTimeRemaining(props.gameState["timeRemaining"]);
     }
   }, [props.gameState]);
 
@@ -57,11 +62,11 @@ const TeacherGamePage = (props) => {
       <div>This is the teacher game page.</div>
       <div className="text-center text-4xl">Pin: {props.pin}</div>
       <div>
-        Game state:
-        <div>Players:</div>
+        <div className="text-4xl">Players:</div>
         <div>{players}</div>
+        <hr />
         <div>Time Remaining:</div>
-        <div>{convertToTime(props.gameState["timeRemaining"])}</div>
+        <div>{timeRemaining}</div>
       </div>
       <button onClick={() => endGame(props.pin)}>End game</button>
     </>
