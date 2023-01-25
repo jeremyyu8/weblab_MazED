@@ -146,11 +146,11 @@ const Game = () => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
-    window.addEventListener("resize", handleResize);
+    // window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
-      window.removeEventListener("resize", handleResize);
+      // window.removeEventListener("resize", handleResize);
     };
   }, [userData, gamePin, questionShowing, promoted]);
 
@@ -168,15 +168,22 @@ const Game = () => {
 
   // update window size whenever it changes
   const handleResize = () => {
-    console.log("handle resize");
     if (userData && gamePin) {
-      updateWindowSize({
-        x: window.innerWidth,
-        y: window.innerHeight,
-        _id: userData._id,
-        pin: gamePin,
-      });
-      setWindowDimension({ width: window.innerWidth, height: window.innerHeight });
+      if (
+        Math.abs(window.innerWidth - windowDimension.width) > 20 ||
+        Math.abs(window.innerHeight - windowDimension.height) > 20
+      ) {
+        console.log("handling resize");
+        console.log("new", window.innerWidth, window.innerHeight);
+        console.log("current", windowDimension.width, windowDimension.height);
+        setWindowDimension({ width: window.innerWidth, height: window.innerHeight });
+        updateWindowSize({
+          x: window.innerWidth,
+          y: window.innerHeight,
+          _id: userData._id,
+          pin: gamePin,
+        });
+      }
     }
   };
 
@@ -228,6 +235,10 @@ const Game = () => {
     // setGameState(update);
     if (counter % 30 === 0) {
       setGameState(update);
+    }
+    // handle window resizing
+    if (counter % 120 === 0) {
+      handleResize();
     }
     // if (update["status"] !== status) {
     //   setStatus(update["status"]);
