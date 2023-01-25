@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   socket,
   move,
+  getMazes,
   updateWindowSize,
   startGame,
   upgradeSpeed,
@@ -37,6 +38,7 @@ const Game = () => {
   const [flashCardSet, setFlashCardSet] = useState(undefined);
 
   // game data
+  const [mazes, setMazes] = useState(undefined);
   const [gameState, setGameState] = useState(undefined);
   const [level, setLevel] = useState(undefined);
   const [tokens, setTokens] = useState(undefined);
@@ -76,6 +78,13 @@ const Game = () => {
       });
   }, []);
 
+  // get mazes
+  useEffect(() => {
+    if (gamePin) {
+      getMazes(gamePin);
+    }
+  }, [gamePin]);
+
   // load sockets
   useEffect(() => {
     socket.on("receivePin", (data) => {
@@ -83,8 +92,13 @@ const Game = () => {
       setFlashCardSet(data.cards);
     });
 
+    // update is already parsed from pin
+    socket.on("updateMazes", (update) => {
+      setMazes(update);
+    });
+
     socket.on("update", (update) => {
-      if (userData && gamePin) {
+      if (userData && gamePin && mazes) {
         processUpdate(update[gamePin], userData._id);
       }
     });
@@ -124,7 +138,7 @@ const Game = () => {
         alert("Need more tokens to unlock border");
       }
     });
-  }, [gamePin, userData]);
+  }, [gamePin, userData, mazes]);
 
   let pressed = { up: false, down: false, left: false, right: false };
 
@@ -204,7 +218,7 @@ const Game = () => {
 
   const processUpdate = (update, _id) => {
     counter++;
-    drawCanvas(update, canvasRef, _id);
+    drawCanvas(update, canvasRef, _id, mazes);
     setStatus(update["status"]);
     setLevel(update["players"][_id]["level"]);
     setTokens(update["players"][_id]["tokens"]);
@@ -249,12 +263,12 @@ const Game = () => {
       // console.log(dist);
 
       if (dist < 1.2) {
-        const mazeLength = Math.floor(Math.sqrt(update["mazes"][leveltag].length));
+        const mazeLength = Math.floor(Math.sqrt(mazes[leveltag].length));
         let nearby = [];
         for (let i = border.x - 3; i <= border.x + 3; i++) {
           for (let j = border.y - 3; j <= border.y + 3; j++) {
-            nearby.push(update["mazes"][leveltag][i + j * mazeLength]);
-            if (update["mazes"][leveltag][i + j * mazeLength] === 2) {
+            nearby.push(mazes[leveltag][i + j * mazeLength]);
+            if (mazes[leveltag][i + j * mazeLength] === 2) {
               toOpen.push({ x: i, y: j });
             }
           }
@@ -263,7 +277,7 @@ const Game = () => {
         // break;
       }
 
-      if (counter % 30 === 0) {
+      if (counter % 15 === 0) {
         setBordersToUnlock(toOpen);
         setInBorderRange(inRange);
       }
@@ -497,7 +511,7 @@ const Game = () => {
             userData.role === "teacher" &&
             gamePin && (
               <>
-                <TeacherGamePage gameState={gameState} pin={gamePin} />
+                <TeacherGamePage gameState={gameState} pin={gamePin} mazes={mazes} />
               </>
             )}
           {questionShowing && (

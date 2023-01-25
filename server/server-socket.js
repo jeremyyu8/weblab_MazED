@@ -1,5 +1,8 @@
 const gameLogic = require("./game-logic");
 
+// require .env
+require("dotenv").config();
+
 let io;
 
 const userToSocketMap = {}; // maps user ID to socket object
@@ -60,27 +63,23 @@ const removeUser = (user, socket) => {
   delete socketToUserMap[socket.id];
 };
 
+// send all maze data + player data
 const sendGameState = () => {
-  // console.log(gameLogic.games);
-  // console.log("emitting game state");
   io.emit("update", gameLogic.games);
+};
+
+// send only live updating data
+const sendMazes = (pin) => {
+  io.emit("updateMazes", gameLogic.mazes[pin]);
 };
 
 const startRunningGame = () => {
   // let winResetTimer = 0;
+  // sendMazes();
   setInterval(() => {
     gameLogic.updateGameState();
     sendGameState();
-
-    // // Reset game 5 seconds after someone wins.
-    // if (gameLogic.gameState.winner != null) {
-    //   winResetTimer += 1;
-    // }
-    // if (winResetTimer > 60 * 5) {
-    //   winResetTimer = 0;
-    //   gameLogic.resetWinner();
-    // }
-  }, 1000 / 60); // 60 frames per second
+  }, 1000 / process.env.FPS); // 60 frames per second
 };
 
 startRunningGame();
@@ -139,12 +138,17 @@ module.exports = {
         }
       });
 
+      socket.on("getMazes", (pin) => {
+        sendMazes(pin);
+      });
+
       socket.on("move", (data) => {
         const user = getUserFromSocketID(socket.id);
         // console.log("received movement on server side");
-        // if (user) gameLogic.movePlayer(user._id, dir);
-        gameLogic.movePlayer(data._id, data.pin, data.dir);
-        // TODO uncomment
+        if (user) gameLogic.movePlayer(data._id, data.pin, data.dir);
+        else {
+          console.log("user not logged in ");
+        }
       });
 
       socket.on("getPin", (userId) => {
