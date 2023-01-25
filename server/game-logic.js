@@ -411,8 +411,8 @@ const detectMapCollisions = (_id, pin) => {
 
   let mapxsize = Math.floor(Math.sqrt(map.length)) * tilewidth;
 
-  let l1 = player.p.x + 2 * player.v.x;
-  let t1 = player.p.y + 2 * player.v.y;
+  let l1 = player.p.x + player.v.x;
+  let t1 = player.p.y + player.v.y;
   // tiles that player could potentially collide with
   let tiles = [];
   tiles.push({ x: Math.floor(l1), y: Math.floor(t1) });
@@ -504,6 +504,13 @@ const detectPlayerCollisions = (pin) => {
 
       // can't collide with players on different levels
       if (games[pin]["players"][_id1]["level"] !== games[pin]["players"][_id2]["level"]) continue;
+
+      // can't collide with inactive players
+      if (
+        games[pin]["players"][_id1]["active"] === false ||
+        games[pin]["players"][_id2]["active"] === false
+      )
+        continue;
 
       let player1 = games[pin]["players"][_id1];
       let player2 = games[pin]["players"][_id2];

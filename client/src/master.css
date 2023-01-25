@@ -26,7 +26,7 @@
   }
 
   .background {
-    @apply bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center;
+    @apply bg-spaceimg2 bg-fixed bg-cover h-[100vh] flex flex-col items-center justify-center;
   }
 
   .sheerbox {
@@ -36,7 +36,7 @@
 
 }
 
-h1 {
+/* h1 {
   font-size: clamp(1rem, 3vw + 1rem, 4rem);
   position: relative;
   font-family: "Source Code Pro", monospace;
@@ -55,26 +55,16 @@ h1::after {
 }
 
 h1::before {
-  background: var(--bg-color);
-  animation: typewriter var(--typewriterSpeed)
-    steps(var(--typewriterCharacters)) 1s forwards;
+  animation: typewriter 1s
+    steps(26) 1s forwards;
 }
 
 h1::after {
   width: 0.125em;
   background: black;
-  animation: typewriter var(--typewriterSpeed)
-      steps(var(--typewriterCharacters)) 1s forwards,
-    blink 750ms steps(var(--typewriterCharacters)) infinite;
-}
-
-.subtitle {
-  color: hsl(0 0% 0% / 0.7);
-  font-size: 2rem;
-  font-weight: 400;
-  opacity: 0;
-  transform: translateY(3rem);
-  animation: fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
+  animation: typewriter 1s
+      steps(26) 1s forwards,
+    blink 750ms steps(26) infinite;
 }
 
 @keyframes typewriter {
@@ -89,12 +79,41 @@ h1::after {
   }
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
 }
+ */
+
+ .typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid #bfdbfe; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 9s steps(26, start) infinite,
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  /* from { width: 0 }
+  to { width: 100% } */
+  0% { width: 0 }
+  33%, 100% {width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #bfdbfe; }
+}
+
+
+@media (max-width: 768px) { .title{font-family: "Ubuntu Mono"; font-size: 6vw; font-weight: 700;} }
+@media (min-width: 768px) { .title{visibility: hidden} }
+
 
 
 /* utilities.css */

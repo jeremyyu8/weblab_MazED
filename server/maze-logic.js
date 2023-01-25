@@ -25,8 +25,10 @@ const generateMaze = (dim) => {
     sz[i] = -1;
   }
 
+  // kruskal implemented with DSU
+  // https://github.com/bqi343/cp-notebook/blob/master/Implementations/content/graphs%20(12)/DSU/DSU%20(7.6).h
   const get = (a) => {
-    return sz[a] < 0 ? a : (sz[a] = get(sz[a]));
+    return sz[a] < 0 ? a : (sz[a] = get(sz[a])); // path compression
   };
 
   const unite = (a, b) => {
@@ -88,6 +90,7 @@ const generateMaze = (dim) => {
     }
   }
 
+  // turn it back into original dim
   for (let row = 0; row < dim; row++) {
     for (let col = 0; col < dim; col++) {
       if (row % 2 === 0 && col % 2 === 0) {

@@ -39,7 +39,7 @@ const Navbar = (props) => {
     }
   } else {
     rightside = (
-      <div className="hidden md:flex no-underline text-black text-center text-[18px] py-3">
+      <div className="flex no-underline text-black text-center text-[18px] py-3">
         You are: {props.userName} ({props.userRole})
       </div>
     );

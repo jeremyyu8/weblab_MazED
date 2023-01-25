@@ -37,7 +37,12 @@ const Login = ({ userId, userRole, handleLogin, handleLogout }) => {
 
           <div className="background">
             <div class="sheerbox">
-              <div className="text-blue-200 text-7xl">You are not currently logged in</div>
+              <div
+                className="text-blue-200 text-6xl hover:cursor-pointer"
+                onClick={() => window.location.replace("/")}
+              >
+                MazED
+              </div>
               <div className="mx-auto m-3">
                 <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
                   {userId ? (

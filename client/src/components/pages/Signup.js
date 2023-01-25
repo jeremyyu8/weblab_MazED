@@ -34,11 +34,11 @@ const Signup = ({
         <>
           <div className="background">
             <div class="sheerbox">
-              <div className="text-blue-200 text-7xl">Create an account as</div>
+              <div className="text-blue-200 text-7xl text-center">Create user account:</div>
               <div className="flex flex-row flex-wrap gap-20 mt-8">
                 <a href="#" class="no-underline flex flex-col items-center group gap-2">
                   <img
-                    className="object-contain h-52 w-48 group-hover:scale-125 transition duration-300 ease-in-out"
+                    className="object-contain h-52 w-40 group-hover:scale-125 transition duration-300 ease-in-out"
                     src="https://upload.wikimedia.org/wikipedia/commons/6/60/Bringer_of_War_Planet.png"
                     onClick={() => {
                       setDisplayState(1);
@@ -49,7 +49,7 @@ const Signup = ({
 
                 <a href="#" class="no-underline flex flex-col items-center group gap-2">
                   <img
-                    className="object-contain h-52 w-48 group-hover:scale-125 transition duration-300 ease-in-out"
+                    className="object-contain h-52 w-40 group-hover:scale-125 transition duration-300 ease-in-out"
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ice_planet.png/1200px-Ice_planet.png"
                     onClick={() => {
                       setDisplayState(2);
@@ -94,17 +94,7 @@ const Signup = ({
       ) : (
         <>
           <Navbar />
-          <div>
-            {display}
-            {userId ? (
-              <div>
-                You are currently logged in with userId: {userId}. Your account type is: {userRole}
-              </div>
-            ) : (
-              <div>Create an account. You are not currently logged in.</div>
-            )}
-            <br />
-          </div>
+          <div>{display}</div>
         </>
       )}
     </>

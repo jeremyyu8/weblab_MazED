@@ -169,21 +169,16 @@ const Game = () => {
   // update window size whenever it changes
   const handleResize = () => {
     if (userData && gamePin) {
-      if (
-        Math.abs(window.innerWidth - windowDimension.width) > 20 ||
-        Math.abs(window.innerHeight - windowDimension.height) > 20
-      ) {
-        console.log("handling resize");
-        console.log("new", window.innerWidth, window.innerHeight);
-        console.log("current", windowDimension.width, windowDimension.height);
-        setWindowDimension({ width: window.innerWidth, height: window.innerHeight });
-        updateWindowSize({
-          x: window.innerWidth,
-          y: window.innerHeight,
-          _id: userData._id,
-          pin: gamePin,
-        });
-      }
+      console.log("handling resize");
+      console.log("new", window.innerWidth, window.innerHeight);
+      console.log("current", windowDimension.width, windowDimension.height);
+      setWindowDimension({ width: window.innerWidth, height: window.innerHeight });
+      updateWindowSize({
+        x: window.innerWidth,
+        y: window.innerHeight,
+        _id: userData._id,
+        pin: gamePin,
+      });
     }
   };
 
@@ -396,7 +391,7 @@ const Game = () => {
           {status === "lobby" && userData && userData.role === "teacher" && gamePin && (
             <>
               <div className="bg-white bg-opacity-30 fixed z-10 w-full h-auto p-[4vh]">
-                <div className="text-center text-4xl">Join at localhost:5050</div>
+                <div className="text-center text-4xl">Join at mazed.herokuapp.com</div>
                 <div className="text-center text-4xl">PIN: {gamePin}</div>
               </div>
               <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">

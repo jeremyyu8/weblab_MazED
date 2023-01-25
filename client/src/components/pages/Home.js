@@ -41,12 +41,19 @@ const Home = ({ userId, userRole, userName }) => {
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
           <div className="background">
-            <div className="sheerbox">
-              <h1 className="">Can you find your way out?</h1>
-              <div className="pt-16 pb-16 text-center">
+            <div className="sheerbox w-[80%] h-[40%]">
+              {/* <div className="hidden typewriter md:flex md:justify-center">
+                <h1>Can you find your way out?</h1>
+              </div> */}
+              <div className="typewriter text-[2vw] w-[85%]">
+                <h1>Can you find your way out?</h1>
+              </div>
+
+              {/* <div className="title">Can you find your way out?</div> */}
+              <div className="pt-16 text-center">
                 <Link
                   to="/signup"
-                  className="text-white bg-blue-800 text-3xl rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-12 no-underline"
+                  className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
                 >
                   Sign Up for free
                 </Link>
@@ -58,8 +65,8 @@ const Home = ({ userId, userRole, userName }) => {
               </Link>
             </div>
           </div>
-          <div className="bg-stone-900 bg-fixed bg-cover h-screen flex flex-col justify-evenly">
-            <div className="flex flex-wrap justify-evenly">
+          <div className="bg-stone-900 bg-fixed bg-cover h-auto flex flex-col justify-evenly">
+            <div className="flex flex-wrap justify-evenly pb-8">
               <Card
                 title="Flashcards"
                 text="Create your own set of flashcards, custom to your classroom."

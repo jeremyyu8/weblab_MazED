@@ -44,7 +44,7 @@ const TeacherGamePage = (props) => {
         if (playerid !== props.gameState["teacher"]["_id"]) {
           let curPlayer = (
             <div key={playerData.length}>
-              <div className="text-3xl">{props.gameState["players"][playerid]["name"]}</div>
+              <div className="text-[2vw]">{props.gameState["players"][playerid]["name"]}</div>
               <div>Current Level: {props.gameState["players"][playerid]["level"]}</div>
               <div>x: {Math.round(props.gameState["players"][playerid].p.x * 100) / 100}</div>
               <div>y: {Math.round(props.gameState["players"][playerid].p.y * 100) / 100}</div>
@@ -126,7 +126,7 @@ const TeacherGamePage = (props) => {
       <div className="flex">
         <div className="basis-1/3 mx-auto border-solid overflow-y-scroll">
           <div className="text-[2vw] p-4">Players:</div>
-          <div className="border-solid h-[25vw] p-4">{players}</div>
+          <div className="border-solid h-[25vw] p-4 text-[1vw]">{players}</div>
         </div>
         <div className="flex border-solid overflow-x-scroll h-[30vw] mr-[3vw]">
           <div>
