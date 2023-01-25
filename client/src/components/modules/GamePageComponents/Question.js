@@ -22,7 +22,7 @@ const Question = (props) => {
   }, []);
 
   useEffect(() => {
-    if (numQuestions === 0 && props.tagged) {
+    if (numQuestions <= 0 && props.tagged) {
       untagMe(props.userData._id, props.gamePin);
     }
   }, [numQuestions]);

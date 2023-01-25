@@ -47,6 +47,7 @@ level3: maze object}
 }
  */
 
+let mazes = {};
 let games = {};
 
 // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacher id}
@@ -60,13 +61,15 @@ const makeNewGame = (data) => {
   const newGame = {
     players: {},
     teacher: { _id: data.teacherid },
-    mazes: { lobby: lobby, level1: map1, level2: map2, level3: map3 },
     status: "lobby",
     cards: data.cards,
     timeRemaining: gameLength,
   };
 
+  const newGameMazes = { lobby: lobby, level1: map1, level2: map2, level3: map3 };
+
   games[data.pin] = newGame;
+  mazes[data.pin] = newGameMazes;
   makeNewPlayer(data.teacherid, data.pin, "teacher");
 };
 
@@ -77,6 +80,7 @@ const endGame = (pin) => {
   setTimeout(() => {
     console.log("deleting");
     delete games[pin];
+    delete mazes[pin];
   }, twoMinutes);
 };
 
@@ -160,31 +164,32 @@ const unlockBorder = (_id, pin, bordersToUnlock) => {
 //     visited_tiles: array}
 
 const makeNewPlayer = (_id, pin, name) => {
+  console.log(pin);
   let borders1 = [];
-  const level1width = Math.floor(Math.sqrt(games[pin]["mazes"]["level1"].length));
+  const level1width = Math.floor(Math.sqrt(mazes[pin]["level1"].length));
   for (let r = 0; r < level1width; r++) {
     for (let c = 0; c < level1width; c++) {
-      if (games[pin]["mazes"]["level1"][r * level1width + c] === 2) {
+      if (mazes[pin]["level1"][r * level1width + c] === 2) {
         borders1.push({ x: c, y: r });
       }
     }
   }
 
   let borders2 = [];
-  const level2width = Math.floor(Math.sqrt(games[pin]["mazes"]["level2"].length));
+  const level2width = Math.floor(Math.sqrt(mazes[pin]["level2"].length));
   for (let r = 0; r < level2width; r++) {
     for (let c = 0; c < level2width; c++) {
-      if (games[pin]["mazes"]["level2"][r * level2width + c] === 2) {
+      if (mazes[pin]["level2"][r * level2width + c] === 2) {
         borders2.push({ x: c, y: r });
       }
     }
   }
 
   let borders3 = [];
-  const level3width = Math.floor(Math.sqrt(games[pin]["mazes"]["level3"].length));
+  const level3width = Math.floor(Math.sqrt(mazes[pin]["level3"].length));
   for (let r = 0; r < level3width; r++) {
     for (let c = 0; c < level3width; c++) {
-      if (games[pin]["mazes"]["level3"][r * level3width + c] === 2) {
+      if (mazes[pin]["level3"][r * level3width + c] === 2) {
         borders3.push({ x: c, y: r });
       }
     }
@@ -279,7 +284,7 @@ const updateGameState = () => {
       } else {
         level = "level" + games[pin]["players"][_id]["level"];
       }
-      let mapxsize = Math.floor(Math.sqrt(games[pin]["mazes"][level].length)) * tilewidth;
+      let mapxsize = Math.floor(Math.sqrt(mazes[pin][level].length)) * tilewidth;
       let mapysize = mapxsize;
 
       let promoted = detectMapCollisions(_id, pin);
@@ -399,9 +404,9 @@ const detectMapCollisions = (_id, pin) => {
   let level;
   if (player["level"] !== 0) {
     level = "level" + player["level"];
-    map = games[pin]["mazes"][level];
+    map = mazes[pin][level];
   } else {
-    map = games[pin]["mazes"]["lobby"];
+    map = mazes[pin]["lobby"];
   }
 
   let mapxsize = Math.floor(Math.sqrt(map.length)) * tilewidth;
@@ -542,6 +547,7 @@ const gameExtend = (pin) => {
 
 module.exports = {
   games,
+  mazes,
   movePlayer,
   updateGameState,
   setWindowSize,

@@ -226,7 +226,7 @@ const Game = () => {
     setPower(update["players"][_id]["power"]);
     setTagged(update["players"][_id]["tagged"]);
     // setGameState(update);
-    if (counter % 60 === 0) {
+    if (counter % 30 === 0) {
       setGameState(update);
     }
     // if (update["status"] !== status) {

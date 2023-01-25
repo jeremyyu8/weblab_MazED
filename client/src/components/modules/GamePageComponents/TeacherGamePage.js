@@ -8,6 +8,7 @@ import { drawTeacherCanvas } from "../../../canvasManagerTeacher";
  * Proptypes
  * @param {object} gameState holds all game data to parse and render on the teacher page
  * @param {string} pin the game pin
+ * @param {object} mazes has mazes to render
  */
 const TeacherGamePage = (props) => {
   const [players, setPlayers] = useState(undefined);
@@ -47,7 +48,7 @@ const TeacherGamePage = (props) => {
       drawTeacherCanvas(
         {
           players: props.gameState["players"],
-          map: props.gameState["mazes"]["level1"],
+          map: props.mazes["level1"],
           teacherid: props.gameState["teacher"]["_id"],
           level: 1,
         },
@@ -56,7 +57,7 @@ const TeacherGamePage = (props) => {
       drawTeacherCanvas(
         {
           players: props.gameState["players"],
-          map: props.gameState["mazes"]["level2"],
+          map: props.mazes["level2"],
           teacherid: props.gameState["teacher"]["_id"],
           level: 2,
         },
@@ -65,7 +66,7 @@ const TeacherGamePage = (props) => {
       drawTeacherCanvas(
         {
           players: props.gameState["players"],
-          map: props.gameState["mazes"]["level3"],
+          map: props.mazes["level3"],
           teacherid: props.gameState["teacher"]["_id"],
           level: 3,
         },

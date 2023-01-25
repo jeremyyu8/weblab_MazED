@@ -30,6 +30,12 @@ export const joinLobby = (data) => {
   socket.emit("joinLobby", data);
 };
 
+export const getMazes = (pin) => {
+  console.log(pin);
+  console.log("getting mazes");
+  socket.emit("getMazes", pin);
+};
+
 export const startGame = (pin) => {
   console.log("starting game with pin", pin);
   socket.emit("startGame", pin);

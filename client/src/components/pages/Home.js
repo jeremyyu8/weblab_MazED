@@ -6,6 +6,8 @@ import { Link, Redirect } from "@reach/router";
 import Navbar from "../modules/Navbar";
 import Card from "./Card.js";
 
+import "../../master.css";
+
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
 /**
@@ -39,8 +41,8 @@ const Home = ({ userId, userRole, userName }) => {
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
           <div className="background">
-            <div class="sheerbox">
-              <div className="text-blue-200 pt-16 text-7xl">Can you find your way out?</div>
+            <div className="sheerbox">
+              <h1 className="">Can you find your way out?</h1>
               <div className="pt-16 pb-16 text-center">
                 <Link
                   to="/signup"

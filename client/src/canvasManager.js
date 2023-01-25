@@ -33,10 +33,7 @@ sprites["teacher"].src = "../gameassets/astronaut_teacher.png";
 sprites["student"] = new Image(tilewidth, tilewidth);
 sprites["student"].src = "../gameassets/astronaut.png";
 
-// right now,
-// drawState looks like:
-// {p: {x: 0, y: 0}}
-export const drawCanvas = (drawState, canvasRef, _id) => {
+export const drawCanvas = (drawState, canvasRef, _id, mazes) => {
   //   console.log(drawState.p.x);
   //   console.log(drawState.p.y);
   // use canvas reference of canvas element to get reference to canvas object
@@ -52,9 +49,9 @@ export const drawCanvas = (drawState, canvasRef, _id) => {
   let map;
   if (drawState["players"][_id]["level"] !== 0) {
     let level = "level" + drawState["players"][_id]["level"];
-    map = drawState["mazes"][level];
+    map = mazes[level];
   } else {
-    map = drawState["mazes"]["lobby"];
+    map = mazes["lobby"];
   }
   let mapxsize = Math.floor(Math.sqrt(map.length)) * tilewidth;
 
