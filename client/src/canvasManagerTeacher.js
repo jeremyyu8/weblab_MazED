@@ -1,5 +1,5 @@
-const xsize = 400;
-const ysize = 400;
+// const xsize = 400;
+// const ysize = 400;
 // const mapxsize = 7200;
 // const mapysize = 7200;
 const tilewidth = 80;
@@ -11,7 +11,7 @@ const tilewidth = 80;
 //     teacherid: props.gameState["teacher"]["_id"],
 //     level: 2,
 //   },
-export const drawTeacherCanvas = (drawState, canvasRef) => {
+export const drawTeacherCanvas = (drawState, canvasRef, xsize) => {
   //   console.log(drawState.p.x);
   //   console.log(drawState.p.y);
   const canvas = canvasRef.current;
@@ -36,6 +36,11 @@ export const drawTeacherCanvas = (drawState, canvasRef) => {
       }
 
       ctx.fillRect(i * scale, j * scale, scale, scale);
+      ctx.beginPath();
+      ctx.rect(i * scale, j * scale, scale, scale);
+      ctx.lineWidth = "1";
+      ctx.strokeStyle = "rgba(0,0,0,0.1)";
+      ctx.stroke();
     }
   }
 
