@@ -228,6 +228,9 @@
   background-image: url('/client/src/public/img/17520.jpg');
   background-size: cover;
   background-attachment: fixed;
+  --tw-backdrop-brightness: brightness(0);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
 .sheerbox{
@@ -461,6 +464,10 @@
 
 .mt-2{
   margin-top: 0.5rem;
+}
+
+.mt-\[5vh\]{
+  margin-top: 5vh;
 }
 
 .block{

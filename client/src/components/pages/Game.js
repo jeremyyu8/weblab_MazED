@@ -50,6 +50,9 @@ const Game = () => {
   const [promoted, setPromoted] = useState(false);
   const [inBorderRange, setInBorderRange] = useState(false);
   const [bordersToUnlock, setBordersToUnlock] = useState([]);
+  const [level1CompletionTime, setLevel1CompletionTime] = useState(undefined);
+  const [level2CompletionTime, setLevel2CompletionTime] = useState(undefined);
+  const [level3CompletionTime, setLevel3CompletionTime] = useState(undefined);
 
   // dimension of game window
   const [windowDimension, setWindowDimension] = useState({
@@ -62,6 +65,23 @@ const Game = () => {
 
   // frame counter
   let counter = 0;
+
+  // convert to time
+  const convertToTime = (seconds) => {
+    let minutes = Math.floor(seconds / 60);
+    let secs = seconds - 60 * minutes;
+    if (minutes === 0) {
+      minutes = minutes.toString() + "0";
+    } else if (minutes < 10) {
+      minutes = "0" + minutes.toString();
+    }
+    if (secs === 0) {
+      secs = secs.toString() + "0";
+    } else if (secs < 10) {
+      secs = "0" + secs.toString();
+    }
+    return `${minutes}:${secs}`;
+  };
 
   // authentication
   useEffect(() => {
@@ -146,11 +166,11 @@ const Game = () => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
-    // window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
-      // window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [userData, gamePin, questionShowing, promoted]);
 
@@ -227,32 +247,15 @@ const Game = () => {
     setSpeed(update["players"][_id]["speed"]);
     setPower(update["players"][_id]["power"]);
     setTagged(update["players"][_id]["tagged"]);
+    setLevel1CompletionTime(update["players"][_id]["level1completion"]);
+    setLevel2CompletionTime(update["players"][_id]["level2completion"]);
+    setLevel3CompletionTime(update["players"][_id]["level3completion"]);
     // setGameState(update);
+
     if (counter % 30 === 0) {
       setGameState(update);
+      // handleResize();
     }
-    // handle window resizing
-    if (counter % 120 === 0) {
-      handleResize();
-    }
-    // if (update["status"] !== status) {
-    //   setStatus(update["status"]);
-    // }
-    // if (update["players"][_id]["level"] !== level) {
-    //   setLevel(update["players"][_id]["level"]);
-    // }
-    // if (update["players"][_id]["tokens"] !== tokens) {
-    //   setTokens(update["players"][_id]["tokens"]);
-    // }
-    // if (update["players"][_id]["speed"] !== speed) {
-    //   setSpeed(update["players"][_id]["speed"]);
-    // }
-    // if (update["players"][_id]["power"] !== power) {
-    //   setPower(update["players"][_id]["power"]);
-    // }
-    // if (update["players"][_id]["tagged"] !== false && update["players"][_id]["tagged"] !== tagged) {
-    //   setTagged(update["players"][_id]["tagged"]);
-    // }
 
     //border distance checking
     let playerX = update["players"][_id].p.x;
@@ -262,32 +265,38 @@ const Game = () => {
     let inRange = false;
 
     let leveltag = "level" + update["players"][_id]["level"];
-    for (const border of update["players"][_id]["borders"][leveltag]) {
-      const dist = Math.sqrt(
-        (playerX - border.x) * (playerX - border.x) + (playerY - border.y) * (playerY - border.y)
-      );
-      // console.log(dist);
+    if (update["status"] !== "lobby" && update["status"] !== "end") {
+      for (const border of update["players"][_id]["borders"][leveltag]) {
+        const dist = Math.sqrt(
+          (playerX - border.x) * (playerX - border.x) + (playerY - border.y) * (playerY - border.y)
+        );
+        // console.log(dist);
 
-      if (dist < 1.2) {
-        const mazeLength = Math.floor(Math.sqrt(mazes[leveltag].length));
-        let nearby = [];
-        for (let i = border.x - 3; i <= border.x + 3; i++) {
-          for (let j = border.y - 3; j <= border.y + 3; j++) {
-            nearby.push(mazes[leveltag][i + j * mazeLength]);
-            if (mazes[leveltag][i + j * mazeLength] === 2) {
-              toOpen.push({ x: i, y: j });
+        if (dist < 1.2) {
+          const mazeLength = Math.floor(Math.sqrt(mazes[leveltag].length));
+          let nearby = [];
+          for (let i = border.x - 3; i <= border.x + 3; i++) {
+            for (let j = border.y - 3; j <= border.y + 3; j++) {
+              nearby.push(mazes[leveltag][i + j * mazeLength]);
+              if (mazes[leveltag][i + j * mazeLength] === 2) {
+                toOpen.push({ x: i, y: j });
+              }
             }
           }
+          inRange = true;
+          // break;
         }
-        inRange = true;
-        // break;
-      }
 
-      if (counter % 15 === 0) {
-        setBordersToUnlock(toOpen);
-        setInBorderRange(inRange);
+        // if (counter % 15 === 0) {
+        //   setBordersToUnlock(toOpen);
+        //   setInBorderRange(inRange);
+        // }
+        if (counter % 15 === 0) {
+          setBordersToUnlock(toOpen);
+          setInBorderRange(inRange);
+        }
+        // console.log(inRange);
       }
-      // console.log(inRange);
     }
   };
 
@@ -328,7 +337,6 @@ const Game = () => {
   }, [tagged]);
 
   useEffect(() => {
-    console.log(level);
     if (level) {
       if (promoted === false) {
         console.log("level");
@@ -430,7 +438,7 @@ const Game = () => {
                   </div>
                 </div>
               </div>
-              {showRules && <RulesAndSettings setShowRules={setShowRules} />};
+              {showRules && <RulesAndSettings setShowRules={setShowRules} />}
               {showActivePlayers && gameState && gamePin && (
                 <ActivePlayers
                   setShowActivePlayers={setShowActivePlayers}
@@ -438,7 +446,6 @@ const Game = () => {
                   teacherId={gameState["teacher"]["_id"]}
                 />
               )}
-              ;
             </>
           )}
 
@@ -504,8 +511,34 @@ const Game = () => {
           {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
             <>
               <div className="bg-white bg-opacity-80 fixed w-[50vw] h-[30vh] left-[25vw] top-[35vh] border-solid z-50">
-                <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
-                <div className="flex justify-center">
+                {level < 4 && <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>}
+                {level == 2 && (
+                  <div className="text-xl text-center">
+                    Time to complete level 1: {convertToTime(level1CompletionTime)}
+                  </div>
+                )}
+                {level == 3 && (
+                  <div className="text-xl text-center">
+                    Time to complete level 2:{" "}
+                    {convertToTime(level2CompletionTime - level1CompletionTime)}
+                  </div>
+                )}
+                {level === 4 && (
+                  <>
+                    <div className="text-2xl text-center mt-[2vh]">
+                      Congrats! You finished every maze. Feel free to keep answering questions and
+                      tag other players as they finish!
+                    </div>
+                    <div className="text-xl text-center">
+                      Final level completion time:{" "}
+                      {convertToTime(level3CompletionTime - level2CompletionTime)}
+                    </div>
+                    <div className="text-xl text-center">
+                      Game completion time: {convertToTime(level3CompletionTime)}
+                    </div>
+                  </>
+                )}
+                <div className="flex justify-center mt-[2vh]">
                   <button onClick={() => setPromoted(false)}>Close</button>
                 </div>
               </div>
