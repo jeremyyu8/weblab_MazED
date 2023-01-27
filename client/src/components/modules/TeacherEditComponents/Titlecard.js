@@ -8,7 +8,9 @@ const Titlecard = () => {
     setFlashCardSet({ title: event.target.value, cards: flashCardSet.cards });
   };
 
-  return <input onInput={handleChange} defaultValue={flashCardSet.title}></input>;
+  return (
+    <input className="text-2xl" onInput={handleChange} defaultValue={flashCardSet.title}></input>
+  );
 };
 
 export default Titlecard;

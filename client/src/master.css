@@ -22,7 +22,7 @@
   }
 
   .editfbuttons {
-    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2;
+    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2 font-Ubuntu;
   }
 
   .background {
@@ -32,8 +32,6 @@
   .sheerbox {
     @apply rounded-3xl text-blue-200 bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
   }
-
-
 }
 
 .collapsible-sidebar {
@@ -78,36 +76,57 @@
   perspective: 1000px;
 }
 
- .typewriter h1 {
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}
+ */
+
+.typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid #bfdbfe; /* The typwriter cursor */
+  border-right: 0.15em solid #bfdbfe; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
-  animation: 
-    typing 9s steps(26, start) infinite,
-    blink-caret .75s step-end infinite;
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 9s steps(26, start) infinite, blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
   /* from { width: 0 }
   to { width: 100% } */
-  0% { width: 0 }
-  33%, 100% {width: 100% }
+  0% {
+    width: 0;
+  }
+  33%,
+  100% {
+    width: 100%;
+  }
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #bfdbfe; }
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #bfdbfe;
+  }
 }
 
-
-@media (max-width: 768px) { .title{font-family: "Ubuntu Mono"; font-size: 6vw; font-weight: 700;} }
-@media (min-width: 768px) { .title{visibility: hidden} }
-
-
+@media (max-width: 768px) {
+  .title {
+    font-family: "Ubuntu Mono";
+    font-size: 6vw;
+    font-weight: 700;
+  }
+}
+@media (min-width: 768px) {
+  .title {
+    visibility: hidden;
+  }
+}
 
 /* utilities.css */
 
@@ -184,8 +203,8 @@ form {
   height: 10px;
   top: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #305af2;
+  color: #305af2;
   box-shadow: 9999px 0 0 -5px;
   animation: dot-pulse 1.5s infinite linear;
   animation-delay: 0.25s;
@@ -199,8 +218,8 @@ form {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #305af2;
+  color: #305af2;
 }
 .dot-pulse::before {
   box-shadow: 9984px 0 0 -5px;
@@ -247,5 +266,26 @@ form {
   60%,
   100% {
     box-shadow: 10014px 0 0 -5px;
+  }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
   }
 }

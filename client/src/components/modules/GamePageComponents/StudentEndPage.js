@@ -39,9 +39,9 @@ const StudentEndPage = (props) => {
     dataDisplay.push(
       <div>
         Level:{" "}
-        {props.gameState["players"][playerid]["level"] === 4
+        {props.gameState["players"][props._id]["level"] === 4
           ? "Final lobby (finished)"
-          : props.gameState["players"][playerid]["level"]}
+          : props.gameState["players"][props._id]["level"]}
       </div>
     );
 
@@ -118,9 +118,15 @@ const StudentEndPage = (props) => {
 
   return (
     <>
+    <div className="background">
+      <div className="sheerbox">
       <div>Student End Game Page</div>
       <div className="text-4xl">Game Ended</div>
       <div>{displayData}</div>
+      </div>
+
+    </div>
+
     </>
   );
 };
