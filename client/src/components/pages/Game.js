@@ -108,6 +108,9 @@ const Game = () => {
   // load sockets
   useEffect(() => {
     socket.on("receivePin", (data) => {
+      if (data.err) {
+        setRedirect(true);
+      }
       setGamePin(data.pin);
       setFlashCardSet(data.cards);
     });
@@ -122,8 +125,11 @@ const Game = () => {
         processUpdate(update[gamePin], userData._id);
       }
     });
+  }, [gamePin, userData, mazes]);
 
+  useEffect(() => {
     socket.on("upgradeSpeedResult", (data) => {
+      console.log("receiving upgradeSpeedResult");
       if (
         userData &&
         gamePin &&
@@ -158,7 +164,7 @@ const Game = () => {
         alert("Need more tokens to unlock border");
       }
     });
-  }, [gamePin, userData, mazes]);
+  }, [userData, gamePin]);
 
   let pressed = { up: false, down: false, left: false, right: false };
 

@@ -27,6 +27,13 @@ const StudentEndPage = (props) => {
     return `${minutes}:${secs}`;
   };
 
+  // compute flashcard percentage
+  const percentage = (correct, total) => {
+    let p = correct / total;
+    let d = Math.round(100 * (p - Math.floor(p)));
+    return String(Math.floor(p) + "." + d);
+  };
+
   useEffect(() => {
     let dataDisplay = [];
     // name
@@ -88,11 +95,11 @@ const StudentEndPage = (props) => {
     );
     dataDisplay.push(
       <div>
-        % correct:
-        {Math.floor(
-          (100 * props.gameState["players"][props._id]["flashcards_correct"]) /
+        % correct:{" "}
+        {Math.round(
+          (10000 * props.gameState["players"][props._id]["flashcards_correct"]) /
             props.gameState["players"][props._id]["flashcards_total"]
-        )}
+        ) / 100}
       </div>
     );
 
@@ -118,15 +125,13 @@ const StudentEndPage = (props) => {
 
   return (
     <>
-    <div className="background">
-      <div className="sheerbox">
-      <div>Student End Game Page</div>
-      <div className="text-4xl">Game Ended</div>
-      <div>{displayData}</div>
+      <div className="background">
+        <div className="sheerbox">
+          <div>Student End Game Page</div>
+          <div className="text-4xl">Game Ended</div>
+          <div>{displayData}</div>
+        </div>
       </div>
-
-    </div>
-
     </>
   );
 };

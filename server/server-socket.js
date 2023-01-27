@@ -23,29 +23,6 @@ const addUser = (user, socket) => {
 
   userToSocketMap[user._id] = socket;
   socketToUserMap[socket.id] = user;
-
-  // if user was already in a game, reconnect them
-  for (let pin in gameLogic.games) {
-    for (let _id in gameLogic.games[pin]["players"]) {
-      if (_id === user._id) {
-        userToPinMap[user._id] = pin;
-        gameLogic.games[pin]["players"][user._id]["active"] = true;
-        gameLogic.games[pin]["players"][user._id].v.x = 0;
-        gameLogic.games[pin]["players"][user._id].v.y = 0;
-        // if user leaves during lobby and rejoins after lobby has already started, add them to level 1
-        if (
-          gameLogic.games[pin]["status"] !== "lobby" &&
-          gameLogic.games[pin]["players"][user._id]["level"] === 0
-        ) {
-          gameLogic.games[pin]["players"][user._id].p.x = 0;
-          gameLogic.games[pin]["players"][user._id].p.y = 0;
-          gameLogic.games[pin]["players"][user._id]["level"] = 1;
-        }
-        console.log("setting player active to true");
-        socket.join(pin);
-      }
-    }
-  }
 };
 
 const removeUser = (user, socket) => {
@@ -54,8 +31,10 @@ const removeUser = (user, socket) => {
   if (user) {
     if (userToPinMap[user._id]) {
       let pin = userToPinMap[user._id];
-      gameLogic.games[pin]["players"][user._id]["active"] = false;
-      console.log("setting player active to false");
+      if (gameLogic.games[pin]) {
+        gameLogic.games[pin]["players"][user._id]["active"] = false;
+        console.log("setting player active to false");
+      }
       delete userToPinMap[user._id];
     }
     delete userToSocketMap[user._id];
@@ -78,6 +57,7 @@ const startRunningGame = () => {
   // sendMazes();
   setInterval(() => {
     gameLogic.updateGameState();
+    // console.log(gameLogic.games);
     sendGameState();
   }, 1000 / process.env.FPS); // 60 frames per second
 };
@@ -105,11 +85,11 @@ module.exports = {
       // description: student attempts to join lobby
       // data: { studentid: id, pin: gamepin, studentname: username of student }
       socket.on("joinLobby", (data) => {
+        console.log("calling join lobby");
         if (!gameLogic.games[data.pin]) {
           console.log(data.pin);
           socket.emit("joinFail", { err: "pin does not exist" });
         } else {
-          console.log("hi???");
           socket.emit("joinSuccess");
           socket.join(data.pin);
           userToPinMap[data.studentid] = data.pin;
@@ -154,20 +134,45 @@ module.exports = {
       socket.on("getPin", (userId) => {
         if (userId) {
           if (userToPinMap[userId]) {
-            // user found in userToPinMap
+            // normal route, user found in userToPinMap
             let pin = userToPinMap[userId];
-            socket.emit("receivePin", { pin: pin, cards: gameLogic.games[pin]["cards"] });
-            return;
+            if (gameLogic.games[pin]) {
+              gameLogic.games[pin]["players"][userId]["active"] = true;
+              socket.emit("receivePin", { pin: pin, cards: gameLogic.games[pin]["cards"] });
+              return;
+            }
           }
-          // check if user was already in a game
+
+          // user disconnected; if user was already in a game, reconnect them
           for (let pin in gameLogic.games) {
             for (let _id in gameLogic.games[pin]["players"]) {
               if (_id === userId) {
-                socket.emit("receivePin", { pin, pin, cards: gameLogic.games[pin]["cards"] });
+                console.log("connecting new player");
+                userToPinMap[userId] = pin;
+                gameLogic.games[pin]["players"][userId]["active"] = true;
+                gameLogic.games[pin]["players"][userId].v.x = 0;
+                gameLogic.games[pin]["players"][userId].v.y = 0;
+                // if user leaves during lobby and rejoins after lobby has already started, add them to level 1
+                if (
+                  gameLogic.games[pin]["status"] !== "lobby" &&
+                  gameLogic.games[pin]["players"][userId]["level"] === 0
+                ) {
+                  gameLogic.games[pin]["players"][userId].p.x = 0;
+                  gameLogic.games[pin]["players"][userId].p.y = 0;
+                  gameLogic.games[pin]["players"][userId]["level"] = 1;
+                }
+                console.log("setting player active to true");
+                socket.join(pin);
+
+                // emit requested information
+                socket.emit("receivePin", { pin: pin, cards: gameLogic.games[pin]["cards"] });
                 return;
               }
             }
           }
+
+          // otherwise, no user was found
+          socket.emit("receivePin", { err: "no pin found" });
           console.log("user pin not found");
         } else {
           console.log("user not logged in");
@@ -175,6 +180,12 @@ module.exports = {
       });
       // getPin
       // receivePin
+
+      // data: {_id: _id}
+      socket.on("checkAlreadyConnected", (data) => {
+        let result = gameLogic.checkAlreadyConnected(data._id);
+        socket.emit("checkAlreadyConnectedResult", result);
+      });
 
       // data: {windowsize.x: , windowsize.y: , _id: , pin: }
       socket.on("updateWindowSize", (data) => {
@@ -195,6 +206,7 @@ module.exports = {
 
       socket.on("upgradeSpeed", (data) => {
         result = gameLogic.upgradeSpeed(data._id, data.pin); //"success" or "failure"
+        console.log("emitting upgradespeedresult");
         socket.emit("upgradeSpeedResult", { result: result, _id: data._id, pin: data.pin });
       });
 

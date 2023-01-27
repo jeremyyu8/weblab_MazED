@@ -191,8 +191,7 @@
   border-radius: 0.75rem;
   --tw-bg-opacity: 1;
   background-color: rgb(30 64 175 / var(--tw-bg-opacity));
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+  font-size: 2vw;
   --tw-text-opacity: 1;
   color: rgb(191 219 254 / var(--tw-text-opacity));
   transition-property: all;
@@ -206,13 +205,12 @@
 }
 
 .editfbuttons{
-  width: 10rem;
+  width: 8vw;
   flex: 1 1 0%;
   border-radius: 0.75rem;
   padding: 0.5rem;
   font-family: Ubuntu Mono, sans-serif;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+  font-size: 1vw;
 }
 
 .editfbuttons:hover{
@@ -320,12 +318,20 @@
   top: 75px;
 }
 
+.bottom-\[8vh\]{
+  bottom: 8vh;
+}
+
 .top-\[25vh\]{
   top: 25vh;
 }
 
-.left-\[12\.5vw\]{
-  left: 12.5vw;
+.left-\[30vw\]{
+  left: 30vw;
+}
+
+.bottom-4{
+  bottom: 1rem;
 }
 
 .right-\[3vh\]{
@@ -334,6 +340,10 @@
 
 .top-\[3vh\]{
   top: 3vh;
+}
+
+.left-\[12\.5vw\]{
+  left: 12.5vw;
 }
 
 .left-0{
@@ -447,10 +457,6 @@
   margin-top: 10vh;
 }
 
-.mt-\[5\%\]{
-  margin-top: 5%;
-}
-
 .mb-1{
   margin-bottom: 0.25rem;
 }
@@ -489,6 +495,22 @@
 
 .mt-3{
   margin-top: 0.75rem;
+}
+
+.mb-\[2vw\]{
+  margin-bottom: 2vw;
+}
+
+.mb-\[10vw\]{
+  margin-bottom: 10vw;
+}
+
+.mb-\[8vw\]{
+  margin-bottom: 8vw;
+}
+
+.mb-\[6vw\]{
+  margin-bottom: 6vw;
 }
 
 .block{
@@ -591,6 +613,14 @@
   height: 80vh;
 }
 
+.h-\[8\%\]{
+  height: 8%;
+}
+
+.h-\[1vw\]{
+  height: 1vw;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -639,12 +669,24 @@
   width: 70%;
 }
 
+.w-\[70vw\]{
+  width: 70vw;
+}
+
+.w-\[40vw\]{
+  width: 40vw;
+}
+
+.w-\[10\%\]{
+  width: 10%;
+}
+
 .w-\[75vw\]{
   width: 75vw;
 }
 
-.w-\[70vw\]{
-  width: 70vw;
+.w-\[60vw\]{
+  width: 60vw;
 }
 
 .w-\[90\%\]{
@@ -661,6 +703,18 @@
 
 .w-auto{
   width: auto;
+}
+
+.w-\[4\%\]{
+  width: 4%;
+}
+
+.w-\[1vw\]{
+  width: 1vw;
+}
+
+.w-\[5vw\]{
+  width: 5vw;
 }
 
 .max-w-\[90\%\]{
@@ -737,6 +791,10 @@
 
 .items-center{
   align-items: center;
+}
+
+.justify-end{
+  justify-content: flex-end;
 }
 
 .justify-center{
@@ -1034,6 +1092,11 @@
   padding-right: 1rem;
 }
 
+.px-2{
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .pt-4{
   padding-top: 1rem;
 }
@@ -1068,6 +1131,10 @@
 
 .pt-2{
   padding-top: 0.5rem;
+}
+
+.pl-2{
+  padding-left: 0.5rem;
 }
 
 .text-center{
@@ -1159,8 +1226,16 @@
   line-height: 1.25rem;
 }
 
+.text-\[1\.5vw\]{
+  font-size: 1.5vw;
+}
+
 .font-\[900\]{
   font-weight: 900;
+}
+
+.font-bold{
+  font-weight: 700;
 }
 
 .text-white{
@@ -1208,9 +1283,48 @@
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
+.text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
+.text-green-500{
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
 .text-blue-300{
   --tw-text-opacity: 1;
   color: rgb(147 197 253 / var(--tw-text-opacity));
+}
+
+.text-green-600{
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+
+.text-\[4xl\]{
+  color: 4xl;
+}
+
+.text-yellow-50{
+  --tw-text-opacity: 1;
+  color: rgb(254 252 232 / var(--tw-text-opacity));
+}
+
+.text-green-200{
+  --tw-text-opacity: 1;
+  color: rgb(187 247 208 / var(--tw-text-opacity));
+}
+
+.text-gray-600{
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.text-gray-500{
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
 .no-underline{

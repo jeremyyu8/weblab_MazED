@@ -7,7 +7,7 @@ module.exports = {
       fontFamily: {
         // Roboto: ["Roboto", "sans-serif"],
         Ribeka: ["RIBEKA trial", "sans-serif"],
-        Ubuntu: ["Ubuntu Mono'", "sans-serif"],
+        Ubuntu: ["Ubuntu Mono", "sans-serif"],
       },
       backgroundImage: {
         spaceimg: "url('/client/src/public/img/space.jpg')",

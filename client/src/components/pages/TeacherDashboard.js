@@ -10,6 +10,7 @@ import Settings from "../modules/TeacherDashboardComponents/Settings";
 import Set from "../modules/TeacherDashboardComponents/Set";
 
 import { get, post } from "../../utilities";
+import { socket, checkAlreadyConnected } from "../../client-socket";
 
 /**
  * Teacher Dashboard page
@@ -26,8 +27,10 @@ const TeacherDashboard = (props) => {
   const [rightComponent, setRightComponent] = useState("");
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(undefined);
+  const [redirectGame, setRedirectGame] = useState(undefined);
   const [userData, setUserData] = useState(undefined);
   const [setsMetadata, setSetsMetadata] = useState([]);
+  const [foundGame, setFoundGame] = useState(false);
 
   useEffect(() => {
     if (rightSide === "sets")
@@ -65,15 +68,48 @@ const TeacherDashboard = (props) => {
     renderDisplay();
   }, []);
 
+  // check if teacher had a game running
+  useEffect(() => {
+    if (userData) {
+      checkAlreadyConnected(userData._id);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    socket.on("checkAlreadyConnectedResult", (result) => {
+      if (userData) {
+        console.log(result);
+        if (result._id === userData._id && result.result === true) {
+          console.log("found a game you were already connected to");
+          setFoundGame(true);
+        }
+      }
+    });
+  }, [userData]);
+
+  const handleRejoin = () => {
+    setRedirectGame(true);
+  };
+
   return (
     <>
       {redirect ? (
         <Redirect noThrow from="/teacher" to="/login" />
-      ) : loading === true ? (
-        <div>loading teacher dashboard...</div>
+      ) : redirectGame ? (
+        <Redirect noThrow from="/teacher" to="/game" />
       ) : (
         <>
-          <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
+          {loading === true && <Navbar blank={true} />}
+          {loading === false && (
+            <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
+          )}
+          {foundGame && (
+            <div className="fixed top-[75px] h-[20px] text-center pt-[3px] w-full z-10 mx-auto bg-red-500">
+              <div className="hover:cursor-pointer" onClick={handleRejoin}>
+                You have a class playing! Click to rejoin
+              </div>
+            </div>
+          )}
           <div className="bg-white bg-fixed bg-cover h-screen">
             <div class="h-[75px]"></div>
             <div className="flex">
@@ -81,7 +117,12 @@ const TeacherDashboard = (props) => {
                 <LeftSideBar setRightSide={setRightSide} />
               </div>
               <div className="flex-1 overflow-y-hidden h-[calc(100vh_-_78px)]">
-                {rightComponent}
+                {loading === false && rightComponent}
+                {loading === true && (
+                  <div className="background text-[2vw] text-green-200">
+                    Loading teacher dashboard...
+                  </div>
+                )}
               </div>
             </div>
           </div>
