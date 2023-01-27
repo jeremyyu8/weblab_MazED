@@ -13,7 +13,7 @@ import {
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
 const Login = ({ userId, userRole, handleLogin, handleLogout }) => {
-  const [redirect, setRedirect] = useState(userId ? true : undefined);
+  const [redirect, setRedirect] = useState(undefined);
 
   useEffect(() => {
     if (userId) {

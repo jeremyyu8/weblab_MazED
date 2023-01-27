@@ -274,6 +274,29 @@ router.post("/deleteset", auth.ensureLoggedIn, (req, res) => {
 //   res.send({});
 // });
 
+/**
+ * /api/displayname modifies the displayname of a user
+ *
+ * req.body
+ * @param {displayname} displayname the new displayname
+ */
+router.post("/displayname", auth.ensureLoggedIn, (req, res) => {
+  const newDisplayName = async () => {
+    try {
+      const curUser = await User.findById(req.user._id);
+      curUser.displayname = req.body.displayname;
+      await curUser.save();
+      res.status(200);
+      res.send({});
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(404).send({ msg: "user not logged in" });
+    }
+  };
+
+  newDisplayName();
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

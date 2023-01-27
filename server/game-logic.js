@@ -1,6 +1,9 @@
 const mazeLogic = require("./maze-logic");
 const e = require("express");
 
+// require .env
+require("dotenv").config();
+
 // canvas constants
 // const mapxsize = 7200;
 // const mapysize = 7200;
@@ -66,13 +69,14 @@ const makeNewGame = (data) => {
     cards: data.cards,
     timeRemaining: gameLength,
     startTime: 0,
+    active: true,
   };
 
   const newGameMazes = { lobby: lobby, level1: map1, level2: map2, level3: map3, level4: endlobby };
 
   games[data.pin] = newGame;
   mazes[data.pin] = newGameMazes;
-  makeNewPlayer(data.teacherid, data.pin, "teacher");
+  makeNewPlayer(data.teacherid, data.pin, "teacher", "teacher");
 };
 
 const endGame = (pin) => {
@@ -89,7 +93,7 @@ const endGame = (pin) => {
 const playerJoin = (data) => {
   console.log("inside of playerjoin");
   console.log(data);
-  makeNewPlayer(data.studentid, data.pin, data.studentname);
+  makeNewPlayer(data.studentid, data.pin, data.studentname, data.displayname);
 };
 
 const changeTokens = (_id, pin, result) => {
@@ -103,6 +107,7 @@ const changeTokens = (_id, pin, result) => {
 };
 
 const upgradeSpeed = (_id, pin) => {
+  console.log("inside of upgradeSpeed");
   if (games[pin]["players"][_id]["tokens"] >= SPEED_LEVEL_UP_COST) {
     games[pin]["players"][_id]["tokens"] -= SPEED_LEVEL_UP_COST;
     games[pin]["players"][_id]["speed"] += 1;
@@ -165,7 +170,7 @@ const unlockBorder = (_id, pin, bordersToUnlock) => {
 //     questions_correct: int,
 //     visited_tiles: array}
 
-const makeNewPlayer = (_id, pin, name) => {
+const makeNewPlayer = (_id, pin, name, displayname) => {
   console.log(pin);
   let borders1 = [];
   const level1width = Math.floor(Math.sqrt(mazes[pin]["level1"].length));
@@ -197,8 +202,11 @@ const makeNewPlayer = (_id, pin, name) => {
     }
   }
 
+  console.log("inside of makenewplayer");
+  console.log(name, displayname);
   const newPlayer = {
     name: name,
+    displayname: displayname,
     p: { x: 0, y: 0 },
     v: { x: 0, y: 0 },
     camera: { x: 0, y: 0 },
@@ -246,6 +254,38 @@ const movePlayer = (_id, pin, dir) => {
 // update game statistics. running at 60fps
 const updateGameState = () => {
   if (!games) return;
+
+  // first, handle lobby activity logic
+  let pins = Object.keys(games);
+  for (let i = pins.length; i >= 0; i--) {
+    let pin = pins[i];
+
+    // make sure games pin exists idk
+    if (games[pin]) {
+      // if there are no active players, set state to be inactive
+      let all_inactive = true;
+      for (let _id in games[pin]["players"]) {
+        if (games[pin]["players"][_id]["active"] === true) {
+          all_inactive = false;
+        }
+      }
+      if (all_inactive === true) {
+        games[pin]["active"] = false;
+        games[pin]["inactive_timer"] += 1 / process.env.FPS;
+      } else {
+        games[pin]["active"] = true;
+        games[pin]["inactive_timer"] = 0;
+      }
+
+      // if everyone in the game is inactive for 1 minute, delete it
+      if (games[pin]["inactive_timer"] > 60) {
+        delete games[pin];
+        continue;
+      }
+    }
+  }
+
+  // now handle actual game logic
   for (let pin in games) {
     // if the game is not lobby, check for collisions
     if (games[pin]["status"] !== "lobby") {
@@ -575,6 +615,19 @@ const gameStart = (pin) => {
   }, 1000);
 };
 
+const checkAlreadyConnected = (new_connected_id) => {
+  for (let pin in games) {
+    for (let _id in games[pin]["players"]) {
+      if (new_connected_id === _id) {
+        if (games[pin]["status"] !== "end") {
+          return { result: true, _id: new_connected_id };
+        }
+      }
+    }
+  }
+  return { result: false, _id: new_connected_id };
+};
+
 const gameExtend = (pin) => {
   games[pin]["timeRemaining"] += 300;
 };
@@ -584,6 +637,7 @@ module.exports = {
   mazes,
   movePlayer,
   updateGameState,
+  checkAlreadyConnected,
   setWindowSize,
   makeNewGame,
   playerJoin,

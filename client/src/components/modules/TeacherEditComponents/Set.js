@@ -114,7 +114,7 @@ const Set = (props) => {
 
             <button
               onClick={handleNewCard}
-              className="flex-col rounded-xl hover:bg-sky-300 cursor-pointer transition-all text-xl m-2 p-1 w-auto mx-auto"
+              className="flex-col rounded-xl hover:bg-sky-300 cursor-pointer transition-all text-xl m-2 p-1 w-auto mx-auto font-Ubuntu"
             >
               Add New Card
             </button>

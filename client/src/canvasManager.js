@@ -120,7 +120,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes) => {
 
       // draw sprite power level
       if (drawState["status"] !== "lobby") {
-        ctx.font = "20px serif";
+        ctx.font = "20px Monospace";
         if (drawState["players"][playerid]["tagged"] !== false) {
           ctx.fillText("tagged", x * tilewidth, y * tilewidth);
         } else if (drawState["players"][playerid]["invincible"] === true) {
@@ -132,6 +132,17 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes) => {
             y * tilewidth
           );
         }
+      }
+
+      let offset = drawState["status"] === "lobby" ? 0 : 20;
+      // draw username
+      ctx.font = "20px Monospace";
+      if (drawState["teacher"]["_id"] !== playerid) {
+        ctx.fillText(
+          `${drawState["players"][playerid]["displayname"]}`,
+          x * tilewidth,
+          y * tilewidth - offset
+        );
       }
 
       // draw sprite hitbox

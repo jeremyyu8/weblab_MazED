@@ -12,9 +12,15 @@ const ActivePlayers = (props) => {
 
   useEffect(() => {
     let active = [];
+    let cnt = 1;
     Object.keys(props.activePlayers).forEach((_id) => {
       if (_id != props.teacherId && props.activePlayers[_id]["active"]) {
-        active.push(<div key={_id}>{props.activePlayers[_id]["name"]}</div>);
+        active.push(
+          <div key={_id}>
+            {cnt}. {props.activePlayers[_id]["name"]} ({props.activePlayers[_id]["displayname"]})
+          </div>
+        );
+        cnt++;
       }
     });
     setActivePlayersDisplay(active);
@@ -22,24 +28,29 @@ const ActivePlayers = (props) => {
 
   return (
     <>
-      <div className="bg-white bg-opacity-70 fixed h-[50vh] w-[75vw] top-[25vh] left-[12.5vw] overflow-y-scroll">
+      <div className="bg-white bg-opacity-70 fixed h-[50vh] w-[40vw] top-[25vh] left-[30vw] overflow-y-scroll">
         <>
-          <div className="text-xl">
+          <div className="text-3xl p-4">
             {activePlayersDisplay.length === 0 ? (
               <div>No students connected!</div>
             ) : activePlayersDisplay.length === 1 ? (
-              <div className="text-xl">There is 1 student connected </div>
+              <div className="text-3xl">There is 1 student connected </div>
             ) : (
-              <div className="text-xl">
+              <div className="text-3xl">
                 There are {activePlayersDisplay.length} students connected
               </div>
             )}
           </div>
-          <div className="text-md">{activePlayersDisplay}</div>
+          <div className="text-2xl p-4">{activePlayersDisplay}</div>
         </>
 
         <div className="flex justify-center">
-          <button onClick={() => props.setShowActivePlayers(false)}>close</button>
+          <button
+            className="absolute font-Ubuntu text-md bottom-4 w-[10%]"
+            onClick={() => props.setShowActivePlayers(false)}
+          >
+            close
+          </button>
         </div>
       </div>
     </>

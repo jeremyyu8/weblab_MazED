@@ -25,6 +25,7 @@ function getOrCreateUserTeacher(user) {
 
     const newUser = new User({
       name: user.name,
+      displayname: user.name,
       googleid: user.sub,
       role: "teacher",
     });
@@ -41,6 +42,7 @@ function getOrCreateUserStudent(user) {
 
     const newUser = new User({
       name: user.name,
+      displayname: user.name,
       googleid: user.sub,
       role: "student",
     });

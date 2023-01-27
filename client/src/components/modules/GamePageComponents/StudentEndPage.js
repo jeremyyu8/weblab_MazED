@@ -31,7 +31,7 @@ const StudentEndPage = (props) => {
   const percentage = (correct, total) => {
     let p = correct / total;
     let d = Math.round(100 * (p - Math.floor(p)));
-    return String(Math.floor(p) + "." + d);
+    return String(Math.floor(p) + "." + String(d));
   };
 
   useEffect(() => {
@@ -96,10 +96,10 @@ const StudentEndPage = (props) => {
     dataDisplay.push(
       <div>
         % correct:{" "}
-        {Math.round(
-          (10000 * props.gameState["players"][props._id]["flashcards_correct"]) /
-            props.gameState["players"][props._id]["flashcards_total"]
-        ) / 100}
+        {percentage(
+          props.gameState["players"][props._id]["flashcards_correct"],
+          props.gameState["players"][props._id]["flashcards_total"]
+        )}
       </div>
     );
 
@@ -126,10 +126,11 @@ const StudentEndPage = (props) => {
   return (
     <>
       <div className="background">
-        <div className="sheerbox">
-          <div>Student End Game Page</div>
-          <div className="text-4xl">Game Ended</div>
-          <div>{displayData}</div>
+        <div className="sheerbox pd-2 h-{100%} overflow-hidden">
+          <div className="animation-scroll text-center ">
+            <div className="text-5xl pb-2">Game Ended</div>
+            <div className="text-xl">{displayData}</div>
+          </div>
         </div>
       </div>
     </>

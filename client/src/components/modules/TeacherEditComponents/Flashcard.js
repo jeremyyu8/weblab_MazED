@@ -116,7 +116,7 @@ const Flashcard = (props) => {
         <div className="flex flex-col">
           <div className="inline-flex w-full">
             <div className="w-[90%] mx-2">
-              <div className="mt-2">Question</div>
+              <div className="mt-2">Question {idx + 1}.</div>
               <input
                 onChange={handleQuestion}
                 className="mt-1 input-box w-[95%]"
@@ -184,7 +184,7 @@ const Flashcard = (props) => {
             </div>
 
             <button
-              className="w-[8%] hover:bg-red-300 text-2xl"
+              className="w-[5vw] h-auto hover:bg-red-300 text-[2vw] font-Ubuntu"
               onClick={() => props.handleDelete(idx)}
             >
               X

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   name: String,
+  displayname: String,
   googleid: String,
   role: String,
   creation_date: { type: Date, default: Date.now },

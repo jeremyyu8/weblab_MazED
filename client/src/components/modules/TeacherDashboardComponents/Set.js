@@ -79,7 +79,7 @@ const Set = (props) => {
         <>
           <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 rounded-lg m-3">
             {loading ? (
-              <div className="text-center mx-auto my-auto align-middle border-solid">
+              <div className="text-center mx-auto my-auto align-middle text-red-600">
                 deleting set...
               </div>
             ) : (

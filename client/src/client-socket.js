@@ -74,3 +74,7 @@ export const endGame = (pin) => {
 export const untagMe = (_id, pin) => {
   socket.emit("untagMe", { _id: _id, pin: pin });
 };
+
+export const checkAlreadyConnected = (_id) => {
+  socket.emit("checkAlreadyConnected", { _id: _id });
+};

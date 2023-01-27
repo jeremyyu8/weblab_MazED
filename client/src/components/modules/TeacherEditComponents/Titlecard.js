@@ -9,7 +9,15 @@ const Titlecard = () => {
   };
 
   return (
-    <input className="text-2xl" onInput={handleChange} defaultValue={flashCardSet.title}></input>
+    <>
+      <div>Title</div>
+      <input
+        className="text-2xl font-Ubuntu"
+        onInput={handleChange}
+        defaultValue={flashCardSet.title}
+        placeholder={"Set title"}
+      ></input>
+    </>
   );
 };
 

@@ -46,7 +46,10 @@ const TeacherGamePage = (props) => {
         if (playerid !== props.gameState["teacher"]["_id"]) {
           let curPlayer = (
             <div key={playerData.length}>
-              <div className="text-[2vw]">{props.gameState["players"][playerid]["name"]}</div>
+              <div className="text-[1.5vw]">
+                {props.gameState["players"][playerid]["name"]} (
+                {props.gameState["players"][playerid]["displayname"]})
+              </div>
               <div>
                 Current Level:{" "}
                 {props.gameState["players"][playerid]["level"] === 4

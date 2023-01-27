@@ -28,6 +28,8 @@ const StudentDashboard = (props) => {
   const [rightComponent, setRightComponent] = useState(undefined);
   const [foundGame, setFoundGame] = useState(false);
 
+  const [isOpen, setIsOpen] = useState(true);
+
   useEffect(() => {
     if (userData) {
       if (rightSide === "join") {
@@ -111,11 +113,13 @@ const StudentDashboard = (props) => {
             </div>
           )}
           <div class="h-[75px]"></div>
-          <div className="flex">
-            <div className="w-40 overflow-y-hidden h-[calc(100vh_-_78px)]">
-              <LeftSideBar setRightSide={setRightSide} />
-            </div>
-            <div className="flex-1 overflow-y-hidden h-[calc(100vh_-_78px)]">
+          <div className="relative">
+            <LeftSideBar isOpen={isOpen} setIsOpen={setIsOpen} setRightSide={setRightSide} />
+            <div
+              className={`h-[calc(100vh_-_78px)] overflow-y-hidden left-0 transition-left duration-300 ${
+                isOpen ? "ml-64" : "ml-0"
+              }`}
+            >
               {loading === false && rightComponent}
               {loading === true && (
                 <div className="background text-[2vw] text-green-200">

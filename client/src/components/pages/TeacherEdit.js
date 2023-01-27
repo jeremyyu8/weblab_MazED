@@ -21,26 +21,42 @@ const TeacherEdit = () => {
   const [setId, setSetId] = useState(null);
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [dashboardSaveWarning, setDashboardSaveWarning] = useState(false);
+  const [redirectDashboard, setRedirectDashboard] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = () => {
     console.log(flashCardSet);
+    if (error !== false) return;
     if (flashCardSet.title.length === 0) {
-      alert("please enter a title for your set!");
+      setError("your set must have a title!");
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
       return;
     }
     for (let card of flashCardSet.cards) {
       if (card.question.length === 0) {
-        alert("questions cannot be empty");
+        setError("your questions must not be empty!");
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
         return;
       }
       for (let choice of card.choices) {
         if (choice.length === 0) {
-          alert("answer choices cannot be empty");
+          setError("questions cannot have blank answers");
+          setTimeout(() => {
+            setError(false);
+          }, 3000);
           return;
         }
       }
       if (card.answers.length === 0) {
-        alert("please select answers for your flashcards!");
+        setError("every question must have at least one answer selected!");
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
         return;
       }
     }
@@ -79,17 +95,22 @@ const TeacherEdit = () => {
     checkLoggedIn();
   }, []);
 
+  const handleBack = () => {
+    setRedirectDashboard(true);
+  };
+
   return (
     <>
       {redirect ? (
         <Redirect noThrow from="/teacher" to="/login" />
-      ) : loading === true ? (
-        <div>saving flashcards...</div>
+      ) : redirectDashboard ? (
+        <Redirect noThrow from="/teacher/edit" to="/teacher" />
       ) : (
         <>
           <Navbar edit={true} />
-          <div className="background">
-            <div className="sheerbox w-[70%] mt-[5%] mb-1">
+          <div class="h-[75px]"></div>
+          <div className="background overflow-y-hidden h-[calc(100vh_-_78px)]">
+            <div className="sheerbox w-[70%] mb-1">
               <flashCardContext.Provider value={[flashCardSet, setFlashCardSet]}>
                 {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
                 Error: please give your flashcard set a title{" "}
@@ -106,12 +127,48 @@ const TeacherEdit = () => {
                   <div className="flex max-w-[90%] h-[30vw] m-8 mx-auto">
                     <Set setSetId={setSetId} />
                   </div>
-                  <button
-                    onClick={handleSubmit}
-                    className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1"
-                  >
-                    Save and Exit
-                  </button>
+                  {dashboardSaveWarning && (
+                    <>
+                      <div className="fixed text-red-600 bottom-[8vh]">
+                        <div className="flex justify-end w-[70vw]">
+                          Return to dashboard? Your work will not be saved
+                        </div>
+                        <div className="flex justify-end w-[70vw]">
+                          <button className="font-Ubuntu" onClick={handleBack}>
+                            Yes
+                          </button>
+                          <button
+                            className="font-Ubuntu"
+                            onClick={() => {
+                              setDashboardSaveWarning(false);
+                            }}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {error !== false && (
+                    <div className="fixed shake text-red-600 bottom-[8vh]">{error}</div>
+                  )}
+                  {loading && <div className="fixed text-green-600 bottom-[8vh]">Saving...</div>}
+                  <div className="flex justify-center">
+                    <button
+                      onClick={handleSubmit}
+                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%]"
+                    >
+                      Save and Exit
+                    </button>
+                    <button
+                      onClick={() => {
+                        setDashboardSaveWarning(true);
+                      }}
+                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%]"
+                    >
+                      Back to dashboard
+                    </button>
+                  </div>
                 </div>
               </flashCardContext.Provider>
             </div>

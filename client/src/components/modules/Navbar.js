@@ -12,11 +12,13 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
  * @param {userRole} userRole user role (teacher or student)
  * @param {userName} userName display name of user
  * @param {edit} edit on the teacher edit screen
+ * @param {blank} blank render a blank navbar
  */
 const Navbar = (props) => {
   let rightside;
-
-  if (!props.userId) {
+  if (props.blank === true) {
+    rightside = "";
+  } else if (!props.userId) {
     if (!props.edit) {
       rightside = (
         <div className="hidden md:flex space-x-6">
@@ -40,7 +42,7 @@ const Navbar = (props) => {
   } else {
     rightside = (
       <div className="flex no-underline text-black text-center text-[18px] py-3">
-        You are: {props.userName} ({props.userRole})
+        You are: <span className="text-gray-500 px-2">{props.userName}</span> ({props.userRole})
       </div>
     );
   }

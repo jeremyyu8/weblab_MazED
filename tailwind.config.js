@@ -10,7 +10,6 @@ module.exports = {
         Ubuntu: ["Ubuntu Mono", "sans-serif"],
       },
       backgroundImage: {
-        spaceimg: "url('/client/src/public/img/space.jpg')",
         spaceimg2: "url('/client/src/public/img/17520.jpg')",
       },
     },
