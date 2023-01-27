@@ -22,7 +22,7 @@
   }
 
   .editfbuttons {
-    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2 font-Ubuntu;
+    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2;
   }
 
   .background {
@@ -30,33 +30,10 @@
   }
 
   .sheerbox {
-    @apply overflow-hidden rounded-3xl text-blue-200 bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
+    @apply rounded-3xl text-blue-200 bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
   }
 }
 
-<<<<<<< HEAD
-@keyframes animation-scroll {
-  from {
-    transform: translateY(120%);
-  }
-  to {
-    transform: translateY(-120%);
-  }
-}
-
-.animation-scroll {
-  animation: animation-scroll 10s linear infinite;
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-}
-
-/* h1 {
-  font-size: clamp(1rem, 3vw + 1rem, 4rem);
-  position: relative;
-  font-family: "Source Code Pro", monospace;
-  position: relative;
-  width: max-content;
-=======
 .collapsible-sidebar {
   width: 256px; /* width of the sidebar */
   height: 100vh; /* height of the sidebar */
@@ -68,7 +45,6 @@
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1); /* add a box shadow to the sidebar */
   transition: transform 0.3s ease-out; /* add a transition to the sidebar */
   transform: translateX(-100%); /* hide the sidebar offscreen */
->>>>>>> 45d0b52fcfb42e29c2d531e76490f21576b3ed7b
 }
 
 .collapsible-sidebar-open {
@@ -76,35 +52,48 @@
 }
 
 @keyframes shake {
-  10%, 90% {
+  10%,
+  90% {
     transform: translate3d(-4px, 0, 0);
   }
-  
-  20%, 80% {
+
+  20%,
+  80% {
     transform: translate3d(2px, 0, 0);
   }
 
-  30%, 50%, 70% {
+  30%,
+  50%,
+  70% {
     transform: translate3d(-4px, 0, 0);
   }
 
-  40%, 60% {
+  40%,
+  60% {
     transform: translate3d(4px, 0, 0);
   }
 }
+@keyframes animation-scroll {
+  from {
+    transform: translateY(120%);
+  }
+  to {
+    transform: translateY(-120%);
+  }
+}
+
+.animation-scroll {
+  animation: animation-scroll 10s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 .animate-shake {
-  animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
-
-@keyframes blinkTextCursor{
-  from{border-right-color: rgba(255,255,255,.75);}
-  to{border-right-color: transparent;}
-}
- */
 
 .typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
@@ -227,8 +216,8 @@ form {
   height: 10px;
   top: 10px;
   border-radius: 5px;
-  background-color: #305af2;
-  color: #305af2;
+  background-color: #9880ff;
+  color: #9880ff;
   box-shadow: 9999px 0 0 -5px;
   animation: dot-pulse 1.5s infinite linear;
   animation-delay: 0.25s;
@@ -242,8 +231,8 @@ form {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #305af2;
-  color: #305af2;
+  background-color: #9880ff;
+  color: #9880ff;
 }
 .dot-pulse::before {
   box-shadow: 9984px 0 0 -5px;
@@ -290,31 +279,5 @@ form {
   60%,
   100% {
     box-shadow: 10014px 0 0 -5px;
-  }
-}
-
-.shake {
-  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  transform: translate3d(0, 0, 0);
-  perspective: 1000px;
-}
-
-@keyframes shake {
-  10%,
-  90% {
-    transform: translate3d(-4px, 0, 0);
-  }
-  20%,
-  80% {
-    transform: translate3d(2px, 0, 0);
-  }
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-  40%,
-  60% {
-    transform: translate3d(4px, 0, 0);
   }
 }

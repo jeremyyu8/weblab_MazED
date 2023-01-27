@@ -119,8 +119,8 @@ const StudentEndPage = (props) => {
   return (
     <>
       <div className="background">
-        <div className="sheerbox pd-2 h-{100%}">
-          <div className="animation-scroll text-center">
+        <div className="sheerbox pd-2 h-{100%} overflow-hidden">
+          <div className="animation-scroll text-center ">
             <div className="text-4xl">Game Ended</div>
             <div>{displayData}</div>
           </div>

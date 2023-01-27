@@ -210,7 +210,6 @@
   flex: 1 1 0%;
   border-radius: 0.75rem;
   padding: 0.5rem;
-  font-family: Ubuntu Mono, sans-serif;
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
@@ -239,7 +238,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   border-radius: 1.5rem;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
   --tw-bg-opacity: 0.5;
@@ -315,6 +313,10 @@
 
 .top-11{
   top: 2.75rem;
+}
+
+.left-0{
+  left: 0px;
 }
 
 .top-\[25vh\]{
@@ -448,6 +450,26 @@
   margin-top: 10vh;
 }
 
+.ml-64{
+  margin-left: 16rem;
+}
+
+.ml-0{
+  margin-left: 0px;
+}
+
+.mt-\[5\%\]{
+  margin-top: 5%;
+}
+
+.mb-1{
+  margin-bottom: 0.25rem;
+}
+
+.mt-1{
+  margin-top: 0.25rem;
+}
+
 .mt-\[3vh\]{
   margin-top: 3vh;
 }
@@ -472,8 +494,8 @@
   margin-top: 0.5rem;
 }
 
-.mt-\[5vh\]{
-  margin-top: 5vh;
+.mt-3{
+  margin-top: 0.75rem;
 }
 
 .block{
@@ -564,17 +586,10 @@
   height: 25vw;
 }
 
-<<<<<<< HEAD
-=======
-.h-\[80vh\]{
-  height: 80vh;
-}
-
 .h-12{
   height: 3rem;
 }
 
->>>>>>> 45d0b52fcfb42e29c2d531e76490f21576b3ed7b
 .w-screen{
   width: 100vw;
 }
@@ -623,8 +638,6 @@
   width: 75vw;
 }
 
-<<<<<<< HEAD
-=======
 .w-64{
   width: 16rem;
 }
@@ -633,11 +646,6 @@
   width: 16.666667%;
 }
 
-.w-\[70vw\]{
-  width: 70vw;
-}
-
->>>>>>> 45d0b52fcfb42e29c2d531e76490f21576b3ed7b
 .w-\[90\%\]{
   width: 90%;
 }
@@ -1281,36 +1289,6 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-<<<<<<< HEAD
-@keyframes animation-scroll {
-  from {
-    transform: translateY(120%);
-  }
-
-  to {
-    transform: translateY(-120%);
-  }
-}
-
-.animation-scroll {
-  animation: animation-scroll 10s linear infinite;
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-}
-
-/* h1 {
-  font-size: clamp(1rem, 3vw + 1rem, 4rem);
-  position: relative;
-  font-family: "Source Code Pro", monospace;
-  position: relative;
-  width: max-content;
-}
-
-h1::before,
-h1::after {
-  content: "";
-  position: absolute;
-=======
 .collapsible-sidebar {
   width: 256px;
   /* width of the sidebar */
@@ -1318,7 +1296,6 @@ h1::after {
   /* height of the sidebar */
   position: fixed;
   /* position the sidebar fixed */
->>>>>>> 45d0b52fcfb42e29c2d531e76490f21576b3ed7b
   top: 0;
   /* position the sidebar at the top */
   left: 0;
@@ -1341,25 +1318,46 @@ h1::after {
 }
 
 @keyframes shake {
-  10%, 90% {
+  10%,
+  90% {
     transform: translate3d(-4px, 0, 0);
   }
 
-  20%, 80% {
+  20%,
+  80% {
     transform: translate3d(2px, 0, 0);
   }
 
-  30%, 50%, 70% {
+  30%,
+  50%,
+  70% {
     transform: translate3d(-4px, 0, 0);
   }
 
-  40%, 60% {
+  40%,
+  60% {
     transform: translate3d(4px, 0, 0);
   }
 }
 
+@keyframes animation-scroll {
+  from {
+    transform: translateY(120%);
+  }
+
+  to {
+    transform: translateY(-120%);
+  }
+}
+
+.animation-scroll {
+  animation: animation-scroll 10s linear infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .animate-shake {
-  animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -1497,8 +1495,8 @@ form {
   height: 10px;
   top: 10px;
   border-radius: 5px;
-  background-color: #305af2;
-  color: #305af2;
+  background-color: #9880ff;
+  color: #9880ff;
   box-shadow: 9999px 0 0 -5px;
   animation: dot-pulse 1.5s infinite linear;
   animation-delay: 0.25s;
@@ -1513,8 +1511,8 @@ form {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #305af2;
-  color: #305af2;
+  background-color: #9880ff;
+  color: #9880ff;
 }
 
 .dot-pulse::before {
@@ -1571,35 +1569,6 @@ form {
   60%,
   100% {
     box-shadow: 10014px 0 0 -5px;
-  }
-}
-
-.shake {
-  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  transform: translate3d(0, 0, 0);
-  perspective: 1000px;
-}
-
-@keyframes shake {
-  10%,
-  90% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  20%,
-  80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%,
-  60% {
-    transform: translate3d(4px, 0, 0);
   }
 }
 
