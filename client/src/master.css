@@ -22,7 +22,7 @@
   }
 
   .editfbuttons {
-    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2;
+    @apply flex-1 rounded-xl w-40 hover:bg-blue-400 text-xl p-2 font-Ubuntu;
   }
 
   .background {
@@ -85,7 +85,7 @@ h1::after {
 }
  */
 
- .typewriter h1 {
+.typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .15em solid #bfdbfe; /* The typwriter cursor */
   white-space: nowrap; /* Keeps the content on a single line */
@@ -113,7 +113,6 @@ h1::after {
 
 @media (max-width: 768px) { .title{font-family: "Ubuntu Mono"; font-size: 6vw; font-weight: 700;} }
 @media (min-width: 768px) { .title{visibility: hidden} }
-
 
 
 /* utilities.css */
@@ -254,5 +253,26 @@ form {
   60%,
   100% {
     box-shadow: 10014px 0 0 -5px;
+  }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
   }
 }

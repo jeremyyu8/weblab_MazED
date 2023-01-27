@@ -210,6 +210,7 @@
   flex: 1 1 0%;
   border-radius: 0.75rem;
   padding: 0.5rem;
+  font-family: Ubuntu Mono, sans-serif;
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
@@ -313,6 +314,10 @@
 
 .top-11{
   top: 2.75rem;
+}
+
+.top-\[75px\]{
+  top: 75px;
 }
 
 .top-\[25vh\]{
@@ -446,6 +451,10 @@
   margin-right: 3vw;
 }
 
+.mb-\[10vh\]{
+  margin-bottom: 10vh;
+}
+
 .mt-1{
   margin-top: 0.25rem;
 }
@@ -464,10 +473,6 @@
 
 .mt-2{
   margin-top: 0.5rem;
-}
-
-.mt-\[5vh\]{
-  margin-top: 5vh;
 }
 
 .block{
@@ -526,6 +531,10 @@
   height: 13rem;
 }
 
+.h-\[20px\]{
+  height: 20px;
+}
+
 .h-\[calc\(100vh_-_78px\)\]{
   height: calc(100vh - 78px);
 }
@@ -564,6 +573,14 @@
 
 .h-\[30vw\]{
   height: 30vw;
+}
+
+.h-\[75vh\]{
+  height: 75vh;
+}
+
+.h-\[80vh\]{
+  height: 80vh;
 }
 
 .w-screen{
@@ -620,6 +637,22 @@
 
 .w-auto{
   width: auto;
+}
+
+.w-\[95\%\]{
+  width: 95%;
+}
+
+.w-\[95vw\]{
+  width: 95vw;
+}
+
+.w-\[80vw\]{
+  width: 80vw;
+}
+
+.w-\[70vw\]{
+  width: 70vw;
 }
 
 .max-w-\[80\%\]{
@@ -859,6 +892,11 @@
   background-color: rgb(28 25 23 / var(--tw-bg-opacity));
 }
 
+.bg-red-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-green-50{
   --tw-bg-opacity: 1;
   background-color: rgb(240 253 244 / var(--tw-bg-opacity));
@@ -1019,6 +1057,10 @@
   padding-bottom: 2rem;
 }
 
+.pt-\[3px\]{
+  padding-top: 3px;
+}
+
 .pt-\[1vh\]{
   padding-top: 1vh;
 }
@@ -1041,6 +1083,10 @@
 
 .align-middle{
   vertical-align: middle;
+}
+
+.font-Ubuntu{
+  font-family: Ubuntu Mono, sans-serif;
 }
 
 .text-\[18px\]{
@@ -1476,6 +1522,30 @@ form {
   60%,
   100% {
     box-shadow: 10014px 0 0 -5px;
+  }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
   }
 }
 
