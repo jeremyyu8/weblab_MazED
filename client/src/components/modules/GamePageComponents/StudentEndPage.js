@@ -118,15 +118,14 @@ const StudentEndPage = (props) => {
 
   return (
     <>
-    <div className="background">
-      <div className="sheerbox">
-      <div>Student End Game Page</div>
-      <div className="text-4xl">Game Ended</div>
-      <div>{displayData}</div>
+      <div className="background">
+        <div className="sheerbox pd-2 h-{100%}">
+          <div className="animation-scroll text-center">
+            <div className="text-4xl">Game Ended</div>
+            <div>{displayData}</div>
+          </div>
+        </div>
       </div>
-
-    </div>
-
     </>
   );
 };
