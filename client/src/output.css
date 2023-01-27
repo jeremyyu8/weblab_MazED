@@ -364,12 +364,12 @@
   margin: 0.75rem;
 }
 
-.m-5{
-  margin: 1.25rem;
+.m-1{
+  margin: 0.25rem;
 }
 
-.m-10{
-  margin: 2.5rem;
+.m-8{
+  margin: 2rem;
 }
 
 .m-0{
@@ -378,6 +378,10 @@
 
 .m-2{
   margin: 0.5rem;
+}
+
+.m-5{
+  margin: 1.25rem;
 }
 
 .my-auto{
@@ -443,6 +447,18 @@
   margin-top: 10vh;
 }
 
+.mt-\[5\%\]{
+  margin-top: 5%;
+}
+
+.mb-1{
+  margin-bottom: 0.25rem;
+}
+
+.mt-1{
+  margin-top: 0.25rem;
+}
+
 .mt-\[3vh\]{
   margin-top: 3vh;
 }
@@ -453,10 +469,6 @@
 
 .mb-\[10vh\]{
   margin-bottom: 10vh;
-}
-
-.mt-1{
-  margin-top: 0.25rem;
 }
 
 .mt-\[2vw\]{
@@ -475,6 +487,10 @@
   margin-top: 0.5rem;
 }
 
+.mt-3{
+  margin-top: 0.75rem;
+}
+
 .block{
   display: block;
 }
@@ -485,6 +501,10 @@
 
 .flex{
   display: flex;
+}
+
+.inline-flex{
+  display: inline-flex;
 }
 
 .table{
@@ -543,12 +563,8 @@
   height: 100vh;
 }
 
-.h-32{
-  height: 8rem;
-}
-
-.h-\[40vw\]{
-  height: 40vw;
+.h-\[30vw\]{
+  height: 30vw;
 }
 
 .h-\[50vh\]{
@@ -569,14 +585,6 @@
 
 .h-\[25vw\]{
   height: 25vw;
-}
-
-.h-\[30vw\]{
-  height: 30vw;
-}
-
-.h-\[75vh\]{
-  height: 75vh;
 }
 
 .h-\[80vh\]{
@@ -627,36 +635,36 @@
   width: 10rem;
 }
 
+.w-\[70\%\]{
+  width: 70%;
+}
+
 .w-\[75vw\]{
   width: 75vw;
-}
-
-.w-\[10\%\]{
-  width: 10%;
-}
-
-.w-auto{
-  width: auto;
-}
-
-.w-\[95\%\]{
-  width: 95%;
-}
-
-.w-\[95vw\]{
-  width: 95vw;
-}
-
-.w-\[80vw\]{
-  width: 80vw;
 }
 
 .w-\[70vw\]{
   width: 70vw;
 }
 
-.max-w-\[80\%\]{
-  max-width: 80%;
+.w-\[90\%\]{
+  width: 90%;
+}
+
+.w-\[95\%\]{
+  width: 95%;
+}
+
+.w-\[8\%\]{
+  width: 8%;
+}
+
+.w-auto{
+  width: auto;
+}
+
+.max-w-\[90\%\]{
+  max-width: 90%;
 }
 
 .max-w-\[95\%\]{
@@ -679,10 +687,6 @@
   flex-basis: 20%;
 }
 
-.basis-1\/3{
-  flex-basis: 33.333333%;
-}
-
 .basis-1\/4{
   flex-basis: 25%;
 }
@@ -693,6 +697,10 @@
 
 .basis-\[30\%\]{
   flex-basis: 30%;
+}
+
+.basis-1\/3{
+  flex-basis: 33.333333%;
 }
 
 .basis-1\/6{
@@ -822,11 +830,6 @@
   border-color: rgb(22 163 74 / var(--tw-border-opacity));
 }
 
-.border-black{
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-
 .border-red-900{
   --tw-border-opacity: 1;
   border-color: rgb(127 29 29 / var(--tw-border-opacity));
@@ -840,16 +843,6 @@
 .border-green-900{
   --tw-border-opacity: 1;
   border-color: rgb(20 83 45 / var(--tw-border-opacity));
-}
-
-.border-red-600{
-  --tw-border-opacity: 1;
-  border-color: rgb(220 38 38 / var(--tw-border-opacity));
-}
-
-.border-green-300{
-  --tw-border-opacity: 1;
-  border-color: rgb(134 239 172 / var(--tw-border-opacity));
 }
 
 .bg-blue-700{
@@ -897,9 +890,9 @@
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 
-.bg-green-50{
+.bg-blue-50{
   --tw-bg-opacity: 1;
-  background-color: rgb(240 253 244 / var(--tw-bg-opacity));
+  background-color: rgb(239 246 255 / var(--tw-bg-opacity));
 }
 
 .bg-blue-600{
@@ -995,6 +988,10 @@
 
 .p-8{
   padding: 2rem;
+}
+
+.p-1{
+  padding: 0.25rem;
 }
 
 .py-3{
@@ -1148,13 +1145,13 @@
   line-height: 1;
 }
 
-.text-\[1vw\]{
-  font-size: 1vw;
-}
-
 .text-5xl{
   font-size: 3rem;
   line-height: 1;
+}
+
+.text-\[1vw\]{
+  font-size: 1vw;
 }
 
 .text-sm{
@@ -1320,17 +1317,15 @@ h1::after {
 .typewriter h1 {
   overflow: hidden;
   /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid #bfdbfe;
+  border-right: 0.15em solid #bfdbfe;
   /* The typwriter cursor */
   white-space: nowrap;
   /* Keeps the content on a single line */
   margin: 0 auto;
   /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em;
+  letter-spacing: 0.15em;
   /* Adjust as needed */
-  animation: 
-    typing 9s steps(26, start) infinite,
-    blink-caret .75s step-end infinite;
+  animation: typing 9s steps(26, start) infinite, blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */
@@ -1340,19 +1335,21 @@ h1::after {
   to { width: 100% } */
 
   0% {
-    width: 0
+    width: 0;
   }
 
-  33%, 100% {
-    width: 100%
+  33%,
+  100% {
+    width: 100%;
   }
 }
 
 /* The typewriter cursor effect */
 
 @keyframes blink-caret {
-  from, to {
-    border-color: transparent
+  from,
+  to {
+    border-color: transparent;
   }
 
   50% {
@@ -1361,7 +1358,7 @@ h1::after {
 }
 
 @media (max-width: 768px) {
-  .title{
+  .title {
     font-family: "Ubuntu Mono";
     font-size: 6vw;
     font-weight: 700;
@@ -1369,8 +1366,8 @@ h1::after {
 }
 
 @media (min-width: 768px) {
-  .title{
-    visibility: hidden
+  .title {
+    visibility: hidden;
   }
 }
 
@@ -1448,8 +1445,8 @@ form {
   height: 10px;
   top: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #305af2;
+  color: #305af2;
   box-shadow: 9999px 0 0 -5px;
   animation: dot-pulse 1.5s infinite linear;
   animation-delay: 0.25s;
@@ -1464,8 +1461,8 @@ form {
   width: 10px;
   height: 10px;
   border-radius: 5px;
-  background-color: #9880ff;
-  color: #9880ff;
+  background-color: #305af2;
+  color: #305af2;
 }
 
 .dot-pulse::before {
@@ -1587,6 +1584,11 @@ form {
 .hover\:bg-blue-200:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(191 219 254 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-300:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-opacity-90:hover{

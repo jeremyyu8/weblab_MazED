@@ -46,19 +46,22 @@ const TeacherEndPage = (props) => {
 
   return (
     <>
-      <div>Teacher End Game Page</div>
-      <div className="text-4xl">Game Ended</div>
-      <div>
-        {displayData.length ? (
-          <>
-            <div className="border-solid overflow-y-scroll h-[70vh]">
-              <div className="text-4xl h-auto">Player data:</div>
-              <div className="border-solid">{displayData}</div>
-            </div>
-          </>
-        ) : (
-          <div>No one played the game sad</div>
-        )}
+      <div className="background">
+        <div className="sheerbox">
+          <div className="text-5xl">Game Ended</div>
+          <div>
+            {displayData.length ? (
+              <>
+                <div className="overflow-y-scroll h-[70vh]">
+                  <div className="text-4xl h-auto">Player data:</div>
+                  <div className>{displayData}</div>
+                </div>
+              </>
+            ) : (
+              <div>No one played the game sad</div>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

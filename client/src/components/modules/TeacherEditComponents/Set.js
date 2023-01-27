@@ -95,8 +95,8 @@ const Set = (props) => {
         <div>loading...</div>
       ) : (
         <>
-          <div className="flex flex-col justify-center border-solid border-red-600 grow-0 mx-auto w-[100%]">
-            <div className="flex-col overflow-scroll border-solid border-green-300">
+          <div className="flex flex-col justify-center grow-0 mx-auto w-[100%]">
+            <div className="flex-col overflow-scroll">
               {flashCardSet.cards.map((card, i) => {
                 return (
                   <Flashcard
@@ -114,7 +114,7 @@ const Set = (props) => {
 
             <button
               onClick={handleNewCard}
-              className="flex-col border-solid hover:bg-sky-300 cursor-pointer transition-all text-4xl m-5 p-2 w-auto mx-auto"
+              className="flex-col rounded-xl hover:bg-sky-300 cursor-pointer transition-all text-xl m-2 p-1 w-auto mx-auto"
             >
               Add New Card
             </button>

@@ -88,35 +88,34 @@ const TeacherEdit = () => {
       ) : (
         <>
           <Navbar edit={true} />
-          <div class="h-[75px]"></div>
-          <flashCardContext.Provider value={[flashCardSet, setFlashCardSet]}>
-            <div className="flex-col">
-              {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
+          <div className="background">
+            <div className="sheerbox w-[70%] mt-[5%] mb-1">
+              <flashCardContext.Provider value={[flashCardSet, setFlashCardSet]}>
+                {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
                 Error: please give your flashcard set a title{" "}
               </div> */}
-              <div className="flex flex-1 justify-between">
-                <div className="basis-1/3 border-solid text-6xl bg-green-50 m-5 p-5">
-                  <Titlecard />
+                <div className="flex justify-evenly w-full">
+                  <div className="text-xl bg-blue-50 bg-opacity-60 m-1 p-2">
+                    <Titlecard />
+                  </div>
+                  <div className="basis-1/4 border-solid justify-center text-xl m-1">
+                    <Image />
+                  </div>
                 </div>
-                <div className="basis-1/4 border-solid justify-center text-3xl m-5 h-32">
-                  <Image />
+                <div className="flex-2 w-full inline">
+                  <div className="flex max-w-[90%] h-[30vw] m-8 mx-auto">
+                    <Set setSetId={setSetId} />
+                  </div>
+                  <button
+                    onClick={handleSubmit}
+                    className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1"
+                  >
+                    Save and Exit
+                  </button>
                 </div>
-              </div>
-              <div className="flex-2 border-solid">
-                <div className="flex border-solid border-black max-w-[80%] h-[40vw] m-10 mx-auto">
-                  <Set setSetId={setSetId} />
-                </div>
-              </div>
-              <div className="flex-1 border-solid flex justify-center">
-                <button
-                  onClick={handleSubmit}
-                  className="border-solid hover:bg-sky-300 cursor-pointer transition-all text-4xl m-5 p-2"
-                >
-                  Save and Exit
-                </button>
-              </div>
+              </flashCardContext.Provider>
             </div>
-          </flashCardContext.Provider>
+          </div>
         </>
       )}
     </>
