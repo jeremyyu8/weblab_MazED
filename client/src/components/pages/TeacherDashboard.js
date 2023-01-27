@@ -33,6 +33,18 @@ const TeacherDashboard = (props) => {
   const [foundGame, setFoundGame] = useState(false);
 
   const [isOpen, setIsOpen] = useState(true);
+
+  // collapse sidebar if screen is too small
+  useEffect(() => {
+    addEventListener("resize", handleResize);
+  }, []);
+
+  const handleResize = () => {
+    if (window.innerWidth < 960) {
+      setIsOpen(false);
+    }
+  };
+
   useEffect(() => {
     if (rightSide === "sets")
       setRightComponent(
@@ -116,7 +128,7 @@ const TeacherDashboard = (props) => {
             <div className="relative">
               <LeftSideBar isOpen={isOpen} setIsOpen={setIsOpen} setRightSide={setRightSide} />
               <div
-                className={`h-[calc(100vh_-_78px)] overflow-y-hidden left-0 transition-left duration-300 ${
+                className={`h-[calc(100vh_-_78px)] overflow-y-hidden overflow-x-hidden left-0 transition-left duration-300 ${
                   isOpen ? "ml-64" : "ml-0"
                 }`}
               >

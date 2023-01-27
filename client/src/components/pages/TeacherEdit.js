@@ -150,7 +150,7 @@ const TeacherEdit = () => {
                     </>
                   )}
                   {error !== false && (
-                    <div className="fixed shake text-red-600 bottom-[8vh]">{error}</div>
+                    <div className="fixed animate-shake text-red-600 bottom-[8vh]">{error}</div>
                   )}
                   {loading && <div className="fixed text-green-600 bottom-[8vh]">Saving...</div>}
                   <div className="flex justify-center">

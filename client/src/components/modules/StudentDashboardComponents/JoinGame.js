@@ -7,8 +7,8 @@ import { joinLobby } from "../../../client-socket";
  * Join game component for student users to join new lobbies
  *
  * @param {string} userId the user id
- * @param {string} userName display name of user
- * @param {string} displayname
+ * @param {string} userName username of the user
+ * @param {string} displayname display name of user
  */
 const JoinGame = (props) => {
   const [gamepin, setGamepin] = useState("");
@@ -51,7 +51,9 @@ const JoinGame = (props) => {
             <div className="rounded-3xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
               <div className="mx-auto mb-6 text-5xl text-blue-200">Join Game</div>
               {invalidPin && (
-                <div className="fixed mb-[10vh] shake text-red-600 font-bold">Invalid PIN</div>
+                <div className="fixed mb-[10vh] animate-shake text-red-600 font-bold">
+                  Invalid PIN
+                </div>
               )}
               <input
                 className="my-4 text-2xl font-Ubuntu text-center"

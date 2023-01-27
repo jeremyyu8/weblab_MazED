@@ -103,12 +103,12 @@ const Set = (props) => {
                     <div className="basis-1/6 text-center border-green-900 border-solid m-2">
                       image
                     </div>
-                    <div className="flex-1 border-blue-700 rounded-xl border-solid m-2 overflow-y-scroll overflow-x-scroll ">
+                    <div className="flex-1 border-blue-700 rounded-xl border-solid m-2 overflow-y-auto overflow-x-auto">
                       <div className="px-4 pt-2 text-3xl text-blue-200">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
                       <div className="px-4 text-2xl text-blue-200">Flashcards: {props.size}</div>
-                      <div className="px-4 text-sm text-blue-200">{props.date}</div>
+                      <div className="px-4 text-sm text-gray-400">{props.date}</div>
                     </div>
                     <div className="flex-none flex-col m-2">
                       <div className="flex-1">

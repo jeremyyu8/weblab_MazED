@@ -18,7 +18,7 @@
   }
 
   .bigbutton {
-    @apply mx-10 flex-none text-[2vw] rounded-xl text-blue-200 bg-blue-800 hover:bg-blue-500 cursor-pointer transition-all;
+    @apply mx-10 flex-none text-xl md:text-3xl rounded-xl text-blue-200 bg-blue-800 hover:bg-blue-500 cursor-pointer transition-all;
   }
 
   .editfbuttons {

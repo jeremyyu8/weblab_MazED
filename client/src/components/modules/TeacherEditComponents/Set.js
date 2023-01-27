@@ -96,7 +96,7 @@ const Set = (props) => {
       ) : (
         <>
           <div className="flex flex-col justify-center grow-0 mx-auto w-[100%]">
-            <div className="flex-col overflow-scroll">
+            <div className="flex-col overflow-auto">
               {flashCardSet.cards.map((card, i) => {
                 return (
                   <Flashcard
