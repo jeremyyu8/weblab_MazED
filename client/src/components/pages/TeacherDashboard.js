@@ -29,6 +29,7 @@ const TeacherDashboard = (props) => {
   const [userData, setUserData] = useState(undefined);
   const [setsMetadata, setSetsMetadata] = useState([]);
 
+  const [isOpen, setIsOpen] = useState(true);
   useEffect(() => {
     if (rightSide === "sets")
       setRightComponent(
@@ -74,21 +75,46 @@ const TeacherDashboard = (props) => {
       ) : (
         <>
           <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
-          <div className="bg-white bg-fixed bg-cover h-screen">
-            <div class="h-[75px]"></div>
-            <div className="flex">
-              <div className="basis-1/5 w-40 overflow-y-hidden h-[calc(100vh_-_78px)]">
-                <LeftSideBar setRightSide={setRightSide} />
-              </div>
-              <div className="flex-1 overflow-y-hidden h-[calc(100vh_-_78px)]">
-                {rightComponent}
-              </div>
+          <div class="h-[75px]"></div>
+          <div className="relative">
+            <LeftSideBar isOpen={isOpen} setIsOpen={setIsOpen} setRightSide={setRightSide} />
+            <div
+              className={`h-[calc(100vh_-_78px)] overflow-y-hidden left-0 transition-left duration-300 ${
+                isOpen ? "ml-64" : "ml-0"
+              }`}
+            >
+              {rightComponent}
             </div>
           </div>
         </>
       )}
     </>
   );
+
+  // return (
+  //   <>
+  //     {redirect ? (
+  //       <Redirect noThrow from="/teacher" to="/login" />
+  //     ) : loading === true ? (
+  //       <div>loading teacher dashboard...</div>
+  //     ) : (
+  //       <>
+  //         <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
+  //         <div className="bg-white bg-fixed bg-cover h-screen">
+  //           <div class="h-[75px]"></div>
+  //           <div className="flex">
+  //             <div className="basis-1/5 w-40 overflow-y-hidden h-[calc(100vh_-_78px)]">
+  //               <LeftSideBar setRightSide={setRightSide} />
+  //             </div>
+  //             <div className="flex-1 overflow-y-hidden h-[calc(100vh_-_78px)]">
+  //               {rightComponent}
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </>
+  //     )}
+  //   </>
+  // );
 };
 
 export default TeacherDashboard;

@@ -34,6 +34,7 @@
   }
 }
 
+<<<<<<< HEAD
 @keyframes animation-scroll {
   from {
     transform: translateY(120%);
@@ -55,41 +56,48 @@
   font-family: "Source Code Pro", monospace;
   position: relative;
   width: max-content;
+=======
+.collapsible-sidebar {
+  width: 256px; /* width of the sidebar */
+  height: 100vh; /* height of the sidebar */
+  position: fixed; /* position the sidebar fixed */
+  top: 0; /* position the sidebar at the top */
+  left: 0; /* position the sidebar on the left */
+  z-index: 10; /* position the sidebar above other elements */
+  background-color: #fff; /* set the background color of the sidebar */
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1); /* add a box shadow to the sidebar */
+  transition: transform 0.3s ease-out; /* add a transition to the sidebar */
+  transform: translateX(-100%); /* hide the sidebar offscreen */
+>>>>>>> 45d0b52fcfb42e29c2d531e76490f21576b3ed7b
 }
 
-h1::before,
-h1::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.collapsible-sidebar-open {
+  transform: translateX(0); /* show the sidebar onscreen */
 }
 
-h1::before {
-  animation: typewriter 1s
-    steps(26) 1s forwards;
-}
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
 
-h1::after {
-  width: 0.125em;
-  background: black;
-  animation: typewriter 1s
-      steps(26) 1s forwards,
-    blink 750ms steps(26) infinite;
-}
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
 
-@keyframes typewriter {
-  to {
-    left: 100%;
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
   }
 }
 
-@keyframes blink {
-  to {
-    background: transparent;
-  }
+.animate-shake {
+  animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 @keyframes blinkTextCursor{

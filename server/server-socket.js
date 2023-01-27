@@ -109,7 +109,6 @@ module.exports = {
           console.log(data.pin);
           socket.emit("joinFail", { err: "pin does not exist" });
         } else {
-          console.log("hi???");
           socket.emit("joinSuccess");
           socket.join(data.pin);
           userToPinMap[data.studentid] = data.pin;

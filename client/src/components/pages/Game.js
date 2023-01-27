@@ -22,6 +22,8 @@ import StudentEndPage from "../modules/GamePageComponents/StudentEndPage.js";
 import RulesAndSettings from "../modules/GamePageComponents/RulesAndSettings.js";
 import ActivePlayers from "../modules/GamePageComponents/ActivePlayers.js";
 
+import "../../master.css";
+
 const Game = () => {
   // metadata
   const [gamePin, setGamePin] = useState(undefined); // user game pin
@@ -53,6 +55,10 @@ const Game = () => {
   const [level1CompletionTime, setLevel1CompletionTime] = useState(undefined);
   const [level2CompletionTime, setLevel2CompletionTime] = useState(undefined);
   const [level3CompletionTime, setLevel3CompletionTime] = useState(undefined);
+
+  const [speedUpgradeFailed, setSpeedUpgradeFailed] = useState(false);
+  const [powerUpgradeFailed, setPowerUpgradeFailed] = useState(false);
+  const [borderUpgradeFailed, setBorderUpgradeFailed] = useState(false);
 
   // dimension of game window
   const [windowDimension, setWindowDimension] = useState({
@@ -124,6 +130,7 @@ const Game = () => {
     });
 
     socket.on("upgradeSpeedResult", (data) => {
+      console.log("received upgrade speed result");
       if (
         userData &&
         gamePin &&
@@ -131,7 +138,11 @@ const Game = () => {
         userData._id === data._id &&
         gamePin === data.pin
       ) {
-        alert("Need more tokens to upgrade speed");
+        // alert("Need more tokens to upgrade speed");
+        setSpeedUpgradeFailed(true);
+        setTimeout(() => {
+          setSpeedUpgradeFailed(false);
+        }, 1000);
       }
     });
 
@@ -143,7 +154,11 @@ const Game = () => {
         userData._id === data._id &&
         gamePin === data.pin
       ) {
-        alert("Need more tokens to upgrade power");
+        // alert("Need more tokens to upgrade power");
+        setPowerUpgradeFailed(true);
+        setTimeout(() => {
+          setPowerUpgradeFailed(false);
+        }, 1000);
       }
     });
 
@@ -155,7 +170,10 @@ const Game = () => {
         userData._id === data._id &&
         gamePin === data.pin
       ) {
-        alert("Need more tokens to unlock border");
+        setBorderUpgradeFailed(true);
+        setTimeout(() => {
+          setBorderUpgradeFailed(false);
+        }, 1000);
       }
     });
   }, [gamePin, userData, mazes]);
@@ -366,7 +384,7 @@ const Game = () => {
       {redirect ? (
         <Redirect from="/game" to="/login" />
       ) : (
-        <>
+        <div className="">
           {userData &&
             ((userData.role === "teacher" && status === "lobby") ||
               (userData.role === "student" && status !== "end")) && (
@@ -457,7 +475,9 @@ const Game = () => {
             inBorderRange && (
               <>
                 <button
-                  className="text-2xl fixed top-[47%] left-[46%] z-20"
+                  className={`text-2xl fixed top-[50%] left-[50%] z-20 ${
+                    borderUpgradeFailed ? "animate-shake bg-red-300" : ""
+                  }`}
                   onClick={handleBorderUnlock}
                 >
                   500 tokens to unlock
@@ -476,7 +496,7 @@ const Game = () => {
                 >
                   Answer Question
                 </button>
-                <div className="bg-white bg-opacity-30 fixed z-10 w-[20vh] h-[20vh] top-[2vh] left-[2vh] border-solid">
+                <div className="bg-white bg-opacity-30 fixed z-10 pb-5 top-[2vh] left-[2vh] border-solid">
                   <div className="text-center text-xl mt-[2vh]">Upgrades</div>
                   <div className="my-[1vh] mx-[2vw]">
                     <table className="table-auto text-md">
@@ -486,11 +506,25 @@ const Game = () => {
                         </tr>
                         <tr>
                           <td>Speed:</td> <td>{speed}</td>{" "}
-                          <button onClick={handleUpgradeSpeed}>upgrade</button>
+                          <button
+                            className={`ml-3 ${
+                              speedUpgradeFailed ? "animate-shake bg-red-300" : ""
+                            }`}
+                            onClick={handleUpgradeSpeed}
+                          >
+                            {`${speed * 100 + 300} tokens to upgrade`}
+                          </button>
                         </tr>
                         <tr>
                           <td>Power:</td> <td>{power}</td>{" "}
-                          <button onClick={handleUpgradePower}>upgrade</button>
+                          <button
+                            className={`ml-3 ${
+                              powerUpgradeFailed ? "animate-shake bg-red-300" : ""
+                            }`}
+                            onClick={handleUpgradePower}
+                          >
+                            {`${power * 100 + 500} tokens to upgrade`}
+                          </button>
                         </tr>
                       </tbody>
                     </table>
@@ -569,7 +603,7 @@ const Game = () => {
           {status === "end" && userData && userData.role === "student" && (
             <StudentEndPage _id={userData._id} gameState={gameState} />
           )}
-        </>
+        </div>
       )}
     </>
   );
