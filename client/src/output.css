@@ -279,12 +279,12 @@
   bottom: 0px;
 }
 
-.top-\[47\%\]{
-  top: 47%;
+.top-\[50\%\]{
+  top: 50%;
 }
 
-.left-\[46\%\]{
-  left: 46%;
+.left-\[50\%\]{
+  left: 50%;
 }
 
 .left-\[2vh\]{
@@ -315,6 +315,10 @@
   top: 2.75rem;
 }
 
+.left-0{
+  left: 0px;
+}
+
 .top-\[25vh\]{
   top: 25vh;
 }
@@ -331,8 +335,8 @@
   top: 3vh;
 }
 
-.left-0{
-  left: 0px;
+.left-10{
+  left: 2.5rem;
 }
 
 .z-10{
@@ -434,8 +438,20 @@
   margin-top: 2vh;
 }
 
+.ml-3{
+  margin-left: 0.75rem;
+}
+
 .mt-\[10vh\]{
   margin-top: 10vh;
+}
+
+.ml-64{
+  margin-left: 16rem;
+}
+
+.ml-0{
+  margin-left: 0px;
 }
 
 .mt-\[3vh\]{
@@ -464,10 +480,6 @@
 
 .mt-2{
   margin-top: 0.5rem;
-}
-
-.mt-\[5vh\]{
-  margin-top: 5vh;
 }
 
 .block{
@@ -500,10 +512,6 @@
 
 .h-auto{
   height: auto;
-}
-
-.h-\[20vh\]{
-  height: 20vh;
 }
 
 .h-\[25vh\]{
@@ -566,6 +574,10 @@
   height: 30vw;
 }
 
+.h-12{
+  height: 3rem;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -580,10 +592,6 @@
 
 .w-\[100\%\]{
   width: 100%;
-}
-
-.w-\[20vh\]{
-  width: 20vh;
 }
 
 .w-\[25vh\]{
@@ -612,6 +620,14 @@
 
 .w-\[75vw\]{
   width: 75vw;
+}
+
+.w-64{
+  width: 16rem;
+}
+
+.w-1\/6{
+  width: 16.666667%;
 }
 
 .w-\[10\%\]{
@@ -672,6 +688,20 @@
 
 .table-auto{
   table-layout: auto;
+}
+
+.translate-x-0{
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-x-full{
+  --tw-translate-x: -100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.transform{
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .cursor-pointer{
@@ -839,6 +869,11 @@
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-red-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
+
 .bg-blue-400{
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
@@ -882,6 +917,11 @@
 .bg-zinc-900{
   --tw-bg-opacity: 1;
   background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+}
+
+.bg-gray-800{
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
 .bg-slate-900{
@@ -1011,6 +1051,10 @@
   padding-right: 2rem;
 }
 
+.pb-5{
+  padding-bottom: 1.25rem;
+}
+
 .pt-16{
   padding-top: 4rem;
 }
@@ -1120,6 +1164,10 @@
   font-weight: 900;
 }
 
+.font-medium{
+  font-weight: 500;
+}
+
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1210,6 +1258,12 @@
   transition-duration: 150ms;
 }
 
+.transition-transform{
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .duration-300{
   transition-duration: 300ms;
 }
@@ -1222,54 +1276,59 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* h1 {
-  font-size: clamp(1rem, 3vw + 1rem, 4rem);
-  position: relative;
-  font-family: "Source Code Pro", monospace;
-  position: relative;
-  width: max-content;
-}
-
-h1::before,
-h1::after {
-  content: "";
-  position: absolute;
+.collapsible-sidebar {
+  width: 256px;
+  /* width of the sidebar */
+  height: 100vh;
+  /* height of the sidebar */
+  position: fixed;
+  /* position the sidebar fixed */
   top: 0;
-  right: 0;
-  bottom: 0;
+  /* position the sidebar at the top */
   left: 0;
+  /* position the sidebar on the left */
+  z-index: 10;
+  /* position the sidebar above other elements */
+  background-color: #fff;
+  /* set the background color of the sidebar */
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  /* add a box shadow to the sidebar */
+  transition: transform 0.3s ease-out;
+  /* add a transition to the sidebar */
+  transform: translateX(-100%);
+  /* hide the sidebar offscreen */
 }
 
-h1::before {
-  animation: typewriter 1s
-    steps(26) 1s forwards;
+.collapsible-sidebar-open {
+  transform: translateX(0);
+  /* show the sidebar onscreen */
 }
 
-h1::after {
-  width: 0.125em;
-  background: black;
-  animation: typewriter 1s
-      steps(26) 1s forwards,
-    blink 750ms steps(26) infinite;
-}
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-4px, 0, 0);
+  }
 
-@keyframes typewriter {
-  to {
-    left: 100%;
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
   }
 }
 
-@keyframes blink {
-  to {
-    background: transparent;
-  }
+.animate-shake {
+  animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  perspective: 1000px;
 }
-
-@keyframes blinkTextCursor{
-  from{border-right-color: rgba(255,255,255,.75);}
-  to{border-right-color: transparent;}
-}
- */
 
 .typewriter h1 {
   overflow: hidden;
