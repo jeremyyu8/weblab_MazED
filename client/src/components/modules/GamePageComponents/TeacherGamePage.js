@@ -23,13 +23,15 @@ const TeacherGamePage = (props) => {
 
   // on window change
   useEffect(() => {
-    if (
-      Math.abs(window.innerWidth - windowDimension.width) > 20 ||
-      Math.abs(window.innerHeight - windowDimension.height) > 20
-    ) {
-      setWindowDimension({ width: window.innerWidth, height: window.innerHeight });
-    }
-  }, [props.gameState]);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const handleResize = () => {
+    setWindowDimension({ width: window.innerWidth, height: window.innerHeight });
+  };
 
   // canvas reference
   const teacherCanvasRef1 = useRef(null);
@@ -45,7 +47,12 @@ const TeacherGamePage = (props) => {
           let curPlayer = (
             <div key={playerData.length}>
               <div className="text-[2vw]">{props.gameState["players"][playerid]["name"]}</div>
-              <div>Current Level: {props.gameState["players"][playerid]["level"]}</div>
+              <div>
+                Current Level:{" "}
+                {props.gameState["players"][playerid]["level"] === 4
+                  ? "Final lobby (finished)"
+                  : props.gameState["players"][playerid]["level"]}
+              </div>
               <div>x: {Math.round(props.gameState["players"][playerid].p.x * 100) / 100}</div>
               <div>y: {Math.round(props.gameState["players"][playerid].p.y * 100) / 100}</div>
               <div>

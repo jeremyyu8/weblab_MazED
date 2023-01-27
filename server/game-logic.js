@@ -53,9 +53,10 @@ let games = {};
 // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacher id}
 const makeNewGame = (data) => {
   const lobby = mazeLogic.generateLobby();
-  const map1 = mazeLogic.generateFullMaze(11);
-  const map2 = mazeLogic.generateFullMaze(15);
-  const map3 = mazeLogic.generateFullMaze(25);
+  const map1 = mazeLogic.generateFullMaze(11); // 11
+  const map2 = mazeLogic.generateFullMaze(15); // 15
+  const map3 = mazeLogic.generateFullMaze(25); // 25
+  const endlobby = mazeLogic.generateLobby();
 
   const gameLength = 600; //seconds
   const newGame = {
@@ -64,9 +65,10 @@ const makeNewGame = (data) => {
     status: "lobby",
     cards: data.cards,
     timeRemaining: gameLength,
+    startTime: 0,
   };
 
-  const newGameMazes = { lobby: lobby, level1: map1, level2: map2, level3: map3 };
+  const newGameMazes = { lobby: lobby, level1: map1, level2: map2, level3: map3, level4: endlobby };
 
   games[data.pin] = newGame;
   mazes[data.pin] = newGameMazes;
@@ -209,9 +211,14 @@ const makeNewPlayer = (_id, pin, name) => {
     level: 0,
     tagged: false, // currently tagged?
     tags: 0, // number of people that you tagged
+    numtagged: 0, // number of people who tagged you
     flashcards_correct: 0, // number of flashcards correct
     flashcards_total: 0, // total number of flashcards answered
     invincible: false, // invincible after getting tagged
+    newlevel: false, // if on new level
+    level1completion: 0,
+    level2completion: 0,
+    level3completion: 0,
     borders: { level1: borders1, level2: borders2, level3: borders3 },
   };
 
@@ -222,7 +229,6 @@ const makeNewPlayer = (_id, pin, name) => {
 const setWindowSize = (_id, pin, x, y) => {
   games[pin]["players"][_id].windowSize.x = x;
   games[pin]["players"][_id].windowSize.y = y;
-  console.log("pin", pin);
 };
 
 // // move player on player input
@@ -266,12 +272,16 @@ const updateGameState = () => {
           player2["tagged"] = player1["name"];
           player1["tags"] += 1;
           player2["tags"] += 1;
+          player1["numtagged"] += 1;
+          player2["numtagged"] += 1;
         } else if (player1["power"] > player2["power"]) {
           player2["tagged"] = player1["name"];
           player1["tags"] += 1;
+          player2["numtagged"] += 1;
         } else {
           player1["tagged"] = player2["name"];
           player2["tags"] += 1;
+          player1["numtagged"] += 1;
         }
       }
     }
@@ -287,10 +297,7 @@ const updateGameState = () => {
       let mapxsize = Math.floor(Math.sqrt(mazes[pin][level].length)) * tilewidth;
       let mapysize = mapxsize;
 
-      let promoted = detectMapCollisions(_id, pin);
-      if (promoted) {
-        return;
-      }
+      detectMapCollisions(_id, pin);
 
       let curPlayer = games[pin]["players"][_id];
       // freeze movement if tagged
@@ -301,6 +308,24 @@ const updateGameState = () => {
         curPlayer.k["down"] === false;
         curPlayer.v.x = 0;
         curPlayer.v.y = 0;
+        continue;
+      }
+      // freeze movement if moving to next level
+      if (curPlayer["newlevel"] === true) {
+        console.log("new level is true or something");
+        let levelcompletionstring = "level" + curPlayer["level"] + "completion";
+        curPlayer[levelcompletionstring] = games[pin]["startTime"];
+        console.log(curPlayer);
+        curPlayer["level"] += 1;
+        curPlayer.k["right"] = false;
+        curPlayer.k["left"] = false;
+        curPlayer.k["up"] = false;
+        curPlayer.k["down"] = false;
+        curPlayer.p.x = 0;
+        curPlayer.p.y = 0;
+        curPlayer.v.x = 0;
+        curPlayer.v.y = 0;
+        curPlayer["newlevel"] = false;
         continue;
       }
 
@@ -480,8 +505,7 @@ const detectMapCollisions = (_id, pin) => {
       player.v.x = 0;
       player.v.y = 0;
       console.log("player level upgrading from ", player["level"]);
-      player["level"] += 1;
-      return true;
+      player["newlevel"] = true;
     }
   }
 };
@@ -540,10 +564,13 @@ const gameStart = (pin) => {
   });
 
   interval = setInterval(() => {
-    games[pin]["timeRemaining"] -= 1;
-    if (games[pin]["timeRemaining"] === 0) {
-      endGame(pin);
-      clearInterval(interval);
+    if (games[pin]) {
+      games[pin]["timeRemaining"] -= 1;
+      games[pin]["startTime"] += 1;
+      if (games[pin]["timeRemaining"] === 0) {
+        endGame(pin);
+        clearInterval(interval);
+      }
     }
   }, 1000);
 };
