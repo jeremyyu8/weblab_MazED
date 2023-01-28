@@ -308,6 +308,58 @@ router.post("/displayname", auth.ensureLoggedIn, (req, res) => {
   newDisplayName();
 });
 
+/**
+ * /api/savegame saves all game data
+ *
+ * @param {gamestate} gamestate the gamestate
+ */
+router.post("/savegame", auth.ensureLoggedIn, (req, res) => {
+  const saveNewGame = async () => {
+    let gamestate = req.body.gamestate;
+    try {
+      // first, check if game already exists
+      // if it does, don't do anything
+      const curGame = await Game.findOne({ pin: gamestate["pin"] });
+      if (curGame) {
+        console.log("game already exists");
+        res.status(200);
+        res.send({});
+        return;
+      }
+
+      const newGame = new Game({
+        gamestate: gamestate,
+        pin: gamestate["pin"],
+        datePlayed: Date.now(),
+      });
+      await newGame.save();
+      for (let _id in gamestate["players"]) {
+        const curUser = await User.findById(_id);
+        if (_id === gamestate["teacher"]["_id"]) {
+          curUser.games.push(newGame._id);
+          await curUser.save();
+        } else {
+          curUser.games_played += 1;
+          if (gamestate["players"][_id]["rank"] === 1) {
+            curUser.games_won += 1;
+          }
+          curUser.tags += gamestate["players"][_id]["tags"];
+          curUser.tagged += gamestate["players"][_id]["numtagged"];
+          await curUser.save();
+        }
+      }
+      console.log("successfully saved game state");
+      res.status(200);
+      res.send({});
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(404).send({ msg: "something went wrong saving the game state" });
+    }
+  };
+
+  saveNewGame();
+});
+
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);

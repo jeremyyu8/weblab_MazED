@@ -146,7 +146,9 @@ const TeacherEdit = () => {
                     <Set setSetId={setSetId} />
                   </div>
                   {error !== false && (
-                    <div className="fixed animate-shake text-red-600 bottom-[8vh]">{error}</div>
+                    <div className="absolute animate-shake text-red-600 bottom-4 w-[70vw]">
+                      {error}
+                    </div>
                   )}
                   <div className="flex justify-center">
                     {dashboardSaveWarning && (

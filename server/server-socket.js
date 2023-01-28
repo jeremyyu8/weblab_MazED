@@ -26,8 +26,6 @@ const addUser = (user, socket) => {
 };
 
 const removeUser = (user, socket) => {
-  console.log("remove user being called");
-  console.log(user);
   if (user) {
     if (userToPinMap[user._id]) {
       let pin = userToPinMap[user._id];

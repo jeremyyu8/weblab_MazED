@@ -40,41 +40,53 @@ const TeacherGamePage = (props) => {
 
   useEffect(() => {
     if (props.gameState) {
-      // console.log(props.gameState["players"]);
-      let playerData = [];
+      // first order player ids according to ranks
+      let players = [];
       for (let playerid in props.gameState["players"]) {
         if (playerid !== props.gameState["teacher"]["_id"]) {
-          let curPlayer = (
-            <div key={playerData.length}>
-              <div className="text-[1.5vw]">
-                {props.gameState["players"][playerid]["name"]} (
-                {props.gameState["players"][playerid]["displayname"]})
-              </div>
-              <div>
-                Current Level:{" "}
-                {props.gameState["players"][playerid]["level"] === 4
-                  ? "Final lobby (finished)"
-                  : props.gameState["players"][playerid]["level"]}
-              </div>
-              <div>x: {Math.round(props.gameState["players"][playerid].p.x * 100) / 100}</div>
-              <div>y: {Math.round(props.gameState["players"][playerid].p.y * 100) / 100}</div>
-              <div>
-                questions answered: {props.gameState["players"][playerid]["flashcards_total"]}
-              </div>
-              <div>active: {props.gameState["players"][playerid]["active"] ? "true" : "false"}</div>
-            </div>
-          );
-          if (props.gameState["players"][playerid]["active"]) {
-            playerData.push(curPlayer);
-          } else {
-            playerData.push(
-              <div key={playerData.length} className="text-gray-400">
-                {curPlayer}
-              </div>
-            );
-          }
+          players.push([playerid, props.gameState["players"][playerid]["rank"]]);
         }
       }
+      players.sort((p1, p2) => {
+        if (p1[1] < p2[1]) return -1;
+        else return 1;
+      });
+
+      let playerData = [];
+      players.forEach((player) => {
+        let playerid = player[0];
+        let curPlayer = (
+          <div key={playerData.length}>
+            <div className="text-[1.5vw]">
+              {props.gameState["players"][playerid]["name"]} (
+              {props.gameState["players"][playerid]["displayname"]})
+            </div>
+            <div>Rank: {props.gameState["players"][playerid]["rank"]}</div>
+            <div>
+              Level:{" "}
+              {props.gameState["players"][playerid]["level"] === 4
+                ? "Finished"
+                : props.gameState["players"][playerid]["level"]}
+            </div>
+            {/* <div>x: {Math.round(props.gameState["players"][playerid].p.x * 100) / 100}</div>
+            <div>y: {Math.round(props.gameState["players"][playerid].p.y * 100) / 100}</div> */}
+            <div>
+              questions answered: {props.gameState["players"][playerid]["flashcards_total"]}
+            </div>
+            <div>tags: {props.gameState["players"][playerid]["tags"]}</div>
+            <div>active: {props.gameState["players"][playerid]["active"] ? "true" : "false"}</div>
+          </div>
+        );
+        if (props.gameState["players"][playerid]["active"]) {
+          playerData.push(curPlayer);
+        } else {
+          playerData.push(
+            <div key={playerData.length} className="text-gray-400">
+              {curPlayer}
+            </div>
+          );
+        }
+      });
 
       drawTeacherCanvas(
         {

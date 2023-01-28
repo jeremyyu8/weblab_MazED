@@ -109,7 +109,7 @@ const Set = (props) => {
                       image
                     </div>
                     <div className="flex-1 border-blue-700 rounded-xl border-solid m-2 overflow-y-auto overflow-x-auto">
-                      <div className="px-4 pt-2 text-3xl text-blue-200">
+                      <div className="px-4 pt-2 text-3xl text-blue-400">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
                       <div className="px-4 text-2xl text-blue-200">Flashcards: {props.size}</div>

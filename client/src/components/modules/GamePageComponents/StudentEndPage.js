@@ -39,8 +39,13 @@ const StudentEndPage = (props) => {
     // name
     dataDisplay.push(
       <div className="text-3xl">
-        Your statistics: ({props.gameState["players"][props._id]["name"]})
+        Your statistics: (
+        <span className="text-blue-400">{props.gameState["players"][props._id]["name"]}</span>)
       </div>
+    );
+    // rank
+    dataDisplay.push(
+      <div className="text-4xl">Rank: {props.gameState["players"][props._id]["rank"]}</div>
     );
     // level
     dataDisplay.push(
@@ -77,14 +82,14 @@ const StudentEndPage = (props) => {
     }
 
     // x coord
-    dataDisplay.push(
-      <div>x: {Math.round(props.gameState["players"][props._id].p.x * 100) / 100}</div>
-    );
+    // dataDisplay.push(
+    //   <div>x: {Math.round(props.gameState["players"][props._id].p.x * 100) / 100}</div>
+    // );
 
-    // y coord
-    dataDisplay.push(
-      <div>y: {Math.round(props.gameState["players"][props._id].p.y * 100) / 100}</div>
-    );
+    // // y coord
+    // dataDisplay.push(
+    //   <div>y: {Math.round(props.gameState["players"][props._id].p.y * 100) / 100}</div>
+    // );
 
     // questions data
     dataDisplay.push(
@@ -116,9 +121,9 @@ const StudentEndPage = (props) => {
     // other stats
     dataDisplay.push(<div>speed: {props.gameState["players"][props._id]["speed"]}</div>);
     dataDisplay.push(<div>power: {props.gameState["players"][props._id]["power"]}</div>);
-    dataDisplay.push(
-      <div>active: {props.gameState["players"][props._id]["active"] ? "true" : "false"}</div>
-    );
+    // dataDisplay.push(
+    //   <div>active: {props.gameState["players"][props._id]["active"] ? "true" : "false"}</div>
+    // );
 
     setDisplayData(<div>{dataDisplay}</div>);
   }, []);
@@ -126,14 +131,14 @@ const StudentEndPage = (props) => {
   return (
     <>
       <div className="background">
-        <div className="sheerbox pd-2 h-{100%} overflow-hidden">
-          <div className="animation-scroll text-center ">
-            <div className="text-5xl pb-2">Game Ended</div>
+        <div className="sheerbox pd-2 h-[90%] w-[80%] overflow-hidden">
+          <div className="text-center ">
+            <div className="text-5xl pb-2">Game Results</div>
             <div className="text-xl">{displayData}</div>
           </div>
         </div>
         <div className="flex justify-center mt-3">
-          <button className="editfbuttons font-Ubuntu">
+          <button className="editfbuttons font-Ubuntu w-[30vw] text-[1.5vw]">
             <Link to="/" className="no-underline text-black">
               Return to Dashboard
             </Link>

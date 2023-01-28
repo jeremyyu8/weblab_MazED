@@ -564,7 +564,7 @@ const Game = () => {
                 </div>
               </>
             )}
-          {taggedDisplay !== false && (
+          {taggedDisplay !== false && status !== "end" && (
             <div className="bg-red-600 bg-opacity-80 fixed w-[50vw] h-[30vh] left-[25vw] top-[35vh] border-solid z-50">
               <div className="text-4xl text-center mt-[10vh]">You just got tagged by {tagged}!</div>
               <div className="text-4xl text-center">{taggedDisplayTimer}</div>

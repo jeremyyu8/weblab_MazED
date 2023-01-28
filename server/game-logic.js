@@ -1,7 +1,5 @@
 const mazeLogic = require("./maze-logic");
 const e = require("express");
-const Game = require("./models/game");
-const User = require("./models/user");
 // require .env
 require("dotenv").config();
 
@@ -78,6 +76,7 @@ const makeNewGame = (data) => {
     setid: data.setid,
     timeRemaining: gameLength,
     startTime: 0,
+    pin: data.pin,
     active: true,
   };
 
@@ -90,21 +89,6 @@ const makeNewGame = (data) => {
 
 const endGame = (pin) => {
   games[pin]["status"] = "end";
-
-  const saveNewGame = async () => {
-    const newGame = new Game({
-      gameState: games[pin],
-      datePlayed: Date.now(),
-    });
-    await newGame.save();
-    console.log("Game saved successfully");
-    const user = await User.findById(games[pin]["teacher"]["_id"]);
-    user.games.push(newGame._id);
-    await user.save();
-    console.log("Game data saved to teacher account");
-  };
-
-  saveNewGame();
   const twoMinutes = 120 * 1000;
 
   setTimeout(() => {
@@ -242,6 +226,7 @@ const makeNewPlayer = (_id, pin, name, displayname) => {
     camera: { x: 0, y: 0 },
     k: { up: false, down: false, right: false, left: false },
     windowSize: { x: 1260, y: 700 },
+    rank: 0, // rank amongst all active players
     tokens: 0,
     power: 0,
     speed: 0,
@@ -317,6 +302,11 @@ const updateGameState = () => {
 
   // now handle actual game logic
   for (let pin in games) {
+    // sort player ranks in each game
+    if (games[pin]["status"] !== "lobby") {
+      rankPlayers(pin);
+    }
+
     // if the game is not lobby, check for collisions
     if (games[pin]["status"] !== "lobby") {
       let collisions = detectPlayerCollisions(pin);
@@ -488,6 +478,47 @@ const updateGameState = () => {
       }
     }
   }
+};
+
+// player rankings
+const rankPlayers = (pin) => {
+  let players = [];
+  for (let _id in games[pin]["players"]) {
+    // don't sort the teacher
+    if (_id !== games[pin]["teacher"]["_id"]) {
+      let player_level = games[pin]["players"][_id]["level"];
+      let tags = games[pin]["players"][_id]["tags"];
+      if (player_level <= 1) {
+        players.push([_id, player_level, 3600, tags]);
+      } else {
+        let level_completion_tag = "level" + player_level + "completion";
+        let level_completion_time = games[pin]["players"][_id][level_completion_tag];
+        let tags = games[pin]["players"][_id]["tags"];
+        players.push([_id, player_level, level_completion_time, tags]);
+      }
+    }
+  }
+  // sort from best player to worst player
+  // < 0 means sort p1 before p2
+  players.sort((p1, p2) => {
+    if (p1[1] === p2[1]) {
+      // same level
+      if (p1[2] === p2[2]) {
+        // and same level completion time
+        if (p1[3] < p2[3]) return 1; // then sort by number of tags
+        else return -1;
+      }
+      if (p1[2] > p2[2]) return 1;
+      else return -1;
+    } else {
+      if (p1[1] < p2[1]) return 1;
+      else return -1;
+    }
+  });
+
+  players.forEach((player, idx) => {
+    games[pin]["players"][player[0]]["rank"] = idx + 1;
+  });
 };
 
 // detect collision between player and map objects

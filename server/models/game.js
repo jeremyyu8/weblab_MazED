@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const GameSchema = new mongoose.Schema({
-  datePlayed: Date,
-  gameState: Object,
+  dateplayed: Date,
+  pin: String,
+  gamestate: Object,
 });
 
 // compile model from schema

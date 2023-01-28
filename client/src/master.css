@@ -30,10 +30,13 @@
   }
 
   .sheerbox {
-    @apply rounded-3xl text-blue-200 bg-black bg-opacity-50 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
+    @apply rounded-3xl text-blue-200 bg-black bg-opacity-60 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
   }
 }
 
+table {
+  border-collapse: collapse;
+}
 
 .arrows {
 	width: auto;
@@ -364,6 +367,8 @@ form {
 
 input[type="checkbox"] {
   accent-color: red;
+  width: 2vw;
+  margin-right: 0;
 }
 
 input[type="checkbox"]:checked {

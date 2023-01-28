@@ -115,85 +115,88 @@ const Flashcard = (props) => {
       <div className="border-solid bg-gray-600 rounded-lg w-[70%] m-5 p-2 mx-auto">
         <div className="flex flex-col">
           <div className="inline-flex w-full">
-            <div className="w-[90%] mx-2">
-              <div className="mt-2">Question {idx + 1}.</div>
-              <input
-                onChange={handleQuestion}
-                className="mt-1 input-box w-[100%] font-Ubuntu"
-                value={props.question}
-                placeholder={"Question Statement"}
-              ></input>
-              <div className="basis-3/4 flex flex-col">
-                <div className="mt-3 mb-1">Answers</div>
-                <div className="flex mt-1 justify-between">
-                  <label className="flex-none mt-2">1.</label>
-                  <input
-                    onChange={handleChoice0}
-                    className="flex-1 mx-2 input-box font-Ubuntu"
-                    value={props.choices[0]}
-                    placeholder={"Answer Choice 1"}
-                  ></input>
-                  <input
-                    onChange={handleAnswer0}
-                    type="checkbox"
-                    className="basis-1/8"
-                    checked={props.answers.includes(0)}
-                  ></input>
-                </div>
-                <div className="flex mt-1 justify-between">
-                  <label className="flex-none mt-2">2.</label>
-                  <input
-                    onChange={handleChoice1}
-                    className="flex-1 mx-2 input-box font-Ubuntu"
-                    value={props.choices[1]}
-                    placeholder={"Answer Choice 2"}
-                  ></input>
-                  <input
-                    onChange={handleAnswer1}
-                    type="checkbox"
-                    className="basis-1/8"
-                    checked={props.answers.includes(1)}
-                  ></input>
-                </div>
-                <div className="flex mt-1 justify-between">
-                  <label className="flex-none mt-2">3.</label>
-                  <input
-                    onChange={handleChoice2}
-                    className="flex-1 mx-2 input-box font-Ubuntu"
-                    value={props.choices[2]}
-                    placeholder={"Answer Choice 3"}
-                  ></input>
-                  <input
-                    onChange={handleAnswer2}
-                    type="checkbox"
-                    className="basis-1/8"
-                    checked={props.answers.includes(2)}
-                  ></input>
-                </div>
-                <div className="flex mt-1 justify-between">
-                  <label className="flex-none mt-2">4.</label>
-                  <input
-                    onChange={handleChoice3}
-                    className="flex-1 mx-2 input-box font-Ubuntu"
-                    value={props.choices[3]}
-                    placeholder={"Answer Choice 4"}
-                  ></input>
-                  <input
-                    onChange={handleAnswer3}
-                    type="checkbox"
-                    className="basis-1/8"
-                    checked={props.answers.includes(3)}
-                  ></input>
+            <div className="w-[100%]">
+              <div className="flex justify-between">
+                <div className="mt-2">Question {idx + 1}.</div>
+                <button
+                  className="mt-0 ml-[75%] w-6 h-6 hover:bg-red-300 text-[1vw] rounded-full font-Ubuntu hover:cursor-pointer"
+                  onClick={() => props.handleDelete(idx)}
+                >
+                  X
+                </button>
+              </div>
+              <div className="w-[95%] mx-2">
+                <input
+                  onChange={handleQuestion}
+                  className="mt-1 input-box w-[95%] font-Ubuntu"
+                  value={props.question}
+                  placeholder={"Question Statement"}
+                ></input>
+                <div className="flex flex-col">
+                  <div className="mt-3 mb-1">Answers</div>
+                  <div className="flex mt-1 justify-between">
+                    <label className="flex-none mt-2">1.</label>
+                    <input
+                      onChange={handleChoice0}
+                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      value={props.choices[0]}
+                      placeholder={"Answer Choice 1"}
+                    ></input>
+                    <input
+                      onChange={handleAnswer0}
+                      type="checkbox"
+                      className="basis-1/8"
+                      checked={props.answers.includes(0)}
+                    ></input>
+                  </div>
+                  <div className="flex mt-1 justify-between">
+                    <label className="flex-none mt-2">2.</label>
+                    <input
+                      onChange={handleChoice1}
+                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      value={props.choices[1]}
+                      placeholder={"Answer Choice 2"}
+                    ></input>
+                    <input
+                      onChange={handleAnswer1}
+                      type="checkbox"
+                      className="basis-1/8"
+                      checked={props.answers.includes(1)}
+                    ></input>
+                  </div>
+                  <div className="flex mt-1 justify-between">
+                    <label className="flex-none mt-2">3.</label>
+                    <input
+                      onChange={handleChoice2}
+                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      value={props.choices[2]}
+                      placeholder={"Answer Choice 3"}
+                    ></input>
+                    <input
+                      onChange={handleAnswer2}
+                      type="checkbox"
+                      className="basis-1/8"
+                      checked={props.answers.includes(2)}
+                    ></input>
+                  </div>
+                  <div className="flex mt-1 justify-between">
+                    <label className="flex-none mt-2">4.</label>
+                    <input
+                      onChange={handleChoice3}
+                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      value={props.choices[3]}
+                      placeholder={"Answer Choice 4"}
+                    ></input>
+                    <input
+                      onChange={handleAnswer3}
+                      type="checkbox"
+                      className="basis-1/8"
+                      checked={props.answers.includes(3)}
+                    ></input>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <button
-              className="h-6 w-6 hover:bg-red-300 ml-[2vw] text-[1vw] rounded-full font-Ubuntu hover:cursor-pointer"
-              onClick={() => props.handleDelete(idx)}
-            >
-              X
-            </button>
           </div>
         </div>
       </div>
