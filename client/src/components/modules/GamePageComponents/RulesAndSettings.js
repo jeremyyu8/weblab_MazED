@@ -10,17 +10,7 @@ const RulesAndSettings = (props) => {
     <>
       <div className="bg-white bg-opacity-70 fixed h-[50vh] w-[75vw] top-[25vh] left-[12.5vw] overflow-y-scroll">
         <div className="text-xl">
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED These are the rules and settings of MazeED
-          These are the rules and settings of MazeED
+          Tip: press "h" to enable hitboxes and gain an edge on your opponents!
         </div>
         <div className="flex justify-center">
           <button onClick={() => props.setShowRules(false)}>close</button>

@@ -42,7 +42,7 @@ const Navbar = (props) => {
   } else {
     rightside = (
       <div className="flex no-underline text-black text-center text-[18px] py-3">
-        You are: <span className="text-gray-500 px-2">{props.userName}</span> ({props.userRole})
+        You are: <span className="text-blue-600 px-2">{props.userName}</span> ({props.userRole})
       </div>
     );
   }

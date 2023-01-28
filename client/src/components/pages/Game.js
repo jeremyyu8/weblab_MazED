@@ -55,6 +55,7 @@ const Game = () => {
   const [level1CompletionTime, setLevel1CompletionTime] = useState(undefined);
   const [level2CompletionTime, setLevel2CompletionTime] = useState(undefined);
   const [level3CompletionTime, setLevel3CompletionTime] = useState(undefined);
+  const [hitboxes, setHitboxes] = useState(false);
 
   const [speedUpgradeFailed, setSpeedUpgradeFailed] = useState(false);
   const [powerUpgradeFailed, setPowerUpgradeFailed] = useState(false);
@@ -65,6 +66,10 @@ const Game = () => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  // level fade animation
+  const [fade, setFade] = useState(false);
+  const [showCloseButton, setShowCloseButton] = useState(false);
 
   // canvas reference
   const canvasRef = useRef(null);
@@ -114,7 +119,7 @@ const Game = () => {
   // load sockets
   useEffect(() => {
     socket.on("receivePin", (data) => {
-      if (data.err) {
+      if (data.err === "no pin found") {
         setRedirect(true);
       }
       setGamePin(data.pin);
@@ -126,14 +131,21 @@ const Game = () => {
       setMazes(update);
     });
 
+    socket.off("update");
+
     socket.on("update", (update) => {
       if (userData && gamePin && mazes) {
+        update[gamePin]["hitboxes"] = hitboxes;
         processUpdate(update[gamePin], userData._id);
       }
     });
-  }, [gamePin, userData, mazes]);
+  }, [gamePin, userData, mazes, hitboxes]);
 
   useEffect(() => {
+    socket.off("upgradeSpeedResult");
+    socket.off("upgradePowerResult");
+    socket.off("unlockBorderResult");
+
     socket.on("upgradeSpeedResult", (data) => {
       console.log("receiving upgradeSpeedResult");
       if (
@@ -195,7 +207,7 @@ const Game = () => {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("resize", handleResize);
     };
-  }, [userData, gamePin, questionShowing, promoted]);
+  }, [userData, gamePin, questionShowing, promoted, hitboxes]);
 
   // set the window size when they log in
   useEffect(() => {
@@ -259,11 +271,15 @@ const Game = () => {
     if (userData && gamePin && !questionShowing && !promoted) {
       move(pressed, userData._id, gamePin);
     }
+    if (e.key === "h") {
+      console.log("hi");
+      setHitboxes(!hitboxes);
+    }
   };
 
   const processUpdate = (update, _id) => {
     counter++;
-    drawCanvas(update, canvasRef, _id, mazes);
+    drawCanvas(update, canvasRef, _id, mazes, counter);
     setStatus(update["status"]);
     setLevel(update["players"][_id]["level"]);
     setTokens(update["players"][_id]["tokens"]);
@@ -365,6 +381,10 @@ const Game = () => {
         console.log("level");
         console.log(level);
         setPromoted(true);
+        setFade(true);
+        setTimeout(() => {
+          setShowCloseButton(true);
+        }, 5000);
       }
     }
   }, [level]);
@@ -393,7 +413,7 @@ const Game = () => {
           {userData &&
             ((userData.role === "teacher" && status === "lobby") ||
               (userData.role === "student" && status !== "end")) && (
-              <div className="fixed w-full h-full z-0">
+              <div className={`fixed w-full h-full z-0 ${status === "lobby" ? "levelfadein" : ""}`}>
                 <canvas
                   ref={canvasRef}
                   width={windowDimension.width}
@@ -401,6 +421,9 @@ const Game = () => {
                 />
               </div>
             )}
+          {fade && userData && userData.role === "student" && status !== "end" && (
+            <div className="fixed bg-black w-full h-full z-50 newlevelfadein"></div>
+          )}
           {status === "lobby" && userData && userData.role === "student" && (
             <>
               <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">
@@ -528,7 +551,7 @@ const Game = () => {
                             }`}
                             onClick={handleUpgradePower}
                           >
-                            {`${power * 100 + 500} tokens to upgrade`}
+                            {`${power * 100 + 200} tokens to upgrade`}
                           </button>
                         </tr>
                       </tbody>
@@ -577,9 +600,20 @@ const Game = () => {
                     </div>
                   </>
                 )}
-                <div className="flex justify-center mt-[2vh]">
-                  <button onClick={() => setPromoted(false)}>Close</button>
-                </div>
+                {showCloseButton && (
+                  <div className="flex justify-center mt-[2vh]">
+                    <button
+                      className="font-Ubuntu bg-blue-600 text-white"
+                      onClick={() => {
+                        setPromoted(false);
+                        setShowCloseButton(false);
+                        setFade(false);
+                      }}
+                    >
+                      Continue
+                    </button>
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -602,10 +636,10 @@ const Game = () => {
               taggedDisplay={taggedDisplay}
             />
           )}
-          {status === "end" && userData && userData.role === "teacher" && (
+          {status === "end" && gameState && userData && userData.role === "teacher" && (
             <TeacherEndPage _id={userData._id} gameState={gameState} />
           )}
-          {status === "end" && userData && userData.role === "student" && (
+          {status === "end" && gameState && userData && userData.role === "student" && (
             <StudentEndPage _id={userData._id} gameState={gameState} />
           )}
         </div>
