@@ -769,6 +769,10 @@
   width: 60vw;
 }
 
+.w-\[60\%\]{
+  width: 60%;
+}
+
 .w-\[95\%\]{
   width: 95%;
 }
@@ -1120,6 +1124,11 @@
 .bg-gray-900{
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
+.bg-blue-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(147 197 253 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-80{

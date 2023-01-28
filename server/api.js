@@ -17,6 +17,7 @@ const User = require("./models/user");
 const Set = require("./models/set");
 const Card = require("./models/card");
 const Image = require("./models/image");
+const Game = require("./models/game");
 
 // import authentication library
 const auth = require("./auth");
@@ -127,20 +128,6 @@ router.get("/gamebyid", (req, res) => {
 });
 
 //our post requests
-
-router.post("/newGame", auth.ensureLoggedIn, (req, res) => {
-  console.log("inside of post new game");
-
-  const saveNewGame = async () => {
-    const newGame = new Game({ gameState: req.body.gameState });
-    await newGame.save();
-    console.log("Game saved successfully");
-    res.status(200);
-    res.send({});
-  };
-
-  saveNewGame();
-});
 
 /**
  * /api/setbyid modifies an existing set

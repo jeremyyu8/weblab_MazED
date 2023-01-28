@@ -47,9 +47,9 @@ export const extendGame = (pin) => {
   socket.emit("extendGame", pin);
 };
 
-export const changeTokens = (_id, pin, result) => {
+export const changeTokens = (_id, pin, result, cardid) => {
   console.log("modifying tokens");
-  socket.emit("changeTokens", { _id: _id, pin: pin, result: result });
+  socket.emit("changeTokens", { _id: _id, pin: pin, result: result, cardid: cardid });
 };
 
 export const upgradeSpeed = (_id, pin) => {

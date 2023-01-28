@@ -1,7 +1,7 @@
 const mazeLogic = require("./maze-logic");
-// import { post } from "./api";
 const e = require("express");
-
+const Game = require("./models/game");
+const User = require("./models/user");
 // require .env
 require("dotenv").config();
 
@@ -63,11 +63,18 @@ const makeNewGame = (data) => {
   const endlobby = mazeLogic.generateLobby();
 
   const gameLength = 600; //seconds
+
+  let questionStats = {};
+  for (const card of data.cards) {
+    questionStats[card._id] = { correct: 0, attempts: 0 };
+  }
+
   const newGame = {
     players: {},
     teacher: { _id: data.teacherid },
     status: "lobby",
     cards: data.cards,
+    questionStats: questionStats,
     setid: data.setid,
     timeRemaining: gameLength,
     startTime: 0,
@@ -84,13 +91,26 @@ const makeNewGame = (data) => {
 const endGame = (pin) => {
   games[pin]["status"] = "end";
 
+  const saveNewGame = async () => {
+    const newGame = new Game({
+      gameState: games[pin],
+      datePlayed: Date.now(),
+    });
+    await newGame.save();
+    console.log("Game saved successfully");
+    const user = await User.findById(games[pin]["teacher"]["_id"]);
+    user.games.push(newGame._id);
+    await user.save();
+    console.log("Game data saved to teacher account");
+  };
+
+  saveNewGame();
   const twoMinutes = 120 * 1000;
+
   setTimeout(() => {
     console.log("deleting");
-    // post("/newGame", { gameState: games[pin] }).then(() => {
-    //   delete games[pin];
-    //   delete mazes[pin];
-    // });
+    delete games[pin];
+    delete mazes[pin];
   }, twoMinutes);
 };
 
@@ -100,14 +120,17 @@ const playerJoin = (data) => {
   makeNewPlayer(data.studentid, data.pin, data.studentname, data.displayname);
 };
 
-const changeTokens = (_id, pin, result) => {
+const changeTokens = (_id, pin, result, cardid) => {
   if (result === "correct") {
     games[pin]["players"][_id]["tokens"] += TOKEN_GAIN;
     games[pin]["players"][_id]["flashcards_correct"] += 1;
+    games[pin]["questionStats"][cardid]["correct"] += 1;
   } else {
     games[pin]["players"][_id]["tokens"] += TOKEN_LOSS;
   }
   games[pin]["players"][_id]["flashcards_total"] += 1;
+  games[pin]["questionStats"][cardid]["attempts"] += 1;
+  console.log(games[pin]["questionStats"]);
 };
 
 const upgradeSpeed = (_id, pin) => {
@@ -140,6 +163,7 @@ const untagMe = (_id, pin) => {
     console.log("untagging me!");
   }, 5000);
 };
+
 const unlockBorder = (_id, pin, bordersToUnlock) => {
   let level = "level" + games[pin]["players"][_id]["level"];
   if (games[pin]["players"][_id]["tokens"] >= UNLOCK_BORDER_COST) {

@@ -207,7 +207,7 @@ module.exports = {
       });
 
       socket.on("changeTokens", (data) => {
-        gameLogic.changeTokens(data._id, data.pin, data.result);
+        gameLogic.changeTokens(data._id, data.pin, data.result, data.cardid);
       });
 
       socket.on("upgradeSpeed", (data) => {
