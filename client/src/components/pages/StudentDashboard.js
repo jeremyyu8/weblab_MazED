@@ -162,7 +162,7 @@ const StudentDashboard = (props) => {
             <div className="flex-1 overflow-y-hidden">
               {loading === false && rightComponent}
               {loading === true && (
-                <div className="background text-[2vw] text-green-200">
+                <div className="background text-[2vw] text-blue-700">
                   Loading student dashboard...
                 </div>
               )}
