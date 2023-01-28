@@ -1,5 +1,5 @@
 const mazeLogic = require("./maze-logic");
-import { post } from "./api";
+// import { post } from "./api";
 const e = require("express");
 
 // require .env
@@ -87,10 +87,10 @@ const endGame = (pin) => {
   const twoMinutes = 120 * 1000;
   setTimeout(() => {
     console.log("deleting");
-    post("/newGame", { gameState: games[pin] }).then(() => {
-      delete games[pin];
-      delete mazes[pin];
-    });
+    // post("/newGame", { gameState: games[pin] }).then(() => {
+    //   delete games[pin];
+    //   delete mazes[pin];
+    // });
   }, twoMinutes);
 };
 

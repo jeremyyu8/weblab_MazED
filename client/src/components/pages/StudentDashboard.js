@@ -110,7 +110,7 @@ const StudentDashboard = (props) => {
             />
           )}
           {foundGame && (
-            <div className="fixed top-[75px] h-[20px] text-center pt-[3px] w-full z-10 mx-auto bg-red-500">
+            <div className="fixed top-[75px] h-[20px] text-center pt-[3px] w-full z-50 mx-auto bg-red-500">
               <div className="hover:cursor-pointer" onClick={handleRejoin}>
                 You are currently inside of another lobby! Click to rejoin.
               </div>

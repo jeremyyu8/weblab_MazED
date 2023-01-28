@@ -26,7 +26,6 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
-const { Game } = require("phaser");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);

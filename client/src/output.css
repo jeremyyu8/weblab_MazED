@@ -1649,6 +1649,10 @@
   /* show the sidebar onscreen */
 }
 
+img {
+  image-rendering: pixelated;
+}
+
 @keyframes shake {
   10%,
   90% {

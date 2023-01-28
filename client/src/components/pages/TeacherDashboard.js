@@ -199,7 +199,7 @@ const TeacherDashboard = (props) => {
             <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
           )}
           {foundGame && (
-            <div className="fixed top-[75px] h-[20px] text-center pt-[3px] w-full z-10 mx-auto bg-red-500">
+            <div className="fixed top-[75px] h-[20px] text-center pt-[3px] w-full z-50 mx-auto bg-red-500">
               <div className="hover:cursor-pointer" onClick={handleRejoin}>
                 You have a class playing! Click to rejoin
               </div>
