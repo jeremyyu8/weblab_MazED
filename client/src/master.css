@@ -34,6 +34,56 @@
   }
 }
 
+
+.arrows {
+	width: auto;
+	height: auto;
+  position: fixed;
+	left: 50%;
+  padding-top: 40px;
+  transform: translateX(-30%);
+	/* bottom: 20px; */
+}
+
+.arrows path {
+	stroke: blue;
+	fill: transparent;
+	stroke-width: 1px;	
+	animation: arrow 2s infinite;
+	-webkit-animation: arrow 2s infinite; 
+}
+
+@keyframes arrow
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+@-webkit-keyframes arrow /*Safari and Chrome*/
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+.arrows path.a1 {
+	animation-delay:-1s;
+	-webkit-animation-delay:-1s; /* Safari 和 Chrome */
+}
+
+.arrows path.a2 {
+	animation-delay:-0.5s;
+	-webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+}
+
+.arrows path.a3 {	
+	animation-delay:0s;
+	-webkit-animation-delay:0s; /* Safari 和 Chrome */
+}
+
 .collapsible-sidebar {
   width: 256px; /* width of the sidebar */
   height: 100vh; /* height of the sidebar */

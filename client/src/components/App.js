@@ -14,12 +14,10 @@ import TeacherEdit from "./pages/TeacherEdit.js";
 import Game from "./pages/Game.js";
 import MazePage from "./MazePage.js";
 import "../output.css";
-import TempPage from "./pages/temppage.js";
 
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
-import GameLobby from "./pages/GameLobby.js";
 
 /**
  * Define the "App" component
@@ -87,8 +85,6 @@ const App = () => {
     <>
       <Router>
         <Home path="/" userId={userId} userRole={userRole} userName={userName} />
-        <TempPage path="/temp" />
-        <GameLobby path="/lobby" />
         <TeacherEdit path="/teacher/edit/*" userId={userId} />
         <TeacherDashboard
           path="/teacher"
