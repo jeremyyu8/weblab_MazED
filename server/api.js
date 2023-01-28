@@ -26,6 +26,7 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+const { Game } = require("phaser");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -102,7 +103,7 @@ router.get("/setbyid", (req, res) => {
 router.get("/cardbyid", (req, res) => {
   const findCard = async () => {
     const card = await Card.findById(req.query._id);
-    res.send(Card);
+    res.send(card);
   };
   findCard();
 });
@@ -118,47 +119,28 @@ router.get("/userbyid", (req, res) => {
   findUser();
 });
 
+router.get("/gamebyid", (req, res) => {
+  const findGame = async () => {
+    const game = await Game.findById(req.query._id);
+    res.send(game);
+  };
+  findGame();
+});
+
 //our post requests
 
-//image upload stuff
-let storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
+router.post("/newGame", auth.ensureLoggedIn, (req, res) => {
+  console.log("inside of post new game");
 
-let upload = multer({ storage: storage });
-router.get("/image", (req, res) => {
-  imgModel.find({}, (err, items) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("An error occurred", err);
-    } else {
-      res.render("imagesPage", { items: items });
-    }
-  });
-});
-
-router.post("/image", upload.single("image"), (req, res, next) => {
-  const obj = {
-    name: req.body.name,
-    desc: req.body.desc,
-    img: {
-      data: fs.readFileSync(path.join(__dirname + "/uploads/" + req.file.filename)),
-      contentType: "image/png",
-    },
+  const saveNewGame = async () => {
+    const newGame = new Game({ gameState: req.body.gameState });
+    await newGame.save();
+    console.log("Game saved successfully");
+    res.status(200);
+    res.send({});
   };
-  imgModel.create(obj, (err, item) => {
-    if (err) {
-      console.log(err);
-    } else {
-      // item.save();
-      res.redirect("/");
-    }
-  });
+
+  saveNewGame();
 });
 
 /**

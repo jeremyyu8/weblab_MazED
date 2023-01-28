@@ -18,6 +18,7 @@ export const updateWindowSize = (windowSize) => {
  * Event for making a new lobby
  * @param {data.pin} data.pin game pin
  * @param {data.cards} data.cards array of card objects to be used during the game
+ * @param {data.setid} data.setid set id
  */
 export const makeNewLobby = (data) => {
   console.log(data);

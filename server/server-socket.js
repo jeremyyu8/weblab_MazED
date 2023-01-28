@@ -75,7 +75,7 @@ module.exports = {
         removeUser(user, socket);
       });
       // description: teacher makes a new lobby
-      // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacherid}
+      // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacherid, setid: id of the set used}
       socket.on("makeNewLobby", (data) => {
         socket.join(data.pin);
         userToPinMap[data.teacherid] = data.pin;
