@@ -111,7 +111,7 @@ module.exports = {
           // otherwise, this is a new user
           gameLogic.playerJoin(data);
 
-          // user joined late and game already started, put user in level 1
+          // user joined late and game already started (but not ended), put user in level 1
           if (gameLogic.games[data.pin]["status"] !== "lobby") {
             gameLogic.games[data.pin]["players"][data.studentid]["level"] = 1;
           }
@@ -137,6 +137,12 @@ module.exports = {
             // normal route, user found in userToPinMap
             let pin = userToPinMap[userId];
             if (gameLogic.games[pin]) {
+              // if game is in end state
+              if (gameLogic.games[pin]["status"] === "end") {
+                socket.emit("receivePin", { err: "game already ended" });
+              }
+
+              // otherwise, game is normal
               gameLogic.games[pin]["players"][userId]["active"] = true;
               socket.emit("receivePin", { pin: pin, cards: gameLogic.games[pin]["cards"] });
               return;

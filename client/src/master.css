@@ -82,6 +82,32 @@
   }
 }
 
+.levelfadein {
+  animation: fadeInAnimation ease 3s
+}
+
+.newlevelfadein {
+  animation: reverseFadeInAnimation ease-in 7s forwards
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
+}
+
+@keyframes reverseFadeInAnimation {
+  0% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+   }
+}
+
 .animation-scroll {
   animation: animation-scroll 10s linear infinite;
   white-space: nowrap;

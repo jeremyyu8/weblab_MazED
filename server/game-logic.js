@@ -108,8 +108,9 @@ const changeTokens = (_id, pin, result) => {
 
 const upgradeSpeed = (_id, pin) => {
   console.log("inside of upgradeSpeed");
-  if (games[pin]["players"][_id]["tokens"] >= SPEED_LEVEL_UP_COST) {
-    games[pin]["players"][_id]["tokens"] -= SPEED_LEVEL_UP_COST;
+  let cost = 100 * games[pin]["players"][_id]["speed"] + SPEED_LEVEL_UP_COST;
+  if (games[pin]["players"][_id]["tokens"] >= cost) {
+    games[pin]["players"][_id]["tokens"] -= cost;
     games[pin]["players"][_id]["speed"] += 1;
     return "success";
   }
@@ -117,8 +118,9 @@ const upgradeSpeed = (_id, pin) => {
 };
 
 const upgradePower = (_id, pin) => {
-  if (games[pin]["players"][_id]["tokens"] >= UNLOCK_BORDER_COST) {
-    games[pin]["players"][_id]["tokens"] -= UNLOCK_BORDER_COST;
+  let cost = 100 * games[pin]["players"][_id]["power"] + POWER_LEVEL_UP_COST;
+  if (games[pin]["players"][_id]["tokens"] >= cost) {
+    games[pin]["players"][_id]["tokens"] -= cost;
     games[pin]["players"][_id]["power"] += 1;
     return "success";
   }
@@ -516,7 +518,6 @@ const detectMapCollisions = (_id, pin) => {
     if (tile_idx === 0 || tile_idx === 2 || tile_idx === 3) {
       // border, wall, or tree, respectively
       // compute smallest translation vector to undo collision
-      console.log("collision detected");
       let [minx, miny] = [0, 0];
       if (Math.abs(tile.x - 1 - l1) < Math.abs(tile.x + 1 - l1)) {
         minx = tile.x - 1 - l1;
@@ -539,6 +540,8 @@ const detectMapCollisions = (_id, pin) => {
       // do the translation
       player.p.x += minx;
       player.p.y += miny;
+      player.v.x = 0;
+      player.v.y = 0;
     } else if (tile_idx === 4) {
       player.p.x = 0;
       player.p.y = 0;

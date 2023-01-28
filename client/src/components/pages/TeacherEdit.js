@@ -35,6 +35,13 @@ const TeacherEdit = () => {
       }, 3000);
       return;
     }
+    if (flashCardSet.cards.length === 0) {
+      setError("your set cannot be empty!");
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
+      return;
+    }
     for (let card of flashCardSet.cards) {
       if (card.question.length === 0) {
         setError("your questions must not be empty!");
