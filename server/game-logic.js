@@ -358,10 +358,8 @@ const updateGameState = () => {
       }
       // freeze movement if moving to next level
       if (curPlayer["newlevel"] === true) {
-        console.log("new level is true or something");
         let levelcompletionstring = "level" + curPlayer["level"] + "completion";
         curPlayer[levelcompletionstring] = games[pin]["startTime"];
-        console.log(curPlayer);
         curPlayer["level"] += 1;
         curPlayer.k["right"] = false;
         curPlayer.k["left"] = false;
