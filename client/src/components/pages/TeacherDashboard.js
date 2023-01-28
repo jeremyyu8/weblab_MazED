@@ -31,6 +31,7 @@ const TeacherDashboard = (props) => {
   const [userData, setUserData] = useState(undefined);
   const [setsMetadata, setSetsMetadata] = useState([]);
   const [foundGame, setFoundGame] = useState(false);
+  const [games, setGames] = useState([]);
 
   const [open, setOpen] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
@@ -62,7 +63,7 @@ const TeacherDashboard = (props) => {
           userId={props.userId}
         />
       );
-    else if (rightSide == "Games") setRightComponent(<Games userData={userData} />);
+    else if (rightSide == "Games") setRightComponent(<Games userData={userData} games={games} />);
     else setRightComponent(<Settings hl={props.hl} userData={userData} />);
   }, [rightSide, setsMetadata]);
 
@@ -72,8 +73,10 @@ const TeacherDashboard = (props) => {
       try {
         const data = await get("/api/userbyid");
         const metadata = await get("/api/setmetadata");
+        const games_data = await get("/api/gamesbyid");
         setSetsMetadata(metadata.metadata);
         setUserData(data);
+        setGames(games_data);
         if (data.role !== "teacher") {
           setRedirect(true);
           setLoading(false);

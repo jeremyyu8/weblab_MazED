@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from "react";
 import Game from "./Game";
-import { get, post } from "../../../utilities";
 
+/**
+ * Games page inside of teacher dashboard
+ *
+ * Proptypes
+ * @param {Array} games array of past games to render
+ */
 const Games = (props) => {
   const [redirect, setRedirect] = useState(false);
   const [games, setGames] = useState([]);
 
+  // useEffect(() => {
+  //   let cur_games = [];
+  //   const getGames = async () => {
+  //     for (const gameId of props.userData.games) {
+  //       const game = await get("/api/gamebyid", { _id: gameId });
+  //       console.log("a game", game);
+  //       cur_games.push(game);
+  //     }
+  //   };
+  //   getGames();
+  //   console.log(cur_games);
+  // }, []);
+
   useEffect(() => {
-    let cur_games = [];
-    const getGames = async () => {
-      for (const gameId of props.userData.games) {
-        const game = await get("/api/gamebyid", { _id: gameId });
-        console.log("a game", game);
-        cur_games.push(game);
-      }
-    };
-    getGames();
-    console.log(cur_games);
+    setGames(
+      props.games.map((gamestate, idx) => {
+        return <Game key={idx} datePlayed={gamestate.dateplayed} gamestate={gamestate.gamestate} />;
+      })
+    );
+    console.log(props.games);
   }, []);
 
-  useEffect(() => {
-    const getGames = async () => {
-      for (const gameId of props.userData.games) {
-        const game = await get("/api/gamebyid", { _id: gameId });
-        setGames(games.concat([<Game datePlayed={game.datePlayed} gameState={game.gameState} />]));
-      }
-    };
-
-    getGames();
-  }, [props.userData]);
+  //   getGames();
+  // }, [props.userData]);
 
   return (
     <>

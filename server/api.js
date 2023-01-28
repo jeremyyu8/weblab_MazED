@@ -119,12 +119,25 @@ router.get("/userbyid", (req, res) => {
   findUser();
 });
 
-router.get("/gamebyid", (req, res) => {
-  const findGame = async () => {
-    const game = await Game.findById(req.query._id);
-    res.send(game);
+// return list of games by id
+router.get("/gamesbyid", (req, res) => {
+  const findGames = async () => {
+    try {
+      const curUser = await User.findById(req.user._id);
+      let games = [];
+      if (curUser) {
+        for (let gameid of curUser.games) {
+          const curGame = await Game.findById(gameid);
+          games.push(curGame);
+        }
+      }
+      res.send(games);
+      console.log("successfully retrieved games");
+    } catch (err) {
+      console.log(err);
+    }
   };
-  findGame();
+  findGames();
 });
 
 //our post requests
@@ -330,7 +343,7 @@ router.post("/savegame", auth.ensureLoggedIn, (req, res) => {
       const newGame = new Game({
         gamestate: gamestate,
         pin: gamestate["pin"],
-        datePlayed: Date.now(),
+        dateplayed: Date.now(),
       });
       await newGame.save();
       for (let _id in gamestate["players"]) {
