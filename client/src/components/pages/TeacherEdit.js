@@ -145,33 +145,42 @@ const TeacherEdit = () => {
                   <div className="flex max-w-[90%] h-[30vw] m-8 mx-auto">
                     <Set setSetId={setSetId} />
                   </div>
-                  {dashboardSaveWarning && (
-                    <>
-                      <div className="fixed text-red-600 bottom-[8vh]">
-                        <div className="flex justify-end w-[70vw]">
-                          Return to dashboard? Your work will not be saved
-                        </div>
-                        <div className="flex justify-end w-[70vw]">
-                          <button className="font-Ubuntu" onClick={handleBack}>
-                            Yes
-                          </button>
-                          <button
-                            className="font-Ubuntu"
-                            onClick={() => {
-                              setDashboardSaveWarning(false);
-                            }}
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )}
                   {error !== false && (
                     <div className="fixed animate-shake text-red-600 bottom-[8vh]">{error}</div>
                   )}
-                  {loading && <div className="fixed text-green-600 bottom-[8vh]">Saving...</div>}
                   <div className="flex justify-center">
+                    {dashboardSaveWarning && (
+                      <>
+                        <div className="absolute text-red-600 bottom-4">
+                          <div className="flex justify-end w-[70vw]">
+                            Return to dashboard? Your work will not be saved
+                            <div className="inline">
+                              <button
+                                className="font-Ubuntu ml-4 hover:cursor-pointer"
+                                onClick={handleBack}
+                              >
+                                Yes
+                              </button>
+                              <button
+                                className="font-Ubuntu hover:cursor-pointer"
+                                onClick={() => {
+                                  setDashboardSaveWarning(false);
+                                }}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {loading && (
+                      <div className="absolute text-green-600 bottom-4">
+                        <div className="flex justify-start w-[70vw]">
+                          <div>Saving...</div>
+                        </div>
+                      </div>
+                    )}
                     <button
                       onClick={handleSubmit}
                       className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%]"

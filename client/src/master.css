@@ -361,3 +361,11 @@ form {
     box-shadow: 10014px 0 0 -5px;
   }
 }
+
+input[type="checkbox"] {
+  accent-color: red;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: rgb(86, 255, 86);
+}

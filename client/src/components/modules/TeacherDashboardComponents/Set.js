@@ -26,6 +26,7 @@ const Set = (props) => {
   const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [lobbySettings, setLobbySettings] = useState(false);
 
   const handleDeletion = () => {
     const deleteSet = async () => {
@@ -115,7 +116,7 @@ const Set = (props) => {
                         <button
                           className="editfbuttons mb-1"
                           onClick={() => {
-                            newLobby(props._id);
+                            setLobbySettings(true);
                           }}
                         >
                           Play
@@ -138,6 +139,41 @@ const Set = (props) => {
             )}
           </div>
         </>
+      )}
+      {lobbySettings && (
+        <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-white opacity-90 text-black z-50 border-solid">
+          <div className="flex justify-end">
+            <button
+              className="font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer"
+              onClick={() => {
+                setLobbySettings(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+          <div className="flex justify-center">
+            <div className="text-4xl"> Lobby Settings</div>
+          </div>
+          <div className="flex justify-center">
+            <div className="text-3xl"> Initializing game with set:</div>
+          </div>
+          <div className="flex justify-center">
+            <div className="text-3xl text-blue-500"> {props.title}</div>
+          </div>
+          <div className="absolute bottom-[2vh] w-[100%] left-[25%]">
+            <div className="flex">
+              <button
+                className="font-Ubuntu text-3xl bg-blue-500 w-[50%] hover:cursor-pointer hover:bg-blue-400"
+                onClick={() => {
+                  newLobby(props._id);
+                }}
+              >
+                Play now
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
