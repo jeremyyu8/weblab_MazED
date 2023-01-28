@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "@reach/router";
 /**
  * teacher end page after the game ends
  *
@@ -49,7 +49,7 @@ const TeacherEndPage = (props) => {
       <div className="background">
         <div className="sheerbox">
           <div className="text-5xl">Game Ended</div>
-          <div>
+          <div className="flex-none flex-col m-2">
             {displayData.length ? (
               <>
                 <div className="overflow-y-scroll h-[70vh]">
@@ -58,8 +58,15 @@ const TeacherEndPage = (props) => {
                 </div>
               </>
             ) : (
-              <div>No one played the game sad</div>
+              <div className="pt-3">No one played the game :(</div>
             )}
+          </div>
+          <div className="flex justify-center mt-3">
+            <button className="editfbuttons font-Ubuntu">
+              <Link to="/" className="no-underline text-black">
+                Return to Dashboard
+              </Link>
+            </button>
           </div>
         </div>
       </div>
