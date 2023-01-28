@@ -4,6 +4,9 @@ module.exports = {
   content: ["./client/src/**/*.{html,js}"],
   theme: {
     extend: {
+      colors: {
+        "light-white": "rgba(255,255,255,0.17)",
+      },
       fontFamily: {
         // Roboto: ["Roboto", "sans-serif"],
         Ribeka: ["RIBEKA trial", "sans-serif"],

@@ -8,11 +8,15 @@
 */
 
 const express = require("express");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 // import models so we can interact with the database
 const User = require("./models/user");
 const Set = require("./models/set");
 const Card = require("./models/card");
+const Image = require("./models/image");
 
 // import authentication library
 const auth = require("./auth");
@@ -116,6 +120,47 @@ router.get("/userbyid", (req, res) => {
 
 //our post requests
 
+//image upload stuff
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
+});
+
+let upload = multer({ storage: storage });
+router.get("/image", (req, res) => {
+  imgModel.find({}, (err, items) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred", err);
+    } else {
+      res.render("imagesPage", { items: items });
+    }
+  });
+});
+
+router.post("/image", upload.single("image"), (req, res, next) => {
+  const obj = {
+    name: req.body.name,
+    desc: req.body.desc,
+    img: {
+      data: fs.readFileSync(path.join(__dirname + "/uploads/" + req.file.filename)),
+      contentType: "image/png",
+    },
+  };
+  imgModel.create(obj, (err, item) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // item.save();
+      res.redirect("/");
+    }
+  });
+});
+
 /**
  * /api/setbyid modifies an existing set
  *
@@ -190,12 +235,10 @@ router.post("/newset", auth.ensureLoggedIn, (req, res) => {
         answers: card.answers,
       });
       await newCard.save();
-      console.log("just saved a new card");
       console.log(cardIds);
       cardIds.push(newCard._id);
     }
 
-    console.log("about to createa  new set");
     console.log(cardIds);
     const newSet = new Set({
       title: req.body.title,

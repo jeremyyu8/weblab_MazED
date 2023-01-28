@@ -29,6 +29,10 @@ const Home = ({ userId, userRole, userName }) => {
     }
   }, [userId]);
 
+  const handleFileSelected = (e) => {
+    post("/image", { name: "temp", desc: "temp desc", image: e.target.file });
+  };
+
   return (
     <>
       {redirect ? (
@@ -63,6 +67,8 @@ const Home = ({ userId, userRole, userName }) => {
               <Link to="/maze">
                 <button>maze testing</button>
               </Link>
+
+              <></>
             </div>
           </div>
           <div className="bg-stone-900 bg-fixed bg-cover h-auto flex flex-col justify-evenly">

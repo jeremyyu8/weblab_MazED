@@ -17,6 +17,17 @@ import { get, post } from "../../utilities";
 export const flashCardContext = createContext();
 
 const TeacherEdit = () => {
+  // let storage = multer.diskStorage({
+  //   destination: (req, file, cb) => {
+  //     cb(null, "uploads");
+  //   },
+  //   filename: (req, file, cb) => {
+  //     cb(null, file.fieldname + "-" + Date.now());
+  //   },
+  // });
+
+  // let upload = multer({ storage: storage });
+
   const [flashCardSet, setFlashCardSet] = useState({ title: "", cards: [] });
   const [setId, setSetId] = useState(null);
   const [redirect, setRedirect] = useState(false);

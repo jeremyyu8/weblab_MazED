@@ -23,7 +23,7 @@ import { socket, checkAlreadyConnected } from "../../client-socket";
  * @param {hl} hl handle logout
  */
 const TeacherDashboard = (props) => {
-  const [rightSide, setRightSide] = useState("sets"); //options are sets, pastGames, settings
+  const [rightSide, setRightSide] = useState("Sets"); //options are sets, pastGames, settings
   const [rightComponent, setRightComponent] = useState("");
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(undefined);
@@ -32,7 +32,13 @@ const TeacherDashboard = (props) => {
   const [setsMetadata, setSetsMetadata] = useState([]);
   const [foundGame, setFoundGame] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [open, setOpen] = useState(true);
+
+  const Menus = [
+    { title: "Sets", src: "Chart_fill" },
+    { title: "Games", src: "Chat" },
+    { title: "Settings", src: "Setting" },
+  ];
 
   // collapse sidebar if screen is too small
   useEffect(() => {
@@ -46,7 +52,7 @@ const TeacherDashboard = (props) => {
   };
 
   useEffect(() => {
-    if (rightSide === "sets")
+    if (rightSide === "Sets")
       setRightComponent(
         <FlashcardSetsContainer
           metadata={setsMetadata}
@@ -55,7 +61,7 @@ const TeacherDashboard = (props) => {
           userId={props.userId}
         />
       );
-    else if (rightSide == "pastGames") setRightComponent(<Games />);
+    else if (rightSide == "Games") setRightComponent(<Games />);
     else setRightComponent(<Settings hl={props.hl} userData={userData} />);
   }, [rightSide, setsMetadata]);
 
@@ -103,7 +109,6 @@ const TeacherDashboard = (props) => {
   const handleRejoin = () => {
     setRedirectGame(true);
   };
-
   return (
     <>
       {redirect ? (
@@ -123,80 +128,96 @@ const TeacherDashboard = (props) => {
               </div>
             </div>
           )}
-          <div className="bg-white bg-fixed bg-cover h-screen">
-            <div class="h-[75px]"></div>
-            <div className="relative">
-              <LeftSideBar isOpen={isOpen} setIsOpen={setIsOpen} setRightSide={setRightSide} />
-              <div
-                className={`h-[calc(100vh_-_78px)] overflow-y-hidden overflow-x-hidden left-0 transition-left duration-300 ${
-                  isOpen ? "ml-64" : "ml-0"
-                }`}
-              >
-                {loading === false && rightComponent}
-                {loading === true && (
-                  <div className="background text-[2vw] text-green-200">
-                    Loading teacher dashboard...
-                  </div>
-                )}
+          <div class="h-[75px]"></div>
+          <div className="flex h-[calc(100vh_-_75px)]">
+            <div
+              className={` ${open ? "w-[12%]" : "w-[3%] "} bg-gray-800 p-5 relative duration-300`}
+            >
+              <img
+                src="../../assets/control.png"
+                className={`absolute cursor-pointer -right-3 top-[2.5%] z-10 w-8 border-dark-purple
+           border-2 rounded-full ${!open && "rotate-180"}`}
+                onClick={() => setOpen(!open)}
+              />
+
+              <div className="flex gap-x-4 items-center">
+                <img
+                  src="../../assets/logo.png"
+                  className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"} w-10`}
+                />
+                <h1 className={`text-white origin-left font-medium text-xl ${!open && "hidden"}`}>
+                  Dashboard
+                </h1>
               </div>
+
+              <div className="pt-6">
+                {Menus.map((Menu, index) => (
+                  <div
+                    onClick={() => {
+                      setRightSide(Menu.title);
+                    }}
+                    key={index}
+                    className={`${
+                      rightSide === Menu.title && "bg-light-white"
+                    } flex rounded-md py-2 my-5 cursor-pointer hover:bg-light-white text-gray-300 text-xl items-center gap-x-4`}
+                  >
+                    <img className="w-10" src={`../../assets/${Menu.src}.png`} />
+                    <span className={`${!open && "hidden"} origin-left duration-200 my-auto`}>
+                      {Menu.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-hidden">
+              {loading === false && rightComponent}
+              {loading === true && (
+                <div className="background text-[2vw] text-green-200">
+                  Loading teacher dashboard...
+                </div>
+              )}
             </div>
           </div>
         </>
       )}
     </>
   );
-  {
-    /* <div className="flex">
-              <div className="basis-1/5 w-40 overflow-y-hidden h-[calc(100vh_-_78px)]">
-                <LeftSideBar setRightSide={setRightSide} />
-              </div>
-              <div className="flex-1 overflow-y-hidden h-[calc(100vh_-_78px)]">
-                {loading === false && rightComponent}
-                {loading === true && (
-                  <div className="background text-[2vw] text-green-200">
-                    Loading teacher dashboard...
-                  </div>
-                )}
-              </div>
-=======
-          <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
-          <div class="h-[75px]"></div>
-          <div className="relative">
-            <LeftSideBar isOpen={isOpen} setIsOpen={setIsOpen} setRightSide={setRightSide} />
-            <div
-              className={`h-[calc(100vh_-_78px)] overflow-y-hidden left-0 transition-left duration-300 ${
-                isOpen ? "ml-64" : "ml-0"
-              }`}
-            >
-              {rightComponent}
->>>>>>> 6dc6a2ab591ca760d394efaa94d0beabbd0a46db
-            </div>
-          </div>
-        </>
-      )}
-    </> */
-  }
-  {
-    /* ); */
-  }
 
   // return (
   //   <>
   //     {redirect ? (
   //       <Redirect noThrow from="/teacher" to="/login" />
-  //     ) : loading === true ? (
-  //       <div>loading teacher dashboard...</div>
+  //     ) : redirectGame ? (
+  //       <Redirect noThrow from="/teacher" to="/game" />
   //     ) : (
   //       <>
-  //         <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
+  //         {loading === true && <Navbar blank={true} />}
+  //         {loading === false && (
+  //           <Navbar userId={userData._id} userRole={userData.role} userName={userData.name} />
+  //         )}
+  //         {foundGame && (
+  //           <div className="fixed top-[75px] h-[20px] text-center pt-[3px] w-full z-10 mx-auto bg-red-500">
+  //             <div className="hover:cursor-pointer" onClick={handleRejoin}>
+  //               You have a class playing! Click to rejoin
+  //             </div>
+  //           </div>
+  //         )}
   //         <div className="bg-white bg-fixed bg-cover h-screen">
   //           <div class="h-[75px]"></div>
-  //           <div className="flex">
-  //             <div className="basis-1/5 w-40 overflow-y-hidden h-[calc(100vh_-_78px)]">
-  //               <LeftSideBar setRightSide={setRightSide} />
-  //             </div>
-  //             <div className="flex-1 overflow-y-hidden h-[calc(100vh_-_78px)]">
-  //               {rightComponent}
+  //           <div className="relative">
+  //             <LeftSideBar isOpen={isOpen} setIsOpen={setIsOpen} setRightSide={setRightSide} />
+  //             <div
+  //               className={`h-[calc(100vh_-_78px)] overflow-y-hidden overflow-x-hidden left-0 transition-left duration-300 ${
+  //                 isOpen ? "ml-64" : "ml-0"
+  //               }`}
+  //             >
+  //               {loading === false && rightComponent}
+  //               {loading === true && (
+  //                 <div className="background text-[2vw] text-green-200">
+  //                   Loading teacher dashboard...
+  //                 </div>
+  //               )}
   //             </div>
   //           </div>
   //         </div>
