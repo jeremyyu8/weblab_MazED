@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "@reach/router";
 /**
  * student end page after the game ends
  *
@@ -131,6 +131,13 @@ const StudentEndPage = (props) => {
             <div className="text-5xl pb-2">Game Ended</div>
             <div className="text-xl">{displayData}</div>
           </div>
+        </div>
+        <div className="flex justify-center mt-3">
+          <button className="editfbuttons font-Ubuntu">
+            <Link to="/" className="no-underline text-black">
+              Return to Dashboard
+            </Link>
+          </button>
         </div>
       </div>
     </>

@@ -8,11 +8,15 @@
 */
 
 const express = require("express");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 // import models so we can interact with the database
 const User = require("./models/user");
 const Set = require("./models/set");
 const Card = require("./models/card");
+const Image = require("./models/image");
 
 // import authentication library
 const auth = require("./auth");
@@ -22,6 +26,7 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+const { Game } = require("phaser");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -98,7 +103,7 @@ router.get("/setbyid", (req, res) => {
 router.get("/cardbyid", (req, res) => {
   const findCard = async () => {
     const card = await Card.findById(req.query._id);
-    res.send(Card);
+    res.send(card);
   };
   findCard();
 });
@@ -114,7 +119,29 @@ router.get("/userbyid", (req, res) => {
   findUser();
 });
 
+router.get("/gamebyid", (req, res) => {
+  const findGame = async () => {
+    const game = await Game.findById(req.query._id);
+    res.send(game);
+  };
+  findGame();
+});
+
 //our post requests
+
+router.post("/newGame", auth.ensureLoggedIn, (req, res) => {
+  console.log("inside of post new game");
+
+  const saveNewGame = async () => {
+    const newGame = new Game({ gameState: req.body.gameState });
+    await newGame.save();
+    console.log("Game saved successfully");
+    res.status(200);
+    res.send({});
+  };
+
+  saveNewGame();
+});
 
 /**
  * /api/setbyid modifies an existing set
@@ -190,12 +217,10 @@ router.post("/newset", auth.ensureLoggedIn, (req, res) => {
         answers: card.answers,
       });
       await newCard.save();
-      console.log("just saved a new card");
       console.log(cardIds);
       cardIds.push(newCard._id);
     }
 
-    console.log("about to createa  new set");
     console.log(cardIds);
     const newSet = new Set({
       title: req.body.title,

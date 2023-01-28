@@ -19,38 +19,39 @@ const LeftSideBar = (props) => {
     <>
       <div className="">
         <div
-          className={`bg-gray-800 absolute top-0 left-0 overflow-y-hidden h-[calc(100vh_-_78px)] w-64 transform transition-transform duration-300 ${
+          className={`bg-gray-800 absolute top-0 z-20 left-0 overflow-y-hidden h-[calc(100vh_-_78px)] w-64 transform transition-transform duration-300 ${
             props.isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
           <div className="p-4"></div>
           <div className="p-4">
-            <div className="" onClick={() => props.setRightSide("sets")}>
+            <div className="" onClick={() => props.setRightSide("Sets")}>
               <LeftSideBarSets />{" "}
             </div>
-            <div className="" onClick={() => props.setRightSide("pastGames")}>
+            <div className="" onClick={() => props.setRightSide("Games")}>
               <LeftSideBarGames />
             </div>
 
-            <div className="" onClick={() => props.setRightSide("settings")}>
+            <div className="" onClick={() => props.setRightSide("Settings")}>
               <LeftSideBarSettings />
             </div>
 
             <button
-              className=" font-medium fixed top-[50%] left-10"
+              className=" font-medium fixed top-[2%] right-0"
               onClick={() => props.setIsOpen(!props.isOpen)}
             >
               Close Sidebar
             </button>
           </div>
         </div>
-
-        <div className={`w-1/6 h-12 fixed top-[50%] z-10 ${props.isOpen ? "hidden" : "block"}`}>
-          <button className=" font-medium p-2" onClick={() => props.setIsOpen(!props.isOpen)}>
-            <FontAwesomeIcon icon={faAnglesRight} />
-          </button>
-        </div>
       </div>
+
+      <button
+        className="fixed top-[30%] z-10 font-medium p-2"
+        onClick={() => props.setIsOpen(!props.isOpen)}
+      >
+        <FontAwesomeIcon icon={faAnglesRight} />
+      </button>
     </>
   );
 };

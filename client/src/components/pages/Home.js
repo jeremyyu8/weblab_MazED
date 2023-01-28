@@ -29,6 +29,10 @@ const Home = ({ userId, userRole, userName }) => {
     }
   }, [userId]);
 
+  const handleFileSelected = (e) => {
+    post("/image", { name: "temp", desc: "temp desc", image: e.target.file });
+  };
+
   return (
     <>
       {redirect ? (
@@ -60,9 +64,17 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
             </div>
             <div>
-              <Link to="/maze">
+              {/* <Link to="/maze">
                 <button>maze testing</button>
-              </Link>
+              </Link> */}
+
+              {/* <div className="fixed left-[20%] translate-x-[-50%]">
+                <svg className="arrows ">
+                  <path class="a1" d="M0 0 L100 52 L200 0"></path>
+                  <path class="a2" d="M0 40 L100 92 L200 40"></path>
+                  <path class="a3" d="M0 80 L100 132 L200 80"></path>
+                </svg>
+              </div> */}
             </div>
           </div>
           <div className="bg-stone-900 bg-fixed bg-cover h-auto flex flex-col justify-evenly">

@@ -57,7 +57,7 @@ const Set = (props) => {
         for (let i = 0; i < 6; i++) {
           pin += String(Math.floor(Math.random() * 10));
         }
-        makeNewLobby({ pin: pin, cards: set.cards, teacherid: props.userId });
+        makeNewLobby({ pin: pin, cards: set.cards, teacherid: props.userId, setid: setid });
         setRedirect("/game");
       } catch (error) {
         alert("error retrieving set");
@@ -113,7 +113,7 @@ const Set = (props) => {
                     <div className="flex-none flex-col m-2">
                       <div className="flex-1">
                         <button
-                          className="editfbuttons pt-2"
+                          className="editfbuttons mb-1"
                           onClick={() => {
                             newLobby(props._id);
                           }}
@@ -122,7 +122,7 @@ const Set = (props) => {
                         </button>
                       </div>
                       <div className="flex-1">
-                        <button className="editfbuttons" onClick={editCards}>
+                        <button className="editfbuttons mb-1" onClick={editCards}>
                           Edit
                         </button>
                       </div>

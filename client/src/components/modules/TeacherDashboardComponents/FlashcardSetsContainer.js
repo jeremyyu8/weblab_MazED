@@ -132,13 +132,13 @@ const FlashcardSetsContainer = (props) => {
         <>
           <div className="background">
             <div class="sheerbox">
-              <div className="flex mt-8 mx-10">
-                <div className="text-5xl mt-1 text-blue-200 flex-1">Flashcard Sets</div>
-                <button className="bigbutton font-Ubuntu" onClick={newSet}>
+              <div className="flex mt-8">
+                <div className="text-5xl text-blue-200 my-auto">Flashcard Sets</div>
+                <button className="bigbutton ml-10 font-Ubuntu my-auto" onClick={newSet}>
                   Create New Set
                 </button>
               </div>
-              <div className="overflow-auto max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">
+              <div className="overflow-y-auto overflow-x-hidden max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">
                 {sets.length ? (
                   sets
                 ) : (

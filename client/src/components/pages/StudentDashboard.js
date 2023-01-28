@@ -20,7 +20,7 @@ import { get, post } from "../../utilities";
  * @param {function} hl handle logout
  */
 const StudentDashboard = (props) => {
-  const [rightSide, setRightSide] = useState("join"); //options are join or settings, default to join
+  const [rightSide, setRightSide] = useState("Join Game"); //options are join or settings, default to join
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(undefined);
   const [redirectGame, setRedirectGame] = useState(undefined);
@@ -28,11 +28,15 @@ const StudentDashboard = (props) => {
   const [rightComponent, setRightComponent] = useState(undefined);
   const [foundGame, setFoundGame] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [open, setOpen] = useState(true);
+  const Menus = [
+    { title: "Join Game", src: "Chart_fill" },
+    { title: "Settings", src: "Chat" },
+  ];
 
   useEffect(() => {
     if (userData) {
-      if (rightSide === "join") {
+      if (rightSide === "Join Game") {
         setRightComponent(
           <JoinGame
             userId={userData._id}
@@ -40,7 +44,7 @@ const StudentDashboard = (props) => {
             displayname={userData.displayname}
           />
         );
-      } else if (rightSide === "settings") {
+      } else if (rightSide === "Settings") {
         setRightComponent(<Settings hl={props.hl} userData={userData} />);
       }
     }
@@ -113,16 +117,52 @@ const StudentDashboard = (props) => {
             </div>
           )}
           <div class="h-[75px]"></div>
-          <div className="relative">
-            <LeftSideBar isOpen={isOpen} setIsOpen={setIsOpen} setRightSide={setRightSide} />
+
+          <div className="flex h-[calc(100vh_-_75px)]">
             <div
-              className={`h-[calc(100vh_-_78px)] overflow-y-hidden left-0 transition-left duration-300 ${
-                isOpen ? "ml-64" : "ml-0"
-              }`}
+              className={` ${open ? "w-[12%]" : "w-[3%] "} bg-gray-800 p-5 relative duration-300`}
             >
+              <img
+                src="../../assets/control.png"
+                className={`absolute cursor-pointer -right-3 top-[2.5%] z-10 w-8 border-dark-purple
+           border-2 rounded-full ${!open && "rotate-180"}`}
+                onClick={() => setOpen(!open)}
+              />
+
+              <div className="flex gap-x-4 items-center">
+                <img
+                  src="../../assets/logo.png"
+                  className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"} w-10`}
+                />
+                <h1 className={`text-white origin-left font-medium text-xl ${!open && "hidden"}`}>
+                  Dashboard
+                </h1>
+              </div>
+
+              <div className="pt-6">
+                {Menus.map((Menu, index) => (
+                  <div
+                    onClick={() => {
+                      setRightSide(Menu.title);
+                    }}
+                    key={index}
+                    className={`${
+                      rightSide === Menu.title && "bg-light-white"
+                    } flex rounded-md py-2 my-5 cursor-pointer hover:bg-light-white text-gray-300 text-xl items-center gap-x-4`}
+                  >
+                    <img className="w-10" src={`../../assets/${Menu.src}.png`} />
+                    <span className={`${!open && "hidden"} origin-left duration-200 my-auto`}>
+                      {Menu.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-hidden">
               {loading === false && rightComponent}
               {loading === true && (
-                <div className="background text-[2vw] text-green-200">
+                <div className="background text-[2vw] text-blue-700">
                   Loading student dashboard...
                 </div>
               )}

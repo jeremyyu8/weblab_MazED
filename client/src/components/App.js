@@ -18,7 +18,6 @@ import "../output.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
-import GameLobby from "./pages/GameLobby.js";
 
 /**
  * Define the "App" component
@@ -86,7 +85,6 @@ const App = () => {
     <>
       <Router>
         <Home path="/" userId={userId} userRole={userRole} userName={userName} />
-        <GameLobby path="/lobby" />
         <TeacherEdit path="/teacher/edit/*" userId={userId} />
         <TeacherDashboard
           path="/teacher"
