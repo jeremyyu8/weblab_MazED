@@ -14,7 +14,11 @@ import { changeTokens, untagMe } from "../../../client-socket";
  */
 const Question = (props) => {
   const [questionState, setQuestionState] = useState("question"); //moves between question, right, wrong
-  const [curQuestion, setCurQuestion] = useState({ question: "", choices: ["", "", "", ""] });
+  const [curQuestion, setCurQuestion] = useState({
+    question: "",
+    choices: ["", "", "", ""],
+    _id: undefined,
+  });
   const [numQuestions, setNumQuestions] = useState(3);
 
   useEffect(() => {
@@ -39,6 +43,7 @@ const Question = (props) => {
 
   const handleNewQuestion = () => {
     const card = props.flashCardSet[Math.floor(Math.random() * props.flashCardSet.length)];
+    // console.log(card._id);
     const oldAnswers = [0, 1, 2, 3].map((val) => {
       if (card.answers.includes(val)) return true;
       return false;
@@ -53,6 +58,7 @@ const Question = (props) => {
       question: card.question,
       choices: newChoices.map((idx) => card.choices[idx]),
       answers: newAnswers,
+      _id: card._id,
     });
   };
 
@@ -61,12 +67,12 @@ const Question = (props) => {
     console.log("on answer", curQuestion, answerSelected);
     if (curQuestion.answers.includes(answerSelected)) {
       setQuestionState("right");
-      changeTokens(props.userData._id, props.gamePin, "correct");
+      changeTokens(props.userData._id, props.gamePin, "correct", curQuestion._id);
       setNumQuestions(numQuestions - 1);
     } else {
       console.log("wrong");
       setQuestionState("wrong");
-      changeTokens(props.userData._id, props.gamePin, "incorrect");
+      changeTokens(props.userData._id, props.gamePin, "incorrect", curQuestion._id);
     }
   };
 

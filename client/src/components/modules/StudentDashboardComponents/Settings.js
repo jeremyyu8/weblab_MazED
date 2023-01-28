@@ -19,6 +19,7 @@ const Settings = (props) => {
   const [doneLoading, setDoneLoading] = useState(false);
   const [input, setInput] = useState("");
   const [displayname, setDisplayname] = useState(props.userData.displayname);
+  const [displaynameError, setDisplaynameError] = useState(false);
 
   const handleChange = (event) => {
     if (event.target.value.length < 15) {
@@ -71,9 +72,18 @@ const Settings = (props) => {
       setDisplayname(displayname);
       setTimeout(() => {
         setDoneLoading(false);
-      }, 2000);
+      }, 4000);
     };
-    changeDisplayName();
+    if (!displaynameError) {
+      if (displayname.length < 3) {
+        setDisplaynameError(true);
+        setTimeout(() => {
+          setDisplaynameError(false);
+        }, 2000);
+      } else {
+        changeDisplayName();
+      }
+    }
   };
 
   let data = [];
@@ -113,8 +123,17 @@ const Settings = (props) => {
                 </div>
               </>
             )}
-            {loading && <div className="text-red-600">Saving display name...</div>}
-            {doneLoading && <div className="text-green-500">Saved!</div>}
+            {loading && <div className="text-green-500">Saving display name...</div>}
+            {doneLoading && (
+              <div className="text-green-500">
+                Saved! Refresh the page before joining your next game to use your new display name.
+              </div>
+            )}
+            {displaynameError && (
+              <div className="text-red-600 animate-shake">
+                display name must be at least 3 characters!
+              </div>
+            )}
             <hr />
             Account metadata:
             <div className="pt-[1vh] pb-[1vh] text-blue-200">{data}</div>

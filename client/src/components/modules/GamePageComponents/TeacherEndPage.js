@@ -10,6 +10,23 @@ import { Link } from "@reach/router";
 const TeacherEndPage = (props) => {
   const [displayData, setDisplayData] = useState([]);
 
+  // convert to time
+  const convertToTime = (seconds) => {
+    let minutes = Math.floor(seconds / 60);
+    let secs = seconds - 60 * minutes;
+    if (minutes === 0) {
+      minutes = minutes.toString() + "0";
+    } else if (minutes < 10) {
+      minutes = "0" + minutes.toString();
+    }
+    if (secs === 0) {
+      secs = secs.toString() + "0";
+    } else if (secs < 10) {
+      secs = "0" + secs.toString();
+    }
+    return `${minutes}:${secs}`;
+  };
+
   useEffect(() => {
     let playerData = [];
     for (let playerid in props.gameState["players"]) {

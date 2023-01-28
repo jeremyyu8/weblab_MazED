@@ -82,10 +82,11 @@ shadows[13] = new Image(tilewidth, tilewidth);
 shadows[13].src = "../gameassets/shadows/0.png";
 
 // shadow offset values
-let v = [10.5, 33 + 9, -12, -12];
-let h = [0, 24 + 9, 9, 9];
-let d1 = [9, 33 + 9, -6, -6]; // 45
-let d2 = [9, 34.5 + 9, -9, -9]; // 135
+let off = 3;
+let v = [10.5, 33 + off, -12, -12];
+let h = [0, 24 + off, 9, 9];
+let d1 = [9, 33 + off, -6, -6]; // 45
+let d2 = [9, 34.5 + off, -9, -9]; // 135
 let shadowoffset = { 6: d1, 7: v, 8: d2, 9: h, 10: d1, 11: v, 12: d2, 13: h };
 
 // last animated thing
@@ -247,7 +248,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
         32 * step + 3,
         32 * dir + 0,
         29,
-        29,
+        32,
         x * tilewidth,
         y * tilewidth,
         tilewidth + 24,
@@ -271,16 +272,16 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       }
 
       let offset = drawState["status"] === "lobby" ? 5 : 20;
-      // draw username
+      // draw displayname
       ctx.font = "20px Monospace";
-      if (drawState["teacher"]["_id"] !== playerid) {
-        let horizontal_offset = drawState["players"][playerid]["displayname"].length * 3;
-        ctx.fillText(
-          `${drawState["players"][playerid]["displayname"]}`,
-          x * tilewidth - horizontal_offset,
-          y * tilewidth - offset
-        );
-      }
+      // if (drawState["teacher"]["_id"] !== playerid) {
+      let horizontal_offset = (drawState["players"][playerid]["displayname"].length - 7) * 5;
+      ctx.fillText(
+        `${drawState["players"][playerid]["displayname"]}`,
+        x * tilewidth - horizontal_offset,
+        y * tilewidth - offset
+      );
+      // }
 
       // draw sprite hitboxes and dir vectors
       if (drawState["hitboxes"]) {

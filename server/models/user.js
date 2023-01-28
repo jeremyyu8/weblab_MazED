@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
   role: String,
   creation_date: { type: Date, default: Date.now },
   sets: { type: [String], default: [] },
+  games: { type: [String], default: [] },
 });
 
 // compile model from schema
