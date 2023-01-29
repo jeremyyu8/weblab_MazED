@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@reach/router";
 import { get, post } from "../../../utilities";
 /**
  * teacher end page after the game ends
@@ -107,6 +106,14 @@ const TeacherEndPage = (props) => {
         playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
         playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
         playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
       } else {
         playerData.push(<tr className="outline-red-300 outline-4">{curPlayer}</tr>);
       }
@@ -130,7 +137,7 @@ const TeacherEndPage = (props) => {
             Error saving data, oops
           </div>
         )}
-        <div className="sheerbox w-[100%] h-[100%]">
+        <div className="sheerbox w-[100%] h-[100%] overflow-y-hidden">
           <div className="text-5xl">Game Results</div>
           <div className="flex-none flex-col mt-4 m-2 w-[90%] text-center">
             {displayData.length ? (
@@ -166,11 +173,14 @@ const TeacherEndPage = (props) => {
               <div className="pt-3">No one played the game :(</div>
             )}
           </div>
-          <div className="flex justify-center mt-3">
-            <button className="editfbuttons font-Ubuntu w-[30vw] text-[1.5vw]">
-              <Link to="/" className="no-underline text-black">
-                Return to Dashboard
-              </Link>
+          <div className="flex justify-center mt-2">
+            <button
+              className="editfbuttons font-Ubuntu w-[30vw] text-[1.5vw]"
+              onClick={() => {
+                window.location.replace("/");
+              }}
+            >
+              Return to Dashboard
             </button>
           </div>
         </div>
