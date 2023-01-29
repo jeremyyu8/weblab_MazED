@@ -29,9 +29,9 @@ const sprites = {
   student: null,
 };
 sprites["teacher"] = new Image(tilewidth, tilewidth);
-sprites["teacher"].src = "../gameassets/black_000.png";
+sprites["teacher"].src = "../gameassets/cats/black_000.png";
 sprites["student"] = new Image(tilewidth, tilewidth);
-sprites["student"].src = "../gameassets/creme_000.png";
+sprites["student"].src = "../gameassets/cats/creme_000.png";
 
 // animation vectors
 let six = [-1, -1]; // h
