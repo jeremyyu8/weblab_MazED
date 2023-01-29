@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@reach/router";
 /**
  * student end page after the game ends
  *
@@ -138,10 +137,13 @@ const StudentEndPage = (props) => {
           </div>
         </div>
         <div className="flex justify-center mt-3">
-          <button className="editfbuttons font-Ubuntu w-[30vw] text-[1.5vw]">
-            <Link to="/" className="no-underline text-black">
-              Return to Dashboard
-            </Link>
+          <button
+            className="editfbuttons font-Ubuntu w-[30vw] text-[1.5vw]"
+            onClick={() => {
+              window.location.replace("/");
+            }}
+          >
+            Return to Dashboard
           </button>
         </div>
       </div>

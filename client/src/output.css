@@ -1899,6 +1899,11 @@ table {
   border-collapse: collapse;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
 .arrows {
   width: auto;
   height: auto;

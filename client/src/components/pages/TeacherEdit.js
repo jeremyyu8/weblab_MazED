@@ -153,7 +153,7 @@ const TeacherEdit = () => {
                   <div className="flex justify-center">
                     {dashboardSaveWarning && (
                       <>
-                        <div className="absolute text-red-600 bottom-4">
+                        <div className="absolute text-red-600 bottom-[8vh]">
                           <div className="flex justify-end w-[70vw]">
                             Return to dashboard? Your work will not be saved
                             <div className="inline">
@@ -177,7 +177,7 @@ const TeacherEdit = () => {
                       </>
                     )}
                     {loading && (
-                      <div className="absolute text-green-600 bottom-4">
+                      <div className="absolute text-green-600 bottom-[8vh]">
                         <div className="flex justify-start w-[70vw]">
                           <div>Saving...</div>
                         </div>
@@ -185,7 +185,7 @@ const TeacherEdit = () => {
                     )}
                     <button
                       onClick={handleSubmit}
-                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%]"
+                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%] h-[5vh] align-middle"
                     >
                       Save and Exit
                     </button>
@@ -193,7 +193,7 @@ const TeacherEdit = () => {
                       onClick={() => {
                         setDashboardSaveWarning(true);
                       }}
-                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%]"
+                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%] h-[5vh] align-middle"
                     >
                       Back to dashboard
                     </button>
