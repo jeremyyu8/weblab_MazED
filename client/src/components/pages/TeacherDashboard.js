@@ -101,7 +101,6 @@ const TeacherDashboard = (props) => {
   useEffect(() => {
     socket.on("checkAlreadyConnectedResult", (result) => {
       if (userData) {
-        console.log(result);
         if (result._id === userData._id && result.result === true) {
           console.log("found a game you were already connected to");
           setFoundGame(true);

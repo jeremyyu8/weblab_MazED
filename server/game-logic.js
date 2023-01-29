@@ -74,6 +74,7 @@ const makeNewGame = (data) => {
     cards: data.cards,
     questionStats: questionStats,
     setid: data.setid,
+    settitle: data.settitle,
     timeRemaining: gameLength,
     startTime: 0,
     pin: data.pin,

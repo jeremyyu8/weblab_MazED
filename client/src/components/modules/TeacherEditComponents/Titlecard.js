@@ -10,7 +10,7 @@ const Titlecard = () => {
 
   return (
     <>
-      <div>Title</div>
+      <div className="mb-2">Title</div>
       <input
         className="text-2xl font-Ubuntu"
         onInput={handleChange}

@@ -62,7 +62,13 @@ const Set = (props) => {
         for (let i = 0; i < 6; i++) {
           pin += String(Math.floor(Math.random() * 10));
         }
-        makeNewLobby({ pin: pin, cards: set.cards, teacherid: props.userId, setid: setid });
+        makeNewLobby({
+          pin: pin,
+          cards: set.cards,
+          teacherid: props.userId,
+          setid: setid,
+          settitle: props.title,
+        });
         setRedirect("/game");
       } catch (error) {
         alert("error retrieving set");
