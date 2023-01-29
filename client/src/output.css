@@ -743,6 +743,18 @@
   margin-left: 8vw;
 }
 
+.mt-\[50\%\]{
+  margin-top: 50%;
+}
+
+.mr-\[4vw\]{
+  margin-right: 4vw;
+}
+
+.mr-\[2vw\]{
+  margin-right: 2vw;
+}
+
 .block{
   display: block;
 }
@@ -957,6 +969,10 @@
 
 .h-\[60vh\]{
   height: 60vh;
+}
+
+.h-\[5vw\]{
+  height: 5vw;
 }
 
 .w-screen{
@@ -1233,6 +1249,11 @@
 
 .-translate-y-1\/2{
   --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-y-1\/4{
+  --tw-translate-y: -25%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
