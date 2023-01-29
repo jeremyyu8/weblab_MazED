@@ -159,6 +159,7 @@ const generateBarriers = (dim, traversible) => {
         }
       }
       if (cnt > 1 && d - last_d > 3) {
+        // space barriers apart
         maze[r][c] = 2;
         last_d = d;
       }
@@ -210,12 +211,38 @@ const generateFullMaze = (n) => {
   return fullMaze;
 };
 
+const generateTrivialMaze = () => {
+  let trivialMaze = [];
+  trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
+  trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
+  trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
+  trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
+  trivialMaze.push([1, 1, 1, 1, 2, 1, 1, 1, 1]);
+  trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 1]);
+  trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 1]);
+  trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 1]);
+  trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 4]);
+  // 3x everything
+  let trivialMazeFull = [];
+  for (let i = 0; i < 3 * 9; i++) {
+    for (let j = 0; j < 3 * 9; j++) {
+      let row = Math.floor(i / 3);
+      let col = Math.floor(j / 3);
+      trivialMazeFull.push(trivialMaze[row][col]);
+    }
+  }
+  return trivialMazeFull;
+};
+
 // full maze is an square array of integers with dimension 3(n+5)
 // 0 = border
-// 1 = barrier
-// 2 = path
+// 1 = path
+// 2 = barrier
+// 3 = tree
+// 4 = portal
 
 module.exports = {
   generateFullMaze,
   generateLobby,
+  generateTrivialMaze,
 };

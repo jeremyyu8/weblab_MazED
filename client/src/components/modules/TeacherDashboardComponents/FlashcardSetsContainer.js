@@ -11,6 +11,7 @@ import { get, post } from "../../../utilities";
  * @param {function} setSetsMetadata setter for metadata
  * @param {function} setUserData setter for user data
  * @param {userData} userData data of the user
+ * @param {setIsOpen} setIsOpen set left sidebar
  */
 const FlashcardSetsContainer = (props) => {
   const [sets, setSets] = useState([]);
@@ -119,6 +120,7 @@ const FlashcardSetsContainer = (props) => {
           metadata={props.metadata}
           setUserData={props.setUserData}
           userId={props.userId}
+          setIsOpen={props.setIsOpen}
         />
       ))
     );

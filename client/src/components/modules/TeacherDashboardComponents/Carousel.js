@@ -6,6 +6,8 @@ import { useRef, useState, useEffect } from "react";
  *
  * Proptypes
  * @param {Array} content the content to be shown on the carousel
+ * @param {function} setGameMode set game mode
+ * @param {String} gameMode the currently selected game mode
  */
 const Carousel = (props) => {
   const carousel = useRef();
@@ -37,14 +39,27 @@ const Carousel = (props) => {
     }
   };
 
+  const handleOnClick = (idx) => {
+    if (idx === 1) {
+      props.setGameMode("team");
+    } else if (idx === 2) {
+      props.setGameMode("infection");
+    } else {
+      props.setGameMode("individual");
+    }
+  };
+
   useEffect(() => {
     setCarouselContent(
       props.content.map((slide, idx) => {
         return (
           <>
-            <div className="flex grow shrink-0 basis-full h-auto w-[100%] relative snap-start">
+            <div
+              className="flex grow shrink-0 basis-full h-auto w-[100%] relative snap-start"
+              onClick={() => handleOnClick(idx)}
+            >
               <div className="w-[100%] text-center mb-8">
-                <img src={slide.content} style={{ width: 300, height: 300 }} alt="map image" />
+                <img src={slide.content} style={{ width: 250, height: 250 }} alt="map image" />
               </div>
               <div className="absolute text-3xl bottom-[2vh] left-[50%] transform -translate-x-1/2">
                 {slide.caption}
@@ -60,6 +75,9 @@ const Carousel = (props) => {
     <>
       <div className="border-solid">
         <div className="w-[100%] h-auto text-4xl mt-4 text-center">Game Mode</div>
+        <div className="w-[100%] h-auto text-xl text-center">
+          Currently selected: <span className="text-blue-600">{props.gameMode}</span>
+        </div>
         <div className="w-[100%] h-auto relative">
           <div
             className="absolute left-[0.5vw] z-30 w-[3vw] h-[3vw] opacity-100 border-0 top-[50%] transform -translate-y-1/2 hover:cursor-pointer"

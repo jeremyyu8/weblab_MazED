@@ -25,12 +25,17 @@ import ActivePlayers from "../modules/GamePageComponents/ActivePlayers.js";
 import "../../master.css";
 
 const Game = () => {
+  // don't load game screen until everything is collected
+  const [loading, setLoading] = useState(true);
+
   // metadata
   const [gamePin, setGamePin] = useState(undefined); // user game pin
   const [userData, setUserData] = useState(undefined); // user data
   const [status, setStatus] = useState("lobby");
   const [showRules, setShowRules] = useState(false);
   const [showActivePlayers, setShowActivePlayers] = useState(false);
+  const [numMazes, setNumMazes] = useState(3);
+  const [gameMode, setGameMode] = useState("");
 
   // redirect logic
   const [redirect, setRedirect] = useState(false);
@@ -52,11 +57,32 @@ const Game = () => {
   const [promoted, setPromoted] = useState(false);
   const [inBorderRange, setInBorderRange] = useState(false);
   const [bordersToUnlock, setBordersToUnlock] = useState([]);
+  const [hitboxes, setHitboxes] = useState(false);
+
+  // completion times
+  const [level0CompletionTime, setLevel0CompletionTime] = useState(undefined);
   const [level1CompletionTime, setLevel1CompletionTime] = useState(undefined);
   const [level2CompletionTime, setLevel2CompletionTime] = useState(undefined);
   const [level3CompletionTime, setLevel3CompletionTime] = useState(undefined);
-  const [hitboxes, setHitboxes] = useState(false);
+  const [level4CompletionTime, setLevel4CompletionTime] = useState(undefined);
+  const [level5CompletionTime, setLevel5CompletionTime] = useState(undefined);
+  const [level6CompletionTime, setLevel6CompletionTime] = useState(undefined);
+  const [level7CompletionTime, setLevel7CompletionTime] = useState(undefined);
+  const [level8CompletionTime, setLevel8CompletionTime] = useState(undefined);
+  const [level9CompletionTime, setLevel9CompletionTime] = useState(undefined);
+  const completionTimeMap = {};
+  completionTimeMap[0] = [level0CompletionTime, setLevel0CompletionTime];
+  completionTimeMap[1] = [level1CompletionTime, setLevel1CompletionTime];
+  completionTimeMap[2] = [level2CompletionTime, setLevel2CompletionTime];
+  completionTimeMap[3] = [level3CompletionTime, setLevel3CompletionTime];
+  completionTimeMap[4] = [level4CompletionTime, setLevel4CompletionTime];
+  completionTimeMap[5] = [level5CompletionTime, setLevel5CompletionTime];
+  completionTimeMap[6] = [level6CompletionTime, setLevel6CompletionTime];
+  completionTimeMap[7] = [level7CompletionTime, setLevel7CompletionTime];
+  completionTimeMap[8] = [level8CompletionTime, setLevel8CompletionTime];
+  completionTimeMap[9] = [level9CompletionTime, setLevel9CompletionTime];
 
+  // upgrade data
   const [speedUpgradeFailed, setSpeedUpgradeFailed] = useState(false);
   const [powerUpgradeFailed, setPowerUpgradeFailed] = useState(false);
   const [borderUpgradeFailed, setBorderUpgradeFailed] = useState(false);
@@ -79,6 +105,7 @@ const Game = () => {
 
   // convert to time
   const convertToTime = (seconds) => {
+    console.log(seconds);
     let minutes = Math.floor(seconds / 60);
     let secs = seconds - 60 * minutes;
     if (minutes === 0) {
@@ -109,6 +136,14 @@ const Game = () => {
       });
   }, []);
 
+  // loading logic
+  // only load page if all three criteria are met
+  useEffect(() => {
+    if (gamePin && userData && mazes) {
+      setLoading(false);
+    }
+  }, [gamePin, userData, mazes]);
+
   // get mazes
   useEffect(() => {
     if (gamePin) {
@@ -122,13 +157,16 @@ const Game = () => {
       if (data.err === "no pin found") {
         setRedirect(true);
       }
+      console.log(data);
       setGamePin(data.pin);
       setFlashCardSet(data.cards);
+      setGameMode(data.gameMode);
     });
 
     // update is already parsed from pin
     socket.on("updateMazes", (update) => {
       setMazes(update);
+      setNumMazes(Object.keys(update).length - 3);
     });
 
     socket.off("update");
@@ -272,10 +310,16 @@ const Game = () => {
       move(pressed, userData._id, gamePin);
     }
     if (e.key === "h") {
-      console.log("hi");
       setHitboxes(!hitboxes);
     }
   };
+
+  // stop moving when question pops up
+  useEffect(() => {
+    if (questionShowing && userData && gamePin) {
+      move({ up: false, left: false, down: false, right: false }, userData._id, gamePin);
+    }
+  }, [questionShowing]);
 
   const processUpdate = (update, _id) => {
     counter++;
@@ -286,9 +330,12 @@ const Game = () => {
     setSpeed(update["players"][_id]["speed"]);
     setPower(update["players"][_id]["power"]);
     setTagged(update["players"][_id]["tagged"]);
-    setLevel1CompletionTime(update["players"][_id]["level1completion"]);
-    setLevel2CompletionTime(update["players"][_id]["level2completion"]);
-    setLevel3CompletionTime(update["players"][_id]["level3completion"]);
+    if (numMazes) {
+      // set level completion times
+      for (let idx = 0; idx <= numMazes; idx++) {
+        completionTimeMap[idx][1](update["players"][_id][`level${idx}completion`]);
+      }
+    }
     // setGameState(update);
 
     if (counter % 30 === 0) {
@@ -309,7 +356,6 @@ const Game = () => {
         const dist = Math.sqrt(
           (playerX - border.x) * (playerX - border.x) + (playerY - border.y) * (playerY - border.y)
         );
-        // console.log(dist);
 
         if (dist < 1.2) {
           const mazeLength = Math.floor(Math.sqrt(mazes[leveltag].length));
@@ -330,11 +376,11 @@ const Game = () => {
         //   setBordersToUnlock(toOpen);
         //   setInBorderRange(inRange);
         // }
-        if (counter % 15 === 0) {
-          setBordersToUnlock(toOpen);
-          setInBorderRange(inRange);
-        }
         // console.log(inRange);
+      }
+      if (counter % 15 === 0) {
+        setBordersToUnlock(toOpen);
+        setInBorderRange(inRange);
       }
     }
   };
@@ -376,7 +422,7 @@ const Game = () => {
   }, [tagged]);
 
   useEffect(() => {
-    if (level) {
+    if (status !== "lobby") {
       if (promoted === false) {
         console.log("level");
         console.log(level);
@@ -408,6 +454,8 @@ const Game = () => {
     <>
       {redirect ? (
         <Redirect from="/game" to="/login" />
+      ) : loading ? (
+        <div>Loading ... </div>
       ) : (
         <div className="">
           {userData &&
@@ -439,7 +487,7 @@ const Game = () => {
                   </div>
                 </div>
               </div>
-              {showRules && <RulesAndSettings setShowRules={setShowRules} />};
+              {showRules && <RulesAndSettings setShowRules={setShowRules} gameMode={gameMode} />};
             </>
           )}
           {status === "lobby" && userData && userData.role === "teacher" && gamePin && (
@@ -484,7 +532,7 @@ const Game = () => {
                   </div>
                 </div>
               </div>
-              {showRules && <RulesAndSettings setShowRules={setShowRules} />}
+              {showRules && <RulesAndSettings setShowRules={setShowRules} gameMode={gameMode} />}
               {showActivePlayers && gameState && gamePin && (
                 <ActivePlayers
                   setShowActivePlayers={setShowActivePlayers}
@@ -573,19 +621,23 @@ const Game = () => {
           {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
             <>
               <div className="bg-white bg-opacity-80 fixed w-[50vw] h-[30vh] left-[25vw] top-[35vh] border-solid z-50">
-                {level < 4 && <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>}
-                {level == 2 && (
+                {level <= numMazes && (
+                  <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
+                )}
+                {level == 1 && (
                   <div className="text-xl text-center">
-                    Time to complete level 1: {convertToTime(level1CompletionTime)}
+                    Time to complete level 0: {convertToTime(level0CompletionTime)}
                   </div>
                 )}
-                {level == 3 && (
+                {level > 1 && level !== numMazes && (
                   <div className="text-xl text-center">
-                    Time to complete level 2:{" "}
-                    {convertToTime(level2CompletionTime - level1CompletionTime)}
+                    Time to complete level {level - 1}:{" "}
+                    {convertToTime(
+                      completionTimeMap[level - 1][0] - completionTimeMap[level - 2][0]
+                    )}
                   </div>
                 )}
-                {level === 4 && (
+                {level === numMazes && (
                   <>
                     <div className="text-2xl text-center mt-[2vh]">
                       Congrats! You finished every maze. Feel free to keep answering questions and
@@ -593,10 +645,12 @@ const Game = () => {
                     </div>
                     <div className="text-xl text-center">
                       Final level completion time:{" "}
-                      {convertToTime(level3CompletionTime - level2CompletionTime)}
+                      {convertToTime(
+                        completionTimeMap[level - 1][0] - completionTimeMap[level - 2][0]
+                      )}
                     </div>
                     <div className="text-xl text-center">
-                      Game completion time: {convertToTime(level3CompletionTime)}
+                      Game completion time: {convertToTime(completionTimeMap[level - 1][0])}
                     </div>
                   </>
                 )}

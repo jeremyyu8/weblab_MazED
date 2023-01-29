@@ -22,6 +22,7 @@ import Carousel from "./Carousel";
  * @param {function} setSetsMetadata setter for set metadata
  * @param {function} setUserData setter for user data
  * @param {userId} userId the user id to pass into the game
+ * @param {function} setIsOpen set left sidebar
  */
 const Set = (props) => {
   const [redirect, setRedirect] = useState(false);
@@ -31,7 +32,10 @@ const Set = (props) => {
 
   // lobby settings
   const [numMazes, setNumMazes] = useState(3);
-  const [gameTime, setGameTime] = useState(0);
+  const [gameTime, setGameTime] = useState(10);
+  const [gameMode, setGameMode] = useState("individual");
+  const [gameTimeError, setGameTimeError] = useState(false);
+  const [numMazesError, setNumMazesError] = useState(false);
 
   const handleDeletion = () => {
     const deleteSet = async () => {
@@ -69,6 +73,9 @@ const Set = (props) => {
           teacherid: props.userId,
           setid: setid,
           settitle: props.title,
+          gameTime: gameTime,
+          numMazes: numMazes,
+          gameMode: gameMode,
         });
         setRedirect("/game");
       } catch (error) {
@@ -76,7 +83,45 @@ const Set = (props) => {
         console.log(error);
       }
     };
-    initializeLobby();
+
+    if (numMazesError === true || gameTimeError === true) {
+      return;
+    }
+
+    let bad = false;
+    if (numMazes === "") {
+      setNumMazesError(true);
+      setInterval(() => {
+        setNumMazesError(false);
+      }, 2000);
+      bad = true;
+    }
+    if (gameTime === "") {
+      setGameTimeError(true);
+      setInterval(() => {
+        setGameTimeError(false);
+      }, 2000);
+      bad = true;
+    }
+
+    if (!bad) {
+      console.log(gameTime);
+      console.log(numMazes);
+      console.log(gameMode);
+      initializeLobby();
+    }
+  };
+
+  const handleChangeGameTime = (e) => {
+    if ((e.target.value >= 1 && e.target.value <= 99) || e.target.value === "") {
+      setGameTime(e.target.value);
+    }
+  };
+
+  const handleChangeNumMazes = (e) => {
+    if ((e.target.value >= 1 && e.target.value <= 9) || e.target.value === "") {
+      setNumMazes(e.target.value);
+    }
   };
 
   const editCards = () => {
@@ -135,6 +180,7 @@ const Set = (props) => {
                         <button
                           className="editfbuttons mb-1"
                           onClick={() => {
+                            props.setIsOpen(false);
                             setLobbySettings(true);
                           }}
                         >
@@ -182,20 +228,42 @@ const Set = (props) => {
           </div>
           <div className="border-solid ml-[20%] mt-[4vh] h-[60%] w-[60%] overflow-y-auto overflow-x-hidden">
             <div className="flex justify-between border-solid w-full h-[30%]">
-              <div className="mx-8 text-2xl mt-[5vh]">Game Time (minutes):</div>
+              <div className="mx-8 text-2xl mt-[5vh]">
+                <div>Game Time (minutes):</div>
+                {gameTimeError && (
+                  <div className="text-red-600 text-sm animate-shake">
+                    enter a valid number of minutes!
+                  </div>
+                )}
+              </div>
               <input
-                className="mx-8 h-[25%] mt-[5vh]"
-                onInput={(event) => setGameTime(event.target.value)}
+                className="mx-8 h-[5vw] mt-[5vh] font-Ubuntu w-[5vw] transform -translate-y-1/4 text-3xl mr-[2vw]"
+                type="number"
+                min="1"
+                max="99"
+                value={gameTime}
+                onInput={handleChangeGameTime}
               ></input>
             </div>
             <div className="flex justify-between border-solid w-full h-[30%]">
-              <div className="mx-8 text-2xl mt-[5vh]"> Number of Mazes: </div>
+              <div className="mx-8 text-2xl mt-[5vh]">
+                <div>Number of Mazes: </div>
+                {numMazesError && (
+                  <div className="text-red-600 text-sm animate-shake">
+                    enter a valid number of mazes!
+                  </div>
+                )}
+              </div>
               <input
-                className="mx-8 h-[25%] mt-[5vh]"
-                onInput={(event) => setNumMazes(event.target.value)}
+                className="mx-8 h-[5vw] mt-[5vh] font-Ubuntu w-[5vw] transform -translate-y-1/4 text-3xl mr-[2vw]"
+                type="number"
+                min="1"
+                max="9"
+                value={numMazes}
+                onInput={handleChangeNumMazes}
               ></input>
             </div>
-            <Carousel content={carouselContent} />
+            <Carousel content={carouselContent} setGameMode={setGameMode} gameMode={gameMode} />
           </div>
           <div className="absolute bottom-[2vh] w-[100%] left-[25%]">
             <div className="flex">

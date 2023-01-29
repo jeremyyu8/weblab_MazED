@@ -54,13 +54,26 @@ let games = {};
 
 // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacher id}
 const makeNewGame = (data) => {
+  // const lobby = mazeLogic.generateLobby();
   const lobby = mazeLogic.generateLobby();
-  const map1 = mazeLogic.generateFullMaze(11); // 11
-  const map2 = mazeLogic.generateFullMaze(15); // 15
-  const map3 = mazeLogic.generateFullMaze(25); // 25
+  const map0 = mazeLogic.generateTrivialMaze();
   const endlobby = mazeLogic.generateLobby();
 
-  const gameLength = 600; //seconds
+  let maps = [];
+  for (let idx = 1; idx <= data.numMazes; idx++) {
+    if (idx === 1) {
+      maps.push(mazeLogic.generateFullMaze(11));
+    } else if (idx === 2) {
+      maps.push(mazeLogic.generateFullMaze(17));
+    } else if (idx === 3) {
+      maps.push(mazeLogic.generateFullMaze(25));
+    } else {
+      maps.push(mazeLogic.generateFullMaze(35));
+    }
+  }
+  maps.push(endlobby);
+
+  const gameLength = data.gameTime * 60; //seconds
 
   let questionStats = {};
   for (const card of data.cards) {
@@ -77,15 +90,27 @@ const makeNewGame = (data) => {
     settitle: data.settitle,
     timeRemaining: gameLength,
     startTime: 0,
+    numMazes: data.numMazes,
+    gameMode: data.gameMode,
     pin: data.pin,
     active: true,
   };
 
-  const newGameMazes = { lobby: lobby, level1: map1, level2: map2, level3: map3, level4: endlobby };
+  const newGameMazes = {
+    lobby: lobby,
+    level0: map0,
+  };
+
+  // actual levels
+  for (let idx = 1; idx <= maps.length; idx++) {
+    let leveltag = "level" + idx;
+    newGameMazes[leveltag] = maps[idx - 1];
+  }
 
   games[data.pin] = newGame;
   mazes[data.pin] = newGameMazes;
   makeNewPlayer(data.teacherid, data.pin, "teacher", "teacher");
+  console.log(games);
 };
 
 const endGame = (pin) => {
@@ -100,8 +125,6 @@ const endGame = (pin) => {
 };
 
 const playerJoin = (data) => {
-  console.log("inside of playerjoin");
-  console.log(data);
   makeNewPlayer(data.studentid, data.pin, data.studentname, data.displayname);
 };
 
@@ -169,52 +192,23 @@ const unlockBorder = (_id, pin, bordersToUnlock) => {
   }
   return "failure";
 };
-//note: id is user id, not socket id (in case socket disconnects)
-// r =
-// {_id: userid from mongo,
-//     pos:
-//     x: x-position,
-//     y: y-position,
-//     tokens: number of tokens,
-//     power: tagging power,
-//     speed: user speed,
-//     level: current map level,
-//     tagged: boolean
-//     invincibility: boolean
-//     questions_answerwed: int,
-//     questions_correct: int,
-//     visited_tiles: array}
 
 const makeNewPlayer = (_id, pin, name, displayname) => {
-  console.log(pin);
-  let borders1 = [];
-  const level1width = Math.floor(Math.sqrt(mazes[pin]["level1"].length));
-  for (let r = 0; r < level1width; r++) {
-    for (let c = 0; c < level1width; c++) {
-      if (mazes[pin]["level1"][r * level1width + c] === 2) {
-        borders1.push({ x: c, y: r });
-      }
-    }
-  }
+  let numMazes = games[pin]["numMazes"];
+  let borders = {};
 
-  let borders2 = [];
-  const level2width = Math.floor(Math.sqrt(mazes[pin]["level2"].length));
-  for (let r = 0; r < level2width; r++) {
-    for (let c = 0; c < level2width; c++) {
-      if (mazes[pin]["level2"][r * level2width + c] === 2) {
-        borders2.push({ x: c, y: r });
+  for (let idx = 0; idx <= numMazes; idx++) {
+    let level_borders = [];
+    let leveltag = "level" + idx;
+    const levelwidth = Math.floor(Math.sqrt(mazes[pin][leveltag].length));
+    for (let r = 0; r < levelwidth; r++) {
+      for (let c = 0; c < levelwidth; c++) {
+        if (mazes[pin][leveltag][r * levelwidth + c] === 2) {
+          level_borders.push({ x: c, y: r });
+        }
       }
     }
-  }
-
-  let borders3 = [];
-  const level3width = Math.floor(Math.sqrt(mazes[pin]["level3"].length));
-  for (let r = 0; r < level3width; r++) {
-    for (let c = 0; c < level3width; c++) {
-      if (mazes[pin]["level3"][r * level3width + c] === 2) {
-        borders3.push({ x: c, y: r });
-      }
-    }
+    borders[leveltag] = level_borders;
   }
 
   console.log("inside of makenewplayer");
@@ -232,7 +226,7 @@ const makeNewPlayer = (_id, pin, name, displayname) => {
     power: 0,
     speed: 0,
     active: true,
-    level: 0,
+    level: -1, // default to lobby
     tagged: false, // currently tagged?
     tags: 0, // number of people that you tagged
     numtagged: 0, // number of people who tagged you
@@ -240,11 +234,14 @@ const makeNewPlayer = (_id, pin, name, displayname) => {
     flashcards_total: 0, // total number of flashcards answered
     invincible: false, // invincible after getting tagged
     newlevel: false, // if on new level
-    level1completion: 0,
-    level2completion: 0,
-    level3completion: 0,
-    borders: { level1: borders1, level2: borders2, level3: borders3 },
+    borders: borders,
   };
+
+  // completion times, including the trivial level completion time
+  for (let idx = 0; idx <= numMazes; idx++) {
+    let level_completion_tag = "level" + idx + "completion";
+    newPlayer[level_completion_tag] = 0;
+  }
 
   games[pin]["players"][_id] = newPlayer;
 };
@@ -257,6 +254,7 @@ const setWindowSize = (_id, pin, x, y) => {
 
 // // move player on player input
 const movePlayer = (_id, pin, dir) => {
+  console.log("moveplayer", _id, pin, dir);
   if (!games || !games[pin]) {
     return;
   }
@@ -350,7 +348,7 @@ const updateGameState = () => {
     for (let _id in games[pin]["players"]) {
       // map size to use for each player
       let level;
-      if (games[pin]["players"][_id]["level"] === 0) {
+      if (games[pin]["players"][_id]["level"] === -1) {
         level = "lobby";
       } else {
         level = "level" + games[pin]["players"][_id]["level"];
@@ -373,8 +371,8 @@ const updateGameState = () => {
       }
       // freeze movement if moving to next level
       if (curPlayer["newlevel"] === true) {
-        let levelcompletionstring = "level" + curPlayer["level"] + "completion";
-        curPlayer[levelcompletionstring] = games[pin]["startTime"];
+        let level_completion_tag = "level" + curPlayer["level"] + "completion";
+        curPlayer[level_completion_tag] = games[pin]["startTime"];
         curPlayer["level"] += 1;
         curPlayer.k["right"] = false;
         curPlayer.k["left"] = false;
@@ -385,6 +383,8 @@ const updateGameState = () => {
         curPlayer.v.x = 0;
         curPlayer.v.y = 0;
         curPlayer["newlevel"] = false;
+        console.log("player new level");
+        console.log(curPlayer);
         continue;
       }
 
@@ -527,7 +527,7 @@ const detectMapCollisions = (_id, pin) => {
   let player = games[pin]["players"][_id];
   let map;
   let level;
-  if (player["level"] !== 0) {
+  if (player["level"] !== -1) {
     level = "level" + player["level"];
     map = mazes[pin][level];
   } else {
@@ -637,6 +637,10 @@ const detectPlayerCollisions = (pin) => {
       )
         continue;
 
+      // can't collide with anyone on level 0 (the trivial level)
+      if (games[pin]["players"][_id1]["level"] === 0 || games[pin]["players"][_id2]["level"] === 0)
+        continue;
+
       let player1 = games[pin]["players"][_id1];
       let player2 = games[pin]["players"][_id2];
 
@@ -657,7 +661,7 @@ const detectPlayerCollisions = (pin) => {
 const gameStart = (pin) => {
   games[pin]["status"] = "game";
   Object.values(games[pin]["players"]).forEach((player) => {
-    player.level = 1;
+    player.level = 0;
     player.p.x = 0;
     player.p.y = 0;
     player.v.x = 0;
@@ -690,7 +694,7 @@ const checkAlreadyConnected = (new_connected_id) => {
 };
 
 const gameExtend = (pin) => {
-  games[pin]["timeRemaining"] += 300;
+  games[pin]["timeRemaining"] += 120;
 };
 
 module.exports = {

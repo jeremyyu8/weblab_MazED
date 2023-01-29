@@ -14,6 +14,7 @@ const TeacherGamePage = (props) => {
   const windowRatio = 1 / 4;
   const [players, setPlayers] = useState(undefined);
   const [timeRemaining, setTimeRemaining] = useState(undefined);
+  const [teacherCanvasDivs, setTeacherCanvasDivs] = useState([]);
 
   // dimension of teacher game page window
   const [windowDimension, setWindowDimension] = useState({
@@ -34,9 +35,46 @@ const TeacherGamePage = (props) => {
   };
 
   // canvas reference
+  const teacherCanvasRef0 = useRef(null);
   const teacherCanvasRef1 = useRef(null);
   const teacherCanvasRef2 = useRef(null);
   const teacherCanvasRef3 = useRef(null);
+  const teacherCanvasRef4 = useRef(null);
+  const teacherCanvasRef5 = useRef(null);
+  const teacherCanvasRef6 = useRef(null);
+  const teacherCanvasRef7 = useRef(null);
+  const teacherCanvasRef8 = useRef(null);
+  const teacherCanvasRef9 = useRef(null);
+  let teacherCanvasRefMap = {};
+  teacherCanvasRefMap[0] = teacherCanvasRef0;
+  teacherCanvasRefMap[1] = teacherCanvasRef1;
+  teacherCanvasRefMap[2] = teacherCanvasRef2;
+  teacherCanvasRefMap[3] = teacherCanvasRef3;
+  teacherCanvasRefMap[4] = teacherCanvasRef4;
+  teacherCanvasRefMap[5] = teacherCanvasRef5;
+  teacherCanvasRefMap[6] = teacherCanvasRef6;
+  teacherCanvasRefMap[7] = teacherCanvasRef7;
+  teacherCanvasRefMap[8] = teacherCanvasRef8;
+  teacherCanvasRefMap[9] = teacherCanvasRef9;
+
+  // set teacher canvas divs
+  useEffect(() => {
+    let canvasDivs = [];
+    for (let idx = 0; idx < Object.keys(props.mazes).length - 2; idx++) {
+      canvasDivs.push(
+        <div>
+          <div className="pt-4 text-[1vw]">Level {idx}</div>
+          <canvas
+            className="p-4"
+            ref={teacherCanvasRefMap[idx]}
+            width={windowDimension.width * 1 * windowRatio}
+            height={windowDimension.width * 1 * windowRatio}
+          />
+        </div>
+      );
+    }
+    setTeacherCanvasDivs(canvasDivs);
+  }, []);
 
   useEffect(() => {
     if (props.gameState) {
@@ -88,36 +126,19 @@ const TeacherGamePage = (props) => {
         }
       });
 
-      drawTeacherCanvas(
-        {
-          players: props.gameState["players"],
-          map: props.mazes["level1"],
-          teacherid: props.gameState["teacher"]["_id"],
-          level: 1,
-        },
-        teacherCanvasRef1,
-        windowDimension.width * windowRatio
-      );
-      drawTeacherCanvas(
-        {
-          players: props.gameState["players"],
-          map: props.mazes["level2"],
-          teacherid: props.gameState["teacher"]["_id"],
-          level: 2,
-        },
-        teacherCanvasRef2,
-        windowDimension.width * windowRatio
-      );
-      drawTeacherCanvas(
-        {
-          players: props.gameState["players"],
-          map: props.mazes["level3"],
-          teacherid: props.gameState["teacher"]["_id"],
-          level: 3,
-        },
-        teacherCanvasRef3,
-        windowDimension.width * windowRatio
-      );
+      for (let idx = 0; idx < Object.keys(props.mazes).length - 2; idx++) {
+        drawTeacherCanvas(
+          {
+            players: props.gameState["players"],
+            map: props.mazes[`level${idx}`],
+            teacherid: props.gameState["teacher"]["_id"],
+            level: idx,
+          },
+          teacherCanvasRefMap[idx],
+          windowDimension.width * windowRatio
+        );
+      }
+
       setPlayers(playerData);
       setTimeRemaining(props.gameState["timeRemaining"]);
     }
@@ -151,40 +172,14 @@ const TeacherGamePage = (props) => {
           <div className="border-solid h-[25vw] p-4 text-[1vw]">{players}</div>
         </div>
         <div className="flex border-solid overflow-x-scroll h-[30vw] mr-[3vw]">
-          <div>
-            <div className="pt-4 text-[1vw]">Level 1</div>
-            <canvas
-              className="p-4"
-              ref={teacherCanvasRef1}
-              width={windowDimension.width * 1 * windowRatio}
-              height={windowDimension.width * 1 * windowRatio}
-            />
-          </div>
-          <div>
-            <div className="pt-4 text-[1vw]">Level 2</div>
-            <canvas
-              className="p-4"
-              ref={teacherCanvasRef2}
-              width={windowDimension.width * 1 * windowRatio}
-              height={windowDimension.width * 1 * windowRatio}
-            />
-          </div>
-          <div>
-            <div className="pt-4 text-[1vw]">Level 3</div>
-            <canvas
-              className="p-4"
-              ref={teacherCanvasRef3}
-              width={windowDimension.width * 1 * windowRatio}
-              height={windowDimension.width * 1 * windowRatio}
-            />
-          </div>
+          {teacherCanvasDivs}
         </div>
       </div>
       <div>
         <hr />
       </div>
       <button onClick={() => endGame(props.pin)}>End game</button>
-      <button onClick={() => extendGame(props.pin)}>Extend game</button>
+      <button onClick={() => extendGame(props.pin)}>Extend game (2 minutes)</button>
     </>
   );
 };

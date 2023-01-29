@@ -114,7 +114,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
 
   // get current user level to render
   let map;
-  if (drawState["players"][_id]["level"] !== 0) {
+  if (drawState["players"][_id]["level"] !== -1) {
     let level = "level" + drawState["players"][_id]["level"];
     map = mazes[level];
   } else {
@@ -138,7 +138,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       const tile_idx = map[(j * mapxsize) / tilewidth + i];
       let tile_render = tiles[tile_idx];
 
-      if (tile_idx === 2 && drawState["players"][_id]["level"] > 0) {
+      if (tile_idx === 2 && drawState["players"][_id]["level"] >= 0) {
         let level = `level${drawState["players"][_id]["level"]}`;
         let found = false;
         for (const border of drawState["players"][_id]["borders"][level]) {
@@ -177,6 +177,11 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       if (drawState["players"][playerid]["level"] !== drawState["players"][_id]["level"]) {
         continue;
       }
+      // don't render other players in level 0 (the trivial level)
+      if (_id !== playerid && drawState["players"][playerid]["level"] === 0) {
+        continue;
+      }
+
       let player = drawState["players"][playerid];
       let x = player.p.x - drawState["players"][_id].camera.x;
       let y = player.p.y - drawState["players"][_id].camera.y;

@@ -98,9 +98,9 @@ module.exports = {
               // check if game started while they were disconnected, then update player level
               if (
                 gameLogic.games[data.pin]["status"] !== "lobby" &&
-                gameLogic.games[data.pin]["players"][_id]["level"] === 0
+                gameLogic.games[data.pin]["players"][_id]["level"] === -1
               ) {
-                gameLogic.games[data.pin]["players"][_id]["level"] = 1;
+                gameLogic.games[data.pin]["players"][_id]["level"] = 0;
               }
               return;
             }
@@ -109,9 +109,9 @@ module.exports = {
           // otherwise, this is a new user
           gameLogic.playerJoin(data);
 
-          // user joined late and game already started (but not ended), put user in level 1
+          // user joined late and game already started (but not ended), put user in level 0 (the trivial level)
           if (gameLogic.games[data.pin]["status"] !== "lobby") {
-            gameLogic.games[data.pin]["players"][data.studentid]["level"] = 1;
+            gameLogic.games[data.pin]["players"][data.studentid]["level"] = 0;
           }
         }
       });
@@ -142,7 +142,11 @@ module.exports = {
 
               // otherwise, game is normal
               gameLogic.games[pin]["players"][userId]["active"] = true;
-              socket.emit("receivePin", { pin: pin, cards: gameLogic.games[pin]["cards"] });
+              socket.emit("receivePin", {
+                pin: pin,
+                cards: gameLogic.games[pin]["cards"],
+                gameMode: gameLogic.games[pin]["gameMode"],
+              });
               return;
             }
           }
@@ -156,20 +160,24 @@ module.exports = {
                 gameLogic.games[pin]["players"][userId]["active"] = true;
                 gameLogic.games[pin]["players"][userId].v.x = 0;
                 gameLogic.games[pin]["players"][userId].v.y = 0;
-                // if user leaves during lobby and rejoins after lobby has already started, add them to level 1
+                // if user leaves during lobby and rejoins after lobby has already started, add them to first level (the trivial level)
                 if (
                   gameLogic.games[pin]["status"] !== "lobby" &&
-                  gameLogic.games[pin]["players"][userId]["level"] === 0
+                  gameLogic.games[pin]["players"][userId]["level"] === -1
                 ) {
                   gameLogic.games[pin]["players"][userId].p.x = 0;
                   gameLogic.games[pin]["players"][userId].p.y = 0;
-                  gameLogic.games[pin]["players"][userId]["level"] = 1;
+                  gameLogic.games[pin]["players"][userId]["level"] = 0;
                 }
                 console.log("setting player active to true");
                 socket.join(pin);
 
                 // emit requested information
-                socket.emit("receivePin", { pin: pin, cards: gameLogic.games[pin]["cards"] });
+                socket.emit("receivePin", {
+                  pin: pin,
+                  cards: gameLogic.games[pin]["cards"],
+                  gameMode: gameLogic.games[pin]["gameMode"],
+                });
                 return;
               }
             }
