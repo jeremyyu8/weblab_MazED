@@ -4,6 +4,7 @@ import { get, post } from "../../../utilities";
 
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
+import Carousel from "./Carousel";
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
 /**
@@ -96,16 +97,64 @@ const Settings = (props) => {
   // account creation date
   data.push(<div>Account creation date: {make_human_readable(props.userData.creation_date)}</div>);
 
+  let carouselContent = [
+    "black_000",
+    "black_001",
+    "black_002",
+    "black_003",
+    "blue_000",
+    "blue_001",
+    "blue_002",
+    "blue_003",
+    "brown_000",
+    "brown_001",
+    "brown_002",
+    "calico_000",
+    "clown_000",
+    "creme_000",
+    "creme_001",
+    "creme_002",
+    "dark_000",
+    "dark_001",
+    "dark_002",
+    "dark_003",
+    "dark_004",
+    "ghost_000",
+    "gold_000",
+    "green_000",
+    "green_001",
+    "grey_000",
+    "grey_001",
+    "grey_002",
+    "grey_tabby_000",
+    "grey_tabby_001",
+    "grey_tabby_002",
+    "orange_002",
+    "orange_003",
+    "orange_tabby_000",
+    "orange_tabby_001",
+    "pink_000",
+    "pink_001",
+    "radioactive_000",
+    "red_000",
+    "Seal_Point_000",
+    "Seal_Point_001",
+    "white_000",
+    "white_grey_000",
+    "white_grey_001",
+    "white_grey_002",
+  ];
+
   return (
     <>
       <div className="background">
         <div className="sheerbox">
-          <div className="w-[60vw] h-[80vh]">
-            <div className="text-[4vw]">Customization Settings</div>
+          <div className="w-[60vw] h-[100vh]">
+            <div className="text-[4vw] mt-10">Customization Settings</div>
             <div className="text-[3vw] mt-[2vh]">
               Display Name: <span className="text-blue-600">{displayname}</span>
             </div>
-            <button className="font-Ubuntu" onClick={handleShowChangeDisplay}>
+            <button className="font-Ubuntu mt-5" onClick={handleShowChangeDisplay}>
               Change display name
             </button>
             {showDisplay && (
@@ -147,6 +196,7 @@ const Settings = (props) => {
                 Logout
               </button>
             </GoogleOAuthProvider>
+            <Carousel content={carouselContent} userData={props.userData} />
           </div>
         </div>
       </div>

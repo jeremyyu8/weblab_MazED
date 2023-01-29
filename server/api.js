@@ -321,6 +321,23 @@ router.post("/displayname", auth.ensureLoggedIn, (req, res) => {
   newDisplayName();
 });
 
+router.post("/setskin", auth.ensureLoggedIn, (req, res) => {
+  const newSkin = async () => {
+    try {
+      const curUser = await User.findById(req.user._id);
+      curUser.skin = req.body.skin;
+      await curUser.save();
+      res.status(200);
+      res.send({});
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(404).send({ msg: "user not logged in" });
+    }
+  };
+  newSkin();
+  console.log("skin set");
+});
+
 /**
  * /api/savegame saves all game data
  *

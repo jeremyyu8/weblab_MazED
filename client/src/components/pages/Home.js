@@ -91,7 +91,7 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
             </div>
           </div>
-          <div className="bg-stone-900 bg-fixed bg-cover h-full flex flex-col justify-evenly">
+          <div className="bg-stone-900 bg-fixed bg-cover h-[100vh] flex flex-col justify-evenly">
             <div className="flex flex-wrap justify-evenly pb-8">
               <Card
                 title="Flashcards"

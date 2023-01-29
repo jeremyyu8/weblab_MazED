@@ -26,12 +26,66 @@ tiles[4].src = "../gameassets/end.png";
 
 const sprites = {
   teacher: null,
-  student: null,
 };
+
+const skins = [
+  "black_000",
+  "black_001",
+  "black_002",
+  "black_003",
+  "blue_000",
+  "blue_001",
+  "blue_002",
+  "blue_003",
+  "brown_000",
+  "brown_001",
+  "brown_002",
+  "brown_003",
+  "calico_000",
+  "clown_000",
+  "creme_000",
+  "creme_001",
+  "creme_002",
+  "dark_000",
+  "dark_001",
+  "dark_002",
+  "dark_003",
+  "dark_004",
+  "ghost_000",
+  "gold_000",
+  "green_000",
+  "green_001",
+  "grey_000",
+  "grey_001",
+  "grey_002",
+  "grey_tabby_000",
+  "grey_tabby_001",
+  "grey_tabby_002",
+  "orange_002",
+  "orange_003",
+  "orange_tabby_000",
+  "orange_tabby_001",
+  "pink_000",
+  "pink_001",
+  "radioactive_000",
+  "red_000",
+  "Seal_Point_000",
+  "Seal_Point_001",
+  "white_000",
+  "white_grey_000",
+  "white_grey_001",
+  "white_grey_002",
+];
+
+for (const skin of skins) {
+  sprites[skin] = new Image(tilewidth, tilewidth);
+  sprites[skin].src = "../gameassets/cats/" + skin + ".png";
+}
+
 sprites["teacher"] = new Image(tilewidth, tilewidth);
 sprites["teacher"].src = "../gameassets/cats/black_000.png";
-sprites["student"] = new Image(tilewidth, tilewidth);
-sprites["student"].src = "../gameassets/cats/creme_000.png";
+// sprites["student"] = new Image(tilewidth, tilewidth);
+// sprites["student"].src = "../gameassets/cats/creme_000.png";
 
 // animation vectors
 let six = [-1, -1]; // h
@@ -187,10 +241,14 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       let y = player.p.y - drawState["players"][_id].camera.y;
 
       // draw sprite
-      let sprite = sprites["student"];
+      let sprite;
       if (drawState["teacher"]["_id"] === playerid) {
         sprite = sprites["teacher"];
+      } else {
+        console.log(sprites);
+        sprite = sprites[drawState["players"][playerid].skin];
       }
+
       // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
       // sprite direction vector again
       let pxdir = 0;
