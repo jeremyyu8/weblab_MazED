@@ -105,7 +105,7 @@ const Game = (props) => {
   console.log(props.gameState);
   return (
     <>
-      <div className="flex border-solid border-blue-700 p-5 w-[40vw] my-4 justify-between bg-transparent rounded-xl">
+      <div className="flex border-solid border-blue-700 p-5 w-[50vw] m-3 justify-between bg-transparent rounded-xl">
         <div className="flex-1">
           <div className="text-blue-400 text-3xl">Game: {props.gameState.settitle} </div>
           <div className="mt-3">{props.datePlayed} </div>
@@ -126,9 +126,9 @@ const Game = (props) => {
         //fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-white opacity-90 text-black z-50 border-solid
         <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-white opacity-90 text-black z-50 border-solid flex flex-col">
           <div>
-            <div className="m-2">
+            <div className="m-4">
               <button
-                className="editfbuttons mx-2"
+                className="editfbuttons mx-4"
                 onClick={() => {
                   setInsideData("flashcard");
                 }}

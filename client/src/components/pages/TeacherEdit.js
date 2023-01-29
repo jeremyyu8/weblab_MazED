@@ -133,7 +133,7 @@ const TeacherEdit = () => {
                 {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
                 Error: please give your flashcard set a title{" "}
               </div> */}
-                <div className="flex justify-evenly w-full">
+                <div className="flex w-full justify-between">
                   <div className="text-xl bg-blue-50 bg-opacity-60 m-1 p-2">
                     <Titlecard />
                   </div>
