@@ -28,9 +28,12 @@ const StudentEndPage = (props) => {
 
   // compute flashcard percentage
   const percentage = (correct, total) => {
-    let p = correct / total;
-    let d = Math.round(100 * (p - Math.floor(p)));
-    return String(Math.floor(p) + "." + String(d));
+    let p = (correct / total) * 100;
+    if (isNaN(p)) {
+      return "N/A";
+    } else {
+      return String(p).slice(0, 5) + "%";
+    }
   };
 
   useEffect(() => {
