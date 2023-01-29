@@ -7,12 +7,16 @@ import { get, post } from "../../../utilities";
  *
  * Proptypes
  * @param {Array} content the content to be shown on the carousel
- *@param {Object} userData to be used to find the old skin
+ * @param {Object} userData to be used to find the old skin
+ * @param {function} setSkin to set the skin
  */
 const Carousel = (props) => {
   const carousel = useRef();
   const [carouselContent, setCarouselContent] = useState([]);
   const [currentSelection, setCurrentSelection] = useState(props.userData.skin);
+
+  const [loading, setLoading] = useState(false);
+  const [doneLoading, setDoneLoading] = useState(false);
 
   const incrementCarousel = (delta) => {
     if (carousel.current) {
@@ -65,10 +69,9 @@ const Carousel = (props) => {
         return (
           <>
             <div
-              className="flex grow shrink-0 basis-full w-[100%] relative snap-start mt-5 hover:cursor-pointer flex-col"
+              className="flex grow shrink-0 basis-full w-[100%] relative snap-start mt-2 hover:cursor-pointer flex-col"
               onClick={() => {
                 setCurrentSelection(slide.caption);
-                post("/api/setskin", { skin: slide.caption });
               }}
             >
               <div className="flex-1 w-[100%] text-center">
@@ -76,7 +79,7 @@ const Carousel = (props) => {
                   onClick={() => {}}
                   className="hover:cursor-pointer"
                   src={slide.content}
-                  style={{ width: 250, height: 250 }}
+                  style={{ width: 350, height: 350 }}
                   alt="map image"
                 />
               </div>
@@ -88,11 +91,26 @@ const Carousel = (props) => {
     );
   }, []);
 
+  const handleSkinChange = (skin) => {
+    console.log("in here");
+    const changeDisplayName = async () => {
+      setLoading(true);
+      await post("/api/setskin", { skin: skin });
+      setLoading(false);
+      setDoneLoading(true);
+      props.setSkin(skin);
+      setTimeout(() => {
+        setDoneLoading(false);
+      }, 3000);
+    };
+    changeDisplayName();
+  };
+
   return (
-    <>
-      <div className="border-solid mt-5">
-        <div className="w-[100%] h-auto text-4xl mt-4 text-center">Choose Your Avatar</div>
-        <div className="w-[100%] h-auto text-xl text-center">
+    <div className="pt-10 pb-20">
+      <div className="border-solid h-auto">
+        <div className=" text-[2vw] mt-4 text-center">Choose Your Avatar</div>
+        <div className="text-[1.5vw] text-center my-5">
           Currently selected: <span className="text-blue-600">{currentSelection}</span>
         </div>
         <div className="w-[100%] h-auto relative">
@@ -150,7 +168,24 @@ const Carousel = (props) => {
           </div>
         </div>
       </div>
-    </>
+
+      <div className="flex flex-col mt-10">
+        {loading && <div className="text-green-500 mx-auto mb-5">Saving avatar...</div>}
+        {doneLoading && (
+          <div className="text-green-500 mx-auto mb-5">
+            Saved! Refresh the page before joining your next game to use your new avatar.
+          </div>
+        )}
+        <button
+          onClick={() => {
+            handleSkinChange(currentSelection);
+          }}
+          className="editfbuttons mx-auto "
+        >
+          Save
+        </button>
+      </div>
+    </div>
   );
 };
 

@@ -21,6 +21,7 @@ const Settings = (props) => {
   const [input, setInput] = useState("");
   const [displayname, setDisplayname] = useState(props.userData.displayname);
   const [displaynameError, setDisplaynameError] = useState(false);
+  const [skin, setSkin] = useState(props.userData.skin);
 
   const handleChange = (event) => {
     if (event.target.value.length < 15) {
@@ -89,13 +90,52 @@ const Settings = (props) => {
 
   let data = [];
   // name
-  data.push(<div>Name: {props.userData.name} </div>);
-  // display name
-  data.push(<div>Display Name: {displayname}</div>);
+  data.push(
+    <div>
+      Name: <span className="text-blue-600">{props.userData.name}</span>
+    </div>
+  );
+
   // role
-  data.push(<div>Role: {props.userData.role} </div>);
+  data.push(
+    <div>
+      Role: <span className="text-blue-600">{props.userData.role} </span>
+    </div>
+  );
   // account creation date
-  data.push(<div>Account creation date: {make_human_readable(props.userData.creation_date)}</div>);
+  data.push(
+    <div>
+      Avatar: <span className="text-blue-600">{skin}</span>
+    </div>
+  );
+  data.push(
+    <div>
+      Account creation date:{" "}
+      <span className="text-blue-600">{make_human_readable(props.userData.creation_date)}</span>
+    </div>
+  );
+
+  let stats = [];
+  stats.push(
+    <div>
+      Games won: <span className="text-blue-600">{props.userData.games_won}</span>
+    </div>
+  );
+  stats.push(
+    <div>
+      Games played: <span className="text-blue-600">{props.userData.games_played}</span>
+    </div>
+  );
+  stats.push(
+    <div>
+      Players tagged: <span className="text-blue-600"> {props.userData.tags}</span>
+    </div>
+  );
+  stats.push(
+    <div>
+      Been tagged: <span className="text-blue-600">{props.userData.tagged}</span>
+    </div>
+  );
 
   let carouselContent = [
     "black_000",
@@ -148,11 +188,13 @@ const Settings = (props) => {
   return (
     <>
       <div className="background">
-        <div className="sheerbox">
-          <div className="w-[60vw] h-[100vh]">
-            <div className="text-[4vw] mt-10">Customization Settings</div>
-            <div className="text-[3vw] mt-[2vh]">
-              Display Name: <span className="text-blue-600">{displayname}</span>
+        <div className="sheerbox h-full overflow-scroll no-scrollbar">
+          <div className="w-[60vw] h-full overflow-scroll no-scrollbar">
+            <div className="flex flex-col">
+              <div className="text-[3.5vw] mt-10 mx-auto">Customization Settings</div>
+              <div className="text-[2vw] mt-[2vh] mx-auto">
+                Display Name: <span className="text-blue-600">{displayname}</span>
+              </div>
             </div>
             <button className="font-Ubuntu mt-5" onClick={handleShowChangeDisplay}>
               Change display name
@@ -184,8 +226,17 @@ const Settings = (props) => {
               </div>
             )}
             <hr />
-            Account metadata:
-            <div className="pt-[1vh] pb-[1vh] text-blue-200">{data}</div>
+            <div className="flex grow">
+              <div className="flex-1 text-2xl">
+                Account data:
+                <div className="pt-[1vh] pb-[1vh] text-blue-200 text-xl">{data}</div>
+              </div>
+              <div className="flex-1 text-2xl">
+                Lifetime stats:
+                <div className="pt-[1vh] pb-[1vh] text-blue-200 text-xl">{stats}</div>
+              </div>
+            </div>
+
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               <button
                 onClick={() => {
@@ -196,7 +247,8 @@ const Settings = (props) => {
                 Logout
               </button>
             </GoogleOAuthProvider>
-            <Carousel content={carouselContent} userData={props.userData} />
+            <hr />
+            <Carousel content={carouselContent} userData={props.userData} setSkin={setSkin} />
           </div>
         </div>
       </div>

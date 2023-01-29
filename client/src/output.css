@@ -386,8 +386,8 @@
   left: 8vw;
 }
 
-.left-10{
-  left: 2.5rem;
+.bottom-\[1vh\]{
+  bottom: 1vh;
 }
 
 .left-\[0\.5vw\]{
@@ -396,6 +396,10 @@
 
 .right-\[0\.5vw\]{
   right: 0.5vw;
+}
+
+.left-10{
+  left: 2.5rem;
 }
 
 .top-\[15\%\]{
@@ -440,10 +444,6 @@
 
 .left-\[25\%\]{
   left: 25%;
-}
-
-.bottom-\[1vh\]{
-  bottom: 1vh;
 }
 
 .z-10{
@@ -620,8 +620,16 @@
   margin-right: 3vw;
 }
 
+.mt-5{
+  margin-top: 1.25rem;
+}
+
 .mb-\[10vh\]{
   margin-bottom: 10vh;
+}
+
+.mt-10{
+  margin-top: 2.5rem;
 }
 
 .mb-8{
@@ -688,20 +696,20 @@
   margin-bottom: 0.5rem;
 }
 
-.mt-5{
-  margin-top: 1.25rem;
-}
-
-.mt-10{
-  margin-top: 2.5rem;
+.ml-5{
+  margin-left: 1.25rem;
 }
 
 .mb-10{
   margin-bottom: 2.5rem;
 }
 
-.mb-\[20vh\]{
-  margin-bottom: 20vh;
+.mt-20{
+  margin-top: 5rem;
+}
+
+.mt-12{
+  margin-top: 3rem;
 }
 
 .mb-5{
@@ -754,6 +762,10 @@
 
 .h-\[40\%\]{
   height: 40%;
+}
+
+.h-\[100vh\]{
+  height: 100vh;
 }
 
 .h-52{
@@ -824,16 +836,12 @@
   height: 25vw;
 }
 
-.h-12{
-  height: 3rem;
-}
-
-.h-\[80vh\]{
-  height: 80vh;
-}
-
 .h-\[3vw\]{
   height: 3vw;
+}
+
+.h-12{
+  height: 3rem;
 }
 
 .h-\[70vh\]{
@@ -872,20 +880,20 @@
   height: 1.5rem;
 }
 
-.h-\[100vh\]{
-  height: 100vh;
+.h-2{
+  height: 0.5rem;
+}
+
+.h-\[40vw\]{
+  height: 40vw;
 }
 
 .h-\[40vh\]{
   height: 40vh;
 }
 
-.h-\[35vh\]{
-  height: 35vh;
-}
-
-.h-\[45vh\]{
-  height: 45vh;
+.h-\[20vw\]{
+  height: 20vw;
 }
 
 .w-screen{
@@ -1000,6 +1008,10 @@
   width: 20%;
 }
 
+.w-\[3vw\]{
+  width: 3vw;
+}
+
 .w-64{
   width: 16rem;
 }
@@ -1010,10 +1022,6 @@
 
 .w-\[60vw\]{
   width: 60vw;
-}
-
-.w-\[3vw\]{
-  width: 3vw;
 }
 
 .w-\[10vw\]{
@@ -1109,16 +1117,6 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.translate-x-0{
-  --tw-translate-x: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.-translate-x-full{
-  --tw-translate-x: -100%;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .-translate-x-1\/2{
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1126,6 +1124,16 @@
 
 .-translate-y-1\/2{
   --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-0{
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-x-full{
+  --tw-translate-x: -100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1233,6 +1241,10 @@
   overflow: hidden;
 }
 
+.overflow-scroll{
+  overflow: scroll;
+}
+
 .overflow-x-auto{
   overflow-x: auto;
 }
@@ -1335,11 +1347,6 @@
 .border-green-900{
   --tw-border-opacity: 1;
   border-color: rgb(20 83 45 / var(--tw-border-opacity));
-}
-
-.border-red-500{
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .bg-blue-700{
@@ -1538,6 +1545,14 @@
   padding: 0.25rem;
 }
 
+.p-10{
+  padding: 2.5rem;
+}
+
+.p-20{
+  padding: 5rem;
+}
+
 .py-3{
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -1649,6 +1664,14 @@
   padding-top: 0.5rem;
 }
 
+.pt-10{
+  padding-top: 2.5rem;
+}
+
+.pb-20{
+  padding-bottom: 5rem;
+}
+
 .text-center{
   text-align: center;
 }
@@ -1740,6 +1763,10 @@
 
 .text-\[1vw\]{
   font-size: 1vw;
+}
+
+.text-\[3\.5vw\]{
+  font-size: 3.5vw;
 }
 
 .font-\[900\]{
