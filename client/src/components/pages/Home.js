@@ -75,9 +75,23 @@ const Home = ({ userId, userRole, userName }) => {
                   <path class="a3" d="M0 80 L100 132 L200 80"></path>
                 </svg>
               </div> */}
+
+              <div
+                onClick={() => {
+                  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                }}
+                className="fixed left-[50%] transform translate-x-[-50%] bottom-[10%]"
+              >
+                <div>temporary</div>
+                <div class="arrow">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="bg-stone-900 bg-fixed bg-cover h-auto flex flex-col justify-evenly">
+          <div className="bg-stone-900 bg-fixed bg-cover h-full flex flex-col justify-evenly">
             <div className="flex flex-wrap justify-evenly pb-8">
               <Card
                 title="Flashcards"
