@@ -149,6 +149,13 @@ const Game = (props) => {
         );
       })
     );
+    if (players.length === 0) {
+      setPlayerDivs(
+        <div className="flex text-center h-[70%] items-center">
+          <div className="w-[100%] mx-auto text-gray-500">No one played</div>
+        </div>
+      );
+    }
   }, [studentSorting]);
 
   useEffect(() => {
