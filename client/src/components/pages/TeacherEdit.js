@@ -128,7 +128,7 @@ const TeacherEdit = () => {
           <Navbar edit={true} />
           <div class="h-[75px]"></div>
           <div className="background overflow-y-hidden h-[calc(100vh_-_78px)]">
-            <div className="sheerbox w-[70%] mb-1">
+            <div className="sheerbox w-[70%] h-[100%] mb-1">
               <flashCardContext.Provider value={[flashCardSet, setFlashCardSet]}>
                 {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
                 Error: please give your flashcard set a title{" "}
@@ -151,52 +151,56 @@ const TeacherEdit = () => {
                     </div>
                   )}
                   <div className="flex justify-center">
-                    {dashboardSaveWarning && (
-                      <>
-                        <div className="absolute text-red-600 bottom-[8vh]">
-                          <div className="flex justify-end w-[70vw]">
-                            Return to dashboard? Your work will not be saved
-                            <div className="inline">
-                              <button
-                                className="font-Ubuntu ml-4 hover:cursor-pointer"
-                                onClick={handleBack}
-                              >
-                                Yes
-                              </button>
-                              <button
-                                className="font-Ubuntu hover:cursor-pointer"
-                                onClick={() => {
-                                  setDashboardSaveWarning(false);
-                                }}
-                              >
-                                Cancel
-                              </button>
-                            </div>
+                    <div className="w-[50%] h-[5vh] relative">
+                      {loading && (
+                        <div className="absolute text-green-600 bottom-[8vh]">
+                          <div className="flex">
+                            <div>Saving...</div>
                           </div>
                         </div>
-                      </>
-                    )}
-                    {loading && (
-                      <div className="absolute text-green-600 bottom-[8vh]">
-                        <div className="flex justify-start w-[70vw]">
-                          <div>Saving...</div>
-                        </div>
-                      </div>
-                    )}
-                    <button
-                      onClick={handleSubmit}
-                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%] h-[5vh] align-middle"
-                    >
-                      Save and Exit
-                    </button>
-                    <button
-                      onClick={() => {
-                        setDashboardSaveWarning(true);
-                      }}
-                      className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-[50%] h-[5vh] align-middle"
-                    >
-                      Back to dashboard
-                    </button>
+                      )}
+                      <button
+                        onClick={handleSubmit}
+                        className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 w-full font-Ubuntu align-middle"
+                      >
+                        Save and Exit
+                      </button>
+                    </div>
+                    <div className="w-[50%] h-[5vh] relative">
+                      {dashboardSaveWarning && (
+                        <>
+                          <div className="absolute text-red-600 bottom-[8vh]">
+                            <div className="flex">
+                              Return to dashboard? Your work will not be saved
+                              <div className="inline">
+                                <button
+                                  className="font-Ubuntu ml-4 hover:cursor-pointer"
+                                  onClick={handleBack}
+                                >
+                                  Yes
+                                </button>
+                                <button
+                                  className="font-Ubuntu hover:cursor-pointer"
+                                  onClick={() => {
+                                    setDashboardSaveWarning(false);
+                                  }}
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      <button
+                        onClick={() => {
+                          setDashboardSaveWarning(true);
+                        }}
+                        className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 font-Ubuntu w-full align-middle"
+                      >
+                        Back to dashboard
+                      </button>
+                    </div>
                   </div>
                 </div>
               </flashCardContext.Provider>
