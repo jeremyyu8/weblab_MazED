@@ -234,6 +234,8 @@ const makeNewPlayer = (_id, pin, name, displayname) => {
     flashcards_total: 0, // total number of flashcards answered
     invincible: false, // invincible after getting tagged
     newlevel: false, // if on new level
+    team: "neutral", // team mode
+    infected: "false", // infection
     borders: borders,
   };
 
@@ -323,6 +325,11 @@ const updateGameState = () => {
           continue;
         }
 
+        // can't tag someone on the same team in team mode
+        if (games[pin]["gameMode"] === "team" && player1["team"] === player2["team"]) {
+          continue;
+        }
+
         // if powers are equal, both players get tagged
         // players freeze on tag
         console.log("someone got tagged");
@@ -333,14 +340,27 @@ const updateGameState = () => {
           player2["tags"] += 1;
           player1["numtagged"] += 1;
           player2["numtagged"] += 1;
+          // infection
+          if (games[pin]["gameMode"] === "infection") {
+            if (player1["infected"] === true) player2["infected"] === true;
+            if (player2["infected"] === true) player1["infected"] === true;
+          }
         } else if (player1["power"] > player2["power"]) {
           player2["tagged"] = player1["name"];
           player1["tags"] += 1;
           player2["numtagged"] += 1;
+          // infection
+          if (games[pin]["gameMode"] === "infection") {
+            if (player1["infected"] === true) player2["infected"] === true;
+          }
         } else {
           player1["tagged"] = player2["name"];
           player2["tags"] += 1;
           player1["numtagged"] += 1;
+          // infection
+          if (games[pin]["gameMode"] === "infection") {
+            if (player2["infected"] === true) player1["infected"] === true;
+          }
         }
       }
     }
@@ -489,7 +509,7 @@ const rankPlayers = (pin) => {
     if (_id !== games[pin]["teacher"]["_id"]) {
       let player_level = games[pin]["players"][_id]["level"];
       let tags = games[pin]["players"][_id]["tags"];
-      if (player_level <= 1) {
+      if (player_level <= 0) {
         players.push([_id, player_level, 3600, tags]);
       } else {
         let level_completion_tag = "level" + player_level + "completion";
