@@ -198,6 +198,14 @@ const Game = (props) => {
       })
     );
 
+    if (players.length === 0) {
+      setPlayerDivs(
+        <div className="flex text-center h-[70%] items-center">
+          <div className="w-[100%] mx-auto text-gray-500">No one played</div>
+        </div>
+      );
+    }
+
     let cards = [];
     for (const _id in props.gameState.questionStats) {
       const card = cardMap[_id];
@@ -292,7 +300,7 @@ const Game = (props) => {
 
                 <div className="border-solid w-[80%] mt-8 h-[60vh] mx-auto overflow-y-auto relative text-xl">
                   <div className="flex absolute top-4 right-8">
-                    <div> Flashcards sorted by:</div>
+                    <div> Sort:</div>
                     <button
                       className="font-Ubuntu mx-2 w-[10vw] text-center text-md"
                       onClick={() => {
@@ -343,17 +351,17 @@ const Game = (props) => {
                 {studentsRanked && (
                   <div className="fixed w-[30%] h-auto top-[10%] left-[60%] bg-gray-200 opacity-100 p-8 z-50">
                     The listed ranks are based on how quickly each student completed each maze
-                    during this particular game. Based on the different strategies that each
-                    students might have used to progress, the shown ranks may not accurately reflect
-                    accuracy percentages.
+                    during this particular game. Based on the different strategies that each student
+                    might have used to progress, the shown ranks may not accurately reflect accuracy
+                    percentages.
                     <div className="flex justify-center">
                       <button
-                        className="font-Ubuntu w-[50%] mt-4"
+                        className="font-Ubuntu w-[25%] mt-4"
                         onClick={() => {
                           setStudentsRanked(false);
                         }}
                       >
-                        close
+                        OK
                       </button>
                     </div>
                   </div>
@@ -364,7 +372,7 @@ const Game = (props) => {
 
                 <div className="border-solid w-[80%] mt-8 h-[60vh] mx-auto overflow-y-auto relative text-xl">
                   <div className="flex absolute top-4 right-8">
-                    <div> Students sorted by:</div>
+                    <div> Sort:</div>
                     <button
                       className="font-Ubuntu mx-2 w-[10vw] text-center text-md"
                       onClick={() => {
