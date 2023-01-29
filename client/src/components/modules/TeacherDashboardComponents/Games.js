@@ -32,7 +32,7 @@ const Games = (props) => {
       ) : (
         <>
           <div className="background">
-            <div class="sheerbox">
+            <div class="sheerbox w-[70%]">
               <div className="flex mt-8">
                 <div className="text-5xl text-blue-200 my-auto">Past Games</div>
               </div>

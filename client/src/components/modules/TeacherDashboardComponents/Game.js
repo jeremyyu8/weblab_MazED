@@ -4,111 +4,113 @@ import { get, post } from "../../../utilities";
 //props are gamestate and game
 const Game = (props) => {
   const [insideData, setInsideData] = useState("flashcard"); //flashcard or player
+  const [playerDivs, setPlayerDivs] = useState([]);
+  const [flashcardDivs, setFlashcardDivs] = useState([]);
+  const [studentsRanked, setStudentsRanked] = useState(false);
 
   let cardMap = {};
   for (const card of props.gameState.cards) {
     cardMap[card._id] = { question: card.question, choices: card.choices, answers: card.answers };
   }
 
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const make_human_readable = (iso) => {
     let date = new Date(iso);
-    let now = new Date();
 
-    console.log("iso: ");
-    console.log(iso);
+    return `Played on: ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  };
 
-    const utc1 = Date.UTC(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds()
-    );
-    const utc2 = Date.UTC(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      now.getHours(),
-      now.getMinutes(),
-      now.getSeconds()
-    );
-
-    let dif = Math.floor((utc2 - utc1) / 1000); // dif in seconds
-    if (dif < 60) {
-      return `Played: ${dif} seconds ago`;
-    } else if (dif < 3600) {
-      const m = Math.floor(dif / 60);
-      const s = dif - m * 60;
-      const mtag = m == 1 ? "minute" : "minutes";
-      return `Played: ${m} ${mtag} ${s} seconds ago`;
-    } else if (dif < 86400) {
-      dif = Math.floor(dif / 60); // dif in minutes
-      const h = Math.floor(dif / 60);
-      const m = dif - h * 60;
-      const htag = h == 1 ? "hour" : "hours";
-      return `Played: ${h} ${htag} ${m} minutes ago`;
-    } else if (dif < 31557600) {
-      dif = Math.floor(dif / 3600); // dif in hours
-      const d = Math.floor(dif / 24);
-      const h = dif - d * 24;
-      const dtag = d == 1 ? "day" : "days";
-      return `Played: ${d} ${dtag} ${h} hours ago`;
+  // compute flashcard percentage
+  const percentage = (correct, total) => {
+    let p = correct / total;
+    let d = Math.round(100 * (p - Math.floor(p)));
+    if (isNaN(p)) {
+      return "N/A";
     } else {
-      dif = Math.floor(dif / 86400); // dif in days
-      const y = Math.floor(dif / 365.25);
-      const d = Math.floor(dif - y * 365.25);
-      const ytag = y == 1 ? "year" : "years";
-      return `Played: ${y} ${ytag} ${d} days ago`;
+      return String(Math.floor(p) + "." + String(d));
     }
   };
 
-  let playerDivs = [];
-  for (const _id in props.gameState.players) {
-    const curPlayer = props.gameState.players[_id];
-    if (curPlayer.name === "teacher") continue;
-    playerDivs.push(
-      <>
-        <div className="flex text-2xl justify-between border-solid bg-blue-300 border-blue-500 m-5 p-2">
-          <div className="flex-1 mx-2">Name: {curPlayer.name}</div>
-          <div className="flex-1 mx-2">
-            Questions answered correctly: {curPlayer.flashcards_correct}
-          </div>
-          <div className="flex-1 mx-2 ">Questions answered total: {curPlayer.flashcards_total}</div>
-        </div>
-      </>
+  useEffect(() => {
+    let players = [];
+    for (let playerid in props.gameState["players"]) {
+      if (playerid !== props.gameState["teacher"]["_id"]) {
+        players.push([playerid, props.gameState["players"][playerid]["rank"]]);
+      }
+    }
+    players.sort((p1, p2) => {
+      if (p1[1] < p2[1]) return -1;
+      else return 1;
+    });
+
+    setPlayerDivs(
+      players.map((player, idx) => {
+        let curPlayer = props.gameState["players"][player[0]];
+        return (
+          <>
+            <div
+              key={idx}
+              className="text-2xl border-solid bg-blue-200 border-blue-500 m-5 p-2 hover:shadow-[0_0_5px_5px_rgba(29,78,216,0.15)] transition-all ease-in"
+            >
+              <div className="mx-2">
+                Student: <span className="text-blue-800">{curPlayer.name}</span>
+              </div>
+              <div className="flex justify-between">
+                <div className="basis-1/8 ml-3">Rank: {idx + 1}</div>
+                <div className="flex-1 ml-[8vw]">Correct: {curPlayer.flashcards_correct}</div>
+                <div className="flex-1 ml-3">Attempted: {curPlayer.flashcards_total}</div>
+                <div className="flex-1 ml-3">
+                  Accuracy: {percentage(curPlayer.flashcards_correct, curPlayer.flashcards_total)}
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      })
     );
-  }
 
-  let flashcardDivs = [];
-
-  for (const _id in props.gameState.questionStats) {
-    const card = cardMap[_id];
-    flashcardDivs.push(
-      <>
-        <div className="flex text-2xl justify-between border-solid bg-blue-300 border-blue-500 m-5 p-2">
-          <div className="flex-1 mx-2">Question:{card.question}</div>
-          <div className="flex-1 mx-2 ">
-            Answered correctly:{props.gameState.questionStats[_id].correct}
+    let tempFlashcardDivs = [];
+    for (const _id in props.gameState.questionStats) {
+      const card = cardMap[_id];
+      tempFlashcardDivs.push(
+        <>
+          <div className="text-2xl border-solid bg-blue-200 border-blue-500 m-5 p-2 hover:shadow-[0_0_5px_5px_rgba(29,78,216,0.15)] transition-all ease-in">
+            <div className="flex-1 mx-2">
+              Question: <span className="text-blue-700">{card.question}</span>
+            </div>
+            <div className="flex-1 mx-2 ">
+              Correct: {props.gameState.questionStats[_id].correct}
+            </div>
+            <div className="flex-1 mx-2 ">
+              Attempts: {props.gameState.questionStats[_id].attempts}
+            </div>
           </div>
-          <div className="flex-1 mx-2 ">
-            Total attempts:{props.gameState.questionStats[_id].attempts}
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  flashcardDivs.push(<></>);
+        </>
+      );
+    }
+    setFlashcardDivs(tempFlashcardDivs);
+  }, []);
 
   const [showing, setShowing] = useState(false);
-  console.log(props.gameState);
   return (
     <>
       <div className="flex border-solid border-blue-700 p-5 w-[50vw] m-3 justify-between bg-transparent rounded-xl">
         <div className="flex-1">
-          <div className="text-blue-400 text-3xl">Game: {props.gameState.settitle} </div>
-          <div className="mt-3">{props.datePlayed} </div>
+          <div className="text-blue-400 text-3xl">{props.gameState.settitle} </div>
+          <div className="mt-3">{make_human_readable(props.datePlayed)} </div>
         </div>
         <div className="basis-1/8 flex flex-col">
           <button
@@ -124,7 +126,7 @@ const Game = (props) => {
 
       {showing && (
         //fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-white opacity-90 text-black z-50 border-solid
-        <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-white opacity-90 text-black z-50 border-solid flex flex-col">
+        <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-white opacity-95 text-black z-50 border-solid flex flex-col">
           <div>
             <div className="m-4">
               <button
@@ -149,12 +151,13 @@ const Game = (props) => {
             {insideData === "flashcard" && (
               <>
                 <div className="flex">
-                  <div className="mx-auto text-3xl text-blue-600">
-                    Flashcard data for set: {props.gameState.settitle}
+                  <div className="mx-auto text-3xl text-black">
+                    Flashcard data for set:{" "}
+                    <span className="text-blue-600">{props.gameState.settitle}</span>
                   </div>
                 </div>
 
-                <div className="border-solid w-[80%] mt-10 h-[65vh] mx-auto overflow-y-auto">
+                <div className="border-solid w-[80%] mt-8 h-[60vh] mx-auto overflow-y-auto">
                   {flashcardDivs}
                 </div>
               </>
@@ -162,11 +165,37 @@ const Game = (props) => {
 
             {insideData === "player" && (
               <>
+                <button
+                  className="editfbuttons w-[15vw] absolute top-[3vh] right-[4vw]"
+                  onClick={() => {
+                    setStudentsRanked(true);
+                  }}
+                >
+                  How are students ranked?
+                </button>
+                {studentsRanked && (
+                  <div className="fixed w-[30%] h-auto top-[10%] left-[60%] bg-gray-200 opacity-100 p-8 z-50">
+                    The listed ranks are based on how quickly each student completed each maze
+                    during this particular game. Based on the different strategies that each
+                    students might have used to progress, the shown ranks may not accurately reflect
+                    accuracy percentages.
+                    <div className="flex justify-center">
+                      <button
+                        className="font-Ubuntu w-[50%] mt-4"
+                        onClick={() => {
+                          setStudentsRanked(false);
+                        }}
+                      >
+                        close
+                      </button>
+                    </div>
+                  </div>
+                )}
                 <div className="flex">
-                  <div className="mx-auto text-3xl text-blue-600">Player data</div>
+                  <div className="mx-auto text-3xl text-black">Student data</div>
                 </div>
 
-                <div className="border-solid w-[80%] mt-10 h-[65vh] mx-auto overflow-y-auto">
+                <div className="border-solid w-[80%] mt-8 h-[60vh] mx-auto overflow-y-auto">
                   {playerDivs}
                 </div>
               </>
