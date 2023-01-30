@@ -88,7 +88,7 @@ const Signup = ({
                       </div>
                       <ul class="list-disc text-blue-300 ">
                         <li className="my-4">Join maze games using game code</li>
-                        <li className="my-4">Review statistics from played games</li>
+                        <li className="my-4">Review statistics across all played games</li>
                         <li className="my-4">Customize game character</li>
                       </ul>
                     </div>

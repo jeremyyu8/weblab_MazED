@@ -44,7 +44,7 @@ const Home = ({ userId, userRole, userName }) => {
       ) : (
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
-          <div className="background">
+          <div className="background h-[90vh]">
             <div className="sheerbox w-[80%] h-[30%]">
               {/* <div className="hidden typewriter md:flex md:justify-center">
                 <h1>Can you find your way out?</h1>
@@ -54,8 +54,8 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
               <div className="p-2 text-blue-400 text-xl w-[70%] text-center">
                 <p className="m-2 leading-8">
-                  Multiplayer maze + tag game for learning through flashcards custom to your
-                  classroom.
+                  Multiplayer maze + tag game to create learning experiences custom to your
+                  classroom
                 </p>
               </div>
 
@@ -89,30 +89,33 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
             </div>
           </div>
-          <div className="bg-stone-900 bg-fixed bg-cover h-[100vh] flex flex-col justify-evenly">
-            <div className="flex flex-wrap justify-evenly pb-8">
-              <Card
-                title="Flashcards"
-                text="Create your own set of flashcards, custom to your classroom."
-              ></Card>
-              <Card title="Create" text="Create and join unique game lobbies."></Card>
-              <Card
-                title="MazED"
-                text="Answer questions to escape the maze! Don't get tagged by other players, level
+          <div className="bg-stone-900 bg-fixed bg-cover h-[200vh]">
+            <div className="pagetitle text-center p-8 pt-12">How it works</div>
+            <div>
+              <div className="flex flex-wrap justify-evenly pb-8">
+                <Card
+                  title="Flashcards"
+                  text="Create your own set of flashcards, custom to your classroom."
+                ></Card>
+                <Card title="Create" text="Create and join unique game lobbies."></Card>
+                <Card
+                  title="MazED"
+                  text="Answer questions to escape the maze! Don't get tagged by other players, level
                       up to tag them first."
-              ></Card>
-              <Card
-                title="Review"
-                text="Review past games and missed questions to enhance your learning experience."
-              ></Card>
-            </div>
-            <div className="pt-16 text-center mb-10">
-              <Link
-                to="/signup"
-                className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
-              >
-                Sign Up for free
-              </Link>
+                ></Card>
+                <Card
+                  title="Review"
+                  text="Review past games and missed questions to enhance your learning experience."
+                ></Card>
+              </div>
+              <div className="pt-16 text-center mb-10">
+                <Link
+                  to="/signup"
+                  className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
+                >
+                  Sign Up for free
+                </Link>
+              </div>
             </div>
           </div>
         </>
