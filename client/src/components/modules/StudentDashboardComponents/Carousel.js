@@ -25,6 +25,7 @@ const Carousel = (props) => {
   const [loading, setLoading] = useState(false);
   const [doneLoading, setDoneLoading] = useState(false);
   const [showTip, setShowTip] = useState(false);
+  const [flashing, setFlashing] = useState(true);
 
   const incrementCarousel = (delta) => {
     if (carousel.current) {
@@ -283,9 +284,6 @@ const Carousel = (props) => {
   return (
     <div className="pt-10 pb-20">
       <div className="border-solid h-auto relative">
-        <div className="absolute right-[1vh] top-[1vh] w-64 text-xl border-solid p-3 animate-pulse">
-          Try using your arrowkeys to test out the movement of each avatar!
-        </div>
         <div className=" text-[2vw] mt-4 text-center">Choose Your Avatar</div>
         <div className="text-[1.5vw] text-center my-5">
           Current selection: <span className="text-blue-600">{currentSelection}</span>
@@ -371,19 +369,20 @@ const Carousel = (props) => {
             </button>
           </div>
           <div className="basis-1/3 relative">
-            {/* <button
-              className="editfbuttons absolute right-0"
+            <button
+              className={`editfbuttons absolute right-0 ${flashing === true && "animate-pulse"}`}
               onClick={() => {
                 setShowTip(true);
+                setFlashing(false);
               }}
             >
               Tip
-            </button> */}
+            </button>
           </div>
         </div>
         {showTip && (
           <>
-            <div className="fixed bottom-[30%] right-[15%] w-[30%] h-[15%] text-black bg-white opacity-80 text-xl p-8">
+            <div className="fixed bottom-[40%] left-[50%] translate-x-[-50%] w-[30%] h-[15%] text-black bg-white opacity-80 text-xl p-8">
               Try using your arrowkeys to test out the movement of each avatar!
               <div className="flex h-[40%] relative">
                 <div>
