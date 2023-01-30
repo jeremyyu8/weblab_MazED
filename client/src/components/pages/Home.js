@@ -49,8 +49,8 @@ const Home = ({ userId, userRole, userName }) => {
               {/* <div className="hidden typewriter md:flex md:justify-center">
                 <h1>Can you find your way out?</h1>
               </div> */}
-              <div className="typewriter text-[2vw] w-[85%]">
-                <h1>Can you find your way out?</h1>
+              <div className="typewriter text-[2vw] w-[54%]">
+                <h1>Welcome to MazEd</h1>
               </div>
 
               {/* <div className="title">Can you find your way out?</div> */}
