@@ -1,6 +1,8 @@
 import React from "react";
 import HomeButton from "./HomeButton";
 import { Link } from "@reach/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus, faBook, faSignIn } from "@fortawesome/free-solid-svg-icons";
 
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
@@ -24,14 +26,16 @@ const Navbar = (props) => {
         <div className="hidden md:flex space-x-6">
           <Link
             to="/rules"
-            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400"
+            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400 flex"
           >
+            <FontAwesomeIcon className="mr-2 my-auto" icon={faBook} size="" />
             Rules
           </Link>
           <Link
             to="/login"
-            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400"
+            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400 flex"
           >
+            <FontAwesomeIcon className="mr-2 my-auto" icon={faSignIn} size="" />
             Login
           </Link>
           <HomeButton text="Sign Up" url="/signup" />

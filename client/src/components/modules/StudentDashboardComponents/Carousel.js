@@ -282,7 +282,10 @@ const Carousel = (props) => {
 
   return (
     <div className="pt-10 pb-20">
-      <div className="border-solid h-auto">
+      <div className="border-solid h-auto relative">
+        <div className="absolute right-[1vh] top-[1vh] w-64 text-xl border-solid p-3 animate-pulse">
+          Try using your arrowkeys to test out the movement of each avatar!
+        </div>
         <div className=" text-[2vw] mt-4 text-center">Choose Your Avatar</div>
         <div className="text-[1.5vw] text-center my-5">
           Current selection: <span className="text-blue-600">{currentSelection}</span>
@@ -368,14 +371,14 @@ const Carousel = (props) => {
             </button>
           </div>
           <div className="basis-1/3 relative">
-            <button
+            {/* <button
               className="editfbuttons absolute right-0"
               onClick={() => {
                 setShowTip(true);
               }}
             >
               Tip
-            </button>
+            </button> */}
           </div>
         </div>
         {showTip && (

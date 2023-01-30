@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import LeftSideBarSettings from "./LeftSideBarSettings";
 import LeftSideBarJoin from "./LeftSideBarJoin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesLeft, faAnglesRight, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 /**
@@ -47,7 +47,7 @@ const LeftSideBar = (props) => {
                   props.hl();
                 }}
               >
-                Logout
+                <FontAwesomeIcon icon={faSignOut} /> Logout
               </button>
             </GoogleOAuthProvider>
           </div>
