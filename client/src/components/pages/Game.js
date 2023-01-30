@@ -727,18 +727,23 @@ const Game = () => {
                     </div>
                   </>
                 )}
-                {level > 1 && level !== numMazes && (
+                {level > 1 && level !== numMazes + 1 && (
                   <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
                 )}
                 {level === 1 && !(gameMode === "infection" && infected === true) && (
-                  <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
+                  <div className="text-4xl text-center mt-[4vh]">Level: {level}</div>
                 )}
                 {level === 1 && !(gameMode === "infection" && infected === true) && (
-                  <div className="text-xl text-center">
-                    Time to complete single-player level: {convertToTime(level0CompletionTime)}
-                  </div>
+                  <>
+                    <div className="text-lg text-center m-4">
+                      Starting now, every level is multiplayer. Don't get tagged!
+                    </div>
+                    <div className="text-lg text-center">
+                      Time spent in single-player: {convertToTime(level0CompletionTime)}
+                    </div>
+                  </>
                 )}
-                {level > 1 && level !== numMazes && (
+                {level > 1 && level !== numMazes + 1 && (
                   <div className="text-xl text-center">
                     Time to complete level {level - 1}:{" "}
                     {convertToTime(
@@ -746,7 +751,7 @@ const Game = () => {
                     )}
                   </div>
                 )}
-                {level === numMazes && (
+                {level === numMazes + 1 && (
                   <>
                     <div className="text-2xl text-center mt-[2vh]">
                       Congrats! You finished every maze. Feel free to keep answering questions and

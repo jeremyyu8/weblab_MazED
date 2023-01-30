@@ -69,13 +69,13 @@ const Game = (props) => {
     if (flashcardSorting === "Default") {
     } else if (flashcardSorting === "Difficulty (ascending)") {
       cards.sort((p1, p2) => {
-        if (p1.correct / p1.attempts < p2.correct / p2.attempts) return -1;
-        else return 1;
+        if (p1.correct / p1.attempts < p2.correct / p2.attempts) return 1;
+        else return -1;
       });
     } else if (flashcardSorting === "Difficulty (descending)") {
       cards.sort((p1, p2) => {
-        if (p1.correct / p1.attempts < p2.correct / p2.attempts) return 1;
-        else return -1;
+        if (p1.correct / p1.attempts < p2.correct / p2.attempts) return -1;
+        else return 1;
       });
     }
 

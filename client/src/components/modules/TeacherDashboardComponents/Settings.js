@@ -45,19 +45,41 @@ const Settings = (props) => {
 
   let data = [];
   // name
-  data.push(<div>Name: {props.userData.name} </div>);
+
+  <div>
+    Players tagged: <span className="text-blue-600"> {props.userData.tags}</span>
+  </div>;
+
+  data.push(
+    <div>
+      Name: <span className="text-blue-600"> {props.userData.name}</span>
+    </div>
+  );
   // role
-  data.push(<div>Role: {props.userData.role} </div>);
+  data.push(
+    <div>
+      Role: <span className="text-blue-600"> {props.userData.role}</span>
+    </div>
+  );
   // number of sets
-  data.push(<div>Number of sets: {props.userData.sets.length}</div>);
+  data.push(
+    <div>
+      Number of sets <span className="text-blue-600"> {props.userData.sets.length}</span>
+    </div>
+  );
   // account creation date
-  data.push(<div>Account creation date: {make_human_readable(props.userData.creation_date)}</div>);
+  data.push(
+    <div>
+      Account creation date:{" "}
+      <span className="text-blue-600"> {make_human_readable(props.userData.creation_date)}</span>
+    </div>
+  );
 
   return (
     <>
       <div className="background">
-        <div className="sheerbox">{data}</div>
-        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+        <div className="sheerbox text-3xl">{data}</div>
+        {/* <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
           <button
             onClick={() => {
               googleLogout();
@@ -66,7 +88,7 @@ const Settings = (props) => {
           >
             Logout
           </button>
-        </GoogleOAuthProvider>
+        </GoogleOAuthProvider> */}
       </div>
     </>
   );

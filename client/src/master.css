@@ -32,6 +32,10 @@
   .sheerbox {
     @apply rounded-3xl text-blue-200 bg-black bg-opacity-60 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center;
   }
+
+  .pagetitle {
+    @apply text-5xl font-bold text-blue-200 my-auto;
+  }
 }
 
 .arrow {
@@ -64,15 +68,15 @@
 
 @keyframes animate {
   0% {
-      opacity: 0;
-      transform: rotate(45deg) translate(-20px, -20px);
+    opacity: 0;
+    transform: rotate(45deg) translate(-20px, -20px);
   }
   50% {
-      opacity: 1;
+    opacity: 1;
   }
   100% {
-      opacity: 0;
-      transform: rotate(45deg) translate(20px, 20px);
+    opacity: 0;
+    transform: rotate(45deg) translate(20px, 20px);
   }
 }
 
@@ -86,52 +90,66 @@ table {
 }
 
 .arrows {
-	width: auto;
-	height: auto;
+  width: auto;
+  height: auto;
   position: fixed;
-	left: 50%;
+  left: 50%;
   padding-top: 40px;
   transform: translateX(-30%);
-	/* bottom: 20px; */
+  /* bottom: 20px; */
 }
 
 .arrows path {
-	stroke: blue;
-	fill: transparent;
-	stroke-width: 1px;	
-	animation: arrow 2s infinite;
-	-webkit-animation: arrow 2s infinite; 
+  stroke: blue;
+  fill: transparent;
+  stroke-width: 1px;
+  animation: arrow 2s infinite;
+  -webkit-animation: arrow 2s infinite;
 }
 
-@keyframes arrow
-{
-0% {opacity:0}
-40% {opacity:1}
-80% {opacity:0}
-100% {opacity:0}
+@keyframes arrow {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-@-webkit-keyframes arrow /*Safari and Chrome*/
-{
-0% {opacity:0}
-40% {opacity:1}
-80% {opacity:0}
-100% {opacity:0}
+@-webkit-keyframes arrow /*Safari and Chrome*/ {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .arrows path.a1 {
-	animation-delay:-1s;
-	-webkit-animation-delay:-1s; /* Safari 和 Chrome */
+  animation-delay: -1s;
+  -webkit-animation-delay: -1s; /* Safari 和 Chrome */
 }
 
 .arrows path.a2 {
-	animation-delay:-0.5s;
-	-webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+  animation-delay: -0.5s;
+  -webkit-animation-delay: -0.5s; /* Safari 和 Chrome */
 }
 
-.arrows path.a3 {	
-	animation-delay:0s;
-	-webkit-animation-delay:0s; /* Safari 和 Chrome */
+.arrows path.a3 {
+  animation-delay: 0s;
+  -webkit-animation-delay: 0s; /* Safari 和 Chrome */
 }
 
 .collapsible-sidebar {
@@ -187,29 +205,29 @@ img {
 }
 
 .levelfadein {
-  animation: fadeInAnimation ease 3s
+  animation: fadeInAnimation ease 3s;
 }
 
 .newlevelfadein {
-  animation: reverseFadeInAnimation ease-in 7s forwards
+  animation: reverseFadeInAnimation ease-in 7s forwards;
 }
 
 @keyframes fadeInAnimation {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
-   }
+    opacity: 1;
+  }
 }
 
 @keyframes reverseFadeInAnimation {
   0% {
-      opacity: 1;
+    opacity: 1;
   }
   100% {
-      opacity: 0;
-   }
+    opacity: 0;
+  }
 }
 
 .animation-scroll {
@@ -231,7 +249,7 @@ img {
   white-space: nowrap; /* Keeps the content on a single line */
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: 0.15em; /* Adjust as needed */
-  animation: typing 9s steps(16, start) infinite, blink-caret 0.75s step-end infinite;
+  animation: typing 9s steps(17, start) infinite, blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */

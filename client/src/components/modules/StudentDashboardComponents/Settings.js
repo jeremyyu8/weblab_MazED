@@ -237,16 +237,6 @@ const Settings = (props) => {
               </div>
             </div>
 
-            <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-              <button
-                onClick={() => {
-                  googleLogout();
-                  props.hl();
-                }}
-              >
-                Logout
-              </button>
-            </GoogleOAuthProvider>
             <hr />
             <Carousel content={carouselContent} userData={props.userData} setSkin={setSkin} />
           </div>

@@ -23,6 +23,8 @@ tiles[3] = new Image(tilewidth, tilewidth);
 tiles[3].src = "../gameassets/tree.png";
 tiles[4] = new Image(tilewidth, tilewidth);
 tiles[4].src = "../gameassets/end.png";
+tiles[5] = new Image(tilewidth, tilewidth);
+tiles[5].src = "../gameassets/sky.png";
 
 const sprites = {
   teacher: null,
@@ -83,9 +85,7 @@ for (const skin of skins) {
 }
 
 sprites["teacher"] = new Image(tilewidth, tilewidth);
-sprites["teacher"].src = "../gameassets/cats/black_000.png";
-// sprites["student"] = new Image(tilewidth, tilewidth);
-// sprites["student"].src = "../gameassets/cats/creme_000.png";
+sprites["teacher"].src = "../gameassets/cats/creme_000.png";
 
 // animation vectors
 let six = [-1, -1]; // h
@@ -167,7 +167,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
   ctx.imageSmoothingEnabled = false;
 
   // clear the canvas to black
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // get current user level to render

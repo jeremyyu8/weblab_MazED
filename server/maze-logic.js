@@ -195,17 +195,58 @@ const generateBorders = (dim, maze) => {
   return full_maze;
 };
 
+const checkGood = (x, y, n) => {
+  return x >= 0 && x < n && y >= 0 && y < n;
+};
+
+// flood fill for sky tiles
+// dim : n+5 -> n+5
+const generateSky = (maze) => {
+  let dx = [-1, 0, 1, 0, -1, -1, 1, 1];
+  let dy = [0, 1, 0, -1, -1, 1, -1, 1];
+  let new_maze = Array(maze.length);
+  for (let i = 0; i < maze.length; i++) {
+    new_maze[i] = [...maze[i]];
+  }
+
+  console.log(new_maze);
+  for (let i = 0; i < maze.length; i++) {
+    for (let j = 0; j < maze.length; j++) {
+      if (maze[i][j] === 0) {
+        let not_surrounded = 0;
+        let corners = 0;
+        for (let k = 0; k < 8; k++) {
+          let new_x = i + dx[k];
+          let new_y = j + dy[k];
+          if (checkGood(new_x, new_y, maze.length)) {
+            if (maze[new_x][new_y] !== 0) {
+              not_surrounded++;
+              if (k > 3) corners++;
+            }
+          }
+        }
+        if (not_surrounded === 0 || (corners === 4 && not_surrounded === 4)) {
+          new_maze[i][j] = 5;
+        }
+      }
+    }
+  }
+  console.log(new_maze);
+  return new_maze;
+};
+
 // 3x every square
 const generateFullMaze = (n) => {
   let traversible = generateMaze(n);
   let maze = generateBarriers(n, traversible);
   let bordersmaze = generateBorders(n, maze);
+  let skybordersmaze = generateSky(bordersmaze);
   let fullMaze = [];
   for (let i = 0; i < 3 * (n + 5); i++) {
     for (let j = 0; j < 3 * (n + 5); j++) {
       let row = Math.floor(i / 3);
       let col = Math.floor(j / 3);
-      fullMaze.push(bordersmaze[row][col]);
+      fullMaze.push(skybordersmaze[row][col]);
     }
   }
   return fullMaze;
@@ -213,15 +254,15 @@ const generateFullMaze = (n) => {
 
 const generateTrivialMaze = () => {
   let trivialMaze = [];
-  trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
-  trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
-  trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
+  trivialMaze.push([1, 0, 5, 5, 5, 5, 5, 5, 5]);
+  trivialMaze.push([1, 0, 5, 5, 5, 5, 5, 5, 5]);
+  trivialMaze.push([1, 0, 5, 5, 5, 5, 5, 5, 5]);
   trivialMaze.push([1, 0, 0, 0, 0, 0, 0, 0, 0]);
   trivialMaze.push([1, 1, 1, 1, 2, 1, 1, 1, 1]);
   trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 1]);
-  trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 1]);
-  trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 1]);
-  trivialMaze.push([0, 0, 0, 0, 0, 0, 0, 0, 4]);
+  trivialMaze.push([5, 5, 5, 5, 5, 5, 5, 0, 1]);
+  trivialMaze.push([5, 5, 5, 5, 5, 5, 5, 0, 1]);
+  trivialMaze.push([5, 5, 5, 5, 5, 5, 5, 0, 4]);
   // 3x everything
   let trivialMazeFull = [];
   for (let i = 0; i < 3 * 9; i++) {
@@ -240,6 +281,7 @@ const generateTrivialMaze = () => {
 // 2 = barrier
 // 3 = tree
 // 4 = portal
+// 5 = sky
 
 module.exports = {
   generateFullMaze,
