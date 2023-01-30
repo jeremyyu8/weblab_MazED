@@ -191,12 +191,27 @@ const RulesAndSettings = (props) => {
                 </button>
               </div>
             </div>
-            <div className="text-xl pt-4 pb-0 px-8">
-              Skin: <span className="text-blue-600">{catFileToName[props.userData.skin]}</span>
-            </div>
-            <div className="text-sm px-8">
-              {"This can be customized in your user settings page"}
-            </div>
+            {props.userData && props.userData.role === "student" && (
+              <>
+                <div className="text-xl pt-4 px-8">
+                  You are: <span className="text-blue-600">{props.userData.name}</span>
+                </div>
+                <div className="text-xl pt-4 pb-0 px-8">
+                  Skin: <span className="text-blue-600">{catFileToName[props.userData.skin]}</span>
+                </div>
+                <div className="text-sm px-8">
+                  {"This can be customized in your user settings page"}
+                </div>
+              </>
+            )}
+            {props.userData && props.userData.role === "teacher" && (
+              <>
+                <div className="text-xl p-4 px-8 pb-0">
+                  You are: <span className="text-blue-600">{props.userData.name}</span>
+                </div>
+                <div className="text-xl pt-0 p-4 px-8">You are the owner of this lobby!</div>
+              </>
+            )}
             <div className="text-xl pt-4 pb-0 px-8">
               Hitboxes:{" "}
               {props.hitboxes ? (

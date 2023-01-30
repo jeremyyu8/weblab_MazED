@@ -597,7 +597,13 @@ const Game = () => {
                   </div>
                 </div>
               </div>
-              {showRules && <RulesAndSettings setShowRules={setShowRules} gameMode={gameMode} />}
+              {showRules && (
+                <RulesAndSettings
+                  setShowRules={setShowRules}
+                  gameMode={gameMode}
+                  userData={userData}
+                />
+              )}
               {showActivePlayers && gameState && gamePin && (
                 <ActivePlayers
                   setShowActivePlayers={setShowActivePlayers}

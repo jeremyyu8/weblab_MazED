@@ -1823,6 +1823,10 @@
   padding-bottom: 0px;
 }
 
+.pt-0{
+  padding-top: 0px;
+}
+
 .text-center{
   text-align: center;
 }
