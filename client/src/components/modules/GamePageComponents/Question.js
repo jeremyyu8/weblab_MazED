@@ -42,7 +42,8 @@ const Question = (props) => {
   };
 
   const handleNewQuestion = () => {
-    const card = props.flashCardSet[Math.floor(Math.random() * props.flashCardSet.length)];
+    console.log(props.curFlashcards);
+    const card = props.curFlashcards[0];
     // console.log(card._id);
     const oldAnswers = [0, 1, 2, 3].map((val) => {
       if (card.answers.includes(val)) return true;
@@ -62,17 +63,46 @@ const Question = (props) => {
     });
   };
 
+  // const handleNewQuestion = () => {
+  //   const card = props.flashCardSet[Math.floor(Math.random() * props.flashCardSet.length)];
+  //   // console.log(card._id);
+  //   const oldAnswers = [0, 1, 2, 3].map((val) => {
+  //     if (card.answers.includes(val)) return true;
+  //     return false;
+  //   });
+  //   const [newChoices, answers] = shuffle([0, 1, 2, 3], oldAnswers);
+  //   let newAnswers = [];
+  //   for (let i = 0; i < 4; i++) {
+  //     if (answers[i] === true) newAnswers.push(i);
+  //   }
+
+  //   setCurQuestion({
+  //     question: card.question,
+  //     choices: newChoices.map((idx) => card.choices[idx]),
+  //     answers: newAnswers,
+  //     _id: card._id,
+  //   });
+  // };
+
   const handleAnswerQuestion = (answerSelected) => {
     if (props.taggedDisplay) return;
-    console.log("on answer", curQuestion, answerSelected);
     if (curQuestion.answers.includes(answerSelected)) {
       setQuestionState("right");
       changeTokens(props.userData._id, props.gamePin, "correct", curQuestion._id);
-      setNumQuestions(numQuestions - 1);
+      if (numQuestions >= 1) {
+        setNumQuestions(numQuestions - 1);
+      } else {
+        setNumQuestions(0);
+      }
+      props.setCurFlashcards(
+        props.curFlashcards
+          .slice(1)
+          .concat(props.flashCardSet[Math.floor(Math.random() * props.flashCardSet.length)])
+      );
     } else {
-      console.log("wrong");
       setQuestionState("wrong");
       changeTokens(props.userData._id, props.gamePin, "incorrect", curQuestion._id);
+      props.setCurFlashcards(props.curFlashcards.slice(1).concat(curQuestion));
     }
   };
 

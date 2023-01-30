@@ -6,6 +6,7 @@ import { get, post } from "../../../utilities";
  * @param {string} _id user _id
  * @param {object} gameState game state
  * @param {string} gamePin game pin
+ * @param {string} gameMode gameMode
  */
 const TeacherEndPage = (props) => {
   const [displayData, setDisplayData] = useState([]);
@@ -34,7 +35,7 @@ const TeacherEndPage = (props) => {
   // completion times
   const compute_last_completion_time = (player) => {
     let level = player["level"];
-    if (level === 1) {
+    if (level === 0) {
       return "N/A";
     } else {
       let time = convertToTime(player[`level${level - 1}completion`]);

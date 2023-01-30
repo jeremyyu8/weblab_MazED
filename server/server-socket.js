@@ -112,6 +112,24 @@ module.exports = {
           // user joined late and game already started (but not ended), put user in level 0 (the trivial level)
           if (gameLogic.games[data.pin]["status"] !== "lobby") {
             gameLogic.games[data.pin]["players"][data.studentid]["level"] = 0;
+            // if game mode is teamMode, assign team based on team size
+            if (gameLogic.games[data.pin]["gameMode"] === "team") {
+              let red = 0;
+              let blue = 0;
+              for (let _id in gameLogic.games[data.pin]["players"]) {
+                if (gameLogic.games[data.pin]["players"][_id]["team"] === "red") {
+                  red++;
+                } else if (gameLogic.games[data.pin]["players"][_id]["team"] === "blue") {
+                  blue++;
+                }
+              }
+              if (red < blue) {
+                gameLogic.games[data.pin]["players"][data.studentid]["team"] = "red";
+              } else {
+                gameLogic.games[data.pin]["players"][data.studentid]["team"] = "blue";
+              }
+            }
+            // if game mode is infection, the student is automatically assigned a "not infected" status
           }
         }
       });
@@ -126,6 +144,15 @@ module.exports = {
         if (user) gameLogic.movePlayer(data._id, data.pin, data.dir);
         else {
           console.log("user not logged in ");
+        }
+      });
+
+      socket.on("toggleOffInvincible", (data) => {
+        console.log("receiving toggle off");
+        const user = getUserFromSocketID(socket.id);
+        if (user) {
+          console.log(data);
+          gameLogic.toggleOffInvincible(data._id, data.pin);
         }
       });
 
