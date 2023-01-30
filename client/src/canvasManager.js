@@ -245,7 +245,6 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       if (drawState["teacher"]["_id"] === playerid) {
         sprite = sprites["teacher"];
       } else {
-        console.log(sprites);
         sprite = sprites[drawState["players"][playerid].skin];
       }
 
