@@ -50,7 +50,9 @@ const App = () => {
         post("/api/initsocket", { socketid: socket.id });
       })
       .catch((err) => {
-        alert("Failed to log in: user not found. Create a new account at the /signup route!");
+        alert(
+          "Failed to log in: user not found. If you don't already have an account, create a new one!"
+        );
       });
   };
 

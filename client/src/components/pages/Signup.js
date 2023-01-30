@@ -32,8 +32,8 @@ const Signup = ({
     if (displayState === 0) {
       setDisplay(
         <>
-          <div className="background">
-            <div class="sheerbox h-[80%] w-[60%] mt-[6%]">
+          <div className="background h-[100%]">
+            <div class="sheerbox h-[90%] w-[60%] mt-[6%]">
               <div className="pagetitle mt-12 text-center h-[20%]">Create user account:</div>
 
               <div class="flex flex-wrap justify-evenly mt-8">
@@ -52,7 +52,7 @@ const Signup = ({
                         ></img>
                       </div>
                     </div>
-                    <div class="px-3 py-4 pb-6">
+                    <div class="px-3 py-4 pb-6 h-[35vh]">
                       <div class="text-blue-500 text-3xl text-bold mb-2 text-center font-bold">
                         Teacher
                       </div>
@@ -82,7 +82,7 @@ const Signup = ({
                       </div>
                     </div>
 
-                    <div class="px-3 py-4 pb-6">
+                    <div class="px-3 py-4 pb-6 h-[35vh]">
                       <div class="text-blue-500 text-3xl text-bold mb-2 text-center font-bold">
                         Student
                       </div>
