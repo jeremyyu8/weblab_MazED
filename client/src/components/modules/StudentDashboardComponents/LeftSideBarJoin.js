@@ -1,7 +1,11 @@
 import React from "react";
 
-const LeftSideBarJoin = () => {
-  return <div className="leftbar-icon">Join Game</div>;
+const LeftSideBarJoin = (props) => {
+  return (
+    <div className={`leftbar-icon ${props.rightSide === "Join Game" && "bg-blue-500"}`}>
+      Join Game
+    </div>
+  );
 };
 
 export default LeftSideBarJoin;

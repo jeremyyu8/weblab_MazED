@@ -1,7 +1,9 @@
 import React from "react";
 
-const LeftSideBarGames = () => {
-  return <div className="leftbar-icon">Past Games</div>;
+const LeftSideBarGames = (props) => {
+  return (
+    <div className={`leftbar-icon ${props.rightSide === "Games" && "bg-blue-500"}`}>Past Games</div>
+  );
 };
 
 export default LeftSideBarGames;

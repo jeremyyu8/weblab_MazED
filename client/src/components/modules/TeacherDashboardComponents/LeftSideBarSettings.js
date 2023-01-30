@@ -1,7 +1,9 @@
 import React from "react";
 
-const LeftSideBarSettings = () => {
-  return <div className="leftbar-icon"> Settings </div>;
+const LeftSideBarSettings = (props) => {
+  return (
+    <div className={`leftbar-icon ${props.rightSide === "Settings" && "bg-blue-500"}`}>Profile</div>
+  );
 };
 
 export default LeftSideBarSettings;

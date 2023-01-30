@@ -76,7 +76,7 @@ const Carousel = (props) => {
       <div className="border-solid">
         <div className="w-[100%] h-auto text-4xl mt-4 text-center">Game Mode</div>
         <div className="w-[100%] h-auto text-xl text-center">
-          Currently selected: <span className="text-blue-600">{props.gameMode}</span>
+          Current selection: <span className="text-blue-600">{props.gameMode}</span>
         </div>
         <div className="w-[100%] h-auto relative">
           <div

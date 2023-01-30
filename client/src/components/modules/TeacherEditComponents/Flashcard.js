@@ -112,12 +112,12 @@ const Flashcard = (props) => {
 
   return (
     <>
-      <div className="border-solid bg-gray-600 rounded-lg w-[70%] m-5 p-2 mx-auto">
+      <div className="border-solid bg-gray-600 rounded-lg w-[70%] m-5 p-3 pb-5 mx-auto">
         <div className="flex flex-col">
           <div className="inline-flex w-full">
             <div className="w-[100%]">
               <div className="flex justify-between">
-                <div className="mt-2">Question {idx + 1}.</div>
+                <div className="">Question {idx + 1}.</div>
                 <button
                   className="mt-0 ml-[75%] w-6 h-6 hover:bg-red-300 text-[1vw] rounded-full font-Ubuntu hover:cursor-pointer"
                   onClick={() => props.handleDelete(idx)}
@@ -125,17 +125,17 @@ const Flashcard = (props) => {
                   X
                 </button>
               </div>
-              <div className="w-[95%] mx-2">
+              <div className="w-[95%]">
                 <input
                   onChange={handleQuestion}
-                  className="mt-1 input-box w-[95%] font-Ubuntu"
+                  className="input-box w-[97%] font-Ubuntu"
                   value={props.question}
                   placeholder={"Question Statement"}
                 ></input>
                 <div className="flex flex-col">
-                  <div className="mt-3 mb-1">Answers</div>
-                  <div className="flex mt-1 justify-between">
-                    <label className="flex-none mt-2">1.</label>
+                  <div className="my-2">Answers</div>
+                  <div className="flex justify-between">
+                    <label className="flex-none">1.</label>
                     <input
                       onChange={handleChoice0}
                       className="flex-1 mx-2 input-box font-Ubuntu"
@@ -145,7 +145,7 @@ const Flashcard = (props) => {
                     <input
                       onChange={handleAnswer0}
                       type="checkbox"
-                      className="basis-1/8"
+                      className="basis-1/8 hover:cursor-pointer"
                       checked={props.answers.includes(0)}
                     ></input>
                   </div>
@@ -160,7 +160,7 @@ const Flashcard = (props) => {
                     <input
                       onChange={handleAnswer1}
                       type="checkbox"
-                      className="basis-1/8"
+                      className="basis-1/8 hover:cursor-pointer"
                       checked={props.answers.includes(1)}
                     ></input>
                   </div>
@@ -175,7 +175,7 @@ const Flashcard = (props) => {
                     <input
                       onChange={handleAnswer2}
                       type="checkbox"
-                      className="basis-1/8"
+                      className="basis-1/8 hover:cursor-pointer"
                       checked={props.answers.includes(2)}
                     ></input>
                   </div>
@@ -190,7 +190,7 @@ const Flashcard = (props) => {
                     <input
                       onChange={handleAnswer3}
                       type="checkbox"
-                      className="basis-1/8"
+                      className="basis-1/8 hover:cursor-pointer"
                       checked={props.answers.includes(3)}
                     ></input>
                   </div>

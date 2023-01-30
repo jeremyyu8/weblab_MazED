@@ -111,7 +111,7 @@ const Carousel = (props) => {
       <div className="border-solid h-auto">
         <div className=" text-[2vw] mt-4 text-center">Choose Your Avatar</div>
         <div className="text-[1.5vw] text-center my-5">
-          Currently selected: <span className="text-blue-600">{currentSelection}</span>
+          Current selection: <span className="text-blue-600">{currentSelection}</span>
         </div>
         <div className="w-[100%] h-auto relative">
           <div
@@ -172,7 +172,7 @@ const Carousel = (props) => {
       <div className="flex flex-col mt-10">
         {loading && <div className="text-green-500 mx-auto mb-5">Saving avatar...</div>}
         {doneLoading && (
-          <div className="text-green-500 mx-auto mb-5">
+          <div className="text-green-500 mx-auto mb-5 text-xl">
             Saved! Refresh the page before joining your next game to use your new avatar.
           </div>
         )}
