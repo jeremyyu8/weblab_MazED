@@ -2,18 +2,27 @@ const mapxsize = 7200;
 const mapysize = 7200;
 const tilewidth = 80;
 
-// TODO make an actual lobby?
 const generateLobby = () => {
   let map = [];
   for (let i = 0; i < mapysize / tilewidth; i++) {
     for (let j = 0; j < mapxsize / tilewidth; j++) {
-      if ((i == 5 && j == 6) || (i == 7 && j == 10) || (i == 35 && j == 35)) {
-        map.push(3); // tree
-      } else {
-        map.push(1); // grass
-      }
+      let idx = Math.floor(Math.random() * 6) + 1;
+      map.push(10 + idx);
     }
   }
+  console.log(map);
+  return map;
+};
+
+const generateEndLobby = () => {
+  let map = [];
+  for (let i = 0; i < mapysize / tilewidth; i++) {
+    for (let j = 0; j < mapxsize / tilewidth; j++) {
+      let idx = Math.floor(Math.random() * 6) + 1;
+      map.push(20 + idx);
+    }
+  }
+  console.log(map);
   return map;
 };
 
@@ -286,5 +295,6 @@ const generateTrivialMaze = () => {
 module.exports = {
   generateFullMaze,
   generateLobby,
+  generateEndLobby,
   generateTrivialMaze,
 };

@@ -94,7 +94,6 @@ const Set = (props) => {
       ) : loading === true ? (
         <>
           <div>loading...</div>
-          <div>{"(if this screen persists for a while, try refreshing the page!)"}</div>
         </>
       ) : (
         <>

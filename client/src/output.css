@@ -410,6 +410,14 @@
   right: 0px;
 }
 
+.bottom-\[30\%\]{
+  bottom: 30%;
+}
+
+.right-\[15\%\]{
+  right: 15%;
+}
+
 .left-16{
   left: 4rem;
 }
@@ -452,34 +460,6 @@
 
 .left-\[25\%\]{
   left: 25%;
-}
-
-.bottom-\[25\%\]{
-  bottom: 25%;
-}
-
-.right-\[25\%\]{
-  right: 25%;
-}
-
-.bottom-\[37\.5\%\]{
-  bottom: 37.5%;
-}
-
-.right-\[40\%\]{
-  right: 40%;
-}
-
-.right-\[20\%\]{
-  right: 20%;
-}
-
-.bottom-\[30\%\]{
-  bottom: 30%;
-}
-
-.right-\[15\%\]{
-  right: 15%;
 }
 
 .z-10{
@@ -810,10 +790,6 @@
   height: 30%;
 }
 
-.h-\[200vh\]{
-  height: 200vh;
-}
-
 .h-\[80\%\]{
   height: 80%;
 }
@@ -890,6 +866,10 @@
   height: 3vw;
 }
 
+.h-\[15\%\]{
+  height: 15%;
+}
+
 .h-\[70vh\]{
   height: 70vh;
 }
@@ -920,18 +900,6 @@
 
 .h-6{
   height: 1.5rem;
-}
-
-.h-\[50\%\]{
-  height: 50%;
-}
-
-.h-\[25\%\]{
-  height: 25%;
-}
-
-.h-\[15\%\]{
-  height: 15%;
 }
 
 .w-screen{
@@ -1050,6 +1018,10 @@
   width: 3vw;
 }
 
+.w-\[5vw\]{
+  width: 5vw;
+}
+
 .w-64{
   width: 16rem;
 }
@@ -1072,10 +1044,6 @@
 
 .w-auto{
   width: auto;
-}
-
-.w-\[5vw\]{
-  width: 5vw;
 }
 
 .w-6{
@@ -1152,10 +1120,6 @@
 
 .basis-1\/6{
   flex-basis: 16.666667%;
-}
-
-.basis-1\/2{
-  flex-basis: 50%;
 }
 
 .table-auto{
@@ -1622,6 +1586,10 @@
   padding: 0.5rem;
 }
 
+.p-\[5vh\]{
+  padding: 5vh;
+}
+
 .p-8{
   padding: 2rem;
 }
@@ -1636,14 +1604,6 @@
 
 .p-1{
   padding: 0.25rem;
-}
-
-.p-\[10vh\]{
-  padding: 10vh;
-}
-
-.p-\[5vh\]{
-  padding: 5vh;
 }
 
 .py-3{
@@ -1796,10 +1756,6 @@
 
 .align-middle{
   vertical-align: middle;
-}
-
-.align-bottom{
-  vertical-align: bottom;
 }
 
 .font-Ubuntu{
@@ -2005,20 +1961,16 @@
   opacity: 1;
 }
 
+.opacity-80{
+  opacity: 0.8;
+}
+
 .opacity-90{
   opacity: 0.9;
 }
 
 .opacity-95{
   opacity: 0.95;
-}
-
-.opacity-80{
-  opacity: 0.8;
-}
-
-.opacity-50{
-  opacity: 0.5;
 }
 
 .shadow{
