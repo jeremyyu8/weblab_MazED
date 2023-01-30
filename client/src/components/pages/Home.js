@@ -54,8 +54,8 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
               <div className="p-2 text-blue-400 text-xl w-[70%] text-center">
                 <p className="m-2 leading-8">
-                  Multiplayer maze and tag game for learning through flashcards or trivia games
-                  custom to your classroom.
+                  Multiplayer maze + tag game for learning through flashcards custom to your
+                  classroom.
                 </p>
               </div>
 
