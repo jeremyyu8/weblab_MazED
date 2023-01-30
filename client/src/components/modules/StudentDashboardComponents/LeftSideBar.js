@@ -55,7 +55,7 @@ const LeftSideBar = (props) => {
       </div>
 
       <button
-        className="fixed top-[calc(50vh_+_39px)] transform translate-y-[-50%] z-10 font-medium p-3 bg-blue-300 border-none hover:cursor-pointer hover:bg-blue-500"
+        className="fixed top-[calc(50vh_+_37.5px)] transform translate-y-[-50%] z-10 font-medium p-3 bg-blue-300 border-none hover:cursor-pointer hover:bg-blue-500"
         onClick={() => props.setIsOpen(!props.isOpen)}
       >
         <FontAwesomeIcon icon={faAnglesRight} size="xl" />

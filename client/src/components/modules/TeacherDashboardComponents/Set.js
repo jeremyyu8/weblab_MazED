@@ -236,14 +236,16 @@ const Set = (props) => {
                   </div>
                 )}
               </div>
-              <input
-                className="mx-8 h-[5vw] mt-[5vh] font-Ubuntu w-[5vw] transform -translate-y-1/4 text-3xl mr-[2vw]"
-                type="number"
-                min="1"
-                max="99"
-                value={gameTime}
-                onInput={handleChangeGameTime}
-              ></input>
+              <div className="flex basis-1/6 justify-center h-auto w-auto">
+                <input
+                  className="my-auto font-Ubuntu text-3xl py-5 pl-5 pr-1"
+                  type="number"
+                  min="1"
+                  max="99"
+                  value={gameTime}
+                  onInput={handleChangeGameTime}
+                ></input>
+              </div>
             </div>
             <div className="flex justify-between border-solid w-full h-[30%]">
               <div className="mx-8 text-2xl mt-[5vh]">
@@ -254,14 +256,17 @@ const Set = (props) => {
                   </div>
                 )}
               </div>
-              <input
-                className="mx-8 h-[5vw] mt-[5vh] font-Ubuntu w-[5vw] transform -translate-y-1/4 text-3xl mr-[2vw]"
-                type="number"
-                min="2"
-                max="9"
-                value={numMazes}
-                onInput={handleChangeNumMazes}
-              ></input>
+              {/* mx-8 h-[5vw] mt-[5vh] font-Ubuntu w-[5vw] transform -translate-y-1/4 text-3xl mr-[2vw] border-none */}
+              <div className="flex basis-1/6 justify-center h-auto w-auto">
+                <input
+                  className="my-auto font-Ubuntu text-3xl py-5 pl-5 pr-1"
+                  type="number"
+                  min="2"
+                  max="9"
+                  value={numMazes}
+                  onInput={handleChangeNumMazes}
+                ></input>
+              </div>
             </div>
             <Carousel content={carouselContent} setGameMode={setGameMode} gameMode={gameMode} />
           </div>
