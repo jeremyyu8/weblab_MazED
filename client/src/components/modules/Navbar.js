@@ -57,7 +57,14 @@ const Navbar = (props) => {
           >
             MazeEd
           </Link>
+          <Link
+            to="/rules"
+            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400"
+          >
+            Rules
+          </Link>
         </div>
+
         <div className="my-auto mr-8"> {rightside}</div>
       </nav>
     </>

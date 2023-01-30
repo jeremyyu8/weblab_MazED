@@ -31,9 +31,12 @@ const StudentEndPage = (props) => {
   // compute flashcard percentage
   const percentage = (correct, total) => {
     let p = (correct / total) * 100;
+
     if (isNaN(p)) {
       return "N/A";
     } else {
+      if (correct === total) return "100.0%";
+      if (Number.isInteger(p)) return String(p) + ".00%";
       return String(p).slice(0, 5) + "%";
     }
   };
@@ -41,7 +44,7 @@ const StudentEndPage = (props) => {
   useEffect(() => {
     if (props.gameMode === "individual") {
       setFadePage(
-        <div className="text-5xl text-blue-400">
+        <div className="text-5xl text-blue-400 mt-[2vh]">
           Final Rank: {props.gameState["players"][props._id]["rank"]}
         </div>
       );
@@ -107,15 +110,17 @@ const StudentEndPage = (props) => {
     // rank
     if (props.gameMode === "individual") {
       dataDisplay.push(
-        <div className="border-solid border-[1px] border-gray-400 text-4xl text-blue-200">
-          Final Rank: {props.gameState["players"][props._id]["rank"]}
+        <div className="mt-50 text-4xl text-blue-200 animate-bounce">
+          Final Rank:{" "}
+          <span className="text-blue-700">{props.gameState["players"][props._id]["rank"]}</span>
         </div>
       );
     }
     // level
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        Reached Level: {props.gameState["players"][props._id]["level"]}
+      <div className="mt-2">
+        Level reached:{" "}
+        <span className="text-blue-700">{props.gameState["players"][props._id]["level"]}</span>
       </div>
     );
 
@@ -155,47 +160,58 @@ const StudentEndPage = (props) => {
 
     // questions data
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        questions correct: {props.gameState["players"][props._id]["flashcards_correct"]}
+      <div className="mt-2">
+        Questions correct:{" "}
+        <span className="text-blue-700">
+          {props.gameState["players"][props._id]["flashcards_correct"]}
+        </span>
       </div>
     );
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        questions answered: {props.gameState["players"][props._id]["flashcards_total"]}
+      <div className="mt-2">
+        Questions attempted:{" "}
+        <span className="text-blue-700">
+          {props.gameState["players"][props._id]["flashcards_total"]}
+        </span>
       </div>
     );
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        % correct:{" "}
-        {percentage(
-          props.gameState["players"][props._id]["flashcards_correct"],
-          props.gameState["players"][props._id]["flashcards_total"]
-        )}
+      <div className="mt-2">
+        Accuracy:{" "}
+        <span className="text-blue-700">
+          {percentage(
+            props.gameState["players"][props._id]["flashcards_correct"],
+            props.gameState["players"][props._id]["flashcards_total"]
+          )}
+        </span>
       </div>
     );
 
     // tagged data
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        number of people tagged: {props.gameState["players"][props._id]["tags"]}
+      <div className="mt-2">
+        Number of people tagged:{" "}
+        <span className="text-blue-700">{props.gameState["players"][props._id]["tags"]}</span>
       </div>
     );
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        {" "}
-        number of times tagged: {props.gameState["players"][props._id]["numtagged"]}
+      <div className="mt-2">
+        Number of times tagged:{" "}
+        <span className="text-blue-700">{props.gameState["players"][props._id]["numtagged"]}</span>
       </div>
     );
 
     // other stats
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        speed: {props.gameState["players"][props._id]["speed"]}
+      <div className="mt-2">
+        Speed:{" "}
+        <span className="text-blue-700">{props.gameState["players"][props._id]["speed"]}</span>
       </div>
     );
     dataDisplay.push(
-      <div className="border-solid border-[1px] border-gray-400">
-        power: {props.gameState["players"][props._id]["power"]}
+      <div className="mt-2">
+        Power:{" "}
+        <span className="text-blue-700">{props.gameState["players"][props._id]["power"]}</span>
       </div>
     );
     // dataDisplay.push(
@@ -212,11 +228,9 @@ const StudentEndPage = (props) => {
           <>
             <div className="sheerbox h-[80%] w-[40%] overflow-hidden opacity-100">
               <div className="text-center">
-                <div className="text-5xl pb-2">Game Results</div>
+                <div className="text-[3vw] pb-2 text-blue-700">Game Results</div>
               </div>
-              <hr className="border-solid" />
-              <div className="text-3xl">Game Metadata</div>
-              <div className="text-xl">
+              {/* <div className="text-xl">
                 Game mode: <span className="text-blue-600">{props.gameMode}</span>
               </div>
               <div className="text-xl">
@@ -224,10 +238,10 @@ const StudentEndPage = (props) => {
                 <span className="text-blue-600">
                   {props.gameState["players"][props._id]["name"]}
                 </span>
-              </div>
+              </div> */}
               {props.gameMode === "infection" && (
                 <div className="text-xl">
-                  Your final state:{" "}
+                  Your final state:
                   {props.gameState["players"][props._id]["infected"] === true && (
                     <span className="text-red-600">infected</span>
                   )}
@@ -247,9 +261,9 @@ const StudentEndPage = (props) => {
                   )}
                 </div>
               )}
-              <hr />
-              <div className="text-3xl mb-5">Statistics</div>
-              <div className="text-xl overflow-y-auto h-[40%] w-[70%]">{displayData}</div>
+              <div className="text-2xl h-auto mt-[3vh] w-[70%] flex justify-center border-solid p-[1vw]">
+                {displayData}
+              </div>
             </div>
             <div className="flex justify-center mt-3">
               <button
@@ -269,7 +283,7 @@ const StudentEndPage = (props) => {
               <div className="fixed left-[50%] top-[40%] transform -translate-x-1/2">
                 <div>{fadePage}</div>
               </div>
-              <div className="fixed left-[50%] transform -translate-x-1/2">
+              <div className="fixed left-[50%] transform -translate-x-1/2 mt-10">
                 <button
                   className="editfbuttons font-Ubuntu w-[30vw] text-[2vw]"
                   onClick={() => {
