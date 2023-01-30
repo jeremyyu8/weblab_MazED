@@ -132,29 +132,52 @@ const TeacherEdit = () => {
                 {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
                 Error: please give your flashcard set a title{" "}
               </div> */}
-                <div className="flex w-full justify-between">
-                  <div className="text-xl bg-blue-50 bg-opacity-60 m-1 p-2">
+                <div className="flex w-full justify-between relative">
+                  <div className="text-xl bg-blue-50 bg-opacity-60 w-[60%] absolute left-[20%] mb-2 p-2">
                     <Titlecard />
                   </div>
                 </div>
                 <div className="flex-2 w-full inline">
-                  <div className="flex max-w-[90%] h-[30vw] m-8 mx-auto">
+                  <div className="flex max-w-[90%] h-[30vw] m-8 mt-[12vh] mx-auto">
                     <Set setSetId={setSetId} />
                   </div>
                   {error !== false && (
-                    <div className="absolute animate-shake text-red-600 bottom-4 w-[70vw]">
-                      {error}
+                    <div className="animate-shake text-red-600 w-[70vw]">{error}</div>
+                  )}
+                  {loading && (
+                    <div className="text-green-600 w-[70vw]">
+                      <div className="flex">
+                        <div>Saving...</div>
+                      </div>
                     </div>
+                  )}
+                  {dashboardSaveWarning && (
+                    <>
+                      <div className="text-red-600 w-[100%]">
+                        <div className="flex justify-end">
+                          Return to dashboard? Your work will not be saved
+                          <div className="inline">
+                            <button
+                              className="font-Ubuntu ml-4 hover:cursor-pointer"
+                              onClick={handleBack}
+                            >
+                              Yes
+                            </button>
+                            <button
+                              className="font-Ubuntu hover:cursor-pointer"
+                              onClick={() => {
+                                setDashboardSaveWarning(false);
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   )}
                   <div className="flex justify-center">
                     <div className="w-[50%] h-[5vh] relative">
-                      {loading && (
-                        <div className="absolute text-green-600 bottom-[8vh]">
-                          <div className="flex">
-                            <div>Saving...</div>
-                          </div>
-                        </div>
-                      )}
                       <button
                         onClick={handleSubmit}
                         className="rounded-xl hover:bg-sky-300 cursor-pointer text-xl mt-1 w-full font-Ubuntu align-middle"
@@ -163,31 +186,6 @@ const TeacherEdit = () => {
                       </button>
                     </div>
                     <div className="w-[50%] h-[5vh] relative">
-                      {dashboardSaveWarning && (
-                        <>
-                          <div className="absolute text-red-600 bottom-[8vh]">
-                            <div className="flex">
-                              Return to dashboard? Your work will not be saved
-                              <div className="inline">
-                                <button
-                                  className="font-Ubuntu ml-4 hover:cursor-pointer"
-                                  onClick={handleBack}
-                                >
-                                  Yes
-                                </button>
-                                <button
-                                  className="font-Ubuntu hover:cursor-pointer"
-                                  onClick={() => {
-                                    setDashboardSaveWarning(false);
-                                  }}
-                                >
-                                  Cancel
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      )}
                       <button
                         onClick={() => {
                           setDashboardSaveWarning(true);
