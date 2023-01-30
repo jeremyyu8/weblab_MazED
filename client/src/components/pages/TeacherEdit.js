@@ -3,7 +3,6 @@ import { Redirect } from "@reach/router";
 import Navbar from "../modules/Navbar";
 import Titlecard from "../modules/TeacherEditComponents/Titlecard";
 
-import Image from "../modules/TeacherEditComponents/Image";
 import Set from "../modules/TeacherEditComponents/Set";
 import { get, post } from "../../utilities";
 
@@ -136,9 +135,6 @@ const TeacherEdit = () => {
                 <div className="flex w-full justify-between">
                   <div className="text-xl bg-blue-50 bg-opacity-60 m-1 p-2">
                     <Titlecard />
-                  </div>
-                  <div className="basis-1/4 border-solid justify-center text-xl m-1">
-                    <Image />
                   </div>
                 </div>
                 <div className="flex-2 w-full inline">

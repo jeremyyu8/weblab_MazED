@@ -255,7 +255,7 @@ const Game = (props) => {
   const [showing, setShowing] = useState(false);
   return (
     <>
-      <div className="flex border-solid border-blue-700 p-5 w-[50vw] m-3 justify-between bg-transparent rounded-xl">
+      <div className="flex border-solid border-blue-700 p-5 w-[50vw] m-5 justify-between bg-transparent rounded-xl">
         <div className="flex-1">
           <div className="text-blue-400 text-3xl">{props.gameState.settitle} </div>
           <div className="mt-3">{make_human_readable(props.datePlayed)} </div>
@@ -323,7 +323,7 @@ const Game = (props) => {
                     </button>
                   </div>
                   <div className="w-[100%] h-[20vh] flex flex-col border-solid border-t-0 border-r-0 border-l-0 text-3xl">
-                    <div className="mx-auto text-blue-700 my-auto">Most Missed Question</div>
+                    <div className="mx-auto text-blue-700 my-auto">Most Difficult Question</div>
                     <div className="mx-auto my-auto">{mostMissed.question}</div>
                     <div className="flex justify-between my-auto">
                       <div className="flex flex-1">

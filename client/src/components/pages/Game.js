@@ -598,7 +598,7 @@ const Game = () => {
             inBorderRange && (
               <>
                 <button
-                  className={`text-2xl fixed top-[50%] left-[50%] z-20 ${
+                  className={`text-2xl fixed top-[50%] left-[50%] z-20 hover:cursor-pointer ${
                     borderUpgradeFailed ? "animate-shake bg-red-300" : ""
                   }`}
                   onClick={handleBorderUnlock}
@@ -615,11 +615,11 @@ const Game = () => {
               <>
                 <button
                   onClick={() => setQuestionShowing(true)}
-                  className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl font-Ubuntu p-5 hover:bg-opacity-70"
+                  className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl font-Ubuntu p-5 hover:bg-opacity-70 hover:cursor-pointer"
                 >
                   Answer Question
                 </button>
-                <div className="bg-white bg-opacity-30 fixed z-10 pb-5 top-[2vh] left-[2vh] border-solid">
+                <div className="bg-white bg-opacity-50 fixed z-10 pb-5 top-[2vh] left-[2vh] border-solid hover:bg-opacity-70">
                   <div className="text-center text-xl mt-[2vh]">Upgrades</div>
                   <div className="my-[1vh] mx-[2vw]">
                     <table className="table-auto text-md">
@@ -630,7 +630,7 @@ const Game = () => {
                         <tr>
                           <td>Speed:</td> <td>{speed}</td>{" "}
                           <button
-                            className={`ml-3 ${
+                            className={`ml-3 hover:cursor-pointer ${
                               speedUpgradeFailed ? "animate-shake bg-red-300" : ""
                             }`}
                             onClick={handleUpgradeSpeed}
@@ -641,7 +641,7 @@ const Game = () => {
                         <tr>
                           <td>Power:</td> <td>{power}</td>{" "}
                           <button
-                            className={`ml-3 ${
+                            className={`ml-3 hover:cursor-pointer ${
                               powerUpgradeFailed ? "animate-shake bg-red-300" : ""
                             }`}
                             onClick={handleUpgradePower}
@@ -653,10 +653,10 @@ const Game = () => {
                     </table>
                   </div>
                 </div>
-                <div className="bg-white bg-opacity-30 fixed z-10 w-[25vh] h-[25vh] bottom-[2vh] right-[2vh] border-solid">
+                {/* <div className="bg-white bg-opacity-30 fixed z-10 w-[25vh] h-[25vh] bottom-[2vh] right-[2vh] border-solid">
                   <div>Minimap</div>
                   <div>Level: {level}</div>
-                </div>
+                </div> */}
               </>
             )}
           {taggedDisplay !== false && status !== "end" && (
@@ -774,7 +774,7 @@ const Game = () => {
                 {showCloseButton && userData && gamePin && (
                   <div className="flex justify-center mt-[2vh]">
                     <button
-                      className="font-Ubuntu bg-blue-600 text-white mb-4"
+                      className="font-Ubuntu bg-blue-600 text-white mb-4 hover:cursor-pointer hover:bg-blue-400"
                       onClick={() => {
                         setPromoted(false);
                         setShowCloseButton(false);
