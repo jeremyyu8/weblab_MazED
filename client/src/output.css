@@ -452,6 +452,34 @@
   left: 25%;
 }
 
+.bottom-\[25\%\]{
+  bottom: 25%;
+}
+
+.right-\[25\%\]{
+  right: 25%;
+}
+
+.bottom-\[37\.5\%\]{
+  bottom: 37.5%;
+}
+
+.right-\[40\%\]{
+  right: 40%;
+}
+
+.right-\[20\%\]{
+  right: 20%;
+}
+
+.bottom-\[30\%\]{
+  bottom: 30%;
+}
+
+.right-\[15\%\]{
+  right: 15%;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -895,6 +923,18 @@
   height: 1.5rem;
 }
 
+.h-\[50\%\]{
+  height: 50%;
+}
+
+.h-\[25\%\]{
+  height: 25%;
+}
+
+.h-\[15\%\]{
+  height: 15%;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -1101,6 +1141,10 @@
 
 .basis-1\/6{
   flex-basis: 16.666667%;
+}
+
+.basis-1\/2{
+  flex-basis: 50%;
 }
 
 .table-auto{
@@ -1702,6 +1746,10 @@
   vertical-align: middle;
 }
 
+.align-bottom{
+  vertical-align: bottom;
+}
+
 .font-Ubuntu{
   font-family: Ubuntu Mono, sans-serif;
 }
@@ -1911,6 +1959,14 @@
 
 .opacity-95{
   opacity: 0.95;
+}
+
+.opacity-80{
+  opacity: 0.8;
+}
+
+.opacity-50{
+  opacity: 0.5;
 }
 
 .shadow{
