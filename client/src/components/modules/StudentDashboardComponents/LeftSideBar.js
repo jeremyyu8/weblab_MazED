@@ -23,6 +23,13 @@ const LeftSideBar = (props) => {
             props.isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
+          <div className="pt-4"></div>
+          <button
+            className="text-blue-800 hover:text-blue-400 hover:cursor-pointer pt-6 font-bold bg-transparent border-none text-4xl fixed top w-[20%] scale-75 transform translate-y-[-50%] right-0"
+            onClick={() => props.setIsOpen(!props.isOpen)}
+          >
+            X
+          </button>
           <div className="p-4">
             <div className="" onClick={() => props.setRightSide("Join Game")}>
               <LeftSideBarJoin rightSide={props.rightSide} />
@@ -34,7 +41,7 @@ const LeftSideBar = (props) => {
 
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               <button
-                className="font-Ubuntu fixed bottom-[2vh] w-[6vw] left-[4.5vw] bg-blue-300 hover:bg-blue-500 hover:cursor-pointer p-2"
+                className="editfbuttons fixed bottom-[2vh] left-[4.5vw] hover:cursor-pointer p-2"
                 onClick={() => {
                   googleLogout();
                   props.hl();
@@ -43,19 +50,13 @@ const LeftSideBar = (props) => {
                 Logout
               </button>
             </GoogleOAuthProvider>
-
-            <button
-              className=" font-medium fixed top-[50%] transform translate-y-[-50%] right-0 p-3 bg-blue-300 border-none hover:cursor-pointer hover:bg-blue-500"
-              onClick={() => props.setIsOpen(!props.isOpen)}
-            >
-              <FontAwesomeIcon icon={faAnglesLeft} size="xl" />
-            </button>
           </div>
         </div>
       </div>
 
       <button
-        className="fixed top-[calc(50vh_+_39px)] transform translate-y-[-50%] z-10 font-medium p-3 bg-blue-300 border-none hover:cursor-pointer hover:bg-blue-500"
+        // top-[calc(50vh_+_39px)]
+        className="fixed top-[12vh] m-2 rounded-full transform translate-y-[-50%] z-10 font-medium p-3 bg-blue-800 border-none hover:cursor-pointer hover:bg-blue-400"
         onClick={() => props.setIsOpen(!props.isOpen)}
       >
         <FontAwesomeIcon icon={faAnglesRight} size="xl" />
