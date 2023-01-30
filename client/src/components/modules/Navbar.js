@@ -23,6 +23,12 @@ const Navbar = (props) => {
       rightside = (
         <div className="hidden md:flex space-x-6">
           <Link
+            to="/rules"
+            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400"
+          >
+            Rules
+          </Link>
+          <Link
             to="/login"
             className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400"
           >
@@ -56,12 +62,6 @@ const Navbar = (props) => {
             className="text-[42px] font-[900] py-8px hover:cursor-pointer text-blue-900 no-underline"
           >
             MazeEd
-          </Link>
-          <Link
-            to="/rules"
-            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400"
-          >
-            Rules
           </Link>
         </div>
 

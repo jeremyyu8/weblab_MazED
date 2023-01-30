@@ -32,7 +32,7 @@ const LeftSideBar = (props) => {
               className="text-blue-800 hover:text-blue-400 hover:cursor-pointer pt-6 font-bold bg-transparent border-none text-4xl fixed top w-[20%] scale-75 transform translate-y-[-50%] right-0"
               onClick={() => props.setIsOpen(!props.isOpen)}
             >
-              X
+              <FontAwesomeIcon icon={faAnglesLeft} size="xl" />
             </button>
             <div className="" onClick={() => props.setRightSide("Sets")}>
               <LeftSideBarSets rightSide={props.rightSide} />
@@ -62,7 +62,7 @@ const LeftSideBar = (props) => {
 
       <button
         // top-[calc(50vh_+_39px)]
-        className="fixed top-[12vh] m-2 rounded-full transform translate-y-[-50%] z-10 font-medium p-3 bg-blue-800 border-none hover:cursor-pointer hover:bg-blue-400"
+        className="fixed top-[80px] rounded-full z-10 p-2 bg-blue-800 border-none text-4xl font-bold hover:cursor-pointer scale-75 hover:bg-blue-400"
         onClick={() => props.setIsOpen(!props.isOpen)}
       >
         <FontAwesomeIcon icon={faAnglesRight} size="xl" />

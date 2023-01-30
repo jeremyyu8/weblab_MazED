@@ -52,14 +52,9 @@ const Home = ({ userId, userRole, userName }) => {
               <div className="typewriter text-[2vw] w-[85%] mb-4">
                 <h1>Welcome to MazED</h1>
               </div>
-              <div className="p-2 text-blue-400 text-xl w-[70%] text-center">
-                <p className="m-2 leading-8">
-                  Multiplayer maze + tag game to create learning experiences custom to your
-                  classroom
-                </p>
+              <div className="mt-10 text-blue-400 text-3xl w-[70%] text-center">
+                Making learning fun through an interactive multiplayer maze game
               </div>
-
-              {/* <div className="title">Can you find your way out?</div> */}
             </div>
             <div>
               {/* <Link to="/maze">
@@ -76,7 +71,7 @@ const Home = ({ userId, userRole, userName }) => {
 
               <div
                 onClick={() => {
-                  window.scrollTo({ top: document.body.scrollHeight * 0.34, behavior: "smooth" });
+                  window.scrollTo({ top: document.body.scrollHeight * 0.32, behavior: "smooth" });
                 }}
                 className="absolute left-[50%] transform translate-x-[-50%] bottom-[10%]"
               >
@@ -92,16 +87,16 @@ const Home = ({ userId, userRole, userName }) => {
             <div className="pagetitle text-center p-8 pt-12">How it works</div>
             <div>
               <div className="flex flex-wrap justify-evenly pb-8">
-                <Card title="1. Create Account" text="Sign up as teacher or student account"></Card>
+                <Card title="1. Create Account" text="Sign up as teacher or student."></Card>
               </div>
               <div className="flex flex-wrap justify-evenly pb-8">
                 <Card
                   title="Teachers"
-                  text="Create new flashcard set or edit existing flashcard sets in 'My Sets'. Start a new game by pressing the play button on any flashcard set and students can join game using the game code"
+                  text="Create and edit flashcard ets in My Sets. Start a new game by pressing the play button on any flashcard set. Wait for students to join using the game code!"
                 ></Card>
                 <Card
                   title="Students"
-                  text="Edit display name and customize character in 'Settings'. Join a game by entering game code provided by teacher in 'Join Game'"
+                  text="Customize avatar and display name in Profile. Join a game by entering a game code provided by the teacher!"
                 ></Card>
               </div>
               <div className="flex flex-wrap justify-evenly pb-4">
@@ -110,12 +105,13 @@ const Home = ({ userId, userRole, userName }) => {
                     <div class="text-[4vw] text-blue-100 mt-8 ml-8 md:text-[3vw]">Why MazED?</div>
                     <div className="pt-4 pl-8 pr-8 flex rounded-lg items-center text-gray-900">
                       <p className="leading-8">
-                        Not only is MazED a fun and engaging way for students to learn, it provides
-                        tools such as game analyses that help teachers better understand which
-                        questions their students struggle on in order to identify how to help them.
-                        Teachers can tailor MazED to their specific classroom needs through creating
-                        their custom flashcard sets and choosing between different game modes and
-                        customizations.
+                        MazED not only only offers students a fun and engaging way to learn but also
+                        provides game analyses that help teachers understand which questions
+                        students struggle with and tailor to their needs. MazED enables teachers to
+                        create unique flashcards sets and helps students improve by targeting on
+                        problems that students miss more frequently. With multiple competitive game
+                        modes and highly customizable characters, students are encouraged to learn
+                        the material to win the game!
                       </p>
                     </div>
                     <div className="pt-16 text-center mb-10">
