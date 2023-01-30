@@ -34,7 +34,7 @@
   }
 
   .pagetitle {
-    @apply text-5xl font-bold text-blue-200 my-auto;
+    @apply text-[3.5vw] font-bold text-blue-200 my-auto;
   }
 }
 

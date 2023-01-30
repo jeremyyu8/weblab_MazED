@@ -165,20 +165,17 @@ const Set = (props) => {
                   </>
                 ) : (
                   <>
-                    <div className="basis-1/6 text-center border-green-900 border-solid m-2">
-                      image
-                    </div>
-                    <div className="flex-1 text-bold border-blue-700 rounded-xl border-solid m-2 overflow-y-auto overflow-x-auto">
-                      <div className="px-4 pt-2 text-3xl text-blue-400">
+                    <div className="flex-1 text-bold border-blue-700 rounded-xl border-solid p-5 m-5 overflow-y-auto overflow-x-auto">
+                      <div className="text-3xl text-blue-400">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
-                      <div className="px-4 text-2xl text-blue-200">Flashcards: {props.size}</div>
-                      <div className="px-4 text-sm text-gray-400">{props.date}</div>
+                      <div className="text-2xl mt-2 text-blue-200">Flashcards: {props.size}</div>
+                      <div className="text-sm mt-2 text-gray-400">{props.date}</div>
                     </div>
-                    <div className="flex-none flex-col m-2">
-                      <div className="flex-1">
+                    <div className="flex-none flex-col m-5">
+                      <div className="flex-1 flex">
                         <button
-                          className="editfbuttons mb-1"
+                          className="editfbuttons mx-auto"
                           onClick={() => {
                             props.setIsOpen(false);
                             setLobbySettings(true);
@@ -187,13 +184,13 @@ const Set = (props) => {
                           Play
                         </button>
                       </div>
-                      <div className="flex-1">
-                        <button className="editfbuttons mb-1" onClick={editCards}>
+                      <div className="flex-1 flex">
+                        <button className="editfbuttons mt-1 mx-auto" onClick={editCards}>
                           Edit
                         </button>
                       </div>
-                      <div className="flex-1">
-                        <button className="editfbuttons" onClick={handleFirstDelete}>
+                      <div className="flex-1 flex">
+                        <button className="editfbuttons mt-1 mx-auto" onClick={handleFirstDelete}>
                           Delete
                         </button>
                       </div>

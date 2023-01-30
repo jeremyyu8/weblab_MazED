@@ -44,7 +44,7 @@ const Home = ({ userId, userRole, userName }) => {
       ) : (
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
-          <div className="background h-[90vh]">
+          <div className="background h-[100vh]">
             <div className="sheerbox w-[80%] h-[30%]">
               {/* <div className="hidden typewriter md:flex md:justify-center">
                 <h1>Can you find your way out?</h1>
@@ -76,11 +76,10 @@ const Home = ({ userId, userRole, userName }) => {
 
               <div
                 onClick={() => {
-                  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                  window.scrollTo({ top: document.body.scrollHeight * 0.34, behavior: "smooth" });
                 }}
-                className="fixed left-[50%] transform translate-x-[-50%] bottom-[10%]"
+                className="absolute left-[50%] transform translate-x-[-50%] bottom-[10%]"
               >
-                <div>temporary</div>
                 <div class="arrow">
                   <span></span>
                   <span></span>
@@ -89,7 +88,7 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
             </div>
           </div>
-          <div className="bg-stone-900 bg-fixed bg-cover h-[200vh]">
+          <div className="bg-stone-900 bg-fixed bg-cover h-auto p-[5vh]">
             <div className="pagetitle text-center p-8 pt-12">How it works</div>
             <div>
               <div className="flex flex-wrap justify-evenly pb-8">
