@@ -34,8 +34,9 @@ const Navbar = (props) => {
     } else {
       rightside = (
         <div className="flex">
-          <div className="text-lg mr-10">Editing</div>
-          <div className="dot-pulse"></div>
+          <div className="text-xl mr-4">Editing</div>
+          {/* <div className="text-lg mr-10">Editing</div> */}
+          {/* <div className="dot-pulse"></div> */}
         </div>
       );
     }

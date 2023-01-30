@@ -91,7 +91,7 @@ const Question = (props) => {
         {questionState === "question" && (
           <div className=" w-[80%] h-[80%] mx-auto my-auto relative flex-col flex justify-center border-solid">
             <div className="basis-[40%] text-6xl flex w-full bg-cyan-600 bg-opacity-90">
-              <div className="my-auto mx-auto max-w-[100%] overflow-none break-all">
+              <div className="my-auto px-8 max-w-[100%] text-center overflow-none">
                 {curQuestion.question}
               </div>
             </div>
@@ -126,7 +126,7 @@ const Question = (props) => {
             {!props.tagged && (
               <button
                 onClick={() => props.setQuestionShowing(false)}
-                className="absolute right-[3vh] font-Ubuntu top-[3vh] text-3xl p-3 hover:cursor-pointer hover:bg-blue-400"
+                className="absolute right-[3vh] font-Ubuntu top-[3vh] text-lg px-2 hover:cursor-pointer hover:bg-blue-400"
               >
                 Exit
               </button>
@@ -156,7 +156,7 @@ const Question = (props) => {
               {!props.tagged && (
                 <button
                   onClick={() => props.setQuestionShowing(false)}
-                  className="absolute right-[3vh] top-[3vh] text-3xl p-3 font-Ubuntu"
+                  className="absolute right-[3vh] top-[3vh] text-xl px-4 font-Ubuntu hover:cursor-pointer"
                 >
                   Exit
                 </button>

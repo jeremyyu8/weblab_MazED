@@ -693,6 +693,7 @@ const Game = () => {
                 <div className="fixed z-10 w-[85px] h-[85px] bottom-[10px] right-[10px]">
                   <img
                     src="../gameassets/settings.png"
+                    className="hover:cursor-pointer opacity-50 transition-all hover:opacity-100"
                     style={{ width: 75, height: 75 }}
                     onClick={() => {
                       setShowRules(true);
