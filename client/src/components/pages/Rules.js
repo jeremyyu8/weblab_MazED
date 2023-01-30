@@ -54,13 +54,13 @@ const Rules = ({}) => {
 
           <div>
             <div className="flex flex-wrap justify-evenly pb-8">
+              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                <img src="../assets/tagged.png" className="h-auto max-w-full"></img>
+              </div>
               <Card
                 title="Tagging"
                 text="Tagging occurs when two players (not on the same team) collide with each other. The player with less power will be frozen in place for 5 seconds and then must answer 3 questions correctly in order to continue the game. If 2 players have the same power level, both will be tagged."
               ></Card>
-              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/barrier.png" className="h-auto max-w-full"></img>
-              </div>
             </div>
           </div>
         </div>
