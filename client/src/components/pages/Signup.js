@@ -39,7 +39,7 @@ const Signup = ({
               <div class="flex flex-wrap justify-evenly mt-8">
                 <div class="p-4 text-[3vw] xl:w-2/5 w-7/12 h-[85%] md:w-1/3 md:text-[1.5vw]">
                   <div
-                    class="bg-blue-100 border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
+                    class="bg-blue-100 border-solid border-4 border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
                     onClick={() => {
                       setDisplayState(1);
                     }}
@@ -68,7 +68,7 @@ const Signup = ({
                 </div>
                 <div class="p-4 text-[3vw] xl:w-2/5 w-7/12 h-[85%] md:w-1/3 md:text-[1.5vw]">
                   <div
-                    class="bg-blue-100 border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
+                    class="bg-blue-100 border-solid border-4 border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
                     onClick={() => {
                       setDisplayState(2);
                     }}

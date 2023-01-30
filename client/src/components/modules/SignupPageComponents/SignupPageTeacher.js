@@ -17,7 +17,7 @@ const SignupPageTeacher = ({ userId, handleLogin, handleLogout, setDisplayState 
     <>
       <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
         <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
-          <div className="text-blue-200 text-3xl">Signup as a teacher</div>
+          <div className="text-blue-200 text-3xl pb-8">Signup as a teacher</div>
 
           <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             {userId ? (
@@ -34,13 +34,16 @@ const SignupPageTeacher = ({ userId, handleLogin, handleLogout, setDisplayState 
               <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
             )}
           </GoogleOAuthProvider>
-          <button
-            onClick={() => {
-              setDisplayState(0);
-            }}
-          >
-            back
-          </button>
+          <div className="pt-8">
+            <button
+              className="editfbuttons"
+              onClick={() => {
+                setDisplayState(0);
+              }}
+            >
+              Back
+            </button>
+          </div>
         </div>
       </div>
     </>
