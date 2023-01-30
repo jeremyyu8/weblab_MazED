@@ -10,6 +10,7 @@ import TeacherDashboard from "./pages/TeacherDashboard.js";
 import StudentDashboard from "./pages/StudentDashboard.js";
 import Login from "./pages/Login.js";
 import Signup from "./pages/Signup.js";
+import Rules from "./pages/Rules.js";
 import TeacherEdit from "./pages/TeacherEdit.js";
 import Game from "./pages/Game.js";
 import MazePage from "./MazePage.js";
@@ -101,6 +102,7 @@ const App = () => {
           hl={handleLogout}
         />
         <Game path="/game" />
+        <Rules path="/rules" />
         <Signup
           path="/signup"
           handleNewStudentAccount={handleNewStudentAccount}
