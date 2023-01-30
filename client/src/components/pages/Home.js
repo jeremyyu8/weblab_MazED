@@ -93,28 +93,42 @@ const Home = ({ userId, userRole, userName }) => {
             <div className="pagetitle text-center p-8 pt-12">How it works</div>
             <div>
               <div className="flex flex-wrap justify-evenly pb-8">
+                <Card title="1. Create Account" text="Sign up as teacher or student account"></Card>
+              </div>
+              <div className="flex flex-wrap justify-evenly pb-8">
                 <Card
-                  title="Flashcards"
-                  text="Create your own set of flashcards, custom to your classroom."
-                ></Card>
-                <Card title="Create" text="Create and join unique game lobbies."></Card>
-                <Card
-                  title="MazED"
-                  text="Answer questions to escape the maze! Don't get tagged by other players, level
-                      up to tag them first."
+                  title="Teachers"
+                  text="Create new flashcard set or edit existing flashcard sets in 'My Sets'. Start a new game by pressing the play button on any flashcard set and students can join game using the game code"
                 ></Card>
                 <Card
-                  title="Review"
-                  text="Review past games and missed questions to enhance your learning experience."
+                  title="Students"
+                  text="Edit display name and customize character in 'Settings'. Join a game by entering game code provided by teacher in 'Join Game'"
                 ></Card>
               </div>
-              <div className="pt-16 text-center mb-10">
-                <Link
-                  to="/signup"
-                  className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
-                >
-                  Sign Up for free
-                </Link>
+              <div className="flex flex-wrap justify-evenly pb-4">
+                <div className="p-4 mt-8 text-[3vw] xl:w-1/2 md:w-1/3 md:text-[1.5vw] w-7/12">
+                  <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-90 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                    <div class="text-[4vw] text-blue-100 mt-8 ml-8 md:text-[3vw]">Why MazED?</div>
+                    <div className="pt-4 pl-8 pr-8 flex rounded-lg items-center text-gray-900">
+                      <p className="leading-8">
+                        Not only is MazED a fun and engaging way for students to learn, it provides
+                        tools such as game analyses that help teachers better understand which
+                        questions their students struggle on in order to help them learn. Teachers
+                        can tailor MazED to their specific classroom needs through creating their
+                        custom flashcard sets and choosing between different game modes and
+                        customizations.
+                      </p>
+                    </div>
+                    <div className="pt-16 text-center mb-10">
+                      <Link
+                        to="/signup"
+                        className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
+                      >
+                        Sign up for free today!
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

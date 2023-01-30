@@ -1834,6 +1834,10 @@
   line-height: 2rem;
 }
 
+.leading-6{
+  line-height: 1.5rem;
+}
+
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -2575,6 +2579,10 @@ input[type="checkbox"]:checked {
     width: 33.333333%;
   }
 
+  .md\:w-1\/2{
+    width: 50%;
+  }
+
   .md\:justify-center{
     justify-content: center;
   }
@@ -2595,5 +2603,9 @@ input[type="checkbox"]:checked {
 
   .xl\:w-2\/5{
     width: 40%;
+  }
+
+  .xl\:w-1\/2{
+    width: 50%;
   }
 }
