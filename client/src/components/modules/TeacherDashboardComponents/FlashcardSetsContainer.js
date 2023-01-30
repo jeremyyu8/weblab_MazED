@@ -135,7 +135,7 @@ const FlashcardSetsContainer = (props) => {
           <div className="background">
             <div class="sheerbox w-[70%]">
               <div className="flex mt-8">
-                <div className="text-5xl text-blue-200 my-auto">Flashcard Sets</div>
+                <div className="text-5xl text-bold text-blue-200 my-auto">Flashcard Sets</div>
                 <button className="bigbutton ml-10 font-Ubuntu my-auto" onClick={newSet}>
                   Create New Set
                 </button>

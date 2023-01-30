@@ -33,30 +33,67 @@ const Signup = ({
       setDisplay(
         <>
           <div className="background">
-            <div class="sheerbox">
-              <div className="text-blue-200 text-7xl text-center">Create user account:</div>
-              <div className="flex flex-row flex-wrap gap-20 mt-8">
-                <a href="#" class="no-underline flex flex-col items-center group gap-2">
-                  <img
-                    className="object-contain h-52 w-40 group-hover:scale-125 transition duration-300 ease-in-out"
-                    src="https://upload.wikimedia.org/wikipedia/commons/6/60/Bringer_of_War_Planet.png"
+            <div class="sheerbox h-[80%] w-[60%] mt-[6%]">
+              <div className="pagetitle mt-12 text-center h-[20%]">Create user account:</div>
+
+              <div class="flex flex-wrap justify-evenly mt-8">
+                <div class="p-4 text-[3vw] xl:w-2/5 w-7/12 h-[85%] md:w-1/3 md:text-[1.5vw]">
+                  <div
+                    class="bg-white border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
                     onClick={() => {
                       setDisplayState(1);
                     }}
-                  ></img>
-                  <p className="text-blue-500 text-2xl group-hover:text-blue-300">Teacher</p>
-                </a>
-
-                <a href="#" class="no-underline flex flex-col items-center group gap-2">
-                  <img
-                    className="object-contain h-52 w-40 group-hover:scale-125 transition duration-300 ease-in-out"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ice_planet.png/1200px-Ice_planet.png"
+                  >
+                    <div class="ml-4 mb-4">
+                      <div className="flex justify-center">
+                        <img
+                          className="object-contain h-52 w-40"
+                          src="https://upload.wikimedia.org/wikipedia/commons/6/60/Bringer_of_War_Planet.png"
+                        ></img>
+                      </div>
+                    </div>
+                    <div class="px-3 py-4 pb-6">
+                      <div class="text-blue-500 text-3xl text-bold mb-2 text-center font-bold">
+                        Teacher
+                      </div>
+                      <ul class="list-disc text-blue-300">
+                        <li className="my-4">Create and play flashcard sets</li>
+                        <li className="my-4">Start and manage maze games</li>
+                        <li className="my-4">
+                          See student statistics to improve classroom learning experience
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 text-[3vw] xl:w-2/5 w-7/12 h-[85%] md:w-1/3 md:text-[1.5vw]">
+                  <div
+                    class="bg-white border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
                     onClick={() => {
                       setDisplayState(2);
                     }}
-                  ></img>
-                  <p className="text-blue-500 text-2xl group-hover:text-blue-300">Student</p>
-                </a>
+                  >
+                    <div class="mb-4 ml-4">
+                      <div className="flex justify-center">
+                        <img
+                          className="object-contain h-52 w-40"
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ice_planet.png/1200px-Ice_planet.png"
+                        ></img>
+                      </div>
+                    </div>
+
+                    <div class="px-3 py-4 pb-6">
+                      <div class="text-blue-500 text-3xl text-bold mb-2 text-center font-bold">
+                        Student
+                      </div>
+                      <ul class="list-disc text-blue-300 ">
+                        <li className="my-4">Join maze games using game code</li>
+                        <li className="my-4">Review statistics from played games</li>
+                        <li className="my-4">Customize game character</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
