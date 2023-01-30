@@ -41,7 +41,7 @@ const LeftSideBar = (props) => {
 
             <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
               <button
-                className="editfbuttons fixed bottom-[2vh] left-[4.5vw] hover:cursor-pointer p-2"
+                className="editfbuttons fixed bottom-[2vh] left-16 w-32 hover:cursor-pointer p-2"
                 onClick={() => {
                   googleLogout();
                   props.hl();
