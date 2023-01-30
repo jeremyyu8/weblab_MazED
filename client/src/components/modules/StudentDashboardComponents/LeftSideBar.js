@@ -19,7 +19,7 @@ const LeftSideBar = (props) => {
     <>
       <div className="">
         <div
-          className={` bg-gray-800 absolute top-0 z-20 left-0 overflow-y-hidden h-[calc(100vh_-_78px)] w-[15vw] transform transition-transform duration-300 ${
+          className={` bg-gray-800 absolute top-0 z-20 left-0 overflow-y-hidden h-[calc(100vh_-_78px)] w-64 transform transition-transform duration-300 ${
             props.isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >

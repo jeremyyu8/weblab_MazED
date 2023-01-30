@@ -1043,6 +1043,10 @@
   width: auto;
 }
 
+.w-64{
+  width: 16rem;
+}
+
 .max-w-\[90\%\]{
   max-width: 90%;
 }
