@@ -826,6 +826,7 @@ const gameStart = (pin) => {
     games[pin]["players"][real_player_ids[infected_idx]].level = 1;
     games[pin]["players"][real_player_ids[infected_idx]].power = 5;
     games[pin]["players"][real_player_ids[infected_idx]].speed = 3;
+    games[pin]["players"][real_player_ids[infected_idx]].tokens = 1000;
   }
 
   interval = setInterval(() => {

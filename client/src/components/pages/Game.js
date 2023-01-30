@@ -173,7 +173,6 @@ const Game = () => {
       if (data.err === "no pin found") {
         setRedirect(true);
       }
-      console.log(data);
       setGamePin(data.pin);
       setFlashCardSet(data.cards);
       setCurFlashcards(shuffle(data.cards));
@@ -491,6 +490,17 @@ const Game = () => {
     unlockBorder(userData._id, gamePin, bordersToUnlock);
   };
 
+  // if you're a student, always show the rules by default
+  useEffect(() => {
+    console.log("inside of toggle thing");
+    console.log(status);
+    if (userData && userData.role === "student" && status === "lobby") {
+      setShowRules(true);
+    } else {
+      setShowRules(false);
+    }
+  }, [userData, status]);
+
   return (
     <>
       {redirect ? (
@@ -531,7 +541,15 @@ const Game = () => {
                   </div>
                 </div>
               </div>
-              {showRules && <RulesAndSettings setShowRules={setShowRules} gameMode={gameMode} />};
+              {showRules && (
+                <RulesAndSettings
+                  setShowRules={setShowRules}
+                  gameMode={gameMode}
+                  hitboxes={hitboxes}
+                  userData={userData}
+                />
+              )}
+              ;
             </>
           )}
           {status === "lobby" && userData && userData.role === "teacher" && gamePin && (
@@ -579,7 +597,13 @@ const Game = () => {
                   </div>
                 </div>
               </div>
-              {showRules && <RulesAndSettings setShowRules={setShowRules} gameMode={gameMode} />}
+              {showRules && (
+                <RulesAndSettings
+                  setShowRules={setShowRules}
+                  gameMode={gameMode}
+                  userData={userData}
+                />
+              )}
               {showActivePlayers && gameState && gamePin && (
                 <ActivePlayers
                   setShowActivePlayers={setShowActivePlayers}
@@ -657,6 +681,23 @@ const Game = () => {
                   <div>Minimap</div>
                   <div>Level: {level}</div>
                 </div> */}
+                <div className="fixed z-10 w-[85px] h-[85px] bottom-[10px] right-[10px]">
+                  <img
+                    src="../gameassets/settings.png"
+                    style={{ width: 75, height: 75 }}
+                    onClick={() => {
+                      setShowRules(true);
+                    }}
+                  ></img>
+                </div>
+                {showRules && (
+                  <RulesAndSettings
+                    setShowRules={setShowRules}
+                    gameMode={gameMode}
+                    hitboxes={hitboxes}
+                    userData={userData}
+                  />
+                )}
               </>
             )}
           {taggedDisplay !== false && status !== "end" && (
@@ -726,7 +767,8 @@ const Game = () => {
                     <div className="text-lg text-center p-4">
                       As the infected player, you have greater speed and power. You are also
                       starting one level ahead of every other player. Use these buffs to your
-                      advantage to tag your opponents!
+                      advantage to complete your goal, which is to tag other players and prevent
+                      them from completing the mazes!
                     </div>
                   </>
                 )}

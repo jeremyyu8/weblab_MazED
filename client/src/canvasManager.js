@@ -66,7 +66,6 @@ const skins = [
   "brown_000",
   "brown_001",
   "brown_002",
-  "brown_003",
   "calico_000",
   "clown_000",
   "creme_000",
@@ -306,6 +305,8 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
           last_frame[playerid] = newplayerid;
           dir = 7;
           step = 0;
+          shadow = shadows[dir];
+          off = shadowoffset[dir];
         } else {
           if (drawState["players"][playerid]["tagged"] !== false) {
             [step, dir] = [0, 0];
@@ -358,13 +359,12 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
         if (drawState["players"][playerid]["team"] === "red") {
           ctx.fillStyle = "red";
         } else {
-          ctx.fillStyle = "rgb(96,165,250)";
+          ctx.fillStyle = "rgb(96,165,250)"; // lighter blue
         }
       }
       if (drawState["status"] !== "lobby" && drawState["gameMode"] === "infection") {
-        console.log(drawState["players"]);
         if (drawState["players"][playerid]["infected"] === false) {
-          ctx.fillStyle = "green";
+          ctx.fillStyle = "rgb(74,222,128)"; // lighter green
         } else {
           ctx.fillStyle = "red";
           ctx.fillText("INFECTED", x * tilewidth, y * tilewidth + tilewidth + 20);
