@@ -2608,4 +2608,8 @@ input[type="checkbox"]:checked {
   .xl\:w-1\/2{
     width: 50%;
   }
+
+  .xl\:w-2\/3{
+    width: 66.666667%;
+  }
 }
