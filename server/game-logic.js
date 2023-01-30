@@ -129,7 +129,7 @@ const endGame = (pin) => {
 };
 
 const playerJoin = (data) => {
-  makeNewPlayer(data.studentid, data.pin, data.studentname, data.displayname);
+  makeNewPlayer(data.studentid, data.pin, data.studentname, data.displayname, data.skin);
 };
 
 const changeTokens = (_id, pin, result, cardid) => {
@@ -197,7 +197,7 @@ const unlockBorder = (_id, pin, bordersToUnlock) => {
   return "failure";
 };
 
-const makeNewPlayer = (_id, pin, name, displayname) => {
+const makeNewPlayer = (_id, pin, name, displayname, skin) => {
   let numMazes = games[pin]["numMazes"];
   let borders = {};
 
@@ -216,7 +216,7 @@ const makeNewPlayer = (_id, pin, name, displayname) => {
   }
 
   console.log("inside of makenewplayer");
-  console.log(name, displayname);
+  console.log(name, displayname, skin);
   const newPlayer = {
     name: name,
     displayname: displayname,
@@ -241,6 +241,7 @@ const makeNewPlayer = (_id, pin, name, displayname) => {
     team: "neutral", // team mode, "red" or "blue"
     infected: false, // infection, by default false
     borders: borders,
+    skin: skin,
   };
 
   // completion times, including the trivial level completion time

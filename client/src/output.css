@@ -446,6 +446,10 @@
   top: 40%;
 }
 
+.bottom-\[1vh\]{
+  bottom: 1vh;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -694,6 +698,14 @@
 
 .mb-5{
   margin-bottom: 1.25rem;
+}
+
+.mt-10{
+  margin-top: 2.5rem;
+}
+
+.mt-5{
+  margin-top: 1.25rem;
 }
 
 .block{
@@ -1221,6 +1233,10 @@
   overflow: hidden;
 }
 
+.overflow-scroll{
+  overflow: scroll;
+}
+
 .overflow-x-auto{
   overflow-x: auto;
 }
@@ -1655,6 +1671,14 @@
   padding-bottom: 1rem;
 }
 
+.pt-10{
+  padding-top: 2.5rem;
+}
+
+.pb-20{
+  padding-bottom: 5rem;
+}
+
 .text-center{
   text-align: center;
 }
@@ -1746,6 +1770,10 @@
 
 .text-\[1vw\]{
   font-size: 1vw;
+}
+
+.text-\[3\.5vw\]{
+  font-size: 3.5vw;
 }
 
 .font-\[900\]{

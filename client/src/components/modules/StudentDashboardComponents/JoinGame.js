@@ -9,6 +9,7 @@ import { joinLobby } from "../../../client-socket";
  * @param {string} userId the user id
  * @param {string} userName username of the user
  * @param {string} displayname display name of user
+ * @param {skin} skin skin of user
  */
 const JoinGame = (props) => {
   const [gamepin, setGamepin] = useState("");
@@ -19,11 +20,17 @@ const JoinGame = (props) => {
     setGamepin(event.target.value);
   };
 
-  const handleJoin = (id, username, displayname) => {
+  const handleJoin = (id, username, displayname, skin) => {
     console.log("inside of handle join");
     console.log(displayname);
     if (!invalidPin) {
-      joinLobby({ studentid: id, pin: gamepin, studentname: username, displayname: displayname });
+      joinLobby({
+        studentid: id,
+        pin: gamepin,
+        studentname: username,
+        displayname: displayname,
+        skin: skin,
+      });
     }
   };
 
@@ -62,7 +69,9 @@ const JoinGame = (props) => {
               ></input>
               <button
                 className="mx-auto my-4 text-2xl rounded-xl font-Ubuntu text-blue-200 bg-blue-800 hover:bg-blue-500 cursor-pointer transition-all"
-                onClick={() => handleJoin(props.userId, props.userName, props.displayname)}
+                onClick={() =>
+                  handleJoin(props.userId, props.userName, props.displayname, props.skin)
+                }
               >
                 Enter
               </button>

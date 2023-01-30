@@ -92,7 +92,10 @@ const Set = (props) => {
       {redirect ? (
         <Redirect noThrow from="/teacher/edit" to="/teacher" />
       ) : loading === true ? (
-        <div>loading...</div>
+        <>
+          <div>loading...</div>
+          <div>{"(if this screen persists for a while, try refreshing the page!)"}</div>
+        </>
       ) : (
         <>
           <div className="flex flex-col justify-center grow-0 mx-auto w-[100%]">

@@ -42,6 +42,7 @@ const StudentDashboard = (props) => {
             userId={userData._id}
             userName={userData.name}
             displayname={userData.displayname}
+            skin={userData.skin}
           />
         );
       } else if (rightSide === "Settings") {

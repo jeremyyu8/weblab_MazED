@@ -39,6 +39,7 @@ const Game = () => {
   const [gameMode, setGameMode] = useState("");
   const [team, setTeam] = useState("");
   const [infected, setInfected] = useState("");
+  const [curFlashcards, setCurFlashcards] = useState([]);
 
   // redirect logic
   const [redirect, setRedirect] = useState(false);
@@ -141,6 +142,16 @@ const Game = () => {
       });
   }, []);
 
+  // randomizing question order
+  const shuffle = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+
+    return a;
+  };
+
   // loading logic
   // only load page if all three criteria are met
   useEffect(() => {
@@ -165,6 +176,7 @@ const Game = () => {
       console.log(data);
       setGamePin(data.pin);
       setFlashCardSet(data.cards);
+      setCurFlashcards(shuffle(data.cards));
       setGameMode(data.gameMode);
     });
 
@@ -786,6 +798,8 @@ const Game = () => {
               gamePin={gamePin}
               tagged={tagged}
               taggedDisplay={taggedDisplay}
+              curFlashcards={curFlashcards}
+              setCurFlashcards={setCurFlashcards}
             />
           )}
           {status === "end" && gameState && userData && userData.role === "teacher" && (

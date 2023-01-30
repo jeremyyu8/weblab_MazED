@@ -79,3 +79,8 @@ export const untagMe = (_id, pin) => {
 export const checkAlreadyConnected = (_id) => {
   socket.emit("checkAlreadyConnected", { _id: _id });
 };
+
+export const toggleOffInvincible = (_id, pin) => {
+  console.log("emitting toggle off invincible");
+  socket.emit("toggleOffInvincible", { _id: _id, pin: pin });
+};
