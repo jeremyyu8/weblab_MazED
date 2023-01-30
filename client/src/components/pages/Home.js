@@ -49,7 +49,7 @@ const Home = ({ userId, userRole, userName }) => {
               {/* <div className="hidden typewriter md:flex md:justify-center">
                 <h1>Can you find your way out?</h1>
               </div> */}
-              <div className="typewriter text-[2vw] w-[85%] mb-4">
+              <div className="typewriter text-[2vw] w-[54%] mb-4">
                 <h1>Welcome to MazED</h1>
               </div>
               <div className="mt-10 text-blue-400 text-3xl w-[70%] text-center">
@@ -125,6 +125,11 @@ const Home = ({ userId, userRole, userName }) => {
                   </div>
                 </div>
               </div>
+              <div className="mt-[4vh]"></div>
+              <hr />
+              <footer className="text-white text-lg mt-[2vh] text-center">
+                Copyright <span className="text-2xl">&#169;</span> MazED. {"{ web.lab } 2023"}
+              </footer>
             </div>
           </div>
         </>

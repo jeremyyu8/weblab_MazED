@@ -17,7 +17,7 @@ const SignupPageStudent = ({ userId, handleLogin, handleLogout, setDisplayState 
     <>
       <div className="bg-spaceimg2 bg-fixed bg-cover h-screen flex flex-col items-center justify-center">
         <div class="rounded-xl bg-zinc-900 bg-opacity-80 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col items-center justify-center">
-          <div className="text-blue-200 text-3xl pb-8">Signup as student</div>
+          <div className="text-blue-400 text-4xl pb-8">Student Signup</div>
           <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             {userId ? (
               <button
