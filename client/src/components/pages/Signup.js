@@ -39,7 +39,7 @@ const Signup = ({
               <div class="flex flex-wrap justify-evenly mt-8">
                 <div class="p-4 text-[3vw] xl:w-2/5 w-7/12 h-[85%] md:w-1/3 md:text-[1.5vw]">
                   <div
-                    class="bg-white border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
+                    class="bg-blue-100 border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
                     onClick={() => {
                       setDisplayState(1);
                     }}
@@ -56,7 +56,7 @@ const Signup = ({
                       <div class="text-blue-500 text-3xl text-bold mb-2 text-center font-bold">
                         Teacher
                       </div>
-                      <ul class="list-disc text-blue-300">
+                      <ul class="list-disc text-blue-400">
                         <li className="my-4">Create and play flashcard sets</li>
                         <li className="my-4">Start and manage maze games</li>
                         <li className="my-4">
@@ -68,7 +68,7 @@ const Signup = ({
                 </div>
                 <div class="p-4 text-[3vw] xl:w-2/5 w-7/12 h-[85%] md:w-1/3 md:text-[1.5vw]">
                   <div
-                    class="bg-white border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
+                    class="bg-blue-100 border-solid border-blue-200 h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl hover:scale-110 transition duration-300 ease-in-out hover:border-blue-500"
                     onClick={() => {
                       setDisplayState(2);
                     }}
@@ -86,7 +86,7 @@ const Signup = ({
                       <div class="text-blue-500 text-3xl text-bold mb-2 text-center font-bold">
                         Student
                       </div>
-                      <ul class="list-disc text-blue-300 ">
+                      <ul class="list-disc text-blue-400 ">
                         <li className="my-4">Join maze games using game code</li>
                         <li className="my-4">Review statistics across all played games</li>
                         <li className="my-4">Customize game character</li>
