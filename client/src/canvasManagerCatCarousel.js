@@ -13,7 +13,6 @@ const skins = [
   "brown_000",
   "brown_001",
   "brown_002",
-  "brown_003",
   "calico_000",
   "clown_000",
   "creme_000",

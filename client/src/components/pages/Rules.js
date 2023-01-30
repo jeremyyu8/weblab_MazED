@@ -123,7 +123,7 @@ const Rules = ({}) => {
                       "infected" person starts with speed
                       <ul>
                         <li>power +5</li>
-                        <li>speed +5</li>
+                        <li>speed +3</li>
                         <li>tokens +1000</li>
                         <li>level +1</li>
                       </ul>

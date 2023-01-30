@@ -380,7 +380,7 @@ const Carousel = (props) => {
         </div>
         {showTip && (
           <>
-            <div className="fixed bottom-[30%] right-[15%] w-[30%] h-[15%] text-black bg-white opacity-80 text-xl">
+            <div className="fixed bottom-[30%] right-[15%] w-[30%] h-[15%] text-black bg-white opacity-80 text-xl p-8">
               Try using your arrowkeys to test out the movement of each avatar!
               <div className="flex h-[40%] relative">
                 <div>
