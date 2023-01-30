@@ -54,6 +54,7 @@ dirObject[thirteen] = 13;
 
 // shadow vectors
 const shadows = {
+  0: null, // sitting position shadow
   6: null,
   7: null,
   8: null,
@@ -64,6 +65,8 @@ const shadows = {
   13: null,
 };
 // load images
+shadows[0] = new Image(tilewidth, tilewidth);
+shadows[0].src = "../gameassets/shadows/0.png"; // sitting position shadow
 shadows[6] = new Image(tilewidth, tilewidth);
 shadows[6].src = "../gameassets/shadows/45.png";
 shadows[7] = new Image(tilewidth, tilewidth);
@@ -83,11 +86,12 @@ shadows[13].src = "../gameassets/shadows/0.png";
 
 // shadow offset values
 let off = 3;
+let s = [0, 24 + off, 9, 9]; // sitting
 let v = [10.5, 33 + off, -12, -12];
 let h = [0, 24 + off, 9, 9];
 let d1 = [9, 33 + off, -6, -6]; // 45
 let d2 = [9, 34.5 + off, -9, -9]; // 135
-let shadowoffset = { 6: d1, 7: v, 8: d2, 9: h, 10: d1, 11: v, 12: d2, 13: h };
+let shadowoffset = { 0: s, 6: d1, 7: v, 8: d2, 9: h, 10: d1, 11: v, 12: d2, 13: h };
 
 // last animated thing
 // playerid: {
@@ -222,9 +226,14 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
           dir = 7;
           step = 0;
         } else {
-          dir = last_frame[playerid]["animation"];
-          last_frame[playerid]["step"] = 0;
-          step = 0;
+          if (drawState["players"][playerid]["tagged"] !== false) {
+            [step, dir] = [0, 0];
+            last_frame[playerid]["animation"] = 0;
+          } else {
+            dir = last_frame[playerid]["animation"];
+            last_frame[playerid]["step"] = 0;
+            step = 0;
+          }
           shadow = shadows[dir];
           off = shadowoffset[dir];
         }
@@ -260,6 +269,30 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
         tilewidth + 24
       );
 
+      let offset = drawState["status"] === "lobby" ? 5 : 20;
+      // draw displayname
+      ctx.font = "20px Monospace";
+      // console.log(fill_text);
+      if (drawState["status"] !== "lobby" && drawState["gameMode"] === "team") {
+        if (drawState["players"][playerid]["team"] === "red") {
+          ctx.fillStyle = "red";
+        } else {
+          ctx.fillStyle = "blue";
+        }
+      }
+      if (drawState["status"] !== "lobby" && drawState["gameMode"] === "infection") {
+        console.log(drawState["players"]);
+        if (drawState["players"][playerid]["infected"] === false) {
+          ctx.fillStyle = "green";
+        } else {
+          ctx.fillStyle = "red";
+          ctx.fillText("INFECTED", x * tilewidth, y * tilewidth + tilewidth + 20);
+        }
+      }
+      let display_name = drawState["players"][playerid]["displayname"];
+      let horizontal_offset = (display_name.length - 7) * 5;
+      ctx.fillText(`${display_name}`, x * tilewidth - horizontal_offset, y * tilewidth - offset);
+
       // draw sprite power level
       if (drawState["status"] !== "lobby") {
         ctx.font = "20px Monospace";
@@ -275,18 +308,6 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
           );
         }
       }
-
-      let offset = drawState["status"] === "lobby" ? 5 : 20;
-      // draw displayname
-      ctx.font = "20px Monospace";
-      // if (drawState["teacher"]["_id"] !== playerid) {
-      let horizontal_offset = (drawState["players"][playerid]["displayname"].length - 7) * 5;
-      ctx.fillText(
-        `${drawState["players"][playerid]["displayname"]}`,
-        x * tilewidth - horizontal_offset,
-        y * tilewidth - offset
-      );
-      // }
 
       // draw sprite hitboxes and dir vectors
       if (drawState["hitboxes"]) {
