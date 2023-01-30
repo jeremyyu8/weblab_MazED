@@ -33,6 +33,8 @@ export const drawTeacherCanvas = (drawState, canvasRef, xsize) => {
         ctx.fillStyle = "blue";
       } else if (tile_idx === 4) {
         ctx.fillStyle = "purple";
+      } else if (tile_idx === 5) {
+        ctx.fillStyle = "black";
       }
 
       ctx.fillRect(i * scale, j * scale, scale, scale);

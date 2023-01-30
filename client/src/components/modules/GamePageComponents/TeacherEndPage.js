@@ -116,7 +116,7 @@ const TeacherEndPage = (props) => {
         playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
         playerData.push(<tr className="border-solid h-[15vh]">{curPlayer}</tr>);
       } else {
-        playerData.push(<tr className="outline-red-300 outline-4">{curPlayer}</tr>);
+        playerData.push(<tr className="border-solid h-[15vh] outline-red-500">{curPlayer}</tr>);
       }
     });
     setDisplayData(playerData);

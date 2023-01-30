@@ -119,7 +119,7 @@ const Set = (props) => {
   };
 
   const handleChangeNumMazes = (e) => {
-    if ((e.target.value >= 1 && e.target.value <= 9) || e.target.value === "") {
+    if ((e.target.value >= 2 && e.target.value <= 9) || e.target.value === "") {
       setNumMazes(e.target.value);
     }
   };
@@ -257,7 +257,7 @@ const Set = (props) => {
               <input
                 className="mx-8 h-[5vw] mt-[5vh] font-Ubuntu w-[5vw] transform -translate-y-1/4 text-3xl mr-[2vw]"
                 type="number"
-                min="1"
+                min="2"
                 max="9"
                 value={numMazes}
                 onInput={handleChangeNumMazes}

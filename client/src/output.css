@@ -472,6 +472,10 @@
   z-index: 30;
 }
 
+.m-4{
+  margin: 1rem;
+}
+
 .m-2{
   margin: 0.5rem;
 }
@@ -490,10 +494,6 @@
 
 .m-5{
   margin: 1.25rem;
-}
-
-.m-4{
-  margin: 1rem;
 }
 
 .my-auto{
@@ -581,6 +581,10 @@
 
 .mt-\[10vh\]{
   margin-top: 10vh;
+}
+
+.mt-\[4vh\]{
+  margin-top: 4vh;
 }
 
 .mb-4{
@@ -701,10 +705,6 @@
 
 .ml-\[20\%\]{
   margin-left: 20%;
-}
-
-.mt-\[4vh\]{
-  margin-top: 4vh;
 }
 
 .mt-\[5vh\]{
@@ -925,6 +925,10 @@
 
 .w-\[80\%\]{
   width: 80%;
+}
+
+.w-\[54\%\]{
+  width: 54%;
 }
 
 .w-\[85\%\]{
@@ -1927,12 +1931,8 @@
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.outline-4{
-  outline-width: 4px;
-}
-
-.outline-red-300{
-  outline-color: #fca5a5;
+.outline-red-500{
+  outline-color: #ef4444;
 }
 
 .filter{
