@@ -48,7 +48,7 @@ const Rules = ({}) => {
                 text="Player's speed and power can be upgraded using tokens in the top left corder of the game screen"
               ></Card>
               <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/upgrade.png" className="h-auto max-w-full"></img>
+                <img src="../assets/barrier.png" className="h-auto max-w-full"></img>
               </div>
             </div>
           </div>
