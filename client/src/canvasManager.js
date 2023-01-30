@@ -358,7 +358,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
         if (drawState["players"][playerid]["team"] === "red") {
           ctx.fillStyle = "red";
         } else {
-          ctx.fillStyle = "blue";
+          ctx.fillStyle = "rgb(96,165,250)";
         }
       }
       if (drawState["status"] !== "lobby" && drawState["gameMode"] === "infection") {
