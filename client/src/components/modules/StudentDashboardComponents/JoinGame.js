@@ -3,6 +3,9 @@ import { Redirect } from "@reach/router";
 import { socket } from "../../../client-socket";
 import { joinLobby } from "../../../client-socket";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+
 /**
  * Join game component for student users to join new lobbies
  *

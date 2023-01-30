@@ -537,7 +537,7 @@ const Game = () => {
           )}
           {status === "lobby" && userData && userData.role === "student" && (
             <>
-              <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">
+              <div className="bg-white bg-opacity-30 fixed z-30 w-[100%] h-auto bottom-0">
                 <div className="flex justify-between text-3xl">
                   <div className="p-[3vh]">Welcome, {userData.name}</div>
                   <div
@@ -631,7 +631,7 @@ const Game = () => {
             inBorderRange && (
               <>
                 <button
-                  className={`text-2xl fixed top-[50%] left-[50%] z-20 hover:cursor-pointer ${
+                  className={`text-2xl fixed top-[50%] left-[50%] z-20 font-Ubuntu hover:cursor-pointer ${
                     borderUpgradeFailed ? "animate-shake bg-red-300" : ""
                   }`}
                   onClick={handleBorderUnlock}
@@ -663,7 +663,7 @@ const Game = () => {
                         <tr>
                           <td>Speed:</td> <td>{speed}</td>{" "}
                           <button
-                            className={`ml-3 hover:cursor-pointer ${
+                            className={`ml-3 hover:cursor-pointer font-Ubuntu ${
                               speedUpgradeFailed ? "animate-shake bg-red-300" : ""
                             }`}
                             onClick={handleUpgradeSpeed}
@@ -674,7 +674,7 @@ const Game = () => {
                         <tr>
                           <td>Power:</td> <td>{power}</td>{" "}
                           <button
-                            className={`ml-3 hover:cursor-pointer ${
+                            className={`ml-3 hover:cursor-pointer font-Ubuntu ${
                               powerUpgradeFailed ? "animate-shake bg-red-300" : ""
                             }`}
                             onClick={handleUpgradePower}

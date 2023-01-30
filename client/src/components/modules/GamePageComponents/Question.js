@@ -91,7 +91,7 @@ const Question = (props) => {
         {questionState === "question" && (
           <div className=" w-[80%] h-[80%] mx-auto my-auto relative flex-col flex justify-center border-solid">
             <div className="basis-[40%] text-6xl flex w-full bg-cyan-600 bg-opacity-90">
-              <div className="my-auto px-8 max-w-[100%] text-center overflow-none">
+              <div className="my-auto mx-auto px-8 max-w-[100%] text-center overflow-none">
                 {curQuestion.question}
               </div>
             </div>

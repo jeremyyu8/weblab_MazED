@@ -254,7 +254,10 @@ const Settings = (props) => {
                 Display Name: <span className="text-blue-600">{displayname}</span>
               </div>
             </div>
-            <button className="font-Ubuntu mt-5" onClick={handleShowChangeDisplay}>
+            <button
+              className="font-Ubuntu mt-5 hover:cursor-pointer hover:bg-blue-400"
+              onClick={handleShowChangeDisplay}
+            >
               Change display name
             </button>
             {showDisplay && (

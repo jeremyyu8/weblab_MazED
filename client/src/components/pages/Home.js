@@ -6,6 +6,12 @@ import { Link, Redirect } from "@reach/router";
 import Navbar from "../modules/Navbar";
 import Card from "./Card.js";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUserPlus,
+  faPersonChalkboard,
+  faBookOpenReader,
+} from "@fortawesome/free-solid-svg-icons";
 import "../../master.css";
 
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
@@ -49,7 +55,7 @@ const Home = ({ userId, userRole, userName }) => {
               {/* <div className="hidden typewriter md:flex md:justify-center">
                 <h1>Can you find your way out?</h1>
               </div> */}
-              <div className="typewriter text-[2vw] w-[85%] mb-4">
+              <div className="typewriter text-[2vw] w-[54%] mb-4">
                 <h1>Welcome to MazED</h1>
               </div>
               <div className="mt-10 text-blue-400 text-3xl w-[70%] text-center">
@@ -87,21 +93,41 @@ const Home = ({ userId, userRole, userName }) => {
             <div className="pagetitle text-center p-8 pt-12">How it works</div>
             <div>
               <div className="flex flex-wrap justify-evenly pb-8">
-                <Card title="1. Create Account" text="Sign up as teacher or student."></Card>
+                <Card
+                  title="Create Account"
+                  text="Sign up as teacher or student!"
+                  icon={<FontAwesomeIcon icon={faUserPlus} />}
+                ></Card>
               </div>
+              <div className="flex flex-wrap justify-evenly pb-8 m-5">
+                <div className="arrow rotate-45">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div className="arrow rotate-[-45deg]">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
               <div className="flex flex-wrap justify-evenly pb-8">
                 <Card
                   title="Teachers"
-                  text="Create and edit flashcard ets in My Sets. Start a new game by pressing the play button on any flashcard set. Wait for students to join using the game code!"
+                  icon={<FontAwesomeIcon icon={faPersonChalkboard} />}
+                  text="Create and edit flashcard sets. Start a new game by pressing the play button on any flashcard set. Wait for students to join using the game code!"
                 ></Card>
                 <Card
                   title="Students"
-                  text="Customize avatar and display name in Profile. Join a game by entering a game code provided by the teacher!"
+                  icon={<FontAwesomeIcon icon={faBookOpenReader} />}
+                  text="Customize avatar and display name in profile. Join a game by entering a game code provided by the teacher!"
                 ></Card>
               </div>
               <div className="flex flex-wrap justify-evenly pb-4">
                 <div className="p-4 mt-8 text-[3vw] xl:w-2/3 md:w-1/3 md:text-[1.5vw] w-7/12">
                   <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-90 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                    {/* <img src="./assets/logoicon.png" width={80} /> */}
                     <div class="text-[4vw] text-blue-100 mt-8 ml-8 md:text-[3vw]">Why MazED?</div>
                     <div className="pt-4 pl-8 pr-8 flex rounded-lg items-center text-gray-900">
                       <p className="leading-8">
@@ -125,6 +151,11 @@ const Home = ({ userId, userRole, userName }) => {
                   </div>
                 </div>
               </div>
+              <div className="mt-[4vh]"></div>
+              <hr />
+              <footer className="text-white text-lg mt-[2vh] text-center">
+                Copyright <span className="text-2xl">&#169;</span> MazED. {"{ web.lab } 2023"}
+              </footer>
             </div>
           </div>
         </>
