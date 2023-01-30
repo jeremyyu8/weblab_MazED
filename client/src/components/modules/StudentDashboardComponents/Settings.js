@@ -4,6 +4,7 @@ import { get, post } from "../../../utilities";
 
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
 
+import { drawCatCarouselCanvas } from "../../../canvasManagerCatCarousel";
 import Carousel from "./Carousel";
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
@@ -138,6 +139,12 @@ const Settings = (props) => {
   );
 
   let carouselContent = [
+    "grey_000",
+    "grey_001",
+    "grey_002",
+    "grey_tabby_000",
+    "grey_tabby_001",
+    "grey_tabby_002",
     "black_000",
     "black_001",
     "black_002",
@@ -150,25 +157,17 @@ const Settings = (props) => {
     "brown_001",
     "brown_002",
     "calico_000",
-    "clown_000",
     "creme_000",
     "creme_001",
     "creme_002",
     "dark_000",
     "dark_001",
     "dark_002",
-    "dark_003",
     "dark_004",
     "ghost_000",
     "gold_000",
     "green_000",
     "green_001",
-    "grey_000",
-    "grey_001",
-    "grey_002",
-    "grey_tabby_000",
-    "grey_tabby_001",
-    "grey_tabby_002",
     "orange_002",
     "orange_003",
     "orange_tabby_000",
@@ -183,7 +182,66 @@ const Settings = (props) => {
     "white_grey_000",
     "white_grey_001",
     "white_grey_002",
+    "dark_003",
+    "clown_000",
   ];
+
+  let catNames = [
+    "Tawny",
+    "Buttercup",
+    "Snowball",
+    "Rascal",
+    "Peanut",
+    "Nala",
+    "Shadow",
+    "Whiskers",
+    "Jasper",
+    "Casper",
+    "Cleo",
+    "Scaredy",
+    "Oreo",
+    "Simba",
+    "Marmalade",
+    "Felix",
+    "Willow",
+    "Spooky",
+    "Zippy",
+    "Chirpy",
+    "Salem",
+    "Luna",
+    "Tuxedo",
+    "Tabby",
+    "Twix",
+    "Witty",
+    "Tilly",
+    "Tiger",
+    "Tiger Lily",
+    "Zorro",
+    "Tortie",
+    "Coco",
+    "Mittens",
+    "Socks",
+    "Zoey",
+    "Rusty",
+    "Tumble",
+    "Spot",
+    "Smokey",
+    "Oscar",
+    "Simba",
+    "Smokey",
+    "Tiger",
+    "KChoi",
+    "NTsao",
+  ];
+
+  let catFileToName = {};
+  let catNameToFile = {};
+  console.log(carouselContent.length);
+  console.log(catNames.length);
+  for (let idx = 0; idx < carouselContent.length; idx++) {
+    catFileToName[carouselContent[idx]] = catNames[idx];
+    catNameToFile[catNames[idx]] = carouselContent[idx];
+  }
 
   return (
     <>
@@ -238,7 +296,13 @@ const Settings = (props) => {
             </div>
 
             <hr />
-            <Carousel content={carouselContent} userData={props.userData} setSkin={setSkin} />
+            <Carousel
+              content={carouselContent}
+              userData={props.userData}
+              catFileToName={catFileToName}
+              catNameToFile={catNameToFile}
+              setSkin={setSkin}
+            />
           </div>
         </div>
       </div>

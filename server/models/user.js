@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   games_won: { type: Number, default: 0 },
   tags: { type: Number, default: 0 },
   tagged: { type: Number, default: 0 },
-  skin: { type: String, default: "creme_000" },
+  skin: { type: String, default: "grey_000" },
 });
 
 // compile model from schema

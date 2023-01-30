@@ -57,7 +57,7 @@ const makeNewGame = (data) => {
   // const lobby = mazeLogic.generateLobby();
   const lobby = mazeLogic.generateLobby();
   const map0 = mazeLogic.generateTrivialMaze();
-  const endlobby = mazeLogic.generateLobby();
+  const endlobby = mazeLogic.generateEndLobby();
 
   let maps = [];
   for (let idx = 1; idx <= data.numMazes; idx++) {

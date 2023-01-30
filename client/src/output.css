@@ -454,6 +454,14 @@
   left: 25%;
 }
 
+.bottom-\[30\%\]{
+  bottom: 30%;
+}
+
+.right-\[15\%\]{
+  right: 15%;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -916,6 +924,10 @@
 
 .h-\[300vh\]{
   height: 300vh;
+}
+
+.h-\[15\%\]{
+  height: 15%;
 }
 
 .w-screen{
@@ -1996,6 +2008,10 @@
 
 .opacity-95{
   opacity: 0.95;
+}
+
+.opacity-80{
+  opacity: 0.8;
 }
 
 .shadow{

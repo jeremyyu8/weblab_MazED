@@ -496,7 +496,10 @@ const Game = () => {
       {redirect ? (
         <Redirect from="/game" to="/login" />
       ) : loading ? (
-        <div>Loading ... </div>
+        <>
+          <div>Loading ... </div>
+          <div>(if this screen persists for a while, try refreshing the page!)</div>
+        </>
       ) : (
         <div className="">
           {userData &&

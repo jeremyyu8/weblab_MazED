@@ -64,7 +64,7 @@ const Settings = (props) => {
   // number of sets
   data.push(
     <div>
-      Number of sets <span className="text-blue-600"> {props.userData.sets.length}</span>
+      Number of sets: <span className="text-blue-600"> {props.userData.sets.length}</span>
     </div>
   );
   // account creation date
