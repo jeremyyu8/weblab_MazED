@@ -219,7 +219,7 @@ const TeacherDashboard = (props) => {
               >
                 {loading === false && rightComponent}
                 {loading === true && (
-                  <div className="background text-[2vw] text-green-200">
+                  <div className="background text-[2vw] text-blue-200">
                     Loading teacher dashboard...
                   </div>
                 )}

@@ -92,6 +92,10 @@ const makeNewGame = (data) => {
     startTime: 0,
     numMazes: data.numMazes,
     gameMode: data.gameMode,
+    redRank: 0, // red team rank
+    blueRank: 0, // blue team rank
+    infectedRank: 1, // infected team rank, default winning
+    notInfectedRank: 2, // not infected team rank, default losing
     pin: data.pin,
     active: true,
   };
@@ -234,8 +238,8 @@ const makeNewPlayer = (_id, pin, name, displayname, skin) => {
     flashcards_total: 0, // total number of flashcards answered
     invincible: false, // invincible after getting tagged
     newlevel: false, // if on new level
-    team: "neutral", // team mode
-    infected: "false", // infection
+    team: "neutral", // team mode, "red" or "blue"
+    infected: false, // infection, by default false
     borders: borders,
     skin: skin,
   };
@@ -257,7 +261,6 @@ const setWindowSize = (_id, pin, x, y) => {
 
 // // move player on player input
 const movePlayer = (_id, pin, dir) => {
-  console.log("moveplayer", _id, pin, dir);
   if (!games || !games[pin]) {
     return;
   }
@@ -306,7 +309,11 @@ const updateGameState = () => {
   for (let pin in games) {
     // sort player ranks in each game
     if (games[pin]["status"] !== "lobby") {
-      rankPlayers(pin);
+      if (games[pin]["gameMode"] === "individual") {
+        rankPlayers(pin);
+      } else if (games[pin]["gameMode"] === "team") {
+        rankTeams(pin);
+      }
     }
 
     // if the game is not lobby, check for collisions
@@ -326,14 +333,8 @@ const updateGameState = () => {
           continue;
         }
 
-        // can't tag someone on the same team in team mode
-        if (games[pin]["gameMode"] === "team" && player1["team"] === player2["team"]) {
-          continue;
-        }
-
         // if powers are equal, both players get tagged
         // players freeze on tag
-        console.log("someone got tagged");
         if (player1["power"] === player2["power"]) {
           player1["tagged"] = player2["name"];
           player2["tagged"] = player1["name"];
@@ -343,8 +344,8 @@ const updateGameState = () => {
           player2["numtagged"] += 1;
           // infection
           if (games[pin]["gameMode"] === "infection") {
-            if (player1["infected"] === true) player2["infected"] === true;
-            if (player2["infected"] === true) player1["infected"] === true;
+            if (player1["infected"] === true) player2["infected"] = true;
+            if (player2["infected"] === true) player1["infected"] = true;
           }
         } else if (player1["power"] > player2["power"]) {
           player2["tagged"] = player1["name"];
@@ -352,7 +353,7 @@ const updateGameState = () => {
           player2["numtagged"] += 1;
           // infection
           if (games[pin]["gameMode"] === "infection") {
-            if (player1["infected"] === true) player2["infected"] === true;
+            if (player1["infected"] === true) player2["infected"] = true;
           }
         } else {
           player1["tagged"] = player2["name"];
@@ -360,9 +361,13 @@ const updateGameState = () => {
           player1["numtagged"] += 1;
           // infection
           if (games[pin]["gameMode"] === "infection") {
-            if (player2["infected"] === true) player1["infected"] === true;
+            if (player2["infected"] === true) player1["infected"] = true;
           }
         }
+      }
+
+      if (games[pin]["gameMode"] === "infection") {
+        checkInfectionEnd(pin); // check if any non-infected players remain
       }
     }
 
@@ -392,6 +397,8 @@ const updateGameState = () => {
       }
       // freeze movement if moving to next level
       if (curPlayer["newlevel"] === true) {
+        // new level invincibility
+        games[pin]["players"][_id]["invincible"] = true;
         let level_completion_tag = "level" + curPlayer["level"] + "completion";
         curPlayer[level_completion_tag] = games[pin]["startTime"];
         curPlayer["level"] += 1;
@@ -406,6 +413,14 @@ const updateGameState = () => {
         curPlayer["newlevel"] = false;
         console.log("player new level");
         console.log(curPlayer);
+        // if game mode infection and non-infected player reaches the last level, the game ends
+        if (games[pin]["gameMode"] === "infection" && curPlayer["infected"] === false) {
+          if (curPlayer["level"] === games[pin]["numMazes"]) {
+            games[pin]["infectedRank"] = 2;
+            games[pin]["notInfectedRank"] = 1;
+            endGame(pin);
+          }
+        }
         continue;
       }
 
@@ -417,16 +432,16 @@ const updateGameState = () => {
         (curPlayer.k["up"] === true || curPlayer.k["down"] === true) &&
         !(curPlayer.k["up"] === true && curPlayer.k["down"] === true);
       if (curPlayer.k["up"] === true) {
-        curPlayer.v.y -= ACCEL + 0.01 * curPlayer["speed"];
+        curPlayer.v.y -= ACCEL + 0.005 * curPlayer["speed"];
       }
       if (curPlayer.k["down"] === true) {
-        curPlayer.v.y += ACCEL + 0.01 * curPlayer["speed"];
+        curPlayer.v.y += ACCEL + 0.005 * curPlayer["speed"];
       }
       if (curPlayer.k["left"] === true) {
-        curPlayer.v.x -= ACCEL + 0.01 * curPlayer["speed"];
+        curPlayer.v.x -= ACCEL + 0.005 * curPlayer["speed"];
       }
       if (curPlayer.k["right"] === true) {
-        curPlayer.v.x += ACCEL + 0.01 * curPlayer["speed"];
+        curPlayer.v.x += ACCEL + 0.005 * curPlayer["speed"];
       }
       if (movingx && movingy) {
         let v = Math.max(Math.abs(curPlayer.v.y), Math.abs(curPlayer.v.x));
@@ -502,6 +517,80 @@ const updateGameState = () => {
   }
 };
 
+// check for infection end
+const checkInfectionEnd = (pin) => {
+  for (let _id in games[pin]["players"]) {
+    if (_id === games[pin]["teacher"]["_id"]) continue;
+    if (games[pin]["players"][_id]["infected"] === false) return;
+  }
+  // end game if every player is infected
+  endGame(pin);
+};
+
+// team rankings
+const rankTeams = (pin) => {
+  let red = [0, 0, 0]; // levels, tags, total time
+  let blue = [0, 0, 0];
+  for (let _id in games[pin]["players"]) {
+    let player = games[pin]["players"][_id];
+    if (player["team"] === "red") {
+      red[0] += player["level"];
+      red[1] += player["tags"];
+      let time;
+      if (player["level"] <= 0) {
+        time = 3600;
+      } else {
+        let last = player["level"] - 1;
+        let level_completion_tag = "level" + last + "completion";
+        time = player[level_completion_tag];
+      }
+      red[2] += time;
+    } else {
+      blue[0] += player["level"];
+      blue[1] += player["tags"];
+      let time;
+      if (player["level"] <= 0) {
+        time = 3600;
+      } else {
+        let last = player["level"] - 1;
+        let level_completion_tag = "level" + last + "completion";
+        time = player[level_completion_tag];
+      }
+      blue[2] += time;
+    }
+  }
+  let numPlayers = Object.keys(games[pin]["players"]).length;
+  if (red[0] / numPlayers === blue[0] / numPlayers) {
+    if (red[1] === blue[1]) {
+      if (red[2] > blue[2]) {
+        // total time
+        games[pin]["blueRank"] = 1;
+        games[pin]["redRank"] = 2;
+      } else {
+        games[pin]["blueRank"] = 2;
+        games[pin]["redRank"] = 1;
+      }
+    }
+    if (red[1] < blue[1]) {
+      // total tags
+      games[pin]["blueRank"] = 1;
+      games[pin]["redRank"] = 2;
+    } else {
+      games[pin]["blueRank"] = 2;
+      games[pin]["redRank"] = 1;
+    }
+  }
+
+  if (red[0] / numPlayers < blue[0] / numPlayers) {
+    // normalized sum of levels
+    games[pin]["blueRank"] = 1;
+    games[pin]["redRank"] = 2;
+  } else {
+    games[pin]["blueRank"] = 2;
+    games[pin]["redRank"] = 1;
+  }
+};
+
 // player rankings
 const rankPlayers = (pin) => {
   let players = [];
@@ -513,7 +602,8 @@ const rankPlayers = (pin) => {
       if (player_level <= 0) {
         players.push([_id, player_level, 3600, tags]);
       } else {
-        let level_completion_tag = "level" + player_level + "completion";
+        let last = player_level - 1;
+        let level_completion_tag = "level" + last + "completion";
         let level_completion_time = games[pin]["players"][_id][level_completion_tag];
         let tags = games[pin]["players"][_id]["tags"];
         players.push([_id, player_level, level_completion_time, tags]);
@@ -632,6 +722,12 @@ const detectMapCollisions = (_id, pin) => {
   }
 };
 
+const toggleOffInvincible = (_id, pin) => {
+  console.log("toggling off invincible");
+  if (!games || !games[pin]) return;
+  games[pin]["players"][_id]["invincible"] = false;
+};
+
 // detect collisions between players and other players
 const detectPlayerCollisions = (pin) => {
   let collisions = [];
@@ -662,6 +758,22 @@ const detectPlayerCollisions = (pin) => {
       if (games[pin]["players"][_id1]["level"] === 0 || games[pin]["players"][_id2]["level"] === 0)
         continue;
 
+      // can't tag someone on the same team in team mode
+      if (
+        games[pin]["gameMode"] === "team" &&
+        games[pin]["players"][_id1]["team"] === games[pin]["players"][_id2]["team"]
+      ) {
+        continue;
+      }
+
+      // infected teams can only tag on the opposite side of infection
+      if (
+        games[pin]["gamdeMode"] === "infection" &&
+        games[pin]["players"][_id1]["infected"] === games[pin]["players"][_id2]["infected"]
+      ) {
+        continue;
+      }
+
       let player1 = games[pin]["players"][_id1];
       let player2 = games[pin]["players"][_id2];
 
@@ -688,6 +800,33 @@ const gameStart = (pin) => {
     player.v.x = 0;
     player.v.y = 0;
   });
+
+  let player_ids = Object.keys(games[pin]["players"]);
+  let real_player_ids = [];
+  // filter out teacher
+  for (let i = 0; i < player_ids.length; i++) {
+    if (player_ids[i] === games[pin]["teacher"]["_id"]) continue;
+    real_player_ids.push(player_ids[i]);
+  }
+  // assign teams
+  if (games[pin]["gameMode"] === "team") {
+    for (let i = 0; i < real_player_ids.length; i++) {
+      if (i % 2 === 0) {
+        games[pin]["players"][real_player_ids[i]].team = "red";
+      } else {
+        games[pin]["players"][real_player_ids[i]].team = "blue";
+      }
+    }
+  } else if (games[pin]["gameMode"] === "infection") {
+    // assign infected person
+    let infected_idx = Math.floor(Math.random() * real_player_ids.length);
+    games[pin]["players"][real_player_ids[infected_idx]].infected = true;
+
+    // buff infected person stats
+    games[pin]["players"][real_player_ids[infected_idx]].level = 1;
+    games[pin]["players"][real_player_ids[infected_idx]].power = 5;
+    games[pin]["players"][real_player_ids[infected_idx]].speed = 3;
+  }
 
   interval = setInterval(() => {
     if (games[pin]) {
@@ -734,5 +873,6 @@ module.exports = {
   upgradePower,
   untagMe,
   unlockBorder,
+  toggleOffInvincible,
   endGame,
 };

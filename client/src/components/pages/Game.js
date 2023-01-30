@@ -8,6 +8,7 @@ import {
   upgradeSpeed,
   upgradePower,
   unlockBorder,
+  toggleOffInvincible,
 } from "../../client-socket.js";
 
 import { drawCanvas } from "../../canvasManager";
@@ -36,6 +37,8 @@ const Game = () => {
   const [showActivePlayers, setShowActivePlayers] = useState(false);
   const [numMazes, setNumMazes] = useState(3);
   const [gameMode, setGameMode] = useState("");
+  const [team, setTeam] = useState("");
+  const [infected, setInfected] = useState("");
   const [curFlashcards, setCurFlashcards] = useState([]);
 
   // redirect logic
@@ -59,6 +62,9 @@ const Game = () => {
   const [inBorderRange, setInBorderRange] = useState(false);
   const [bordersToUnlock, setBordersToUnlock] = useState([]);
   const [hitboxes, setHitboxes] = useState(false);
+
+  // start game error
+  const [startGameError, setStartGameError] = useState(false);
 
   // completion times
   const [level0CompletionTime, setLevel0CompletionTime] = useState(undefined);
@@ -106,7 +112,6 @@ const Game = () => {
 
   // convert to time
   const convertToTime = (seconds) => {
-    console.log(seconds);
     let minutes = Math.floor(seconds / 60);
     let secs = seconds - 60 * minutes;
     if (minutes === 0) {
@@ -274,9 +279,6 @@ const Game = () => {
   // update window size whenever it changes
   const handleResize = () => {
     if (userData && gamePin) {
-      console.log("handling resize");
-      console.log("new", window.innerWidth, window.innerHeight);
-      console.log("current", windowDimension.width, windowDimension.height);
       setWindowDimension({ width: window.innerWidth, height: window.innerHeight });
       updateWindowSize({
         x: window.innerWidth,
@@ -285,6 +287,11 @@ const Game = () => {
         pin: gamePin,
       });
     }
+  };
+
+  const offInvincible = (_id, pin) => {
+    console.log("off invicible frontend", _id, pin);
+    toggleOffInvincible(_id, pin);
   };
 
   const handleKeyUp = (e) => {
@@ -342,6 +349,8 @@ const Game = () => {
     setSpeed(update["players"][_id]["speed"]);
     setPower(update["players"][_id]["power"]);
     setTagged(update["players"][_id]["tagged"]);
+    setTeam(update["players"][_id]["team"]);
+    setInfected(update["players"][_id]["infected"]);
     if (numMazes) {
       // set level completion times
       for (let idx = 0; idx <= numMazes; idx++) {
@@ -399,8 +408,28 @@ const Game = () => {
 
   const handleStartGame = () => {
     console.log("handling start game");
-    setStatus("game");
-    startGame(gamePin);
+    if (startGameError === false) {
+      if (gameMode === "team") {
+        if (Object.keys(gameState["players"]).length <= 2) {
+          setStartGameError("the team game mode requires at least 2 students to play!");
+          setInterval(() => {
+            setStartGameError(false);
+          }, 3000);
+          return;
+        }
+      }
+      if (gameMode === "infection") {
+        if (Object.keys(gameState["players"]).length <= 2) {
+          setStartGameError("the infection game mode requires at least 2 students to play!");
+          setInterval(() => {
+            setStartGameError(false);
+          }, 3000);
+          return;
+        }
+      }
+      setStatus("game");
+      startGame(gamePin);
+    }
   };
 
   const handleUpgradeSpeed = () => {
@@ -509,6 +538,9 @@ const Game = () => {
                 <div className="text-center text-4xl">PIN: {gamePin}</div>
               </div>
               <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">
+                {startGameError !== false && (
+                  <div className="animate-shake text-red-500 text-md">{startGameError}</div>
+                )}
                 <div className="flex justify-between text-3xl">
                   <div
                     className="p-[3vh] hover:text-blue-500 cursor-pointer transition-all text-md"
@@ -580,7 +612,7 @@ const Game = () => {
               <>
                 <button
                   onClick={() => setQuestionShowing(true)}
-                  className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl p-5 hover:bg-opacity-70"
+                  className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl font-Ubuntu p-5 hover:bg-opacity-70"
                 >
                   Answer Question
                 </button>
@@ -632,13 +664,78 @@ const Game = () => {
           )}
           {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
             <>
-              <div className="bg-white bg-opacity-80 fixed w-[50vw] h-[30vh] left-[25vw] top-[35vh] border-solid z-50">
-                {level <= numMazes && (
+              <div className="bg-white bg-opacity-80 fixed w-[40vw] h-[30vh] left-[30vw] top-[35vh] border-solid z-50 overflow-y-scroll">
+                {level === 0 && gameMode === "individual" && (
+                  <>
+                    <div className="text-4xl text-center p-4">
+                      Game mode: <span className="text-blue-600">{gameMode}</span>
+                    </div>
+                    <div className="text-lg text-center p-4">
+                      Use this single-player level to get comfortable with the game's basic
+                      mechanics. Answer questions to gain tokens in the bottom left. Accumulate
+                      enough tokens to unlock barriers, upgrade your stats, and get to the next
+                      levels. All levels after this one are multiplayer. Good luck!
+                    </div>
+                  </>
+                )}
+                {level === 0 && gameMode === "team" && (
+                  <>
+                    <div className="text-4xl text-center p-4">
+                      Game mode: <span className="text-blue-600">{gameMode}</span>
+                    </div>
+                    <div className="text-xl text-center pb-4">
+                      You are on the{" "}
+                      {team === "red" && <span className="text-xl text-red-600">Red </span>}
+                      {team === "blue" && <span className="text-xl text-blue-600">Blue </span>}
+                      team.
+                    </div>
+                    <div className="text-xl text-center p-4">
+                      Use this single-player level to get comfortable with the game's basic
+                      mechanics. Beat this level to join forces with your team to take down the maze
+                      before the other team. Good luck!
+                    </div>
+                  </>
+                )}
+                {level === 0 && gameMode === "infection" && infected === false && (
+                  <>
+                    <div className="text-4xl text-center p-4">
+                      Game mode: <span className="text-blue-600">{gameMode}</span>
+                    </div>
+                    <div className="text-xl text-center pb-4">
+                      You are <span className="text-xl text-green-600">Not Infected </span>
+                    </div>
+                    <div className="text-lg text-center p-4">
+                      Use this single-player level to get comfortable with the game's basic
+                      mechanics. Beat this level to move on to the multiplayer levels. Be cautious
+                      of infected players, as they have speed and power buffs. Your goal is to
+                      complete every maze without getting infected!
+                    </div>
+                  </>
+                )}
+                {level === 1 && gameMode === "infection" && infected === true && (
+                  <>
+                    <div className="text-4xl text-center p-4">
+                      Game mode: <span className="text-blue-600">{gameMode}</span>
+                    </div>
+                    <div className="text-xl text-center pb-4">
+                      You are <span className="text-xl text-red-600">Infected </span>
+                    </div>
+                    <div className="text-lg text-center p-4">
+                      As the infected player, you have greater speed and power. You are also
+                      starting one level ahead of every other player. Use these buffs to your
+                      advantage to tag your opponents!
+                    </div>
+                  </>
+                )}
+                {level > 1 && level !== numMazes && (
                   <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
                 )}
-                {level == 1 && (
+                {level === 1 && !(gameMode === "infection" && infected === true) && (
+                  <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
+                )}
+                {level === 1 && !(gameMode === "infection" && infected === true) && (
                   <div className="text-xl text-center">
-                    Time to complete level 0: {convertToTime(level0CompletionTime)}
+                    Time to complete single-player level: {convertToTime(level0CompletionTime)}
                   </div>
                 )}
                 {level > 1 && level !== numMazes && (
@@ -666,14 +763,15 @@ const Game = () => {
                     </div>
                   </>
                 )}
-                {showCloseButton && (
+                {showCloseButton && userData && gamePin && (
                   <div className="flex justify-center mt-[2vh]">
                     <button
-                      className="font-Ubuntu bg-blue-600 text-white"
+                      className="font-Ubuntu bg-blue-600 text-white mb-4"
                       onClick={() => {
                         setPromoted(false);
                         setShowCloseButton(false);
                         setFade(false);
+                        offInvincible(userData._id, gamePin);
                       }}
                     >
                       Continue
@@ -692,7 +790,7 @@ const Game = () => {
                 <TeacherGamePage gameState={gameState} pin={gamePin} mazes={mazes} />
               </>
             )}
-          {questionShowing && (
+          {questionShowing && status !== "end" && (
             <Question
               flashCardSet={flashCardSet}
               setQuestionShowing={setQuestionShowing}
@@ -705,10 +803,10 @@ const Game = () => {
             />
           )}
           {status === "end" && gameState && userData && userData.role === "teacher" && (
-            <TeacherEndPage _id={userData._id} gameState={gameState} />
+            <TeacherEndPage _id={userData._id} gameState={gameState} gameMode={gameMode} />
           )}
           {status === "end" && gameState && userData && userData.role === "student" && (
-            <StudentEndPage _id={userData._id} gameState={gameState} />
+            <StudentEndPage _id={userData._id} gameState={gameState} gameMode={gameMode} />
           )}
         </div>
       )}

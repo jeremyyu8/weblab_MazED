@@ -89,7 +89,11 @@ const Question = (props) => {
     if (curQuestion.answers.includes(answerSelected)) {
       setQuestionState("right");
       changeTokens(props.userData._id, props.gamePin, "correct", curQuestion._id);
-      setNumQuestions(numQuestions - 1);
+      if (numQuestions >= 1) {
+        setNumQuestions(numQuestions - 1);
+      } else {
+        setNumQuestions(0);
+      }
       props.setCurFlashcards(
         props.curFlashcards
           .slice(1)

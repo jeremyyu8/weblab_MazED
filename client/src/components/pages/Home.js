@@ -45,23 +45,21 @@ const Home = ({ userId, userRole, userName }) => {
         <>
           <Navbar userId={userId} userRole={userRole} userName={userName} />
           <div className="background">
-            <div className="sheerbox w-[80%] h-[40%]">
+            <div className="sheerbox w-[80%] h-[30%]">
               {/* <div className="hidden typewriter md:flex md:justify-center">
                 <h1>Can you find your way out?</h1>
               </div> */}
-              <div className="typewriter text-[2vw] w-[85%]">
-                <h1>Can you find your way out?</h1>
+              <div className="typewriter text-[2vw] w-[85%] mb-4">
+                <h1>Welcome to MazED</h1>
+              </div>
+              <div className="p-2 text-blue-400 text-xl w-[70%] text-center">
+                <p className="m-2 leading-8">
+                  Multiplayer maze + tag game for learning through flashcards custom to your
+                  classroom.
+                </p>
               </div>
 
               {/* <div className="title">Can you find your way out?</div> */}
-              <div className="pt-16 text-center">
-                <Link
-                  to="/signup"
-                  className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
-                >
-                  Sign Up for free
-                </Link>
-              </div>
             </div>
             <div>
               {/* <Link to="/maze">
@@ -107,6 +105,14 @@ const Home = ({ userId, userRole, userName }) => {
                 title="Review"
                 text="Review past games and missed questions to enhance your learning experience."
               ></Card>
+            </div>
+            <div className="pt-16 text-center mb-10">
+              <Link
+                to="/signup"
+                className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
+              >
+                Sign Up for free
+              </Link>
             </div>
           </div>
         </>
