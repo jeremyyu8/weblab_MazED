@@ -426,6 +426,15 @@ const Game = () => {
           return;
         }
       }
+      if (gameMode === "individual") {
+        if (Object.keys(gameState["players"]).length <= 1) {
+          setStartGameError("the individual game mode requires at least 1 student to play!");
+          setInterval(() => {
+            setStartGameError(false);
+          }, 3000);
+          return;
+        }
+      }
       setStatus("game");
       startGame(gamePin);
     }
@@ -560,7 +569,7 @@ const Game = () => {
               </div>
               <div className="bg-white bg-opacity-30 fixed z-10 w-[100%] h-auto bottom-0">
                 {startGameError !== false && (
-                  <div className="animate-shake text-red-500 text-md">{startGameError}</div>
+                  <div className="animate-shake text-red-600 text-md">{startGameError}</div>
                 )}
                 <div className="flex justify-between text-3xl">
                   <div

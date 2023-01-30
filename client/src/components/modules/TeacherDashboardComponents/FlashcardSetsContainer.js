@@ -146,7 +146,7 @@ const FlashcardSetsContainer = (props) => {
                 ) : (
                   <>
                     <div
-                      className="text-xl text-blue-300 text-center mt-[35vh] hover:text-blue-600 cursor-pointer duration-150"
+                      className="text-xl text-blue-300 text-center relative w-[100%] left-0 top-[50%] transform -translate-y-1/2 hover:text-blue-600 cursor-pointer duration-150"
                       onClick={newSet}
                     >
                       No sets to display. Create a new set!

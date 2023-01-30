@@ -42,8 +42,9 @@ const Games = (props) => {
                   games
                 ) : (
                   <>
-                    <div className="text-xl text-blue-300 text-center mt-[35vh]">
-                      No past games to display
+                    <div className="text-xl text-blue-300 text-center absolute top-[50%] left-[15%] w-[70%] transform -translate-y-1/2">
+                      No past games to display. After playing games with your students, come back to
+                      this page to analyze student performance!
                     </div>
                   </>
                 )}
