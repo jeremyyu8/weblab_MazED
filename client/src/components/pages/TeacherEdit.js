@@ -133,12 +133,12 @@ const TeacherEdit = () => {
                 Error: please give your flashcard set a title{" "}
               </div> */}
                 <div className="flex w-full justify-between relative">
-                  <div className="text-xl bg-blue-50 bg-opacity-60 w-[60%] absolute left-[20%] mb-2 p-2">
+                  <div className="text-xl bg-blue-100 w-[60%] rounded-xl border-solid border-blue-500 border-4 absolute left-[20%] mb-2 p-2">
                     <Titlecard />
                   </div>
                 </div>
                 <div className="flex-2 w-full inline">
-                  <div className="flex max-w-[90%] h-[30vw] m-8 mt-[12vh] mx-auto">
+                  <div className="flex max-w-[90%] h-[37vw] m-8 mt-[12vh] mx-auto">
                     <Set setSetId={setSetId} />
                   </div>
                   {error !== false && (

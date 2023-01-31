@@ -145,7 +145,7 @@ const Set = (props) => {
       ) : (
         <>
           {/* <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 rounded-lg m-3"> */}
-          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-200 border-4 m-3 rounded-xl hover:border-blue-700 hover:shadow-[0_0_5px_5px_rgba(191,219,254,0.3)] transition-all ease-in">
+          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid bg-blue-200 bg-opacity-80 border-blue-700 border-4 m-3 rounded-xl hover:shadow-[0_0_5px_5px_rgba(191,219,254,0.3)] transition-all ease-in">
             {loading ? (
               <div className="text-center mx-auto my-auto align-middle text-red-600">
                 deleting set...
@@ -168,12 +168,12 @@ const Set = (props) => {
                   </>
                 ) : (
                   <>
-                    <div className="flex-1 text-bold rounded-xl border-solid p-5 m-5 overflow-y-auto overflow-x-auto">
-                      <div className="text-3xl text-blue-800 font-bold">
+                    <div className="flex-1 text-boldrounded-xl rounded-xl border-solid border-blue-500 border-4 p-5 m-5 overflow-y-auto overflow-x-auto">
+                      <div className="text-3xl text-blue-700 font-bold">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
-                      <div className="text-2xl mt-2 text-blue-500">Flashcards: {props.size}</div>
-                      <div className="text-sm mt-2 text-blue-400">{props.date}</div>
+                      <div className="text-2xl mt-2 text-blue-900">Flashcards: {props.size}</div>
+                      <div className="text-sm mt-2 text-blue-500">{props.date}</div>
                     </div>
                     <div className="flex-none flex-col m-5">
                       <div className="flex-1 flex">
@@ -247,7 +247,7 @@ const Set = (props) => {
                 ></input>
               </div>
             </div>
-            <div className="flex justify-between border-solid w-full h-[30%]">
+            <div className="flex justify-between rounded-xl w-full h-[30%]">
               <div className="mx-8 text-2xl mt-[5vh]">
                 <div>Number of Mazes: </div>
                 {numMazesError && (
@@ -273,7 +273,7 @@ const Set = (props) => {
           <div className="absolute bottom-[2vh] w-[100%] left-[25%]">
             <div className="flex">
               <button
-                className="font-Ubuntu text-3xl bg-blue-500 w-[50%] hover:cursor-pointer hover:bg-blue-400"
+                className="font-Ubuntu text-3xl rounded-xl bg-blue-500 w-[50%] hover:cursor-pointer hover:bg-blue-400"
                 onClick={() => {
                   newLobby(props._id);
                 }}

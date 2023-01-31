@@ -149,7 +149,7 @@ const FlashcardSetsContainer = (props) => {
                   <div className="my-auto"> Create New Set</div>
                 </button>
               </div>
-              <div className="overflow-y-auto bg-blue-100 border-solid border-blue-500 border-8 overflow-x-hidden max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">
+              <div className="overflow-y-auto border-8 overflow-x-hidden max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">
                 {sets.length ? (
                   sets
                 ) : (
