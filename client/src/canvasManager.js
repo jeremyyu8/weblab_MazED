@@ -218,7 +218,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       // get tile at coordinate i,j
       const tile_idx = map[(j * mapxsize) / tilewidth + i];
       let tile_render;
-      if (tile_idx < 20) {
+      if (tile_idx < 30) {
         tile_render = tiles[tile_idx];
       } else {
         tile_render = tiles[4];
@@ -241,7 +241,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       }
 
       if (tile_render) {
-        if (tile_idx < 20) {
+        if (tile_idx < 30) {
           ctx.drawImage(
             tile_render,
             (i - drawState["players"][_id].camera.x) * tilewidth,
@@ -259,7 +259,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
               tilewidth
             );
           }
-          let residue = tile_idx - 24;
+          let residue = tile_idx - 34;
           let col = residue % 3;
           let row = (residue - col) / 3;
           ctx.drawImage(

@@ -260,7 +260,7 @@ const generateFullMaze = (n) => {
         fullMaze.push(skybordersmaze[row][col]);
       } else {
         let residue = (i - row * 3) * 3 + (j - col * 3);
-        fullMaze.push(skybordersmaze[row][col] + 20 + residue);
+        fullMaze.push(skybordersmaze[row][col] + 30 + residue);
       }
     }
   }
@@ -288,7 +288,7 @@ const generateTrivialMaze = () => {
         trivialMazeFull.push(trivialMaze[row][col]);
       } else {
         let residue = (i - row * 3) * 3 + (j - col * 3);
-        trivialMazeFull.push(trivialMaze[row][col] + 20 + residue);
+        trivialMazeFull.push(trivialMaze[row][col] + 30 + residue);
       }
     }
   }
@@ -302,7 +302,7 @@ const generateTrivialMaze = () => {
 // 3 = tree
 // 4 = portal
 // 5 = sky
-// 24 through 32 is border
+// 34 through 42 is border
 
 module.exports = {
   generateFullMaze,

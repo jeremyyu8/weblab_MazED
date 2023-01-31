@@ -33,7 +33,7 @@ export const drawTeacherCanvas = (drawState, canvasRef, xsize) => {
         ctx.fillStyle = "rgb(96,165,250)"; // blue-400
       } else if (tile_idx === 2) {
         ctx.fillStyle = "blue";
-      } else if (tile_idx === 4 || tile_idx > 20) {
+      } else if (tile_idx === 4 || tile_idx > 30) {
         ctx.fillStyle = "purple";
       } else if (tile_idx === 5) {
         // ctx.fillStyle = "black";
