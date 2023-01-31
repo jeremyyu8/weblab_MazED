@@ -206,7 +206,7 @@ const Set = (props) => {
         </>
       )}
       {lobbySettings && (
-        <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-blue-100 text-black z-50">
+        <div className="fixed top-0 left-0 w-full h-[calc(100vh_-_80px)] bg-blue-100 text-black z-50">
           <button
             className="absolute right-0 font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer rounded-xl p-2 text-xl "
             onClick={() => {
@@ -215,68 +215,66 @@ const Set = (props) => {
           >
             Cancel
           </button>
-          <div className="flex justify-center mt-10">
-            <div className="text-4xl"> Lobby Settings</div>
-          </div>
-          <div className="flex justify-center">
-            <div className="text-3xl"> Initializing game with set:</div>
-          </div>
-          <div className="flex justify-center">
-            <div className="text-3xl text-blue-500"> {props.title}</div>
-          </div>
-          <div className="rounded-xl border-solid border-blue-200 border-4 ml-[20%] mt-[4vh] h-[55%] w-[60%] overflow-y-auto overflow-x-hidden">
-            <div className="flex justify-between rounded-xl w-full h-[30%]">
-              <div className="mx-8 text-2xl mt-[5vh]">
-                <div>Game Time (minutes):</div>
-                {gameTimeError && (
-                  <div className="text-red-600 text-sm animate-shake">
-                    enter a valid number of minutes!
+
+          <div className="flex flex-col h-[100%]">
+            <div className="basis-1/5 flex flex-col p-5">
+              <div className="text-4xl mx-auto"> Lobby Settings</div>
+              <div className="text-3xl mx-auto mt-2"> Initializing game with set:</div>
+              <div className="text-3xl mx-auto mt-2 text-blue-500"> {props.title}</div>
+            </div>
+
+            <div className="basis-[70%] overflow-y-auto overflow-x-hidden flex">
+              <div className="rounded-xl border-solid border-blue-200 border-4 w-[60%] mx-auto overflow-y-auto overflow-x-hidden">
+                <div className="flex justify-between w-full h-[30%] text-3xl">
+                  <div className="my-auto mx-8">Game Time (minutes):</div>
+                  {gameTimeError && (
+                    <div className="text-red-600 text-sm animate-shake">
+                      enter a valid number of minutes!
+                    </div>
+                  )}
+                  <div className="flex basis-1/6 justify-center my-auto">
+                    <input
+                      className="hover: my-auto font-Ubuntu text-3xl p-3 h-[5vh] aspect-square"
+                      type="number"
+                      min="1"
+                      max="99"
+                      value={gameTime}
+                      onInput={handleChangeGameTime}
+                    ></input>
                   </div>
-                )}
-              </div>
-              <div className="flex basis-1/6 justify-center h-auto w-auto">
-                <input
-                  className="hover: my-auto font-Ubuntu text-3xl py-5 pl-5 pr-1"
-                  type="number"
-                  min="1"
-                  max="99"
-                  value={gameTime}
-                  onInput={handleChangeGameTime}
-                ></input>
+                </div>
+                <div className="flex justify-between  w-full h-[30%] text-3xl">
+                  <div className="my-auto mx-8">Number of Mazes: </div>
+                  {numMazesError && (
+                    <div className="text-red-600 text-sm animate-shake">
+                      enter a valid number of mazes!
+                    </div>
+                  )}
+                  <div className="flex basis-1/6 justify-center">
+                    <input
+                      className="my-auto font-Ubuntu text-3xl p-3 h-[5vh] aspect-square"
+                      type="number"
+                      min="2"
+                      max="9"
+                      value={numMazes}
+                      onInput={handleChangeNumMazes}
+                    ></input>
+                  </div>
+                </div>
+                <Carousel content={carouselContent} setGameMode={setGameMode} gameMode={gameMode} />
               </div>
             </div>
-            <div className="flex justify-between rounded-xl w-full h-[30%]">
-              <div className="mx-8 text-2xl mt-[5vh]">
-                <div>Number of Mazes: </div>
-                {numMazesError && (
-                  <div className="text-red-600 text-sm animate-shake">
-                    enter a valid number of mazes!
-                  </div>
-                )}
-              </div>
-              {/* mx-8 h-[5vw] mt-[5vh] font-Ubuntu w-[5vw] transform -translate-y-1/4 text-3xl mr-[2vw] border-none */}
-              <div className="flex basis-1/6 justify-center h-auto w-auto">
-                <input
-                  className="my-auto font-Ubuntu text-3xl py-5 pl-5 pr-1"
-                  type="number"
-                  min="2"
-                  max="9"
-                  value={numMazes}
-                  onInput={handleChangeNumMazes}
-                ></input>
-              </div>
+
+            <div className="basis-1/6 flex justify-center">
+              <button
+                className="font-Ubuntu text-3xl rounded-xl bg-blue-500 w-[30%] hover:cursor-pointer hover:bg-blue-400 transform my-auto "
+                onClick={() => {
+                  newLobby(props._id);
+                }}
+              >
+                Play now
+              </button>
             </div>
-            <Carousel content={carouselContent} setGameMode={setGameMode} gameMode={gameMode} />
-          </div>
-          <div className="flex justify-center">
-            <button
-              className="font-Ubuntu text-3xl rounded-xl bg-blue-500 w-[30%] hover:cursor-pointer hover:bg-blue-400 transform my-10 "
-              onClick={() => {
-                newLobby(props._id);
-              }}
-            >
-              Play now
-            </button>
           </div>
         </div>
       )}

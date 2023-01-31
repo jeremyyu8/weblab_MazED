@@ -55,7 +55,7 @@ const Carousel = (props) => {
         return (
           <>
             <div
-              className="flex grow shrink-0 basis-full h-auto w-[100%] relative snap-start hover:cursor-pointer"
+              className="flex grow shrink-0 basis-full h-auto w-[100%] relative snap-start hover:cursor-pointer p-10"
               onClick={() => handleOnClick(idx)}
             >
               <div className="w-[100%] text-center mb-8">
@@ -73,7 +73,7 @@ const Carousel = (props) => {
 
   return (
     <>
-      <div className="border-solid">
+      <div className="border-t-4 border-t-blue-200 border-solid border-l-0 border-r-0 border-b-0">
         <div className="w-[100%] h-auto text-4xl mt-4 text-center">Game Mode</div>
         <div className="w-[100%] h-auto text-xl text-center">
           Current selection: <span className="text-blue-600">{props.gameMode}</span>
