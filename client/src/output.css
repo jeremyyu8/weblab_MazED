@@ -1238,9 +1238,14 @@
   animation: bounce 1s infinite;
 }
 
-@keyframes pulse{
+/* @keyframes pulse{
   50%{
     opacity: .5;
+  }
+} */
+@keyframes pulse{
+  50%{
+    box-shadow: 0 0 15px red
   }
 }
 
