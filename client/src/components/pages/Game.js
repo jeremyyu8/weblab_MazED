@@ -821,7 +821,7 @@ const Game = () => {
           )}
           {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
             <>
-              <div className="bg-white backdrop-blur-sm bg-opacity-80 fixed w-[50vw] h-auto h-max-[80%] left-[30vw] top-[50%] transform translate-y-[-50%] border-solid z-50 overflow-y-scroll no-scrollbar p-10">
+              <div className="bg-white backdrop-blur-md bg-opacity-60 fixed w-[50%] h-[80%] left-[50%] transform -translate-x-1/2 top-[50%] translate-y-[-50%] border-solid z-50 overflow-y-scroll no-scrollbar p-10">
                 {level === 0 && gameMode === "individual" && (
                   <>
                     <div className="text-4xl text-center p-4">
@@ -981,7 +981,7 @@ const Game = () => {
                       player.
                       <br />
                       <br />- Use these buffs to your advantage to complete your goal, which is to
-                      <span className="text-red-700">infect all players by tagging them</span>{" "}
+                      <span className="text-red-700"> infect all players by tagging them</span>{" "}
                       before they finish the mazes!
                       <br />
                       <br />- Answer questions to <span className="text-blue-700">
