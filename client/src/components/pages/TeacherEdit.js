@@ -132,13 +132,13 @@ const TeacherEdit = () => {
                 {/* <div className="text-red-600 text-center mt-[10vh] text-3xl">
                 Error: please give your flashcard set a title{" "}
               </div> */}
-                <div className="flex w-full justify-between relative">
-                  <div className="text-xl bg-blue-100 w-[60%] rounded-xl mt-5 border-solid border-blue-500 border-4 absolute left-[20%] mb-2 p-2">
-                    <Titlecard />
-                  </div>
+
+                <div className="text-xl bg-blue-100 rounded-xl max-h-[6vh] w-[40vw] border-solid border-blue-500 border-4 p-2 my-5">
+                  <Titlecard />
                 </div>
+
                 <div className="flex-2 w-full inline">
-                  <div className="flex max-w-[90%] h-[37vw] m-8 mt-[12vh] mx-auto">
+                  <div className="flex max-w-[90%] h-[70vh] mx-auto">
                     <Set setSetId={setSetId} />
                   </div>
                   {error !== false && (
@@ -154,7 +154,7 @@ const TeacherEdit = () => {
                   {dashboardSaveWarning && (
                     <>
                       <div className="text-red-600 w-[100%]">
-                        <div className="flex justify-end">
+                        <div className="flex justify-end text-xl">
                           Return to dashboard? Your work will not be saved
                           <div className="inline">
                             <button

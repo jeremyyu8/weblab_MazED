@@ -359,14 +359,14 @@ const Game = (props) => {
                 </button>
 
                 {studentsRanked && (
-                  <div className="fixed w-[30%] h-auto top-[10%] left-[60%] bg-gray-200 opacity-100 p-8 z-50">
+                  <div className="fixed w-[30%] h-auto top-[10%] left-[60%] bg-gray-200 opacity-100 p-8 z-50 text-xl">
                     The listed ranks are based on how quickly each student completed each maze
                     during this particular game. Based on the different strategies that each student
                     might have used to progress, the shown ranks may not accurately reflect accuracy
                     percentages.
                     <div className="flex justify-center">
                       <button
-                        className="font-Ubuntu w-[25%] mt-4"
+                        className="font-Ubuntu w-[25%] mt-4 hover:cursor-pointer hover:bg-blue-400 rounded-sm"
                         onClick={() => {
                           setStudentsRanked(false);
                         }}

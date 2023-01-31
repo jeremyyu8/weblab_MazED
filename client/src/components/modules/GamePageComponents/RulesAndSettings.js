@@ -132,15 +132,73 @@ const RulesAndSettings = (props) => {
   useEffect(() => {
     if (props.gameMode === "individual") {
       setRules(
-        "You will be presented with a series of mazes. Your goal is to solve every maze and reach the end as quickly as possible. To get through the mazes, you must answer questions correctly to earn tokens. These tokens grant you access to surpass barriers in the maze, and also allow you to upgrade stats such as your speed and power. Once you reach the multiplayer stage of the mazes, you may tag and get tagged by other players!"
+        <>
+          <div className="text-2xl">
+            - Use the <span className="text-blue-700">arrow keys</span> to move!
+            <br />
+            <br />- You will be presented with a series of mazes once the game begins.{" "}
+            <span className="text-blue-700">Solve every maze first to win!</span>
+            <br />
+            <br />- All mazes after the first are <span className="text-blue-700">multiplayer</span>
+            , where you can <span className="text-blue-700">tag and get tagged</span> by other
+            players!
+            <br />
+            <br />- Answer questions correctly to <span className="text-blue-700">earn tokens</span>
+            ; spend them on upgrading stats and unlocking barriers in the maze
+          </div>
+        </>
       );
+      /*At the start of the game, you will be assigned to either the red or blue team. 
+      Your goal is to work together with your team to get through the mazes as quickly as possible. 
+      Players on opposing teams may tag each other, so be on the lookout! 
+      The team with the furthest average progress across all team members wins the game."
+*/
     } else if (props.gameMode === "team") {
       setRules(
-        "At the start of the game, you will be assigned to either the red or blue team. Your goal is to work together with your team to get through the mazes as quickly as possible. Players on opposing teams may tag each other, so be on the lookout! The team with the furthest average progress across all team members wins the game."
+        <>
+          <div className="text-2xl">
+            - Use the <span className="text-blue-700">arrow keys</span> to move!
+            <br />
+            <br />- You will be presented with a series of mazes once the game begins. You will also
+            be assigned to the<span className="text-red-700"> red </span> or{" "}
+            <span className="text-blue-700">blue</span> team
+            <br />
+            <br />- Work with your team to get through the mazes. The team with furthese average
+            progress will <span className="text-blue-700"></span>win the game!
+            <br />
+            <br />- All mazes after the first are <span className="text-blue-700">multiplayer</span>
+            , where you can <span className="text-blue-700">tag players on the opposing team!</span>
+            <br />
+            <br />- Answer questions correctly to <span className="text-blue-700">earn tokens</span>
+            ; spend them on upgrading stats and unlocking barriers in the maze
+          </div>
+        </>
       );
+      /*"At the start of the game, one person will be assigned to be 'infected'. This person will start with higher speed, power, and tokens, and will also start one level ahead of everyone else. 
+      Their goal is to tag everyone before they can finish the mazes. 
+      The goal for everyone else is to complete the mazes. But be careful: infection spreads!"
+       */
     } else if (props.gameMode === "infection") {
       setRules(
-        "At the start of the game, one person will be assigned to be 'infected'. This person will start with higher speed, power, and tokens, and will also start one level ahead of everyone else. Their goal is to tag everyone before they can finish the mazes. The goal for everyone else is to complete the mazes. But be careful: infection spreads!"
+        <>
+          <div className="text-2xl">
+            - Use the <span className="text-blue-700">arrow keys</span> to move!
+            <br />
+            <br />- You will be presented with a series of mazes once the game begins. One player in
+            the game will also be assigned as <span className="text-red-700">infected</span>
+            <br />
+            <br />- The <span className="text-red-700">infected</span> player starts with higher
+            stats and will begin start one maze ahead of everyone
+            <br />
+            <br />- If any player reaches the end without being infected,{" "}
+            <span className="text-blue-700">they win!</span>
+            <br />
+            <br />- If the infected player tags everyone, it's{" "}
+            <span className="text-blue-700">game over</span>
+            <br />
+            <br />- Be careful. <span className="text-red-700">Infection spreads</span>
+          </div>
+        </>
       );
     }
   }, [props.gameMode]);
@@ -153,7 +211,7 @@ const RulesAndSettings = (props) => {
 
   return (
     <>
-      <div className="bg-white bg-opacity-70 fixed z-30 h-[65vh] w-[40vw] top-[15vh] left-[30vw] overflow-y-scroll">
+      <div className="bg-white bg-opacity-70 fixed z-30 h-auto w-[40vw] top-[50%] transform translate-y-[-50%] left-[30vw] overflow-none">
         <div className="text-3xl text-center p-8">
           Game mode: <span className="text-blue-600">{props.gameMode}</span>
         </div>
@@ -163,7 +221,7 @@ const RulesAndSettings = (props) => {
               <div className="text-2xl text-blue-700 px-8">Rules:</div>
               <div>
                 <button
-                  className="font-Ubuntu cursor-pointer hover:bg-blue-200 transition-all text-center mx-8"
+                  className="font-Ubuntu cursor-pointer hover:bg-blue-200 transition-all p-2 text-center mx-8"
                   onClick={() => {
                     setSettings(!settings);
                   }}
@@ -225,7 +283,7 @@ const RulesAndSettings = (props) => {
         )}
         <div className="flex justify-center p-4">
           <button
-            className="font-Ubuntu w-[25%] cursor-pointer hover:bg-blue-200 transition-all"
+            className="font-Ubuntu w-[25%] cursor-pointer hover:bg-blue-200 p-2 transition-all"
             onClick={() => props.setShowRules(false)}
           >
             close

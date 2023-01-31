@@ -13,7 +13,7 @@ const Titlecard = () => {
       <div className="m-1 text-4xl text-blue-700 flex rounded-xl">
         <span className="mr-6 rounded-xl font-bold p-1">Title: </span>
         <input
-          className="text-3xl rounded-xl p-1 border-blue-200 font-Ubuntu w-[70%]"
+          className="text-3xl rounded-xl p-1 border-blue-200 font-Ubuntu w-[75%]"
           onInput={handleChange}
           defaultValue={flashCardSet.title}
           placeholder={"Set title"}

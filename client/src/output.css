@@ -314,10 +314,6 @@
   left: 30vw;
 }
 
-.top-\[30vh\]{
-  top: 30vh;
-}
-
 .left-\[20\%\]{
   left: 20%;
 }
@@ -348,10 +344,6 @@
 
 .top-\[3vh\]{
   top: 3vh;
-}
-
-.top-\[15vh\]{
-  top: 15vh;
 }
 
 .top-\[40\%\]{
@@ -474,10 +466,6 @@
   margin: 0.25rem;
 }
 
-.m-8{
-  margin: 2rem;
-}
-
 .m-2{
   margin: 0.5rem;
 }
@@ -511,14 +499,14 @@
   margin-bottom: 1rem;
 }
 
-.mx-8{
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
 .my-5{
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
+}
+
+.mx-8{
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .my-\[2vw\]{
@@ -640,14 +628,6 @@
 
 .mb-1{
   margin-bottom: 0.25rem;
-}
-
-.mt-5{
-  margin-top: 1.25rem;
-}
-
-.mt-\[12vh\]{
-  margin-top: 12vh;
 }
 
 .mt-1{
@@ -794,10 +774,6 @@
   height: 30vh;
 }
 
-.h-\[38vh\]{
-  height: 38vh;
-}
-
 .h-\[100vh\]{
   height: 100vh;
 }
@@ -850,8 +826,8 @@
   height: calc(100vh - 78px);
 }
 
-.h-\[37vw\]{
-  height: 37vw;
+.h-\[70vh\]{
+  height: 70vh;
 }
 
 .h-\[5vh\]{
@@ -860,10 +836,6 @@
 
 .h-\[50vh\]{
   height: 50vh;
-}
-
-.h-\[65vh\]{
-  height: 65vh;
 }
 
 .h-\[15vh\]{
@@ -898,10 +870,6 @@
   height: 40%;
 }
 
-.h-\[70vh\]{
-  height: 70vh;
-}
-
 .h-\[70\%\]{
   height: 70%;
 }
@@ -928,6 +896,10 @@
 
 .h-6{
   height: 1.5rem;
+}
+
+.max-h-\[6vh\]{
+  max-height: 6vh;
 }
 
 .w-screen{
@@ -1022,16 +994,20 @@
   width: 30%;
 }
 
-.w-\[12\%\]{
-  width: 12%;
+.w-\[29\.4\%\]{
+  width: 29.4%;
 }
 
-.w-\[27\%\]{
-  width: 27%;
+.w-\[14\.4\%\]{
+  width: 14.4%;
 }
 
-.w-\[22\%\]{
-  width: 22%;
+.w-\[24\.4\%\]{
+  width: 24.4%;
+}
+
+.w-\[17\.4\%\]{
+  width: 17.4%;
 }
 
 .w-\[90\%\]{
@@ -1088,6 +1064,10 @@
 
 .w-\[97\%\]{
   width: 97%;
+}
+
+.w-\[75\%\]{
+  width: 75%;
 }
 
 .max-w-full{
@@ -1162,6 +1142,11 @@
   table-layout: auto;
 }
 
+.translate-y-\[-50\%\]{
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .translate-x-\[-50\%\]{
   --tw-translate-x: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1189,11 +1174,6 @@
 
 .-translate-x-full{
   --tw-translate-x: -100%;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.translate-y-\[-50\%\]{
-  --tw-translate-y: -50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1373,6 +1353,10 @@
 
 .rounded-xl{
   border-radius: 0.75rem;
+}
+
+.rounded-sm{
+  border-radius: 0.125rem;
 }
 
 .border{
@@ -1580,16 +1564,16 @@
   --tw-bg-opacity: 0.3;
 }
 
-.bg-opacity-20{
-  --tw-bg-opacity: 0.2;
-}
-
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
 }
 
 .bg-opacity-70{
   --tw-bg-opacity: 0.7;
+}
+
+.bg-opacity-20{
+  --tw-bg-opacity: 0.2;
 }
 
 .bg-spaceimg2{
@@ -1625,6 +1609,14 @@
   padding: 1.25rem;
 }
 
+.p-10{
+  padding: 2.5rem;
+}
+
+.p-1{
+  padding: 0.25rem;
+}
+
 .p-8{
   padding: 2rem;
 }
@@ -1635,10 +1627,6 @@
 
 .p-2{
   padding: 0.5rem;
-}
-
-.p-1{
-  padding: 0.25rem;
 }
 
 .p-3{
@@ -1957,9 +1945,19 @@
   color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
+.text-blue-700{
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+
 .text-green-600{
   --tw-text-opacity: 1;
   color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+
+.text-red-700{
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
 }
 
 .text-blue-400{
@@ -1975,11 +1973,6 @@
 .text-blue-200{
   --tw-text-opacity: 1;
   color: rgb(191 219 254 / var(--tw-text-opacity));
-}
-
-.text-blue-700{
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity));
 }
 
 .text-green-500{
@@ -2543,7 +2536,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  accent-color: rgb(96,165,250);
+  accent-color: rgb(96 165 250);
 }
 
 .hover\:scale-110:hover{

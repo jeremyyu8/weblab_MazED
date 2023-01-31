@@ -751,7 +751,7 @@ const Game = () => {
               <>
                 <button
                   onClick={() => setQuestionShowing(true)}
-                  className="bg-opacity-20 backdrop-blur-sm bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl font-Ubuntu p-5 hover:bg-opacity-30 hover:cursor-pointer"
+                  className="bg-opacity-80 backdrop-blur-sm bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl font-Ubuntu p-5 hover:bg-opacity-30 hover:cursor-pointer"
                 >
                   Answer Question
                 </button>
@@ -821,7 +821,7 @@ const Game = () => {
           )}
           {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
             <>
-              <div className="bg-white backdrop-blur-sm bg-opacity-80 fixed w-[40vw] h-[38vh] left-[30vw] top-[30vh] border-solid z-50 overflow-y-scroll">
+              <div className="bg-white backdrop-blur-sm bg-opacity-80 fixed w-[40vw] h-auto left-[30vw] top-[50%] transform translate-y-[-50%] border-solid z-50 overflow-none p-10">
                 {level === 0 && gameMode === "individual" && (
                   <>
                     <div className="text-4xl text-center p-4">
@@ -830,7 +830,7 @@ const Game = () => {
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">
                         <button
-                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          className="font-Ubuntu bg-blue-600 text-white p-1 hover:cursor-pointer hover:bg-blue-400"
                           onClick={() => {
                             setPromoted(false);
                             setShowCloseButton(false);
@@ -842,11 +842,21 @@ const Game = () => {
                         </button>
                       </div>
                     )}
-                    <div className="text-lg text-center p-4">
-                      Use this single-player level to get comfortable with the game's basic
-                      mechanics. Answer questions to gain tokens in the bottom left. Accumulate
-                      enough tokens to unlock barriers, upgrade your stats, and get to the next
-                      levels. All levels after this one are multiplayer. Good luck!
+                    <div className="text-2xl text-center p-4">
+                      - Use this <span className="text-blue-700">singleplayer level</span> to get
+                      comfortable with the game's basic mechanics
+                      <br />
+                      <br />- Answer questions to <span className="text-blue-700">
+                        gain tokens
+                      </span>{" "}
+                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
+                      stats, and get to the next level.{" "}
+                      <span className="text-blue-700">
+                        Players can only tag those with less power!
+                      </span>
+                      <br />
+                      <br />- All levels after this one are{" "}
+                      <span className="text-blue-600">multiplayer</span>. Good luck!
                     </div>
                   </>
                 )}
@@ -858,7 +868,7 @@ const Game = () => {
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">
                         <button
-                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          className="font-Ubuntu bg-blue-600 text-white p-1 hover:cursor-pointer hover:bg-blue-400"
                           onClick={() => {
                             setPromoted(false);
                             setShowCloseButton(false);
@@ -876,10 +886,22 @@ const Game = () => {
                       {team === "blue" && <span className="text-xl text-blue-600">Blue </span>}
                       team.
                     </div>
-                    <div className="text-xl text-center p-4">
-                      Use this single-player level to get comfortable with the game's basic
-                      mechanics. Beat this level to join forces with your team to take down the maze
-                      before the other team. Good luck!
+                    <div className="text-2xl text-center p-4">
+                      - Use this <span className="text-blue-700">singleplayer level</span> to get
+                      comfortable with the game's basic mechanics
+                      <br />
+                      <br />- Answer questions to <span className="text-blue-700">
+                        gain tokens
+                      </span>{" "}
+                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
+                      stats, and get to the next level.{" "}
+                      <span className="text-blue-700">
+                        Players can only tag those with less power!
+                      </span>
+                      <br />
+                      <br />- All levels after this one are{" "}
+                      <span className="text-blue-700">multiplayer</span>. Join forces with your team
+                      to <span className="text-blue-700">beat the enemy team</span> to the end!.
                     </div>
                   </>
                 )}
@@ -888,13 +910,13 @@ const Game = () => {
                     <div className="text-4xl text-center p-4">
                       Game mode: <span className="text-blue-600">{gameMode}</span>
                     </div>
-                    <div className="text-xl text-center pb-4">
-                      You are <span className="text-xl text-green-600">Not Infected </span>
+                    <div className="text-2xl text-center pb-4">
+                      You are <span className="text-2xl text-green-600">Not Infected </span>
                     </div>
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">
                         <button
-                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          className="font-Ubuntu bg-blue-600 text-white p-1 hover:cursor-pointer hover:bg-blue-400"
                           onClick={() => {
                             setPromoted(false);
                             setShowCloseButton(false);
@@ -906,11 +928,27 @@ const Game = () => {
                         </button>
                       </div>
                     )}
-                    <div className="text-lg text-center p-4">
-                      Use this single-player level to get comfortable with the game's basic
-                      mechanics. Beat this level to move on to the multiplayer levels. Be cautious
-                      of infected players, as they have speed and power buffs. Your goal is to
-                      complete every maze without getting infected!
+                    <div className="text-2xl text-center p-4">
+                      - Use this <span className="text-blue-700">singleplayer level</span> to get
+                      comfortable with the game's basic mechanics
+                      <br />
+                      <br />- Answer questions to <span className="text-blue-700">
+                        gain tokens
+                      </span>{" "}
+                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
+                      stats, and get to the next level.{" "}
+                      <span className="text-blue-700">
+                        Players can only tag those with less power!
+                      </span>
+                      <br />
+                      <br />- All levels after this one are{" "}
+                      <span className="text-blue-700">multiplayer</span>.
+                      <br />
+                      <br />
+                      Be cautious of <span className="text-red-700">infected</span> players, as they
+                      have speed and power buffs. Your goal is to{" "}
+                      <span className="text-blue-700">complete every maze</span> without getting
+                      infected!
                     </div>
                   </>
                 )}
@@ -919,13 +957,13 @@ const Game = () => {
                     <div className="text-4xl text-center p-4">
                       Game mode: <span className="text-blue-600">{gameMode}</span>
                     </div>
-                    <div className="text-xl text-center pb-4">
-                      You are <span className="text-xl text-red-600">Infected </span>
+                    <div className="text-2xl text-center pb-4">
+                      You are <span className="text-2xl text-red-600">Infected </span>
                     </div>
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">
                         <button
-                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          className="font-Ubuntu bg-blue-600 text-white p-1 hover:cursor-pointer hover:bg-blue-400"
                           onClick={() => {
                             setPromoted(false);
                             setShowCloseButton(false);
@@ -937,11 +975,32 @@ const Game = () => {
                         </button>
                       </div>
                     )}
-                    <div className="text-lg text-center p-4">
-                      As the infected player, you have greater speed and power. You are also
-                      starting one level ahead of every other player. Use these buffs to your
-                      advantage to complete your goal, which is to tag other players and prevent
-                      them from completing the mazes!
+                    <div className="text-2xl text-center p-4">
+                      - As the <span className="text-red-700">infected</span> player, you have
+                      greater speed and power. You are also starting one level ahead of every other
+                      player.
+                      <br />
+                      <br />- Use these buffs to your advantage to complete your goal, which is to
+                      <span className="text-red-700">infect all players by tagging them</span>{" "}
+                      before they finish the mazes!
+                      <br />
+                      <br />- Answer questions to <span className="text-blue-700">
+                        gain tokens
+                      </span>{" "}
+                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
+                      stats, and get to the next level.{" "}
+                      <span className="text-blue-700">
+                        Players can only tag those with less power!
+                      </span>
+                      <br />
+                      <br />- All levels after this one are{" "}
+                      <span className="text-blue-700">multiplayer</span>.
+                      <br />
+                      <br />
+                      Be cautious of <span className="text-red-700">infected</span> players, as they
+                      have speed and power buffs. Your goal is to{" "}
+                      <span className="text-blue-700">complete every maze</span> without getting
+                      infected!
                     </div>
                   </>
                 )}
@@ -957,8 +1016,15 @@ const Game = () => {
                 )}
                 {level === 1 && !(gameMode === "infection" && infected === true) && (
                   <>
-                    <div className="text-xl text-center p-4">
-                      Starting now, every level is multiplayer. Don't get tagged!
+                    <div className="text-2xl text-center p-4">
+                      - Starting now, every level is multiplayer. <br />
+                      <br />
+                      <span className="text-blue-700">
+                        - Tag players with less power, and try not to get tagged.
+                      </span>{" "}
+                      <br />
+                      <br />
+                      Good luck!
                     </div>
                     <div className="text-xl text-center p-4">
                       Time spent in single-player: {convertToTime(level0CompletionTime)}{" "}
@@ -966,7 +1032,7 @@ const Game = () => {
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">
                         <button
-                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          className="font-Ubuntu bg-blue-600 text-white p-1 hover:cursor-pointer hover:bg-blue-400"
                           onClick={() => {
                             setPromoted(false);
                             setShowCloseButton(false);
@@ -991,7 +1057,7 @@ const Game = () => {
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">
                         <button
-                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          className="font-Ubuntu bg-blue-600 text-white p-1 hover:cursor-pointer hover:bg-blue-400"
                           onClick={() => {
                             setPromoted(false);
                             setShowCloseButton(false);
@@ -1008,13 +1074,13 @@ const Game = () => {
                 {level === numMazes + 1 && (
                   <>
                     <div className="text-2xl text-center p-4">
-                      Congrats! You finished every maze. Feel free to keep answering questions and
-                      tag other players as they finish!
+                      Congrats! <span className="text-blue-700">You finished every maze.</span> Feel
+                      free to keep answering questions and tag other players as they finish!
                     </div>
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">
                         <button
-                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          className="font-Ubuntu bg-blue-600 text-white p-1 hover:cursor-pointer hover:bg-blue-400"
                           onClick={() => {
                             setPromoted(false);
                             setShowCloseButton(false);
