@@ -29,7 +29,7 @@ const Question = (props) => {
     if (numQuestions <= 0 && props.tagged) {
       untagMe(props.userData._id, props.gamePin);
     }
-  }, [numQuestions]);
+  }, [numQuestions, props.tagged]);
 
   const shuffle = (a, b) => {
     for (let i = a.length - 1; i > 0; i--) {
@@ -68,9 +68,9 @@ const Question = (props) => {
     if (curQuestion.answers.includes(answerSelected)) {
       setQuestionState("right");
       changeTokens(props.userData._id, props.gamePin, "correct", curQuestion._id);
-      if (numQuestions >= 1) {
+      if (numQuestions >= 1 && props.tagged) {
         setNumQuestions(numQuestions - 1);
-      } else {
+      } else if (numQuestions <= 0 && props.tagged) {
         setNumQuestions(0);
       }
       props.setCurFlashcards(
