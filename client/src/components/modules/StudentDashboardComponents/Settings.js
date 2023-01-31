@@ -24,120 +24,6 @@ const Settings = (props) => {
   const [displaynameError, setDisplaynameError] = useState(false);
   const [skin, setSkin] = useState(props.userData.skin);
 
-  const handleChange = (event) => {
-    if (event.target.value.length < 15) {
-      setInput(event.target.value);
-    }
-  };
-
-  const make_human_readable = (iso) => {
-    let date = new Date(iso);
-
-    let months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const utc = Date.UTC(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds()
-    );
-
-    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-  };
-
-  const handleShowChangeDisplay = () => {
-    setShowDisplay(true);
-  };
-  const cancelShowChangeDisplay = () => {
-    setShowDisplay(false);
-  };
-  const handleDisplayNameChange = (displayname) => {
-    const changeDisplayName = async () => {
-      setShowDisplay(false);
-      setLoading(true);
-      await post("/api/displayname", { displayname: displayname });
-      setLoading(false);
-      setDoneLoading(true);
-      setDisplayname(displayname);
-      setTimeout(() => {
-        setDoneLoading(false);
-      }, 4000);
-    };
-    if (!displaynameError) {
-      if (displayname.length < 3) {
-        setDisplaynameError(true);
-        setTimeout(() => {
-          setDisplaynameError(false);
-        }, 2000);
-      } else {
-        changeDisplayName();
-      }
-    }
-  };
-
-  let data = [];
-  // name
-  data.push(
-    <div>
-      Name: <span className="text-blue-600">{props.userData.name}</span>
-    </div>
-  );
-
-  // role
-  data.push(
-    <div>
-      Role: <span className="text-blue-600">{props.userData.role} </span>
-    </div>
-  );
-  // account creation date
-  data.push(
-    <div>
-      Avatar: <span className="text-blue-600">{skin}</span>
-    </div>
-  );
-  data.push(
-    <div>
-      Account creation date:{" "}
-      <span className="text-blue-600">{make_human_readable(props.userData.creation_date)}</span>
-    </div>
-  );
-
-  let stats = [];
-  stats.push(
-    <div>
-      Games won: <span className="text-blue-600">{props.userData.games_won}</span>
-    </div>
-  );
-  stats.push(
-    <div>
-      Games played: <span className="text-blue-600">{props.userData.games_played}</span>
-    </div>
-  );
-  stats.push(
-    <div>
-      Players tagged: <span className="text-blue-600"> {props.userData.tags}</span>
-    </div>
-  );
-  stats.push(
-    <div>
-      Been tagged: <span className="text-blue-600">{props.userData.tagged}</span>
-    </div>
-  );
-
   let carouselContent = [
     "grey_000",
     "grey_001",
@@ -243,6 +129,120 @@ const Settings = (props) => {
     catNameToFile[catNames[idx]] = carouselContent[idx];
   }
 
+  const handleChange = (event) => {
+    if (event.target.value.length < 15) {
+      setInput(event.target.value);
+    }
+  };
+
+  const make_human_readable = (iso) => {
+    let date = new Date(iso);
+
+    let months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const utc = Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds()
+    );
+
+    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  };
+
+  const handleShowChangeDisplay = () => {
+    setShowDisplay(true);
+  };
+  const cancelShowChangeDisplay = () => {
+    setShowDisplay(false);
+  };
+  const handleDisplayNameChange = (displayname) => {
+    const changeDisplayName = async () => {
+      setShowDisplay(false);
+      setLoading(true);
+      await post("/api/displayname", { displayname: displayname });
+      setLoading(false);
+      setDoneLoading(true);
+      setDisplayname(displayname);
+      setTimeout(() => {
+        setDoneLoading(false);
+      }, 4000);
+    };
+    if (!displaynameError) {
+      if (displayname.length < 3) {
+        setDisplaynameError(true);
+        setTimeout(() => {
+          setDisplaynameError(false);
+        }, 2000);
+      } else {
+        changeDisplayName();
+      }
+    }
+  };
+
+  let data = [];
+  // name
+  data.push(
+    <div>
+      Name: <span className="text-blue-600">{props.userData.name}</span>
+    </div>
+  );
+
+  // role
+  data.push(
+    <div>
+      Role: <span className="text-blue-600">{props.userData.role} </span>
+    </div>
+  );
+  // account creation date
+  data.push(
+    <div>
+      Avatar: <span className="text-blue-600">{catFileToName[skin]}</span>
+    </div>
+  );
+  data.push(
+    <div>
+      Account creation date:{" "}
+      <span className="text-blue-600">{make_human_readable(props.userData.creation_date)}</span>
+    </div>
+  );
+
+  let stats = [];
+  stats.push(
+    <div>
+      Games won: <span className="text-blue-600">{props.userData.games_won}</span>
+    </div>
+  );
+  stats.push(
+    <div>
+      Games played: <span className="text-blue-600">{props.userData.games_played}</span>
+    </div>
+  );
+  stats.push(
+    <div>
+      Players tagged: <span className="text-blue-600"> {props.userData.tags}</span>
+    </div>
+  );
+  stats.push(
+    <div>
+      Been tagged: <span className="text-blue-600">{props.userData.tagged}</span>
+    </div>
+  );
+
   return (
     <>
       <div className="background">
@@ -254,27 +254,40 @@ const Settings = (props) => {
                 Display Name: <span className="text-blue-600">{displayname}</span>
               </div>
             </div>
-            <button
-              className="font-Ubuntu mt-5 hover:cursor-pointer hover:bg-blue-400"
-              onClick={handleShowChangeDisplay}
-            >
-              Change display name
-            </button>
+            <div className="flex justify-center m-4">
+              <button
+                className="font-Ubuntu w-[30%] p-1 text-md hover:cursor-pointer hover:bg-blue-400"
+                onClick={handleShowChangeDisplay}
+              >
+                Change display name
+              </button>
+            </div>
             {showDisplay && (
               <>
-                <div>
-                  <input className="font-Ubuntu" maxlength="15" onInput={handleChange}></input>
-                </div>
-                <div>
-                  <button className="font-Ubuntu" onClick={() => handleDisplayNameChange(input)}>
-                    Confirm
-                  </button>
-                  <button className="font-Ubuntu" onClick={cancelShowChangeDisplay}>
-                    Cancel
-                  </button>
+                <div className="flex justify-center mt-[-0.8rem] mb-4">
+                  <div>
+                    <input
+                      className="font-Ubuntu text-md"
+                      maxlength="15"
+                      placeholder="New Display Name"
+                      onInput={handleChange}
+                    ></input>
+                  </div>
+                  <div>
+                    <button
+                      className="font-Ubuntu text-md"
+                      onClick={() => handleDisplayNameChange(input)}
+                    >
+                      Confirm
+                    </button>
+                    <button className="font-Ubuntu text-md" onClick={cancelShowChangeDisplay}>
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </>
             )}
+
             {loading && <div className="text-green-500">Saving display name...</div>}
             {doneLoading && (
               <div className="text-green-500">

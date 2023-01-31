@@ -648,11 +648,11 @@ const Game = () => {
               <>
                 <button
                   onClick={() => setQuestionShowing(true)}
-                  className="bg-opacity-50 bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl font-Ubuntu p-5 hover:bg-opacity-70 hover:cursor-pointer"
+                  className="bg-opacity-20 backdrop-blur-sm bg-blue-400 fixed z-10 left-[2vh] bottom-[2vh] text-2xl font-Ubuntu p-5 hover:bg-opacity-30 hover:cursor-pointer"
                 >
                   Answer Question
                 </button>
-                <div className="bg-white bg-opacity-50 fixed z-10 pb-5 top-[2vh] left-[2vh] border-solid hover:bg-opacity-70">
+                <div className="bg-white bg-opacity-50 backdrop-blur-sm fixed z-10 pb-5 top-[2vh] left-[2vh] border-solid hover:bg-opacity-70">
                   <div className="text-center text-xl mt-[2vh]">Upgrades</div>
                   <div className="my-[1vh] mx-[2vw]">
                     <table className="table-auto text-md">
@@ -718,7 +718,7 @@ const Game = () => {
           )}
           {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
             <>
-              <div className="bg-white bg-opacity-80 fixed w-[40vw] h-[30vh] left-[30vw] top-[35vh] border-solid z-50 overflow-y-scroll">
+              <div className="bg-white backdrop-blur-sm bg-opacity-80 fixed w-[40vw] h-[38vh] left-[30vw] top-[30vh] border-solid z-50 overflow-y-scroll">
                 {level === 0 && gameMode === "individual" && (
                   <>
                     <div className="text-4xl text-center p-4">

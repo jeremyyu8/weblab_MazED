@@ -128,12 +128,14 @@ const Set = (props) => {
     setRedirect(`/teacher/edit/${props._id}`);
   };
 
-  let temp = "../gameassets/radioactive_000_cropped.png";
+  let individual = "../gameassets/individualpic.png";
+  let team = "../gameassets/teampic.png";
+  let infection = "../gameassets/infectionpic.png";
 
   const carouselContent = [
-    { content: temp, caption: "Individual" },
-    { content: temp, caption: "Team" },
-    { content: temp, caption: "Infection" },
+    { content: individual, caption: "Individual" },
+    { content: team, caption: "Team" },
+    { content: infection, caption: "Infection" },
   ];
 
   return (
@@ -142,7 +144,8 @@ const Set = (props) => {
         <Redirect from="/teacher" to={redirect} />
       ) : (
         <>
-          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 rounded-lg m-3">
+          {/* <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 rounded-lg m-3"> */}
+          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 m-3 rounded-lg hover:shadow-[0_0_5px_5px_rgba(191,219,254,0.3)] transition-all ease-in">
             {loading ? (
               <div className="text-center mx-auto my-auto align-middle text-red-600">
                 deleting set...

@@ -59,7 +59,7 @@ const Carousel = (props) => {
               onClick={() => handleOnClick(idx)}
             >
               <div className="w-[100%] text-center mb-8">
-                <img src={slide.content} style={{ width: 250, height: 250 }} alt="map image" />
+                <img src={slide.content} style={{ height: 200 }} alt="map image" />
               </div>
               <div className="absolute text-3xl bottom-[2vh] left-[50%] transform -translate-x-1/2">
                 {slide.caption}

@@ -143,7 +143,7 @@ const Home = ({ userId, userRole, userName }) => {
                     <div className="pt-16 text-center mb-10">
                       <Link
                         to="/signup"
-                        className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-500 cursor-pointer p-4 px-[3vw] no-underline"
+                        className="text-white text-[2vw] bg-blue-800 rounded-full border-0 transition-colors duration-250 hover:bg-blue-400 cursor-pointer p-4 px-[3vw] no-underline"
                       >
                         Sign up for free today!
                       </Link>
@@ -152,8 +152,8 @@ const Home = ({ userId, userRole, userName }) => {
                 </div>
               </div>
               <div className="mt-[4vh]"></div>
-              <hr />
-              <footer className="text-white text-lg mt-[2vh] text-center">
+              <hr className="bg-blue-300" />
+              <footer className="text-blue-100 text-lg mt-[2vh] text-center">
                 Copyright <span className="text-2xl">&#169;</span> MazED. {"{ web.lab } 2023"}
               </footer>
             </div>

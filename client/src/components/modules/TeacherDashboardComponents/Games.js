@@ -36,8 +36,8 @@ const Games = (props) => {
               <div className="flex mt-10">
                 <div className="text-5xl text-blue-200 my-auto">Past Games</div>
               </div>
-              <div className="text-3xl text-blue-200">{games.length} games</div>
-              <div className="overflow-y-auto overflow-x-hidden max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">
+              <div className="text-3xl text-blue-200 my-5">{games.length} games</div>
+              <div className="overflow-y-auto overflow-x-hidden max-w-[95%] px-6 mx-auto mb-[6vw] rounded-xl h-[70vh]">
                 {games.length ? (
                   games
                 ) : (

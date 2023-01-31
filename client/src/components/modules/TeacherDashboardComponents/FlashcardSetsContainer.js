@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Set from "./Set";
 import { Redirect } from "@reach/router";
 import { get, post } from "../../../utilities";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * FlashcardSetsContainer renders flashcard metadata for teachers in their dashboard
@@ -136,8 +138,13 @@ const FlashcardSetsContainer = (props) => {
             <div class="sheerbox w-[70%]">
               <div className="flex mt-8">
                 <div className="text-5xl text-bold text-blue-200 my-auto">Flashcard Sets</div>
-                <button className="bigbutton ml-10 font-Ubuntu my-auto" onClick={newSet}>
-                  Create New Set
+                <button
+                  className="bg-blue-900 hover:cursor-pointer text-blue-100 hover:bg-blue-500 ml-10 font-Ubuntu text-2xl p-3 rounded-xl transition-all 
+                  duration-300 ease-in cursor-pointer my-auto flex w-auto"
+                  onClick={newSet}
+                >
+                  <FontAwesomeIcon icon={faPlusSquare} className="mr-3 my-auto" />
+                  <div className="my-auto"> Create New Set</div>
                 </button>
               </div>
               <div className="overflow-y-auto overflow-x-hidden max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">

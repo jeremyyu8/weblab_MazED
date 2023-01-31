@@ -26,16 +26,16 @@ const Navbar = (props) => {
         <div className="hidden md:flex space-x-6">
           <Link
             to="/rules"
-            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400 flex"
+            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-blue-400 flex"
           >
-            <FontAwesomeIcon className="mr-2 my-auto" icon={faBook} />
+            <FontAwesomeIcon className="no-underline mr-2 my-auto" icon={faBook} />
             Rules
           </Link>
           <Link
             to="/login"
-            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400 flex"
+            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-blue-400 flex"
           >
-            <FontAwesomeIcon className="mr-2 my-auto" icon={faSignIn} />
+            <FontAwesomeIcon className="no-underline mr-2 my-auto" icon={faSignIn} />
             Login
           </Link>
           <HomeButton text="Sign Up" url="/signup" />
