@@ -81,7 +81,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav className="fixed h-[75px] w-screen bg-opacity-80 top-0 bg-blue-100 border-0 border-b-2 z-10 flex justify-between">
+      <nav className="fixed h-[75px] w-screen bg-opacity-80 top-0 bg-blue-200 backdrop-blur-sm border-0 border-b-2 z-10 flex justify-between">
         <div className="my-auto px-8">
           <Link
             to="/"

@@ -137,7 +137,7 @@ const FlashcardSetsContainer = (props) => {
           <div className="background">
             <div class="sheerbox w-[70%]">
               <div className="flex mt-8">
-                <div className="pagetitle text-5xl text-bold text-blue-200 my-auto">
+                <div className="pagetitle text-5xl text-bold text-blue-300 my-auto">
                   Flashcard Sets
                 </div>
                 <button

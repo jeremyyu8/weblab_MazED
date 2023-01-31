@@ -255,13 +255,13 @@ const Game = (props) => {
   const [showing, setShowing] = useState(false);
   return (
     <>
-      <div className="flex border-solid bg-blue-200 bg-opacity-80 border-blue-700 border-4 p-5 w-[50vw] m-5 justify-between rounded-xl hover:shadow-[0_0_5px_5px_rgba(191,219,254,0.3)] transition-all">
+      <div className="flex border-solid backdrop-blur-md border-blue-700 border-4 p-5 w-[50vw] m-5 justify-between rounded-xl hover:shadow-[0_0_5px_5px_rgba(191,219,254,0.3)] transition-all">
         <div className="flex-1">
-          <div className="text-blue-700 font-bold text-3xl">
+          <div className="text-blue-200 font-bold text-3xl">
             {props.gameState.settitle}{" "}
             <span className="text-xl">{`(${props.gameState.gameMode})`}</span>
           </div>
-          <div className="mt-3 text-blue-500">{make_human_readable(props.datePlayed)} </div>
+          <div className="mt-3 text-blue-300">{make_human_readable(props.datePlayed)} </div>
         </div>
         <div className="basis-1/8 flex flex-col">
           <button
