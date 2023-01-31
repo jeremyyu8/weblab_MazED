@@ -283,6 +283,19 @@ const Carousel = (props) => {
 
   return (
     <div className="pt-10 pb-20">
+      <div className="basis-1/3 relative m-2 mt-2 text-4xl">
+        <button
+          className={`editfbuttons absolute right-0 border-4 ${
+            flashing === true && "animate-pulse"
+          }`}
+          onClick={() => {
+            setShowTip(true);
+            setFlashing(false);
+          }}
+        >
+          Try me!
+        </button>
+      </div>
       <div className="border-solid h-auto relative">
         <div className=" text-[2vw] mt-4 text-center">Choose Your Avatar</div>
         <div className="text-[1.5vw] text-center my-5">
@@ -344,7 +357,7 @@ const Carousel = (props) => {
         </div>
       </div>
 
-      <div className="flex flex-col mt-10">
+      <div className="flex flex-col">
         {loading && <div className="text-green-500 mx-auto mb-5">Saving avatar...</div>}
         {doneLoading && (
           <div className="text-green-500 mx-auto mb-5 text-xl">
@@ -357,28 +370,17 @@ const Carousel = (props) => {
           </div>
         )}
         <div className="flex justify-between">
-          <div className="basis-1/3"></div>
-          <div className="basis-1/3 flex">
-            <button
-              onClick={() => {
-                handleSkinChange(currentSelection);
-              }}
-              className="editfbuttons mx-auto"
-            >
-              Save
-            </button>
-          </div>
-          <div className="basis-1/3 relative">
-            <button
-              className={`editfbuttons absolute right-0 ${flashing === true && "animate-pulse"}`}
-              onClick={() => {
-                setShowTip(true);
-                setFlashing(false);
-              }}
-            >
-              Tip
-            </button>
-          </div>
+          {/* <div className="basis-1/3"></div> */}
+          {/* <div className="basis-1/3 flex"> */}
+          <button
+            onClick={() => {
+              handleSkinChange(currentSelection);
+            }}
+            className="editfbuttons mx-auto"
+          >
+            Save
+          </button>
+          {/* </div> */}
         </div>
         {showTip && (
           <>
