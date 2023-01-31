@@ -151,10 +151,10 @@ const Rules = ({}) => {
                       </ul>
                     </li>
                     <li className="my-4">
-                      "Infected" player wins if they tag every other player, which also infects them
+                      "Infected" team wins if they tag every other player, which also infects them
                     </li>
                     <li className="my-4">
-                      "Infected" player loses when any player reaches the end of the final maze
+                      "Infected" team loses when any player reaches the end of the final maze
                       without being tagged
                     </li>
                   </ul>
