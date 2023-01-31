@@ -28,14 +28,14 @@ const Navbar = (props) => {
             to="/rules"
             className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400 flex"
           >
-            <FontAwesomeIcon className="mr-2 my-auto" icon={faBook} size="" />
+            <FontAwesomeIcon className="mr-2 my-auto" icon={faBook} />
             Rules
           </Link>
           <Link
             to="/login"
             className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-sky-400 flex"
           >
-            <FontAwesomeIcon className="mr-2 my-auto" icon={faSignIn} size="" />
+            <FontAwesomeIcon className="mr-2 my-auto" icon={faSignIn} />
             Login
           </Link>
           <HomeButton text="Sign Up" url="/signup" />
