@@ -234,7 +234,7 @@ const Set = (props) => {
                   )}
                   <div className="flex basis-1/6 justify-center my-auto">
                     <input
-                      className="hover: my-auto font-Ubuntu text-3xl p-3 h-[5vh] aspect-square"
+                      className="hover: my-auto font-Ubuntu text-3xl p-3 h-[6vh] aspect-square"
                       type="number"
                       min="1"
                       max="99"
@@ -252,7 +252,7 @@ const Set = (props) => {
                   )}
                   <div className="flex basis-1/6 justify-center">
                     <input
-                      className="my-auto font-Ubuntu text-3xl p-3 h-[5vh] aspect-square"
+                      className="my-auto font-Ubuntu text-3xl p-3 h-[6vh] aspect-square"
                       type="number"
                       min="2"
                       max="9"

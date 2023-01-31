@@ -55,7 +55,7 @@ const Carousel = (props) => {
         return (
           <>
             <div
-              className="flex grow shrink-0 basis-full h-auto w-[100%] relative snap-start hover:cursor-pointer p-10"
+              className="flex grow shrink-0 basis-full h-auto w-[50%] relative snap-start hover:cursor-pointer py-10"
               onClick={() => handleOnClick(idx)}
             >
               <div className="w-[100%] text-center mb-8">
