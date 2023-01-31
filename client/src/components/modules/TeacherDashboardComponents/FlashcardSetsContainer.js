@@ -139,8 +139,8 @@ const FlashcardSetsContainer = (props) => {
               <div className="flex mt-8">
                 <div className="text-5xl text-bold text-blue-200 my-auto">Flashcard Sets</div>
                 <button
-                  className="bg-blue-900 hover:cursor-pointer text-blue-100 hover:bg-blue-500 ml-10 font-Ubuntu text-3xl p-3 rounded-xl transition-all 
-                  duration-300 ease-in cursor-pointer my-auto flex"
+                  className="bg-blue-900 hover:cursor-pointer text-blue-100 hover:bg-blue-500 ml-10 font-Ubuntu text-2xl p-3 rounded-xl transition-all 
+                  duration-300 ease-in cursor-pointer my-auto flex w-auto"
                   onClick={newSet}
                 >
                   <FontAwesomeIcon icon={faPlusSquare} className="mr-3 my-auto" />
