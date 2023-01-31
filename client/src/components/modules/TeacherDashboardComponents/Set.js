@@ -267,7 +267,7 @@ const Set = (props) => {
 
             <div className="basis-1/6 flex justify-center">
               <button
-                className="font-Ubuntu text-3xl rounded-xl bg-blue-500 w-[30%] hover:cursor-pointer hover:bg-blue-400 transform my-auto "
+                className="font-Ubuntu text-3xl rounded-xl bg-blue-500 w-[30%] hover:cursor-pointer hover:bg-blue-400 transform my-auto py-1"
                 onClick={() => {
                   newLobby(props._id);
                 }}
