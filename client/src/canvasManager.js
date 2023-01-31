@@ -217,7 +217,12 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
     ) {
       // get tile at coordinate i,j
       const tile_idx = map[(j * mapxsize) / tilewidth + i];
-      let tile_render = tiles[tile_idx];
+      let tile_render;
+      if (tile_idx < 20) {
+        tile_render = tiles[tile_idx];
+      } else {
+        tile_render = tiles[4];
+      }
 
       if (tile_idx === 2 && drawState["players"][_id]["level"] >= 0) {
         let level = `level${drawState["players"][_id]["level"]}`;
@@ -236,13 +241,39 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
       }
 
       if (tile_render) {
-        ctx.drawImage(
-          tile_render,
-          (i - drawState["players"][_id].camera.x) * tilewidth,
-          (j - drawState["players"][_id].camera.y) * tilewidth,
-          tilewidth,
-          tilewidth
-        );
+        if (tile_idx < 20) {
+          ctx.drawImage(
+            tile_render,
+            (i - drawState["players"][_id].camera.x) * tilewidth,
+            (j - drawState["players"][_id].camera.y) * tilewidth,
+            tilewidth,
+            tilewidth
+          );
+        } else {
+          if (tiles[1]) {
+            ctx.drawImage(
+              tiles[1],
+              (i - drawState["players"][_id].camera.x) * tilewidth,
+              (j - drawState["players"][_id].camera.y) * tilewidth,
+              tilewidth,
+              tilewidth
+            );
+          }
+          let residue = tile_idx - 24;
+          let col = residue % 3;
+          let row = (residue - col) / 3;
+          ctx.drawImage(
+            tile_render,
+            col * 253,
+            row * 253,
+            253,
+            253,
+            (i - drawState["players"][_id].camera.x) * tilewidth,
+            (j - drawState["players"][_id].camera.y) * tilewidth,
+            tilewidth,
+            tilewidth
+          );
+        }
       }
     }
   }
