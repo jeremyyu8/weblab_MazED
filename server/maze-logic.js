@@ -255,7 +255,13 @@ const generateFullMaze = (n) => {
     for (let j = 0; j < 3 * (n + 5); j++) {
       let row = Math.floor(i / 3);
       let col = Math.floor(j / 3);
-      fullMaze.push(skybordersmaze[row][col]);
+      // fullMaze.push(skybordersmaze[row][col]);
+      if (skybordersmaze[row][col] !== 4) {
+        fullMaze.push(skybordersmaze[row][col]);
+      } else {
+        let residue = (i - row * 3) * 3 + (j - col * 3);
+        fullMaze.push(skybordersmaze[row][col] + 20 + residue);
+      }
     }
   }
   return fullMaze;
@@ -278,7 +284,12 @@ const generateTrivialMaze = () => {
     for (let j = 0; j < 3 * 9; j++) {
       let row = Math.floor(i / 3);
       let col = Math.floor(j / 3);
-      trivialMazeFull.push(trivialMaze[row][col]);
+      if (trivialMaze[row][col] !== 4) {
+        trivialMazeFull.push(trivialMaze[row][col]);
+      } else {
+        let residue = (i - row * 3) * 3 + (j - col * 3);
+        trivialMazeFull.push(trivialMaze[row][col] + 20 + residue);
+      }
     }
   }
   return trivialMazeFull;
@@ -291,6 +302,7 @@ const generateTrivialMaze = () => {
 // 3 = tree
 // 4 = portal
 // 5 = sky
+// 24 through 32 is border
 
 module.exports = {
   generateFullMaze,

@@ -714,7 +714,7 @@ const detectMapCollisions = (_id, pin) => {
       player.p.y += miny;
       player.v.x = 0;
       player.v.y = 0;
-    } else if (tile_idx === 4) {
+    } else if (tile_idx === 4 || tile_idx > 20) {
       player.p.x = 0;
       player.p.y = 0;
       player.v.x = 0;
