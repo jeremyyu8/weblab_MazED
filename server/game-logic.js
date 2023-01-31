@@ -9,7 +9,7 @@ require("dotenv").config();
 const tilewidth = 80;
 
 // for moving logic
-const ACCEL = 0.02; // higher speeds: increment by ~0.01 or something
+const ACCEL = 0.02 * 2; // higher speeds: increment by ~0.01 or something
 const DRAG_COEFFICIENT = 4;
 const VCUTOFF = 0.02;
 

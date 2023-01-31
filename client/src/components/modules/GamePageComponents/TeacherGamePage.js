@@ -190,7 +190,9 @@ const TeacherGamePage = (props) => {
         <div className="flex border-solid max-w-[100%]">
           <div className=" basis-2/6 mx-auto overflow-y-scroll no-scrollbar flex flex-col">
             <div className="text-[2vw] mx-auto transform translate-x-[1vw] mt-[2vw]">Players:</div>
-            <div className="border-solid h-full ml-[2vw] my-[2vw] p-4 text-[1vw]">{players}</div>
+            <div className="border-solid h-full ml-[2vw] my-[2vw] p-4 text-[1vw] overflow-y-scroll">
+              {players}
+            </div>
           </div>
           <div className="flex-1 flex border-solid overflow-x-scroll mx-[2vw] my-[2vw] no-scrollbar">
             {teacherCanvasDivs}

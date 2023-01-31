@@ -75,7 +75,7 @@ module.exports = {
       // description: teacher makes a new lobby
       // data: {pin: gamepin, cards: cards to be used during the game, teacherid: teacherid, setid: id of the set used}
       socket.on("makeNewLobby", (data) => {
-        socket.join(data.pin);
+        // socket.join(data.pin);
         userToPinMap[data.teacherid] = data.pin;
         gameLogic.makeNewGame(data);
       });
@@ -89,7 +89,7 @@ module.exports = {
           socket.emit("joinFail", { err: "pin does not exist" });
         } else {
           socket.emit("joinSuccess");
-          socket.join(data.pin);
+          // socket.join(data.pin);
           userToPinMap[data.studentid] = data.pin;
 
           // check if user was already in game before
@@ -197,7 +197,7 @@ module.exports = {
                   gameLogic.games[pin]["players"][userId]["level"] = 0;
                 }
                 console.log("setting player active to true");
-                socket.join(pin);
+                // socket.join(pin);
 
                 // emit requested information
                 socket.emit("receivePin", {

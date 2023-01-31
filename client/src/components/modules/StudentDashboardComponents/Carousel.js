@@ -259,6 +259,7 @@ const Carousel = (props) => {
         return;
       }
       console.log("in here");
+      console.log(skin);
       const changeDisplayName = async () => {
         setLoading(true);
         try {
@@ -268,7 +269,7 @@ const Carousel = (props) => {
           await post("/api/setskin", { skin: props.catNameToFile[skin] });
           setLoading(false);
           setDoneLoading(true);
-          props.setSkin(skin);
+          props.setSkin(props.catNameToFile[skin]);
           setTimeout(() => {
             setDoneLoading(false);
           }, 3000);
