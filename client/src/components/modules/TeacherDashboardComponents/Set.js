@@ -208,7 +208,7 @@ const Set = (props) => {
       {lobbySettings && (
         <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-blue-100 text-black z-50">
           <button
-            className="absolute right-0 font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer rounded-xl p-5 text-xl "
+            className="absolute right-0 font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer rounded-xl p-2 text-xl "
             onClick={() => {
               setLobbySettings(false);
             }}
@@ -224,7 +224,7 @@ const Set = (props) => {
           <div className="flex justify-center">
             <div className="text-3xl text-blue-500"> {props.title}</div>
           </div>
-          <div className="rounded-xl border-solid border-blue-200 border-4 ml-[20%] mt-[4vh] h-[60%] w-[60%] overflow-y-auto overflow-x-hidden">
+          <div className="rounded-xl border-solid border-blue-200 border-4 ml-[20%] mt-[4vh] h-[55%] w-[60%] overflow-y-auto overflow-x-hidden">
             <div className="flex justify-between rounded-xl w-full h-[30%]">
               <div className="mx-8 text-2xl mt-[5vh]">
                 <div>Game Time (minutes):</div>
