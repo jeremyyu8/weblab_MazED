@@ -90,7 +90,7 @@ const makeNewGame = (data) => {
     settitle: data.settitle,
     timeRemaining: gameLength,
     startTime: 0,
-    numMazes: data.numMazes,
+    numMazes: parseInt(data.numMazes),
     gameMode: data.gameMode,
     redRank: 0, // red team rank
     blueRank: 0, // blue team rank
@@ -415,9 +415,12 @@ const updateGameState = () => {
         console.log(curPlayer);
         // if game mode infection and non-infected player reaches the last level, the game ends
         if (games[pin]["gameMode"] === "infection" && curPlayer["infected"] === false) {
-          if (curPlayer["level"] === games[pin]["numMazes"]) {
+          console.log("new level for non infected player");
+          console.log(curPlayer["level"], games[pin]["numMazes"] + 1);
+          if (curPlayer["level"] === games[pin]["numMazes"] + 1) {
             games[pin]["infectedRank"] = 2;
             games[pin]["notInfectedRank"] = 1;
+            console.log(games[pin]);
             endGame(pin);
           }
         }
@@ -432,16 +435,16 @@ const updateGameState = () => {
         (curPlayer.k["up"] === true || curPlayer.k["down"] === true) &&
         !(curPlayer.k["up"] === true && curPlayer.k["down"] === true);
       if (curPlayer.k["up"] === true) {
-        curPlayer.v.y -= ACCEL + 0.005 * curPlayer["speed"];
+        curPlayer.v.y -= ACCEL + 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["down"] === true) {
-        curPlayer.v.y += ACCEL + 0.005 * curPlayer["speed"];
+        curPlayer.v.y += ACCEL + 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["left"] === true) {
-        curPlayer.v.x -= ACCEL + 0.005 * curPlayer["speed"];
+        curPlayer.v.x -= ACCEL + 0.01 * curPlayer["speed"];
       }
       if (curPlayer.k["right"] === true) {
-        curPlayer.v.x += ACCEL + 0.005 * curPlayer["speed"];
+        curPlayer.v.x += ACCEL + 0.01 * curPlayer["speed"];
       }
       if (movingx && movingy) {
         let v = Math.max(Math.abs(curPlayer.v.y), Math.abs(curPlayer.v.x));
@@ -768,7 +771,7 @@ const detectPlayerCollisions = (pin) => {
 
       // infected teams can only tag on the opposite side of infection
       if (
-        games[pin]["gamdeMode"] === "infection" &&
+        games[pin]["gameMode"] === "infection" &&
         games[pin]["players"][_id1]["infected"] === games[pin]["players"][_id2]["infected"]
       ) {
         continue;

@@ -324,7 +324,7 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
         shadow = shadows[dirObject[[pxdir, pydir]]];
         off = shadowoffset[dirObject[[pxdir, pydir]]];
         step = last_frame[playerid]["step"];
-        if (animation_counter % 10 === 0) {
+        if (animation_counter % 5 === 0) {
           last_frame[playerid]["step"]++;
           if (last_frame[playerid]["step"] >= 4) {
             last_frame[playerid]["step"] = 0;

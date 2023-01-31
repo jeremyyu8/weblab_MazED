@@ -9,9 +9,10 @@ import { drawTeacherCanvas } from "../../../canvasManagerTeacher";
  * @param {object} gameState holds all game data to parse and render on the teacher page
  * @param {string} pin the game pin
  * @param {object} mazes has mazes to render
+ * @param {String} gameMode the game mode
  */
 const TeacherGamePage = (props) => {
-  const windowRatio = 1 / 4;
+  const windowRatio = 1 / 5;
   const [players, setPlayers] = useState(undefined);
   const [timeRemaining, setTimeRemaining] = useState(undefined);
   const [teacherCanvasDivs, setTeacherCanvasDivs] = useState([]);
@@ -63,7 +64,7 @@ const TeacherGamePage = (props) => {
     for (let idx = 0; idx < Object.keys(props.mazes).length - 2; idx++) {
       canvasDivs.push(
         <div className="flex flex-col m-5">
-          <div className="text-[2vw] mx-auto">Level {idx}</div>
+          <div className="text-[2vw] mx-auto">{idx === 0 ? "Start" : `Level ${idx}`}</div>
           <canvas
             className="my-5"
             ref={teacherCanvasRefMap[idx]}
@@ -113,7 +114,33 @@ const TeacherGamePage = (props) => {
               <span className="text-blue-600">{props.gameState["players"][playerid]["name"]} </span>
               ({props.gameState["players"][playerid]["displayname"]})
             </div>
-            <div className="mt-1">{toShow}</div>
+            {props.gameMode === "infection" && (
+              <div className="mt-1">
+                {toShow === "Status: Infected" ? (
+                  <div>
+                    Status: <span className="text-red-600">Infected</span>
+                  </div>
+                ) : (
+                  <div>
+                    Status: <span className="text-green-600">Alive</span>
+                  </div>
+                )}
+              </div>
+            )}
+            {props.gameMode === "team" && (
+              <div className="mt-1">
+                {toShow === "Team: red" ? (
+                  <div>
+                    Team: <span className="text-red-600">Red</span>
+                  </div>
+                ) : (
+                  <div>
+                    Team: <span className="text-blue-400">Blue</span>
+                  </div>
+                )}
+              </div>
+            )}
+            {props.gameMode === "individual" && <div className="mt-1">{toShow}</div>}
             <div className="mt-1">
               Level:{" "}
               {props.gameState["players"][playerid]["level"] === 4
@@ -179,18 +206,23 @@ const TeacherGamePage = (props) => {
   return (
     <div className="background">
       <div className="sheerbox w-[80%] h-full overflow-x-hidden overflow-y-hidden flex-col">
-        <div className="flex justify-center h-[10vw] w-full border-solid basis-1/5">
-          <div className="text-[4vw] basis-1/3 flex">
-            <div className="mx-auto my-auto">Pin: {props.pin}</div>
+        <div className="flex justify-center h-[10vw] w-full border-solid basis-1/5 mt-[4vh] border-b-0">
+          <div className="text-[3vw] basis-1/3 flex">
+            <div className="mx-auto my-auto p-7">
+              Game Mode: <span className="text-blue-400">{props.gameMode}</span>
+            </div>
           </div>
-          <div className="text-[4vw] flex-1 flex">
-            <div className="mx-auto my-auto">Time remaining: {convertToTime(timeRemaining)}</div>
+          <div className="text-[3vw] basis-1/3 flex">
+            <div className="mx-auto my-auto p-7">Pin: {props.pin}</div>
+          </div>
+          <div className="text-[3vw] flex-1 flex">
+            <div className="mx-auto my-auto p-7">Time: {convertToTime(timeRemaining)}</div>
           </div>
         </div>
-        <div className="flex border-solid max-w-[100%]">
+        <div className="flex border-solid max-w-[100%] border-t-0">
           <div className=" basis-2/6 mx-auto overflow-y-scroll no-scrollbar flex flex-col">
             <div className="text-[2vw] mx-auto transform translate-x-[1vw] mt-[2vw]">Players:</div>
-            <div className="border-solid h-full ml-[2vw] my-[2vw] p-4 text-[1vw] overflow-y-scroll">
+            <div className="border-solid h-[40vh] ml-[2vw] my-[2vw] p-4 text-[1vw] overflow-y-scroll">
               {players}
             </div>
           </div>
@@ -199,11 +231,11 @@ const TeacherGamePage = (props) => {
           </div>
         </div>
         <div className="flex mt-10">
-          <button className="editfbuttons w-[20vw]" onClick={() => endGame(props.pin)}>
+          <button className="editfbuttons w-[20vw] mb-12" onClick={() => endGame(props.pin)}>
             End game
           </button>
           <div className="basis-1/3"></div>
-          <button className="editfbuttons w-[20vw]" onClick={() => extendGame(props.pin)}>
+          <button className="editfbuttons w-[20vw] mb-12" onClick={() => extendGame(props.pin)}>
             Extend game (2 minutes)
           </button>
         </div>

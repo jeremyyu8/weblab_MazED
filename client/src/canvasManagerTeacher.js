@@ -26,15 +26,18 @@ export const drawTeacherCanvas = (drawState, canvasRef, xsize) => {
       // get tile at coordinate i,j
       const tile_idx = drawState["map"][(j * mapxsize) / tilewidth + i];
       if (tile_idx === 0) {
-        ctx.fillStyle = "brown";
+        // ctx.fillStyle = "brown";
+        ctx.fillStyle = "rgb(115,115,115)"; // blue-300
       } else if (tile_idx === 1) {
-        ctx.fillStyle = "green";
+        // ctx.fillStyle = "green";
+        ctx.fillStyle = "rgb(96,165,250)"; // blue-400
       } else if (tile_idx === 2) {
         ctx.fillStyle = "blue";
       } else if (tile_idx === 4) {
         ctx.fillStyle = "purple";
       } else if (tile_idx === 5) {
-        ctx.fillStyle = "black";
+        // ctx.fillStyle = "black";
+        continue;
       }
 
       ctx.fillRect(i * scale, j * scale, scale, scale);

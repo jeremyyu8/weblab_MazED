@@ -724,6 +724,21 @@ const Game = () => {
                     <div className="text-4xl text-center p-4">
                       Game mode: <span className="text-blue-600">{gameMode}</span>
                     </div>
+                    {showCloseButton && userData && gamePin && (
+                      <div className="flex justify-center">
+                        <button
+                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          onClick={() => {
+                            setPromoted(false);
+                            setShowCloseButton(false);
+                            setFade(false);
+                            offInvincible(userData._id, gamePin);
+                          }}
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    )}
                     <div className="text-lg text-center p-4">
                       Use this single-player level to get comfortable with the game's basic
                       mechanics. Answer questions to gain tokens in the bottom left. Accumulate
@@ -737,6 +752,21 @@ const Game = () => {
                     <div className="text-4xl text-center p-4">
                       Game mode: <span className="text-blue-600">{gameMode}</span>
                     </div>
+                    {showCloseButton && userData && gamePin && (
+                      <div className="flex justify-center">
+                        <button
+                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          onClick={() => {
+                            setPromoted(false);
+                            setShowCloseButton(false);
+                            setFade(false);
+                            offInvincible(userData._id, gamePin);
+                          }}
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    )}
                     <div className="text-xl text-center pb-4">
                       You are on the{" "}
                       {team === "red" && <span className="text-xl text-red-600">Red </span>}
@@ -758,6 +788,21 @@ const Game = () => {
                     <div className="text-xl text-center pb-4">
                       You are <span className="text-xl text-green-600">Not Infected </span>
                     </div>
+                    {showCloseButton && userData && gamePin && (
+                      <div className="flex justify-center">
+                        <button
+                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          onClick={() => {
+                            setPromoted(false);
+                            setShowCloseButton(false);
+                            setFade(false);
+                            offInvincible(userData._id, gamePin);
+                          }}
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    )}
                     <div className="text-lg text-center p-4">
                       Use this single-player level to get comfortable with the game's basic
                       mechanics. Beat this level to move on to the multiplayer levels. Be cautious
@@ -774,6 +819,21 @@ const Game = () => {
                     <div className="text-xl text-center pb-4">
                       You are <span className="text-xl text-red-600">Infected </span>
                     </div>
+                    {showCloseButton && userData && gamePin && (
+                      <div className="flex justify-center">
+                        <button
+                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          onClick={() => {
+                            setPromoted(false);
+                            setShowCloseButton(false);
+                            setFade(false);
+                            offInvincible(userData._id, gamePin);
+                          }}
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    )}
                     <div className="text-lg text-center p-4">
                       As the infected player, you have greater speed and power. You are also
                       starting one level ahead of every other player. Use these buffs to your
@@ -783,36 +843,72 @@ const Game = () => {
                   </>
                 )}
                 {level > 1 && level !== numMazes + 1 && (
-                  <div className="text-4xl text-center mt-[10vh]">Level: {level}</div>
-                )}
-                {level === 1 && !(gameMode === "infection" && infected === true) && (
-                  <div className="text-4xl text-center mt-[4vh]">Level: {level}</div>
+                  <>
+                    <div className="text-4xl text-center p-8">Level: {level}</div>
+                  </>
                 )}
                 {level === 1 && !(gameMode === "infection" && infected === true) && (
                   <>
-                    <div className="text-lg text-center m-4">
+                    <div className="text-4xl text-center p-4">Level: {level}</div>
+                  </>
+                )}
+                {level === 1 && !(gameMode === "infection" && infected === true) && (
+                  <>
+                    <div className="text-xl text-center p-4">
                       Starting now, every level is multiplayer. Don't get tagged!
                     </div>
-                    <div className="text-lg text-center">
+                    <div className="text-xl text-center">
                       Time spent in single-player: {convertToTime(level0CompletionTime)}
                     </div>
                   </>
                 )}
                 {level > 1 && level !== numMazes + 1 && (
-                  <div className="text-xl text-center">
-                    Time to complete level {level - 1}:{" "}
-                    {convertToTime(
-                      completionTimeMap[level - 1][0] - completionTimeMap[level - 2][0]
+                  <>
+                    <div className="text-xl text-center p-4">
+                      Time to complete level {level - 1}:{" "}
+                      {convertToTime(
+                        completionTimeMap[level - 1][0] - completionTimeMap[level - 2][0]
+                      )}
+                    </div>
+                    {showCloseButton && userData && gamePin && (
+                      <div className="flex justify-center">
+                        <button
+                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          onClick={() => {
+                            setPromoted(false);
+                            setShowCloseButton(false);
+                            setFade(false);
+                            offInvincible(userData._id, gamePin);
+                          }}
+                        >
+                          Continue
+                        </button>
+                      </div>
                     )}
-                  </div>
+                  </>
                 )}
                 {level === numMazes + 1 && (
                   <>
-                    <div className="text-2xl text-center mt-[2vh]">
+                    <div className="text-2xl text-center p-4">
                       Congrats! You finished every maze. Feel free to keep answering questions and
                       tag other players as they finish!
                     </div>
-                    <div className="text-xl text-center">
+                    {showCloseButton && userData && gamePin && (
+                      <div className="flex justify-center">
+                        <button
+                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          onClick={() => {
+                            setPromoted(false);
+                            setShowCloseButton(false);
+                            setFade(false);
+                            offInvincible(userData._id, gamePin);
+                          }}
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    )}
+                    <div className="text-xl text-center p-4">
                       Final level completion time:{" "}
                       {convertToTime(
                         completionTimeMap[level - 1][0] - completionTimeMap[level - 2][0]
@@ -823,21 +919,6 @@ const Game = () => {
                     </div>
                   </>
                 )}
-                {showCloseButton && userData && gamePin && (
-                  <div className="flex justify-center mt-[2vh]">
-                    <button
-                      className="font-Ubuntu bg-blue-600 text-white mb-4 hover:cursor-pointer hover:bg-blue-400"
-                      onClick={() => {
-                        setPromoted(false);
-                        setShowCloseButton(false);
-                        setFade(false);
-                        offInvincible(userData._id, gamePin);
-                      }}
-                    >
-                      Continue
-                    </button>
-                  </div>
-                )}
               </div>
             </>
           )}
@@ -847,7 +928,12 @@ const Game = () => {
             userData.role === "teacher" &&
             gamePin && (
               <>
-                <TeacherGamePage gameState={gameState} pin={gamePin} mazes={mazes} />
+                <TeacherGamePage
+                  gameState={gameState}
+                  pin={gamePin}
+                  mazes={mazes}
+                  gameMode={gameMode}
+                />
               </>
             )}
           {questionShowing && status !== "end" && (

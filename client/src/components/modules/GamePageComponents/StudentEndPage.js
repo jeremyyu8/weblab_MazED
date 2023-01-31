@@ -82,6 +82,9 @@ const StudentEndPage = (props) => {
       if (props.gameState["infectedRank"] === 1) {
         winningTeam = "infected";
       }
+      console.log("inside of student end page");
+      console.log(winningTeam);
+      console.log(props.gameState);
       if (winningTeam === "infected") {
         setFadePage(
           <div className="text-4xl">
@@ -91,7 +94,7 @@ const StudentEndPage = (props) => {
       } else {
         let winning_player = "";
         for (let _id in props.gameState["players"]) {
-          if (props.gameState["players"][_id] === props.gameState["numMazes"]) {
+          if (props.gameState["players"][_id]["level"] === props.gameState["numMazes"] + 1) {
             winning_player = props.gameState["players"][_id]["name"];
           }
         }
@@ -103,7 +106,7 @@ const StudentEndPage = (props) => {
         ]);
       }
     }
-  }, []);
+  }, [props.gameState]);
 
   useEffect(() => {
     let dataDisplay = [];
