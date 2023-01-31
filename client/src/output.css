@@ -1218,14 +1218,9 @@
   animation: bounce 1s infinite;
 }
 
-/* @keyframes pulse{
-  50%{
-    opacity: .5;
-  }
-} */
 @keyframes pulse{
   50%{
-    box-shadow: 0 0 15px red
+    opacity: .5;
   }
 }
 
@@ -2537,6 +2532,17 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
   accent-color: rgb(96 165 250);
+  accent-color: rgb(96,165,250);
+}
+
+@keyframes glow{
+  50%{
+    box-shadow: 0 0 15px red;
+  }
+}
+
+.glow-pulse{
+  animation: glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .hover\:scale-110:hover{
