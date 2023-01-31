@@ -6,10 +6,10 @@ import InternalLink from ".//InternalLink";
 import Navbar from "../modules/Navbar";
 import Card from "./Card.js";
 
-const Rules = ({}) => {
+const Rules = (props) => {
   return (
     <>
-      <Navbar />
+      <Navbar blank={true} />
       <div className="h-[78px]"></div>
       <div className="background h-auto">
         <div class="rounded-3xl text-blue-200 bg-black bg-opacity-60 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col justify-center h-[80%] w-[85%] pt-2">

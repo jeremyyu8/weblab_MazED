@@ -806,6 +806,10 @@
   display: block;
 }
 
+.inline-block{
+  display: inline-block;
+}
+
 .inline{
   display: inline;
 }
@@ -1903,6 +1907,10 @@
 
 .pr-1{
   padding-right: 0.25rem;
+}
+
+.pl-6{
+  padding-left: 1.5rem;
 }
 
 .text-center{
