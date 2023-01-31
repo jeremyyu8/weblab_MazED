@@ -91,15 +91,29 @@ const TeacherGamePage = (props) => {
       });
 
       let playerData = [];
+      let toShow = "";
+
       players.forEach((player) => {
         let playerid = player[0];
+        if (props.gameState["gameMode"] === "individual") {
+          toShow = `Rank: ${props.gameState["players"][playerid]["rank"]}`;
+        } else if (props.gameState["gameMode"] === "team") {
+          toShow = `Team: ${props.gameState["players"][playerid]["team"]}`;
+        } else {
+          if (props.gameState["players"][playerid]["infected"]) {
+            toShow = "Status: Infected";
+          } else {
+            toShow = "Status: Alive";
+          }
+        }
+
         let curPlayer = (
           <div className="border-solid p-5" key={playerData.length}>
             <div className="text-[1.5vw]">
               <span className="text-blue-600">{props.gameState["players"][playerid]["name"]} </span>
               ({props.gameState["players"][playerid]["displayname"]})
             </div>
-            <div className="mt-1">Rank: {props.gameState["players"][playerid]["rank"]}</div>
+            <div className="mt-1">{toShow}</div>
             <div className="mt-1">
               Level:{" "}
               {props.gameState["players"][playerid]["level"] === 4

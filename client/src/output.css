@@ -1157,6 +1157,18 @@
   width: 54%;
 }
 
+.w-\[12\%\]{
+  width: 12%;
+}
+
+.w-\[27\%\]{
+  width: 27%;
+}
+
+.w-\[22\%\]{
+  width: 22%;
+}
+
 .max-w-full{
   max-width: 100%;
 }
@@ -2107,6 +2119,10 @@
 .text-gray-500{
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.underline{
+  text-decoration-line: underline;
 }
 
 .no-underline{

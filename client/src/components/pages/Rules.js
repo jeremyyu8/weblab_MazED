@@ -14,8 +14,13 @@ const Rules = ({}) => {
       <div className="background h-auto">
         <div class="rounded-3xl text-blue-200 bg-black bg-opacity-60 px-16 py-10 shadow-lg max-sm:px-8 flex flex-col justify-center h-[80%] w-[85%] pt-2">
           <div className="pagetitle mt-6 mb-0 text-center p-2 text-6xl">How to Play</div>
-          <div className="top m-1 p-1 text-center text-xl">
-            <InternalLink href="#section-1">Jump to Game Mode Descriptions</InternalLink>
+          <div
+            onClick={() => {
+              window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+            }}
+            className="top m-1 p-1 text-center text-xl hover:cursor-pointer underline text-blue-600 hover:text-blue-400"
+          >
+            Jump to Game Mode Descriptions
           </div>
 
           <div>
