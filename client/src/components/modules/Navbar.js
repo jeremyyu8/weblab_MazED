@@ -52,9 +52,20 @@ const Navbar = (props) => {
     }
   } else {
     rightside = (
-      <div className="flex no-underline text-black text-center text-[18px] py-3">
-        You are: <span className="text-blue-600 px-2">{props.userName}</span> ({props.userRole})
-      </div>
+      <>
+        <div className="flex">
+          <Link
+            to="/rules"
+            className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-blue-400 flex"
+          >
+            <FontAwesomeIcon className="no-underline mr-2 my-auto" icon={faBook} />
+            Rules
+          </Link>
+          <div className="flex no-underline text-black text-center text-[20px] pl-6 py-3">
+            <span className="text-blue-600 px-2">{props.userName}</span> ({props.userRole})
+          </div>
+        </div>
+      </>
     );
   }
 
