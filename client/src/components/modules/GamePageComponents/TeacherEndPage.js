@@ -102,19 +102,22 @@ const TeacherEndPage = (props) => {
 
           {props.gameMode === "infection" && (
             <>
-              <td className="w-[12%] text-[2vw]">{props.gameState["players"][playerid]["rank"]}</td>
-              <td className="w-[27%] text-[2vw]">{props.gameState["players"][playerid]["name"]}</td>
-              <td className="w-[12%] text-[2vw]">
+              <td className="w-[29.4%] text-[2vw]">
+                {props.gameState["players"][playerid]["name"]}
+              </td>
+              <td className="w-[14.4%] text-[2vw]">
                 {props.gameState["players"][playerid]["level"] === 4
                   ? "Finished"
                   : props.gameState["players"][playerid]["level"]}
               </td>
-              <td className="w-[22%] text-[2vw]">
+              <td className="w-[24.4%] text-[2vw]">
                 {compute_last_completion_time(props.gameState["players"][playerid])}
               </td>
-              <td className="w-[12%] text-[2vw]">{props.gameState["players"][playerid]["tags"]}</td>
+              <td className="w-[14.4%] text-[2vw]">
+                {props.gameState["players"][playerid]["tags"]}
+              </td>
               <td
-                className={`w-[15%] text-[2vw] ${
+                className={`w-[17.4%] text-[2vw] ${
                   props.gameState["players"][playerid]["infected"] && "text-red-600"
                 } ${!props.gameState["players"][playerid]["infected"] && "text-green-600"}`}
               >
@@ -124,24 +127,27 @@ const TeacherEndPage = (props) => {
           )}
           {props.gameMode === "team" && (
             <>
-              <td className="w-[12%] text-[2vw]">{props.gameState["players"][playerid]["rank"]}</td>
-              <td className="w-[27%] text-[2vw]">{props.gameState["players"][playerid]["name"]}</td>
+              <td className="w-[29.4%] text-[2vw]">
+                {props.gameState["players"][playerid]["name"]}
+              </td>
               <td
-                className={`w-[15%] text-[2vw] ${
+                className={`w-[17.4%] text-[2vw] ${
                   props.gameState["players"][playerid]["team"] === "red" && "text-red-600"
                 } ${props.gameState["players"][playerid]["team"] === "blue" && "text-blue-600"}`}
               >
                 {props.gameState["players"][playerid]["team"]}
               </td>
-              <td className="w-[12%] text-[2vw]">
+              <td className="w-[14.4%] text-[2vw]">
                 {props.gameState["players"][playerid]["level"] === 4
                   ? "Finished"
                   : props.gameState["players"][playerid]["level"]}
               </td>
-              <td className="w-[22%] text-[2vw]">
+              <td className="w-[24.4%] text-[2vw]">
                 {compute_last_completion_time(props.gameState["players"][playerid])}
               </td>
-              <td className="w-[12%] text-[2vw]">{props.gameState["players"][playerid]["tags"]}</td>
+              <td className="w-[14.4%] text-[2vw]">
+                {props.gameState["players"][playerid]["tags"]}
+              </td>
             </>
           )}
         </>
@@ -208,23 +214,21 @@ const TeacherEndPage = (props) => {
 
                     {props.gameMode === "infection" && (
                       <>
-                        <div className="w-[12%] text-[3vw] py-[3vh]">Rank</div>
-                        <div className="w-[27%] text-[3vw] py-[3vh]">Name</div>
-                        <div className="w-[12%] text-[3vw] py-[3vh]">Level</div>
-                        <div className="w-[22%] text-[3vw] py-[3vh]">Time</div>
-                        <div className="w-[12%] text-[3vw] py-[3vh]">Tags</div>
-                        <div className="w-[15%] text-[3vw] py-[3vh]">Status</div>
+                        <div className="w-[29.4%] text-[3vw] py-[3vh]">Name</div>
+                        <div className="w-[14.4%] text-[3vw] py-[3vh]">Level</div>
+                        <div className="w-[24.4%] text-[3vw] py-[3vh]">Time</div>
+                        <div className="w-[14.4%] text-[3vw] py-[3vh]">Tags</div>
+                        <div className="w-[17.4%] text-[3vw] py-[3vh]">Status</div>
                       </>
                     )}
 
                     {props.gameMode === "team" && (
                       <>
-                        <div className="w-[12%] text-[3vw] py-[3vh]">Rank</div>
-                        <div className="w-[27%] text-[3vw] py-[3vh]">Name</div>
-                        <div className="w-[15%] text-[3vw] py-[3vh]">Team</div>
-                        <div className="w-[12%] text-[3vw] py-[3vh]">Level</div>
-                        <div className="w-[22%] text-[3vw] py-[3vh]">Time</div>
-                        <div className="w-[12%] text-[3vw] py-[3vh]">Tags</div>
+                        <div className="w-[29.4%] text-[3vw] py-[3vh]">Name</div>
+                        <div className="w-[17.4%] text-[3vw] py-[3vh]">Team</div>
+                        <div className="w-[14.4%] text-[3vw] py-[3vh]">Level</div>
+                        <div className="w-[24.4%] text-[3vw] py-[3vh]">Time</div>
+                        <div className="w-[14.4%] text-[3vw] py-[3vh]">Tags</div>
                       </>
                     )}
                   </div>

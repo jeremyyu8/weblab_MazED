@@ -169,11 +169,11 @@ const Set = (props) => {
                 ) : (
                   <>
                     <div className="flex-1 text-boldrounded-xl rounded-xl border-solid border-blue-500 border-4 p-5 m-5 overflow-y-auto overflow-x-auto">
-                      <div className="text-3xl text-blue-700 font-bold">
+                      <div className="text-4xl text-blue-700 font-bold">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
-                      <div className="text-2xl mt-2 text-blue-900">Flashcards: {props.size}</div>
-                      <div className="text-sm mt-2 text-blue-500">{props.date}</div>
+                      <div className="text-3xl mt-2 text-blue-900">Flashcards: {props.size}</div>
+                      <div className="text-xl mt-2 text-blue-500">{props.date}</div>
                     </div>
                     <div className="flex-none flex-col m-5">
                       <div className="flex-1 flex">
@@ -209,7 +209,7 @@ const Set = (props) => {
         <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-blue-100 text-black z-50">
           <div className="flex justify-end">
             <button
-              className="font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer"
+              className="font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer rounded-xl p-5 text-xl "
               onClick={() => {
                 setLobbySettings(false);
               }}

@@ -437,5 +437,5 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  accent-color: rgb(86, 255, 86);
+  accent-color: rgb(96 165 250);
 }
