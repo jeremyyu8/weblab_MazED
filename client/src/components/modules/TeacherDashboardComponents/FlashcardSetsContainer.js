@@ -137,7 +137,9 @@ const FlashcardSetsContainer = (props) => {
           <div className="background">
             <div class="sheerbox w-[70%]">
               <div className="flex mt-8">
-                <div className="text-5xl text-bold text-blue-200 my-auto">Flashcard Sets</div>
+                <div className="pagetitle text-5xl text-bold text-blue-200 my-auto">
+                  Flashcard Sets
+                </div>
                 <button
                   className="bg-blue-900 hover:cursor-pointer text-blue-100 hover:bg-blue-500 ml-10 font-Ubuntu text-2xl p-3 rounded-xl transition-all 
                   duration-300 ease-in cursor-pointer my-auto flex w-auto"
@@ -147,7 +149,7 @@ const FlashcardSetsContainer = (props) => {
                   <div className="my-auto"> Create New Set</div>
                 </button>
               </div>
-              <div className="overflow-y-auto overflow-x-hidden max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">
+              <div className="overflow-y-auto bg-blue-100 border-solid border-blue-500 border-8 overflow-x-hidden max-w-[95%] px-6 mx-auto mt-[2vw] mb-[6vw] rounded-xl h-[70vh]">
                 {sets.length ? (
                   sets
                 ) : (

@@ -145,7 +145,7 @@ const Set = (props) => {
       ) : (
         <>
           {/* <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 rounded-lg m-3"> */}
-          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-700 m-3 rounded-lg hover:shadow-[0_0_5px_5px_rgba(191,219,254,0.3)] transition-all ease-in">
+          <div className="flex h-[30vh] relative w-[50vw] mx-auto border-solid border-blue-200 border-4 m-3 rounded-xl hover:border-blue-700 hover:shadow-[0_0_5px_5px_rgba(191,219,254,0.3)] transition-all ease-in">
             {loading ? (
               <div className="text-center mx-auto my-auto align-middle text-red-600">
                 deleting set...
@@ -168,12 +168,12 @@ const Set = (props) => {
                   </>
                 ) : (
                   <>
-                    <div className="flex-1 text-bold border-blue-700 rounded-xl border-solid p-5 m-5 overflow-y-auto overflow-x-auto">
-                      <div className="text-3xl text-blue-400">
+                    <div className="flex-1 text-bold rounded-xl border-solid p-5 m-5 overflow-y-auto overflow-x-auto">
+                      <div className="text-3xl text-blue-800 font-bold">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
-                      <div className="text-2xl mt-2 text-blue-200">Flashcards: {props.size}</div>
-                      <div className="text-sm mt-2 text-gray-400">{props.date}</div>
+                      <div className="text-2xl mt-2 text-blue-500">Flashcards: {props.size}</div>
+                      <div className="text-sm mt-2 text-blue-400">{props.date}</div>
                     </div>
                     <div className="flex-none flex-col m-5">
                       <div className="flex-1 flex">
@@ -206,7 +206,7 @@ const Set = (props) => {
         </>
       )}
       {lobbySettings && (
-        <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-white opacity-90 text-black z-50 border-solid">
+        <div className="fixed top-[15%] left-0 w-full h-[calc(100vh_-_80px)] mt-[-15vh] bg-blue-100 text-black z-50">
           <div className="flex justify-end">
             <button
               className="font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer"
@@ -226,8 +226,8 @@ const Set = (props) => {
           <div className="flex justify-center">
             <div className="text-3xl text-blue-500"> {props.title}</div>
           </div>
-          <div className="border-solid ml-[20%] mt-[4vh] h-[60%] w-[60%] overflow-y-auto overflow-x-hidden">
-            <div className="flex justify-between border-solid w-full h-[30%]">
+          <div className="rounded-xl border-solid border-blue-200 border-4 ml-[20%] mt-[4vh] h-[60%] w-[60%] overflow-y-auto overflow-x-hidden">
+            <div className="flex justify-between rounded-xl w-full h-[30%]">
               <div className="mx-8 text-2xl mt-[5vh]">
                 <div>Game Time (minutes):</div>
                 {gameTimeError && (
@@ -238,7 +238,7 @@ const Set = (props) => {
               </div>
               <div className="flex basis-1/6 justify-center h-auto w-auto">
                 <input
-                  className="my-auto font-Ubuntu text-3xl py-5 pl-5 pr-1"
+                  className="hover: my-auto font-Ubuntu text-3xl py-5 pl-5 pr-1"
                   type="number"
                   min="1"
                   max="99"

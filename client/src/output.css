@@ -910,6 +910,10 @@
   height: 1.5rem;
 }
 
+.h-\[90px\]{
+  height: 90px;
+}
+
 .w-screen{
   width: 100vw;
 }
@@ -1356,6 +1360,10 @@
 
 .border-8{
   border-width: 8px;
+}
+
+.border-4{
+  border-width: 4px;
 }
 
 .border-b-2{
@@ -2532,6 +2540,11 @@ input[type="checkbox"]:checked {
 .hover\:border-blue-500:hover{
   --tw-border-opacity: 1;
   border-color: rgb(59 130 246 / var(--tw-border-opacity));
+}
+
+.hover\:border-blue-700:hover{
+  --tw-border-opacity: 1;
+  border-color: rgb(29 78 216 / var(--tw-border-opacity));
 }
 
 .hover\:bg-blue-500:hover{
