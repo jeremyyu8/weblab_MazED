@@ -112,7 +112,7 @@ const Flashcard = (props) => {
 
   return (
     <>
-      <div className="border-solid bg-gray-600 rounded-lg w-[70%] m-5 p-3 pb-5 mx-auto">
+      <div className="border-solid border-4 bg-blue-600 bg-opacity-20 rounded-lg w-[80%] px-7 m-5 p-3 pb-5 mx-auto text-xl">
         <div className="flex flex-col">
           <div className="inline-flex w-full">
             <div className="w-[100%]">
@@ -128,7 +128,7 @@ const Flashcard = (props) => {
               <div className="w-[95%]">
                 <input
                   onChange={handleQuestion}
-                  className="input-box w-[97%] font-Ubuntu"
+                  className="input-box text-lg w-[97%] font-Ubuntu"
                   value={props.question}
                   placeholder={"Question Statement"}
                 ></input>
@@ -138,14 +138,14 @@ const Flashcard = (props) => {
                     <label className="flex-none">1.</label>
                     <input
                       onChange={handleChoice0}
-                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      className="flex-1 text-lg mx-2 input-box font-Ubuntu"
                       value={props.choices[0]}
                       placeholder={"Answer Choice 1"}
                     ></input>
                     <input
                       onChange={handleAnswer0}
                       type="checkbox"
-                      className="basis-1/8 hover:cursor-pointer"
+                      className="basis-1/8 text-lg hover:cursor-pointer"
                       checked={props.answers.includes(0)}
                     ></input>
                   </div>
@@ -153,14 +153,14 @@ const Flashcard = (props) => {
                     <label className="flex-none mt-2">2.</label>
                     <input
                       onChange={handleChoice1}
-                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      className="flex-1 mx-2 text-lg input-box font-Ubuntu"
                       value={props.choices[1]}
                       placeholder={"Answer Choice 2"}
                     ></input>
                     <input
                       onChange={handleAnswer1}
                       type="checkbox"
-                      className="basis-1/8 hover:cursor-pointer"
+                      className="basis-1/8 text-lg hover:cursor-pointer"
                       checked={props.answers.includes(1)}
                     ></input>
                   </div>
@@ -168,14 +168,14 @@ const Flashcard = (props) => {
                     <label className="flex-none mt-2">3.</label>
                     <input
                       onChange={handleChoice2}
-                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      className="flex-1 mx-2 text-lg input-box font-Ubuntu"
                       value={props.choices[2]}
                       placeholder={"Answer Choice 3"}
                     ></input>
                     <input
                       onChange={handleAnswer2}
                       type="checkbox"
-                      className="basis-1/8 hover:cursor-pointer"
+                      className="basis-1/8 text-lg hover:cursor-pointer"
                       checked={props.answers.includes(2)}
                     ></input>
                   </div>
@@ -183,14 +183,14 @@ const Flashcard = (props) => {
                     <label className="flex-none mt-2">4.</label>
                     <input
                       onChange={handleChoice3}
-                      className="flex-1 mx-2 input-box font-Ubuntu"
+                      className="flex-1 mx-2 input-box text-lg font-Ubuntu"
                       value={props.choices[3]}
                       placeholder={"Answer Choice 4"}
                     ></input>
                     <input
                       onChange={handleAnswer3}
                       type="checkbox"
-                      className="basis-1/8 hover:cursor-pointer"
+                      className="basis-1/8 text-lg hover:cursor-pointer"
                       checked={props.answers.includes(3)}
                     ></input>
                   </div>
