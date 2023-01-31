@@ -534,6 +534,11 @@
   margin-bottom: 0.5rem;
 }
 
+.my-10{
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
 .mr-2{
   margin-right: 0.5rem;
 }
@@ -2532,6 +2537,7 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
   accent-color: rgb(96 165 250);
+  accent-color: rgb(96,165,250);
 }
 
 .hover\:scale-110:hover{
