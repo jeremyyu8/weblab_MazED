@@ -230,18 +230,10 @@ const StudentEndPage = (props) => {
               <div className="text-center">
                 <div className="text-[3vw] pb-2 text-blue-700">Game Results</div>
               </div>
-              {/* <div className="text-xl">
-                Game mode: <span className="text-blue-600">{props.gameMode}</span>
-              </div>
-              <div className="text-xl">
-                You are:{" "}
-                <span className="text-blue-600">
-                  {props.gameState["players"][props._id]["name"]}
-                </span>
-              </div> */}
+
               {props.gameMode === "infection" && (
                 <div className="text-xl">
-                  Your final state:
+                  Your final state:{" "}
                   {props.gameState["players"][props._id]["infected"] === true && (
                     <span className="text-red-600">infected</span>
                   )}
