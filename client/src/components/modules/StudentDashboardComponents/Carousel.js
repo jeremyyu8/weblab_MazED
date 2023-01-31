@@ -285,9 +285,7 @@ const Carousel = (props) => {
   return (
     <div className="pt-10 pb-20 relative">
       <button
-        className={`editfbuttons absolute right-5 top-16 z-20 ${
-          flashing === true && "animate-pulse"
-        }`}
+        className={`editfbuttons absolute right-5 top-16 z-20 ${flashing === true && "glow-pulse"}`}
         onClick={() => {
           setShowTip(true);
           setFlashing(false);

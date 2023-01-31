@@ -87,7 +87,7 @@ const Navbar = (props) => {
             to="/"
             className="text-[42px] font-[900] py-8px hover:cursor-pointer text-blue-900 no-underline"
           >
-            MazeEd
+            MazeED
           </Link>
         </div>
 

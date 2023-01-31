@@ -176,7 +176,7 @@ const TeacherEdit = () => {
                       </div>
                     </>
                   )}
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mb-5">
                     <div className="w-[50%] h-[5vh] relative">
                       <button
                         onClick={handleSubmit}
