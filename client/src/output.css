@@ -1443,6 +1443,10 @@
   border-radius: 0.75rem;
 }
 
+.rounded-sm{
+  border-radius: 0.125rem;
+}
+
 .border{
   border-width: 1px;
 }
@@ -1649,6 +1653,11 @@
 .bg-green-50{
   --tw-bg-opacity: 1;
   background-color: rgb(240 253 244 / var(--tw-bg-opacity));
+}
+
+.bg-slate-900{
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-80{
