@@ -167,6 +167,27 @@ const Game = () => {
     }
   }, [gamePin]);
 
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
+  // let non_state_update = {};
+  // let animation_frame_ref;
+  // let cnt = 0;
+  // window.requestAnimationFrame =
+  //   window.requestAnimationFrame ||
+  //   window.mozRequestAnimationFrame ||
+  //   window.webkitRequestAnimationFrame ||
+  //   window.msRequestAnimationFrame ||
+  //   function (f) {
+  //     return setTimeout(f, 1000 / 30);
+  //   }; // simulate calling code 60
+
+  // window.cancelAnimationFrame =
+  //   window.cancelAnimationFrame ||
+  //   window.mozCancelAnimationFrame ||
+  //   function (requestID) {
+  //     clearTimeout(requestID);
+  //   }; //fall back
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
+
   // load sockets
   useEffect(() => {
     socket.on("receivePin", (data) => {
@@ -190,10 +211,92 @@ const Game = () => {
     socket.on("update", (update) => {
       if (userData && gamePin && mazes) {
         update[gamePin]["hitboxes"] = hitboxes;
+        // non_state_update = update[gamePin];
+        // setGameState(update[gamePin]);
         processUpdate(update[gamePin], userData._id);
+
+        // ANIMATION FRAME TESTING ************************************
+        // if (animation_frame_ref) {
+        //   cancelAnimationFrame(animation_frame_ref);
+        // }
+        // const draw_canvas_animationframe = () => {
+        //   // console.log("hi");
+        //   // console.log(non_state_update);
+        //   // drawCanvas(non_state_update, userData._id);
+        //   // console.log(cnt);
+        //   processUpdate(update[gamePin], userData._id);
+        //   animation_frame_ref = requestAnimationFrame(draw_canvas_animationframe);
+        // };
+        // requestAnimationFrame(draw_canvas_animationframe);
       }
     });
+
+    // return () => {
+    //   if (animation_frame_ref) {
+    //     cancelAnimationFrame(animation_frame_ref);
+    //   }
+    // };
+    // ANIMATION FRAME TESTING ************************************
   }, [gamePin, userData, mazes, hitboxes]);
+
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
+  // let animation_frame_ref;
+  // window.requestAnimationFrame =
+  //   window.requestAnimationFrame ||
+  //   window.mozRequestAnimationFrame ||
+  //   window.webkitRequestAnimationFrame ||
+  //   window.msRequestAnimationFrame ||
+  //   function (f) {
+  //     return setTimeout(f, 1000 / 30);
+  //   }; // simulate calling code 60
+
+  // window.cancelAnimationFrame =
+  //   window.cancelAnimationFrame ||
+  //   window.mozCancelAnimationFrame ||
+  //   function (requestID) {
+  //     clearTimeout(requestID);
+  //   }; //fall back
+
+  // useEffect(() => {
+  //   if (animation_frame_ref) {
+  //     cancelAnimationFrame(animation_frame_ref);
+  //   }
+
+  //   if (userData && gameState) {
+  //     console.log("inside of request animation frame thing");
+  //     const draw_canvas_animationframe = () => {
+  //       // console.log("hi");
+  //       // console.log(non_state_update);
+  //       // drawCanvas(non_state_update, userData._id);
+  //       // console.log(cnt);
+  //       processUpdate(gameState, userData._id);
+  //       animation_frame_ref = requestAnimationFrame(draw_canvas_animationframe);
+  //     };
+  //     requestAnimationFrame(draw_canvas_animationframe);
+  //   }
+  //   return () => {
+  //     cancelAnimationFrame(animation_frame_ref);
+  //   };
+  // }, [userData, gameState]);
+
+  // const draw_canvas_animationframe = () => {
+  //   // console.log("hi");
+  //   // console.log(non_state_update);
+  //   // if (userData) {
+  //   //   drawCanvas(non_state_update, userData._id);
+  //   // }
+  //   if (Object.keys(non_state_update).length !== 0 && userData) {
+  //     processUpdate(non_state_update, userData._id);
+  //   }
+  //   animation_frame_ref = requestAnimationFrame(draw_canvas_animationframe);
+  // };
+  // requestAnimationFrame(draw_canvas_animationframe);
+
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
+  // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
 
   useEffect(() => {
     socket.off("upgradeSpeedResult");
@@ -857,9 +960,24 @@ const Game = () => {
                     <div className="text-xl text-center p-4">
                       Starting now, every level is multiplayer. Don't get tagged!
                     </div>
-                    <div className="text-xl text-center">
+                    <div className="text-xl text-center p-4">
                       Time spent in single-player: {convertToTime(level0CompletionTime)}
                     </div>
+                    {showCloseButton && userData && gamePin && (
+                      <div className="flex justify-center">
+                        <button
+                          className="font-Ubuntu bg-blue-600 text-white hover:cursor-pointer hover:bg-blue-400"
+                          onClick={() => {
+                            setPromoted(false);
+                            setShowCloseButton(false);
+                            setFade(false);
+                            offInvincible(userData._id, gamePin);
+                          }}
+                        >
+                          Continue
+                        </button>
+                      </div>
+                    )}
                   </>
                 )}
                 {level > 1 && level !== numMazes + 1 && (
