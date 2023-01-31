@@ -283,20 +283,18 @@ const Carousel = (props) => {
   };
 
   return (
-    <div className="pt-10 pb-20">
-      <div className="basis-1/3 relative m-2 mt-2 text-4xl">
-        <button
-          className={`editfbuttons absolute right-0 border-4 ${
-            flashing === true && "animate-pulse"
-          }`}
-          onClick={() => {
-            setShowTip(true);
-            setFlashing(false);
-          }}
-        >
-          Try me!
-        </button>
-      </div>
+    <div className="pt-10 pb-20 relative">
+      <button
+        className={`editfbuttons absolute right-5 top-16 z-20 ${
+          flashing === true && "animate-pulse"
+        }`}
+        onClick={() => {
+          setShowTip(true);
+          setFlashing(false);
+        }}
+      >
+        Try me!
+      </button>
       <div className="border-solid h-auto relative">
         <div className=" text-[2vw] mt-4 text-center">Choose Your Avatar</div>
         <div className="text-[1.5vw] text-center my-5">
@@ -370,24 +368,21 @@ const Carousel = (props) => {
             Select an avatar different from the one you already have!
           </div>
         )}
-        <div className="flex justify-between">
-          {/* <div className="basis-1/3"></div> */}
-          {/* <div className="basis-1/3 flex"> */}
-          <button
-            onClick={() => {
-              handleSkinChange(currentSelection);
-            }}
-            className="editfbuttons mx-auto"
-          >
-            Save
-          </button>
-          {/* </div> */}
-        </div>
+
+        <button
+          onClick={() => {
+            handleSkinChange(currentSelection);
+          }}
+          className="editfbuttons mx-auto w-[20%] mt-3"
+        >
+          Save
+        </button>
         {showTip && (
           <>
             <div className="fixed bottom-[40%] left-[50%] translate-x-[-50%] w-[30%] h-[15%] text-black bg-white opacity-80 text-xl p-8">
               Try using your arrowkeys to test out the movement of each avatar!
-              <div className="flex h-[40%] relative">
+              <div className="flex h-[40%] relative flex-col">
+                {/* <img src="./assets/arrows.png" style={{ width: 500, height: 600 }} /> */}
                 <div>
                   <button
                     className="editfbuttons absolute w-[5vw] bottom-0 left-[50%] transform -translate-x-1/2"

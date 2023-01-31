@@ -434,6 +434,14 @@
   left: 25%;
 }
 
+.right-5{
+  right: 1.25rem;
+}
+
+.top-16{
+  top: 4rem;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -736,6 +744,10 @@
 
 .ml-6{
   margin-left: 1.5rem;
+}
+
+.mt-5{
+  margin-top: 1.25rem;
 }
 
 .block{

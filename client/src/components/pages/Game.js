@@ -961,7 +961,7 @@ const Game = () => {
                       Starting now, every level is multiplayer. Don't get tagged!
                     </div>
                     <div className="text-xl text-center p-4">
-                      Time spent in single-player: {convertToTime(level0CompletionTime)}
+                      Time spent in single-player: {convertToTime(level0CompletionTime)}{" "}
                     </div>
                     {showCloseButton && userData && gamePin && (
                       <div className="flex justify-center">

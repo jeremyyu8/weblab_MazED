@@ -2,7 +2,7 @@ import React from "react";
 import HomeButton from "./HomeButton";
 import { Link } from "@reach/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faBook, faSignIn } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faBook, faSignIn, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.googleusercontent.com";
 
@@ -19,7 +19,17 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
 const Navbar = (props) => {
   let rightside;
   if (props.blank === true) {
-    rightside = "";
+    rightside = (
+      <div className="hidden md:flex space-x-6">
+        <Link
+          to="/"
+          className="no-underline text-blue-900 text-center text-[20px] my-auto transition-colors duration-250 hover:text-blue-400 flex"
+        >
+          <FontAwesomeIcon className="no-underline mr-2 my-auto" icon={faArrowLeft} />
+          Back
+        </Link>
+      </div>
+    );
   } else if (!props.userId) {
     if (!props.edit) {
       rightside = (
