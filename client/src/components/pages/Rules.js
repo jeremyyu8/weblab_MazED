@@ -29,15 +29,21 @@ const Rules = (props) => {
                 title="Moving Around"
                 text="Use the arrow keys to move your character around."
               ></Card>
-              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/playeringame.png" className="h-auto max-w-full"></img>
+              <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                <img
+                  src="../assets/playeringame.png"
+                  className="object-contain h-auto max-w-full"
+                ></img>
               </div>
             </div>
           </div>
           <div>
             <div className="flex flex-wrap justify-evenly pb-8">
-              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/answerquestion.png" className="h-auto max-w-full"></img>
+              <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                <img
+                  src="../assets/answerquestion.png"
+                  className="object-contain h-auto max-w-full"
+                ></img>
               </div>
               <Card
                 title="Earning Tokens"
@@ -52,16 +58,16 @@ const Rules = (props) => {
                 title="Upgrading"
                 text="Player's speed and power can be upgraded using tokens in the top left corder of the game screen"
               ></Card>
-              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/barrier.png" className="h-auto max-w-full"></img>
+              <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                <img src="../assets/upgrade.png" className="object-contain h-auto max-w-full"></img>
               </div>
             </div>
           </div>
 
           <div>
             <div className="flex flex-wrap justify-evenly pb-8">
-              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/barrier.png" className="h-auto max-w-full"></img>
+              <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                <img src="../assets/barrier.png" className="object-contain h-auto max-w-full"></img>
               </div>
               <Card
                 title="Barriers"
@@ -76,15 +82,15 @@ const Rules = (props) => {
                 title="Tagging"
                 text="Tagging occurs when two players run into each other. The player with less power will be frozen in place for 5 seconds and then must answer 3 questions correctly to become untagged, after which they are granted a short invincibility period. If two players have the same power level, both will be tagged."
               ></Card>
-              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/tagged.png" className="h-auto max-w-full"></img>
+              <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                <img src="../assets/tagged.png" className="object-contain h-auto max-w-full"></img>
               </div>
             </div>
           </div>
           <div>
             <div className="flex flex-wrap justify-evenly pb-8">
-              <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/barrier.png" className="h-auto max-w-full"></img>
+              <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                <img src="../assets/barrier.png" className="object-contain h-auto max-w-full"></img>
               </div>
               <Card
                 title="Levels"
