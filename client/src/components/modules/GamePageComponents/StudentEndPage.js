@@ -113,7 +113,7 @@ const StudentEndPage = (props) => {
     // rank
     if (props.gameMode === "individual") {
       dataDisplay.push(
-        <div className="mt-50 text-4xl text-blue-200 animate-bounce">
+        <div className="mt-50 text-4xl text-blue-200">
           Final Rank:{" "}
           <span className="text-blue-700">{props.gameState["players"][props._id]["rank"]}</span>
         </div>
