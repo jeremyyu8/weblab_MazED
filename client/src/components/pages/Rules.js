@@ -90,11 +90,14 @@ const Rules = (props) => {
           <div>
             <div className="flex flex-wrap justify-evenly pb-8">
               <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
-                <img src="../assets/barrier.png" className="object-contain h-auto max-w-full"></img>
+                <img
+                  src="../assets/nextlevel.png"
+                  className="object-contain h-auto max-w-full"
+                ></img>
               </div>
               <Card
                 title="Levels"
-                text="A game may have multiple levels of mazes. Players must reach the end of a maze to advance to the next level through a portal. The first maze of each game is singleplayer."
+                text="A game may have multiple levels of mazes. Players must reach the end of a maze (bottom right corner) to advance to the next level through a portal. The first maze of each game is singleplayer."
               ></Card>
             </div>
           </div>
