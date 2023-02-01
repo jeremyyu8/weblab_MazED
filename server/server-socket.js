@@ -163,7 +163,6 @@ module.exports = {
 
       socket.on("move", (data) => {
         const user = getUserFromSocketID(socket.id);
-        // console.log("received movement on server side");
         if (user) gameLogic.movePlayer(data._id, data.pin, data.dir);
         else {
           console.log("user not logged in ");

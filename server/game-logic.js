@@ -273,7 +273,7 @@ const movePlayer = (_id, pin, dir) => {
 
 // update game statistics. running at 60fps
 const updateGameState = () => {
-  if (!games) return;
+  if (Object.keys(games).length === 0) return;
 
   // first, handle lobby activity logic
   let pins = Object.keys(games);
@@ -304,10 +304,9 @@ const updateGameState = () => {
       }
     }
   }
-
   // now handle actual game logic
   for (let pin in games) {
-    if (games[pin]["status"] === "end") return;
+    if (games[pin]["status"] === "end") continue;
     // sort player ranks in each game
     if (games[pin]["status"] !== "lobby") {
       if (games[pin]["gameMode"] === "individual") {
@@ -386,6 +385,8 @@ const updateGameState = () => {
       detectMapCollisions(_id, pin);
 
       let curPlayer = games[pin]["players"][_id];
+      // console.log(curPlayer);
+      // console.log(pin);
       // freeze movement if tagged
       if (curPlayer["tagged"] !== false) {
         curPlayer.k["right"] === false;
@@ -400,8 +401,10 @@ const updateGameState = () => {
       if (curPlayer["newlevel"] === true) {
         // new level invincibility
         games[pin]["players"][_id]["invincible"] = true;
-        let level_completion_tag = "level" + curPlayer["level"] + "completion";
-        curPlayer[level_completion_tag] = games[pin]["startTime"];
+        if (curPlayer["level"] !== -1) {
+          let level_completion_tag = "level" + curPlayer["level"] + "completion";
+          curPlayer[level_completion_tag] = games[pin]["startTime"];
+        }
         curPlayer["level"] += 1;
         curPlayer.k["right"] = false;
         curPlayer.k["left"] = false;
@@ -412,8 +415,6 @@ const updateGameState = () => {
         curPlayer.v.x = 0;
         curPlayer.v.y = 0;
         curPlayer["newlevel"] = false;
-        console.log("player new level");
-        console.log(curPlayer);
         // if game mode infection and non-infected player reaches the last level, the game ends
         if (games[pin]["gameMode"] === "infection" && curPlayer["infected"] === false) {
           console.log("new level for non infected player");
@@ -427,7 +428,6 @@ const updateGameState = () => {
         }
         continue;
       }
-
       // velocity update logic
       let movingx =
         (curPlayer.k["right"] === true || curPlayer.k["left"] === true) &&
@@ -798,7 +798,7 @@ const detectPlayerCollisions = (pin) => {
 const gameStart = (pin) => {
   games[pin]["status"] = "game";
   Object.values(games[pin]["players"]).forEach((player) => {
-    player.level = 0;
+    player.newlevel = true;
     player.p.x = 0;
     player.p.y = 0;
     player.v.x = 0;

@@ -210,7 +210,7 @@ const Set = (props) => {
       {lobbySettings && (
         <div className="fixed top-0 left-0 w-full h-[calc(100vh_-_80px)] bg-blue-100 text-black z-50">
           <button
-            className="absolute right-0 font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer rounded-xl p-2 text-xl "
+            className="absolute right-0 font-Ubuntu mt-4 mr-4 hover:bg-red-400 hover:cursor-pointer rounded-xl p-2 text-xl z-50"
             onClick={() => {
               setLobbySettings(false);
             }}

@@ -349,7 +349,7 @@ const Carousel = (props) => {
           </div>
 
           <div
-            className="flex overflow-x-scroll no-scrollbar snap-mandatory snap-x scroll-smooth py-8"
+            className="flex overflow-x-scroll no-scrollbar snap-mandatory snap-x scroll-smooth pb-8"
             ref={carousel}
           >
             {carouselContent}
