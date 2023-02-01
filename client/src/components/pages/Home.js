@@ -95,9 +95,9 @@ const Home = ({ userId, userRole, userName }) => {
               <div className="flex flex-wrap justify-evenly pb-8">
                 <Card
                   title="Create Account"
-                  text="Sign up as teacher or student!"
+                  text="Sign up as a teacher or student!"
                   icon={<FontAwesomeIcon icon={faUserPlus} />}
-                ></Card>
+                />
               </div>
               <div className="flex flex-wrap justify-evenly pb-8 m-5">
                 <div className="arrow rotate-45">
@@ -117,12 +117,12 @@ const Home = ({ userId, userRole, userName }) => {
                   title="Teachers"
                   icon={<FontAwesomeIcon icon={faPersonChalkboard} />}
                   text="Create and edit flashcard sets. Start a new game by pressing the play button on any flashcard set. Wait for students to join using the game code!"
-                ></Card>
+                />
                 <Card
                   title="Students"
                   icon={<FontAwesomeIcon icon={faBookOpenReader} />}
                   text="Customize avatar and display name in profile. Join a game by entering a game code provided by the teacher!"
-                ></Card>
+                />
               </div>
               <div className="flex flex-wrap justify-evenly pb-4">
                 <div className="p-4 mt-8 text-[3vw] xl:w-2/3 md:w-1/3 md:text-[1.5vw] w-7/12">

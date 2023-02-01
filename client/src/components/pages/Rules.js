@@ -112,13 +112,14 @@ const Rules = (props) => {
                     Individual
                   </div>
                   <ul class="list-disc text-blue-400">
-                    <li className="my-4">Players solve mazes and race to the end</li>
-                    <li className="my-4">Players answer questions correctly to earn tokens</li>
+                    <li className="my-4">Solve mazes in a race to the end</li>
+                    <li className="my-4">Answer questions correctly to earn tokens</li>
                     <li className="my-4">
-                      Tokens are used to unlock maze barriers, upgrade player speed and power
+                      Spend tokens on upgrading player speed and power, also unlock key barriers in
+                      the maze
                     </li>
                     <li className="my-4">
-                      Players can tag and freeze other players with less power. Tagged players must
+                      Players can tag and freeze other players with less power! Tagged players must
                       answer three questions correctly to continue playing.
                     </li>
                   </ul>
