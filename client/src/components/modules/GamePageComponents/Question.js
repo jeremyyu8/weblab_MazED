@@ -171,7 +171,16 @@ const Question = (props) => {
                 <div className="mx-auto my-auto flex flex-col">
                   <div className="text-6xl mx-auto my-auto">Wrong, Try Again (-100)</div>
                   <div className="text-3xl mt-[3vh] mx-auto">
-                    (Correct answer was {curQuestion.choices[curQuestion.answers]})
+                    {curQuestion.answers.length === 1 &&
+                      `(Correct answer was ${curQuestion.choices[curQuestion.answers]})`}
+                    {curQuestion.answers.length === 2 &&
+                      `(Correct answer was ${curQuestion.choices[curQuestion.answers[0]]} or ${
+                        curQuestion.choices[curQuestion.answers[1]]
+                      })`}
+                    {curQuestion.answers.length === 3 &&
+                      `(Correct answer was ${curQuestion.choices[curQuestion.answers[0]]}, ${
+                        curQuestion.choices[curQuestion.answers[1]]
+                      }, or ${curQuestion.choices[curQuestion.answers[2]]})`}
                   </div>
                 </div>
               </div>
