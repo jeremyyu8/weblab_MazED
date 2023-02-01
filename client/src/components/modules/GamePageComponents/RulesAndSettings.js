@@ -136,8 +136,9 @@ const RulesAndSettings = (props) => {
           <div className="text-xl">
             - Use the <span className="text-blue-700">arrow keys</span> to move!
             <br />
-            <br />- You will be presented with a series of mazes once the game begins.{" "}
-            <span className="text-blue-700">Solve every maze first to win!</span>
+            <br />- You will be presented with a series of mazes once the game begins. Get to the
+            end of each maze <span className="text-blue-700">(bottom right)</span> to get to the
+            next level. <span className="text-blue-700">Solve every maze first to win!</span>
             <br />
             <br />- All mazes after the first are <span className="text-blue-700">multiplayer</span>
             , where you can <span className="text-blue-700">tag and get tagged</span> by other
@@ -171,7 +172,8 @@ const RulesAndSettings = (props) => {
             <br />
             <br />- Answer questions correctly to <span className="text-blue-700">earn tokens</span>
             ; spend them on upgrading stats and unlocking barriers in the maze. Get to the end of
-            each maze (bottom right) to get to the next level.
+            each maze <span className="text-blue-700">(bottom right)</span> to get to the next
+            level.
           </div>
         </>
       );
@@ -185,8 +187,10 @@ const RulesAndSettings = (props) => {
           <div className="text-xl">
             - Use the <span className="text-blue-700">arrow keys</span> to move!
             <br />
-            <br />- You will be presented with a series of mazes once the game begins. One player in
-            the game will also be assigned as <span className="text-red-700">infected</span>
+            <br />- You will be presented with a series of mazes once the game begins. Get to the
+            end of each maze <span className="text-blue-700">(bottom right)</span> to get to the
+            next level. One player in the game will also be assigned as{" "}
+            <span className="text-red-700">infected</span>
             <br />
             <br />- The <span className="text-red-700">infected</span> player starts with higher
             stats and will begin start one maze ahead of everyone
