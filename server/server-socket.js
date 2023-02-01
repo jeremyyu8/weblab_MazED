@@ -47,7 +47,7 @@ const sendGameState = () => {
 
 // send only live updating data
 const sendMazes = (pin) => {
-  io.emit("updateMazes", gameLogic.mazes[pin]);
+  io.emit("updateMazes", { pin: pin, mazes: gameLogic.mazes[pin] });
 };
 
 const startRunningGame = () => {

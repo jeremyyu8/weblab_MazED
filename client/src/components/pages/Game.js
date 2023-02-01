@@ -201,9 +201,13 @@ const Game = () => {
     });
 
     // update is already parsed from pin
+    // update = { pin: pin, mazes: gameLogic.mazes[pin] }
     socket.on("updateMazes", (update) => {
-      setMazes(update);
-      setNumMazes(Object.keys(update).length - 3);
+      if (gamePin && gamePin === update.pin) {
+        setMazes(update.mazes);
+      }
+      // setMazes(update);
+      setNumMazes(Object.keys(update.mazes).length - 3);
     });
 
     socket.off("update");
