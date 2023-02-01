@@ -522,8 +522,10 @@ const Game = () => {
         const dist = Math.sqrt(
           (playerX - border.x) * (playerX - border.x) + (playerY - border.y) * (playerY - border.y)
         );
+        console.log(dist);
 
-        if (dist < 1.2) {
+        if (dist < 1.6) {
+          console.log("in range");
           const mazeLength = Math.floor(Math.sqrt(mazes[leveltag].length));
           let nearby = [];
           for (let i = border.x - 3; i <= border.x + 3; i++) {

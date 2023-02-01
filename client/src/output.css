@@ -882,10 +882,6 @@
   height: 6vh;
 }
 
-.h-\[50\%\]{
-  height: 50%;
-}
-
 .h-6{
   height: 1.5rem;
 }
@@ -1693,11 +1689,6 @@
   padding-bottom: 2rem;
 }
 
-.py-5{
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
-
 .pl-6{
   padding-left: 1.5rem;
 }
@@ -1784,10 +1775,6 @@
 
 .pb-\[1vh\]{
   padding-bottom: 1vh;
-}
-
-.pb-10{
-  padding-bottom: 2.5rem;
 }
 
 .text-center{
