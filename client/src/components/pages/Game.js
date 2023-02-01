@@ -821,7 +821,7 @@ const Game = () => {
           )}
           {promoted && userData && userData.role === "student" && status === "game" && gamePin && (
             <>
-              <div className="bg-white backdrop-blur-md bg-opacity-60 fixed w-[50%] h-[80%] left-[50%] transform -translate-x-1/2 top-[50%] translate-y-[-50%] border-solid z-50 overflow-y-scroll no-scrollbar p-10">
+              <div className="bg-white backdrop-blur-md bg-opacity-60 fixed w-[50%] h-auto max-h-[80%] left-[50%] transform -translate-x-1/2 top-[50%] translate-y-[-50%] border-solid z-50 overflow-y-scroll no-scrollbar p-10">
                 {level === 0 && gameMode === "individual" && (
                   <>
                     <div className="text-4xl text-center p-4">

@@ -17,6 +17,7 @@ export const drawTeacherCanvas = (drawState, canvasRef, xsize) => {
   const canvas = canvasRef.current;
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   let mapxsize = Math.floor(Math.sqrt(drawState.map.length)) * tilewidth;
   let scale = tilewidth / (mapxsize / xsize);
