@@ -237,7 +237,20 @@ const Game = () => {
     //   }
     // };
     // ANIMATION FRAME TESTING ************************************
-  }, [gamePin, userData, mazes, hitboxes]);
+  }, [
+    gamePin,
+    userData,
+    mazes,
+    hitboxes,
+    status,
+    level,
+    tokens,
+    speed,
+    power,
+    tagged,
+    team,
+    infected,
+  ]);
 
   // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
   // ******************** PLAYING WITH REQUESTANIMATIONFRAME ********************
@@ -445,14 +458,44 @@ const Game = () => {
   const processUpdate = (update, _id) => {
     counter++;
     drawCanvas(update, canvasRef, _id, mazes, counter);
-    setStatus(update["status"]);
-    setLevel(update["players"][_id]["level"]);
-    setTokens(update["players"][_id]["tokens"]);
-    setSpeed(update["players"][_id]["speed"]);
-    setPower(update["players"][_id]["power"]);
-    setTagged(update["players"][_id]["tagged"]);
-    setTeam(update["players"][_id]["team"]);
-    setInfected(update["players"][_id]["infected"]);
+    if (status !== update["status"]) {
+      setStatus(update["status"]);
+      // console.log("updating status");
+    }
+    if (level !== update["players"][_id]["level"]) {
+      setLevel(update["players"][_id]["level"]);
+      // console.log("updating level");
+    }
+    if (tokens !== update["players"][_id]["tokens"]) {
+      setTokens(update["players"][_id]["tokens"]);
+      // console.log("updating tokens");
+    }
+    if (speed !== update["players"][_id]["speed"]) {
+      setSpeed(update["players"][_id]["speed"]);
+      // console.log("updating speed");
+    }
+    if (power !== update["players"][_id]["power"]) {
+      setPower(update["players"][_id]["power"]);
+      // console.log("updating power");
+    }
+    if (tagged !== update["players"][_id]["tagged"]) {
+      setTagged(update["players"][_id]["tagged"]);
+      // console.log("updating tagged");
+    }
+    if (team !== update["players"][_id]["team"]) {
+      setTeam(update["players"][_id]["team"]);
+      // console.log("updating team");
+    }
+    if (infected !== update["players"][_id]["infected"]) {
+      setInfected(update["players"][_id]["infected"]);
+      // console.log("updating infected");
+    }
+
+    // setSpeed(update["players"][_id]["speed"]);
+    // setPower(update["players"][_id]["power"]);
+    // setTagged(update["players"][_id]["tagged"]);
+    // setTeam(update["players"][_id]["team"]);
+    // setInfected(update["players"][_id]["infected"]);
     if (numMazes) {
       // set level completion times
       for (let idx = 0; idx <= numMazes; idx++) {

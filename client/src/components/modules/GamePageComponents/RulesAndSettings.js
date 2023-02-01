@@ -211,7 +211,7 @@ const RulesAndSettings = (props) => {
 
   return (
     <>
-      <div className="bg-white bg-opacity-60 backdrop-blur-md fixed z-30 w-[60%] h-[90%] top-[50%] transform translate-y-[-50%] left-[50%] -translate-x-1/2 overflow-y-scroll no-scrollbar">
+      <div className="bg-white bg-opacity-60 backdrop-blur-md fixed z-30 w-[60%] h-auto max-h-[80%] top-[50%] transform translate-y-[-50%] left-[50%] -translate-x-1/2 overflow-y-scroll no-scrollbar">
         <div className="text-3xl text-center p-8">
           Game mode: <span className="text-blue-600">{props.gameMode}</span>
         </div>

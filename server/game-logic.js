@@ -307,6 +307,7 @@ const updateGameState = () => {
 
   // now handle actual game logic
   for (let pin in games) {
+    if (games[pin]["status"] === "end") return;
     // sort player ranks in each game
     if (games[pin]["status"] !== "lobby") {
       if (games[pin]["gameMode"] === "individual") {
