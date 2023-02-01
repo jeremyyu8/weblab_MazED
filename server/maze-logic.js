@@ -10,7 +10,6 @@ const generateLobby = () => {
       map.push(10 + idx);
     }
   }
-  console.log(map);
   return map;
 };
 
@@ -22,7 +21,6 @@ const generateEndLobby = () => {
       map.push(20 + idx);
     }
   }
-  console.log(map);
   return map;
 };
 
@@ -218,7 +216,6 @@ const generateSky = (maze) => {
     new_maze[i] = [...maze[i]];
   }
 
-  console.log(new_maze);
   for (let i = 0; i < maze.length; i++) {
     for (let j = 0; j < maze.length; j++) {
       if (maze[i][j] === 0) {
@@ -240,7 +237,6 @@ const generateSky = (maze) => {
       }
     }
   }
-  console.log(new_maze);
   return new_maze;
 };
 
@@ -302,6 +298,8 @@ const generateTrivialMaze = () => {
 // 3 = tree
 // 4 = portal
 // 5 = sky
+// 10-15 is opening lobby
+// 20-25 is end lobby
 // 34 through 42 is border
 
 module.exports = {

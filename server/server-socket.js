@@ -78,6 +78,18 @@ module.exports = {
         // socket.join(data.pin);
         userToPinMap[data.teacherid] = data.pin;
         gameLogic.makeNewGame(data);
+
+        // if the user was in another game previously, disconnect them
+        for (let pin in gameLogic.games) {
+          if (pin !== data.pin) {
+            for (let _id in gameLogic.games[pin]["players"]) {
+              if (_id === data.teacherid) {
+                console.log("caught other lobby, removing it from teacher");
+                delete gameLogic.games[pin]["players"][_id];
+              }
+            }
+          }
+        }
       });
 
       // description: student attempts to join lobby
@@ -88,9 +100,9 @@ module.exports = {
           console.log(data.pin);
           socket.emit("joinFail", { err: "pin does not exist" });
         } else {
+          userToPinMap[data.studentid] = data.pin;
           socket.emit("joinSuccess");
           // socket.join(data.pin);
-          userToPinMap[data.studentid] = data.pin;
 
           // check if user was already in game before
           for (let _id in gameLogic.games[data.pin]["players"]) {
@@ -108,6 +120,17 @@ module.exports = {
 
           // otherwise, this is a new user
           gameLogic.playerJoin(data);
+          // if the user was in another game previously, disconnect them
+          for (let pin in gameLogic.games) {
+            if (pin !== data.pin) {
+              for (let _id in gameLogic.games[pin]["players"]) {
+                if (_id === data.studentid) {
+                  console.log("caught other lobby, removing it from player");
+                  delete gameLogic.games[pin]["players"][_id];
+                }
+              }
+            }
+          }
 
           // user joined late and game already started (but not ended), put user in level 0 (the trivial level)
           if (gameLogic.games[data.pin]["status"] !== "lobby") {
@@ -161,6 +184,7 @@ module.exports = {
           if (userToPinMap[userId]) {
             // normal route, user found in userToPinMap
             let pin = userToPinMap[userId];
+            console.log("inside of getPin", pin);
             if (gameLogic.games[pin]) {
               // if game is in end state
               if (gameLogic.games[pin]["status"] === "end") {
