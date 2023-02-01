@@ -890,11 +890,10 @@ const Game = () => {
                       - Use this <span className="text-blue-700">singleplayer level</span> to get
                       comfortable with the game's basic mechanics
                       <br />
-                      <br />- Answer questions to <span className="text-blue-700">
-                        gain tokens
-                      </span>{" "}
-                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
-                      stats, and get to the next level.{" "}
+                      <br />- Answer questions (bottom left) to{" "}
+                      <span className="text-blue-700">gain tokens</span> Accumulate enough tokens to
+                      unlock barriers, upgrade your stats, and get to the next level (portal at
+                      bottom right corner of map).{" "}
                       <span className="text-blue-700">
                         Players can only tag those with less power!
                       </span>
@@ -934,11 +933,10 @@ const Game = () => {
                       - Use this <span className="text-blue-700">singleplayer level</span> to get
                       comfortable with the game's basic mechanics
                       <br />
-                      <br />- Answer questions to <span className="text-blue-700">
-                        gain tokens
-                      </span>{" "}
-                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
-                      stats, and get to the next level.{" "}
+                      <br />- Answer questions (bottom left) to{" "}
+                      <span className="text-blue-700">gain tokens</span> Accumulate enough tokens to
+                      unlock barriers, upgrade your stats, and get to the next level (portal at
+                      bottom right corner of map).{" "}
                       <span className="text-blue-700">
                         Players can only tag those with less power!
                       </span>
@@ -976,11 +974,10 @@ const Game = () => {
                       - Use this <span className="text-blue-700">singleplayer level</span> to get
                       comfortable with the game's basic mechanics
                       <br />
-                      <br />- Answer questions to <span className="text-blue-700">
-                        gain tokens
-                      </span>{" "}
-                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
-                      stats, and get to the next level.{" "}
+                      <br />- Answer questions (bottom left) to{" "}
+                      <span className="text-blue-700">gain tokens.</span> Accumulate enough tokens
+                      to unlock barriers, upgrade your stats, and get to the next level (portal at
+                      bottom right corner of map).{" "}
                       <span className="text-blue-700">
                         Players can only tag those with less power!
                       </span>
@@ -1028,11 +1025,10 @@ const Game = () => {
                       <span className="text-red-700"> infect all players by tagging them</span>{" "}
                       before they finish the mazes!
                       <br />
-                      <br />- Answer questions to <span className="text-blue-700">
-                        gain tokens
-                      </span>{" "}
-                      in the bottom left. Accumulate enough tokens to unlock barriers, upgrade your
-                      stats, and get to the next level.{" "}
+                      <br />- Answer questions (bottom left) to{" "}
+                      <span className="text-blue-700">gain tokens</span> Accumulate enough tokens to
+                      unlock barriers, upgrade your stats, and get to the next level (portal at
+                      bottom right corner of map).{" "}
                       <span className="text-blue-700">
                         Players can only tag those with less power!
                       </span>
