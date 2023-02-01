@@ -163,14 +163,15 @@ const RulesAndSettings = (props) => {
             be assigned to the<span className="text-red-700"> red </span> or{" "}
             <span className="text-blue-700">blue</span> team
             <br />
-            <br />- Work with your team to get through the mazes. The team with furthese average
+            <br />- Work with your team to get through the mazes. The team with furthest average
             progress will <span className="text-blue-700"></span>win the game!
             <br />
             <br />- All mazes after the first are <span className="text-blue-700">multiplayer</span>
             , where you can <span className="text-blue-700">tag players on the opposing team!</span>
             <br />
             <br />- Answer questions correctly to <span className="text-blue-700">earn tokens</span>
-            ; spend them on upgrading stats and unlocking barriers in the maze
+            ; spend them on upgrading stats and unlocking barriers in the maze. Get to the end of
+            each maze (bottom right) to get to the next level.
           </div>
         </>
       );
