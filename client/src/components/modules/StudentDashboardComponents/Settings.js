@@ -270,7 +270,7 @@ const Settings = (props) => {
                 <div className="flex justify-center mt-[-0.8rem] mb-4">
                   <div>
                     <input
-                      className="font-Ubuntu text-md"
+                      className="font-Ubuntu text-md p-1"
                       maxlength="15"
                       placeholder="New Display Name"
                       onInput={handleChange}
@@ -278,12 +278,15 @@ const Settings = (props) => {
                   </div>
                   <div>
                     <button
-                      className="font-Ubuntu text-md"
+                      className="font-Ubuntu text-md hover:cursor-pointer hover:bg-blue-400 p-1"
                       onClick={() => handleDisplayNameChange(input)}
                     >
                       Confirm
                     </button>
-                    <button className="font-Ubuntu text-md" onClick={cancelShowChangeDisplay}>
+                    <button
+                      className="font-Ubuntu text-md hover:cursor-pointer hover:bg-blue-400 p-1"
+                      onClick={cancelShowChangeDisplay}
+                    >
                       Cancel
                     </button>
                   </div>

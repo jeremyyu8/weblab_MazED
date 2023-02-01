@@ -56,7 +56,7 @@ const Rules = (props) => {
             <div className="flex flex-wrap justify-evenly pb-8">
               <Card
                 title="Upgrading"
-                text="Player's speed and power can be upgraded using tokens in the top left corder of the game screen"
+                text="Players' speed and power can be upgraded using tokens in the top left corner of the game screen"
               ></Card>
               <div className="flex content-center p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
                 <img src="../assets/upgrade.png" className="object-contain h-auto max-w-full"></img>
@@ -94,7 +94,7 @@ const Rules = (props) => {
               </div>
               <Card
                 title="Levels"
-                text="A game may have multiple levels of mazes. Players must reach the end of a maze to advance to the next level through a portal. In {individual}, the first maze (Level 1) is single player."
+                text="A game may have multiple levels of mazes. Players must reach the end of a maze to advance to the next level through a portal. The first maze of each game is singleplayer."
               ></Card>
             </div>
           </div>
@@ -112,13 +112,14 @@ const Rules = (props) => {
                     Individual
                   </div>
                   <ul class="list-disc text-blue-400">
-                    <li className="my-4">Players solve mazes and race to the end</li>
-                    <li className="my-4">Players answer questions correctly to earn tokens</li>
+                    <li className="my-4">Solve mazes in a race to the end</li>
+                    <li className="my-4">Answer questions correctly to earn tokens</li>
                     <li className="my-4">
-                      Tokens are used to unlock maze barriers, upgrade player speed and power
+                      Spend tokens on upgrading player speed and power, also unlock key barriers in
+                      the maze
                     </li>
                     <li className="my-4">
-                      Players can tag and freeze other players with less power. Tagged players must
+                      Players can tag and freeze other players with less power! Tagged players must
                       answer three questions correctly to continue playing.
                     </li>
                   </ul>

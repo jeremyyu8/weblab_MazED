@@ -95,9 +95,9 @@ const Home = ({ userId, userRole, userName }) => {
               <div className="flex flex-wrap justify-evenly pb-8">
                 <Card
                   title="Create Account"
-                  text="Sign up as teacher or student!"
+                  text="Sign up as a teacher or student!"
                   icon={<FontAwesomeIcon icon={faUserPlus} />}
-                ></Card>
+                />
               </div>
               <div className="flex flex-wrap justify-evenly pb-8 m-5">
                 <div className="arrow rotate-45">
@@ -117,12 +117,12 @@ const Home = ({ userId, userRole, userName }) => {
                   title="Teachers"
                   icon={<FontAwesomeIcon icon={faPersonChalkboard} />}
                   text="Create and edit flashcard sets. Start a new game by pressing the play button on any flashcard set. Wait for students to join using the game code!"
-                ></Card>
+                />
                 <Card
                   title="Students"
                   icon={<FontAwesomeIcon icon={faBookOpenReader} />}
                   text="Customize avatar and display name in profile. Join a game by entering a game code provided by the teacher!"
-                ></Card>
+                />
               </div>
               <div className="flex flex-wrap justify-evenly pb-4">
                 <div className="p-4 mt-8 text-[3vw] xl:w-2/3 md:w-1/3 md:text-[1.5vw] w-7/12">
@@ -131,19 +131,13 @@ const Home = ({ userId, userRole, userName }) => {
                     <div class="text-[4vw] text-blue-100 mt-8 ml-8 md:text-[3vw]">Why MazED?</div>
                     <div className="pt-4 pl-8 pr-8 flex rounded-lg items-center text-gray-900">
                       <p className="leading-8">
-                        {/* MazED not only only offers students a fun and engaging way to learn but also
-                        provides game analyses that help teachers understand which questions
-                        students struggle with and tailor to their needs. MazED enables teachers to
-                        create unique flashcards sets and helps students improve by targeting
-                        problems that students miss more frequently. With multiple competitive game
-                        modes and highly customizable characters, students are encouraged to learn
-                        the material to win the game! */}
-                        MazED transforms learning into a thrilling adventure through its multiplayer
-                        tag-style maze game. With the ability for teachers to create flashcard sets
-                        and launch lobbies, students are challenged to navigate through a virtual
-                        world while mastering the material. Customizable characters and real-time
-                        adaptive learning algorithms make each session exciting and improve
-                        retention, turning studying into a game that's too fun to put down.
+                        MazED unlocks the thrill of learning through its multiplayer tag-style maze
+                        game. With the ability for teachers to create flashcard sets and launch
+                        lobbies, students are challenged to navigate through a virtual world while
+                        mastering the material. Game analyses enable teachers to tailor to students'
+                        needs. Customizable characters, multiple game modes, and real-time adaptive
+                        learning techniques make each session exciting, turning studying into a game
+                        that's too fun to put down!
                       </p>
                     </div>
                     <div className="pt-16 text-center mb-10">
