@@ -113,16 +113,34 @@ const Home = ({ userId, userRole, userName }) => {
               </div>
 
               <div className="flex flex-wrap justify-evenly pb-8">
-                <Card
-                  title="Teachers"
-                  icon={<FontAwesomeIcon icon={faPersonChalkboard} />}
-                  text="Create and edit flashcard sets. Start a new game by pressing the play button on any flashcard set. Wait for students to join using the game code!"
-                />
-                <Card
-                  title="Students"
-                  icon={<FontAwesomeIcon icon={faBookOpenReader} />}
-                  text="Customize avatar and display name in profile. Join a game by entering a game code provided by the teacher!"
-                />
+                <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                  <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-90 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                    <div class="text-[4vw] text-blue-100 mt-8 ml-6 md:text-[3vw]">
+                      Teachers <FontAwesomeIcon icon={faPersonChalkboard} />
+                    </div>
+                    <div className="pt-4 pl-8 pr-8 flex rounded-lg items-center text-gray-900">
+                      <ul>
+                        <li>Create and edit flashcard sets</li>
+                        <li>Start a new game by pressing the play button on any flashcard set.</li>
+                        <li>Wait for students to join using the game code!</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 mt-8 text-[3vw] xl:w-1/3 md:w-1/3 md:text-[1.5vw] w-7/12">
+                  <div className="bg-blue-500 bg-opacity-60 hover:bg-opacity-90 hover:scale-110 transition duration-300 ease-in-out h-full rounded-lg mb-6 flex flex-col relative overflow-hidden shadow-xl">
+                    <div class="text-[4vw] text-blue-100 mt-8 ml-6 md:text-[3vw]">
+                      Students <FontAwesomeIcon icon={faBookOpenReader} />
+                    </div>
+                    <div className="pt-4 pl-8 pr-8 flex rounded-lg items-center text-gray-900">
+                      <ul>
+                        <li>Customize avatar and display name in profile.</li>
+                        <li>Join a game by entering a game code provided by the teacher!</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="flex flex-wrap justify-evenly pb-4">
                 <div className="p-4 mt-8 text-[3vw] xl:w-2/3 md:w-1/3 md:text-[1.5vw] w-7/12">
