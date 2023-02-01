@@ -59,7 +59,7 @@ const Home = ({ userId, userRole, userName }) => {
                 <h1>Welcome to MazED</h1>
               </div>
               <div className="mt-10 text-blue-400 text-3xl w-[70%] text-center">
-                Making learning fun through an interactive multiplayer maze game
+                Making learning fun through an multiplayer maze game
               </div>
             </div>
             <div>
