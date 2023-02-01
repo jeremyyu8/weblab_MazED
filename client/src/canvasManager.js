@@ -351,17 +351,29 @@ export const drawCanvas = (drawState, canvasRef, _id, mazes, animation_counter) 
           off = shadowoffset[dir];
         }
       } else {
-        dir = dirObject[[pxdir, pydir]];
-        shadow = shadows[dirObject[[pxdir, pydir]]];
-        off = shadowoffset[dirObject[[pxdir, pydir]]];
-        step = last_frame[playerid]["step"];
-        if (animation_counter % 5 === 0) {
-          last_frame[playerid]["step"]++;
-          if (last_frame[playerid]["step"] >= 4) {
-            last_frame[playerid]["step"] = 0;
+        if (!last_frame[playerid]) {
+          let newplayerid = {
+            animation: 7,
+            step: 0,
+          };
+          last_frame[playerid] = newplayerid;
+          dir = 7;
+          step = 0;
+          shadow = shadows[dir];
+          off = shadowoffset[dir];
+        } else {
+          dir = dirObject[[pxdir, pydir]];
+          shadow = shadows[dirObject[[pxdir, pydir]]];
+          off = shadowoffset[dirObject[[pxdir, pydir]]];
+          step = last_frame[playerid]["step"];
+          if (animation_counter % 5 === 0) {
+            last_frame[playerid]["step"]++;
+            if (last_frame[playerid]["step"] >= 4) {
+              last_frame[playerid]["step"] = 0;
+            }
           }
+          last_frame[playerid]["animation"] = dir;
         }
-        last_frame[playerid]["animation"] = dir;
       }
       ctx.drawImage(
         shadow,

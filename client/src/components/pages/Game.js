@@ -595,6 +595,7 @@ const Game = () => {
   };
 
   const handleTagged = () => {
+    console.log(tagged);
     setQuestionShowing(true);
     setTaggedDisplay(true);
     let time = 5;

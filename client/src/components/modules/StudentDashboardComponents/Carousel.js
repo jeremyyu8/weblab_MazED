@@ -12,6 +12,7 @@ import { drawCatCarouselCanvas } from "../../../canvasManagerCatCarousel";
  * @param {function} setSkin to set the skin
  * @param {Object} catFileToName object mapping cat file name to cat nickname
  * @param {Object} catNameToFile object mapping cat nickname to cat file name
+ * @param {function} setUserData react setter to set user data
  */
 const Carousel = (props) => {
   const carousel = useRef();
@@ -267,6 +268,8 @@ const Carousel = (props) => {
           console.log(skin);
           console.log(props.catNameToFile[skin]);
           await post("/api/setskin", { skin: props.catNameToFile[skin] });
+          const data = await get("/api/userbyid");
+          props.setUserData(data);
           setLoading(false);
           setDoneLoading(true);
           props.setSkin(props.catNameToFile[skin]);
@@ -356,11 +359,7 @@ const Carousel = (props) => {
 
       <div className="flex flex-col">
         {loading && <div className="text-green-500 mx-auto mb-5">Saving avatar...</div>}
-        {doneLoading && (
-          <div className="text-green-500 mx-auto mb-5 text-xl">
-            Saved! Refresh the page before joining your next game to use your new avatar.
-          </div>
-        )}
+        {doneLoading && <div className="text-green-500 mx-auto mb-5 text-xl">Saved!</div>}
         {skinChangeError && (
           <div className="text-red-600 animate-shake">
             Select an avatar different from the one you already have!

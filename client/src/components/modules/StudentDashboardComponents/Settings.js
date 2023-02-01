@@ -14,6 +14,7 @@ const GOOGLE_CLIENT_ID = "810136167494-687miqucn5faftjcgheo691e8n1pddti.apps.goo
  * Proptypes
  * @param {hl} hl handle logout
  * @param {userData} userData user data object (same structure as user mongoose schema)
+ * @param {function} setUserData set user data state setter
  */
 const Settings = (props) => {
   const [showDisplay, setShowDisplay] = useState(false);
@@ -175,6 +176,8 @@ const Settings = (props) => {
       setShowDisplay(false);
       setLoading(true);
       await post("/api/displayname", { displayname: displayname });
+      const data = await get("/api/userbyid");
+      props.setUserData(data);
       setLoading(false);
       setDoneLoading(true);
       setDisplayname(displayname);
@@ -289,11 +292,7 @@ const Settings = (props) => {
             )}
 
             {loading && <div className="text-green-500">Saving display name...</div>}
-            {doneLoading && (
-              <div className="text-green-500">
-                Saved! Refresh the page before joining your next game to use your new display name.
-              </div>
-            )}
+            {doneLoading && <div className="text-green-500">Saved!</div>}
             {displaynameError && (
               <div className="text-red-600 animate-shake">
                 display name must be at least 3 characters!
@@ -318,6 +317,7 @@ const Settings = (props) => {
               catFileToName={catFileToName}
               catNameToFile={catNameToFile}
               setSkin={setSkin}
+              setUserData={props.setUserData}
             />
           </div>
         </div>

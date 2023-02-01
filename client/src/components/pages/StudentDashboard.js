@@ -46,7 +46,7 @@ const StudentDashboard = (props) => {
           />
         );
       } else if (rightSide === "Settings") {
-        setRightComponent(<Settings hl={props.hl} userData={userData} />);
+        setRightComponent(<Settings hl={props.hl} userData={userData} setUserData={setUserData} />);
       }
     }
   }, [userData, rightSide]);
