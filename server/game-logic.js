@@ -401,10 +401,8 @@ const updateGameState = () => {
       if (curPlayer["newlevel"] === true) {
         // new level invincibility
         games[pin]["players"][_id]["invincible"] = true;
-        if (curPlayer["level"] !== -1) {
-          let level_completion_tag = "level" + curPlayer["level"] + "completion";
-          curPlayer[level_completion_tag] = games[pin]["startTime"];
-        }
+        let level_completion_tag = "level" + curPlayer["level"] + "completion";
+        curPlayer[level_completion_tag] = games[pin]["startTime"];
         curPlayer["level"] += 1;
         curPlayer.k["right"] = false;
         curPlayer.k["left"] = false;
@@ -798,7 +796,7 @@ const detectPlayerCollisions = (pin) => {
 const gameStart = (pin) => {
   games[pin]["status"] = "game";
   Object.values(games[pin]["players"]).forEach((player) => {
-    player.newlevel = true;
+    player.level = 0;
     player.p.x = 0;
     player.p.y = 0;
     player.v.x = 0;
