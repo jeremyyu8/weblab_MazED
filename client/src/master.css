@@ -450,3 +450,13 @@ input[type="checkbox"]:checked {
 .glow-pulse{
   animation: glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+@keyframes glow2{
+  50%{
+    box-shadow: 0 0 15px green;
+  }
+}
+
+.glow-pulse2{
+  animation: glow2 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

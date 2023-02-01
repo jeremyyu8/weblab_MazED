@@ -30,6 +30,8 @@ const Set = (props) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [lobbySettings, setLobbySettings] = useState(false);
 
+  const [confirmStart, setConfirmStart] = useState(false);
+
   // lobby settings
   const [numMazes, setNumMazes] = useState(3);
   const [gameTime, setGameTime] = useState(10);
@@ -168,7 +170,7 @@ const Set = (props) => {
                   </>
                 ) : (
                   <>
-                    <div className="flex-1 text-boldrounded-xl rounded-xl border-solid border-blue-500 border-4 p-5 m-5 overflow-y-auto overflow-x-auto">
+                    <div className="flex-1 text-bold rounded-xl border-solid border-blue-500 border-4 p-5 m-5 overflow-y-auto overflow-x-auto">
                       <div className="text-4xl text-blue-200 font-bold">
                         {props.title === "" ? "(No title)" : props.title}
                       </div>
@@ -216,7 +218,7 @@ const Set = (props) => {
             Cancel
           </button>
 
-          <div className="flex flex-col h-[100%]">
+          <div className="flex flex-col h-[100%] relative">
             <div className="basis-1/5 flex flex-col p-5">
               <div className="text-4xl mx-auto"> Lobby Settings</div>
               <div className="text-3xl mx-auto mt-2"> Initializing game with set:</div>
@@ -269,11 +271,56 @@ const Set = (props) => {
               <button
                 className="font-Ubuntu text-3xl rounded-xl bg-blue-500 w-[30%] hover:cursor-pointer hover:bg-blue-400 transform my-auto py-1"
                 onClick={() => {
-                  newLobby(props._id);
+                  setConfirmStart(true);
+                  // newLobby(props._id);
                 }}
               >
                 Play now
               </button>
+            </div>
+
+            <div
+              className={`absolute w-[50%] h-auto py-10 top-[50%] left-[50%] transform translate-x-[-50%] rounded-xl translate-y-[-50%] bg-white border-blue-300 border-solid ${
+                confirmStart === false && "hidden"
+              }`}
+            >
+              <div className="flex flex-col">
+                <div className="basis-1/6 text-5xl flex py-8">
+                  <div className="mx-auto text-blue-500">Confirm Start?</div>
+                </div>
+                <div className="basis-2/3 text-4xl pb-8 flex flex-col justify-center">
+                  <div className="mx-auto">
+                    Game mode: <span className="text-blue-600">{gameMode}</span>{" "}
+                  </div>
+                  <div className="mx-auto mt-5">
+                    Game time: <span className="text-blue-600">{gameTime}</span>
+                  </div>
+                  <div className="mx-auto mt-5">
+                    Number of mazes: <span className="text-blue-600">{numMazes}</span>
+                  </div>
+                </div>
+                <div className="basis-1/6 flex relative">
+                  <div className="mx-auto flex justify-between my-4">
+                    <button
+                      className="editfbuttons"
+                      onClick={() => {
+                        newLobby(props._id);
+                      }}
+                    >
+                      Start
+                    </button>
+                    <div className="basis-1/3"></div>
+                    <button
+                      className="editfbuttons"
+                      onClick={() => {
+                        setConfirmStart(false);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

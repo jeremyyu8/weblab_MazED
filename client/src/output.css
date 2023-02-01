@@ -698,6 +698,10 @@
   margin-top: 1vh;
 }
 
+.mt-5{
+  margin-top: 1.25rem;
+}
+
 .mt-0{
   margin-top: 0px;
 }
@@ -876,6 +880,10 @@
 
 .h-\[6vh\]{
   height: 6vh;
+}
+
+.h-\[50\%\]{
+  height: 50%;
 }
 
 .h-6{
@@ -1128,6 +1136,10 @@
 
 .basis-1\/6{
   flex-basis: 16.666667%;
+}
+
+.basis-2\/3{
+  flex-basis: 66.666667%;
 }
 
 .table-auto{
@@ -1396,6 +1408,11 @@
 .border-blue-700{
   --tw-border-opacity: 1;
   border-color: rgb(29 78 216 / var(--tw-border-opacity));
+}
+
+.border-blue-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(147 197 253 / var(--tw-border-opacity));
 }
 
 .border-t-blue-200{
@@ -1671,6 +1688,16 @@
   padding-bottom: 0.25rem;
 }
 
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.py-5{
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .pl-6{
   padding-left: 1.5rem;
 }
@@ -1757,6 +1784,10 @@
 
 .pb-\[1vh\]{
   padding-bottom: 1vh;
+}
+
+.pb-10{
+  padding-bottom: 2.5rem;
 }
 
 .text-center{
@@ -2511,6 +2542,16 @@ input[type="checkbox"]:checked {
 
 .glow-pulse{
   animation: glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes glow2{
+  50%{
+    box-shadow: 0 0 15px green;
+  }
+}
+
+.glow-pulse2{
+  animation: glow2 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .hover\:scale-110:hover{

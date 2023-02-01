@@ -219,23 +219,23 @@ const Carousel = (props) => {
                 setCurrentSelection(slide.caption);
               }}
             >
-              <div className="flex-1 w-[100%] text-center">
-                {/* <img
-                  onClick={() => {}}
-                  className="hover:cursor-pointer"
-                  src={slide.content}
-                  style={{ width: 350, height: 350 }}
-                  alt="map image"
-                /> */}
-                <canvas ref={canvasCarouselRefMap[slide.content]} width={320} height={320} />
+              <div
+                className={`flex flex-col ${
+                  currentSelection === slide.caption &&
+                  "border-solid rounded-xl border-blue-500 glow-pulse2"
+                } mx-auto p-5`}
+              >
+                <div className="flex-1 w-[100%] text-center">
+                  <canvas ref={canvasCarouselRefMap[slide.content]} width={320} height={320} />
+                </div>
+                <div className="flex-1 text-3xl mx-auto my-5 ">{slide.caption}</div>
               </div>
-              <div className="flex-1 text-3xl mx-auto my-5 ">{slide.caption}</div>
             </div>
           </>
         );
       })
     );
-  }, []);
+  }, [currentSelection]);
 
   useEffect(() => {
     if (typeof startidx !== "undefined") {
@@ -349,7 +349,7 @@ const Carousel = (props) => {
           </div>
 
           <div
-            className="flex overflow-x-scroll no-scrollbar snap-mandatory snap-x scroll-smooth"
+            className="flex overflow-x-scroll no-scrollbar snap-mandatory snap-x scroll-smooth py-8"
             ref={carousel}
           >
             {carouselContent}

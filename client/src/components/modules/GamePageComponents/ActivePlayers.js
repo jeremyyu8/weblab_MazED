@@ -46,7 +46,7 @@ const ActivePlayers = (props) => {
 
         <div className="flex justify-center">
           <button
-            className="absolute font-Ubuntu text-md bottom-4 w-[10%]"
+            className="absolute font-Ubuntu text-md bottom-4 w-[10%] p-1 hover:cursor-pointer hover:bg-blue-400"
             onClick={() => props.setShowActivePlayers(false)}
           >
             close

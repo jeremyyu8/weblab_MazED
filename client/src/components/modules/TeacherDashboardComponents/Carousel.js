@@ -12,6 +12,7 @@ import { useRef, useState, useEffect } from "react";
 const Carousel = (props) => {
   const carousel = useRef();
   const [carouselContent, setCarouselContent] = useState([]);
+  const [curIdx, setCurIdx] = useState(0);
 
   const incrementCarousel = (delta) => {
     if (carousel.current) {
@@ -42,12 +43,18 @@ const Carousel = (props) => {
   const handleOnClick = (idx) => {
     if (idx === 1) {
       props.setGameMode("team");
+      setCurIdx(1);
+      console.log("setting");
     } else if (idx === 2) {
       props.setGameMode("infection");
+      setCurIdx(2);
     } else {
       props.setGameMode("individual");
+      setCurIdx(0);
     }
   };
+
+  //absolute text-3xl bottom-[2vh] left-[50%] transform -translate-x-1/2
 
   useEffect(() => {
     setCarouselContent(
@@ -58,18 +65,25 @@ const Carousel = (props) => {
               className="flex grow shrink-0 basis-full h-auto w-[50%] relative snap-start hover:cursor-pointer py-10"
               onClick={() => handleOnClick(idx)}
             >
-              <div className="w-[100%] text-center mb-8">
-                <img src={slide.content} style={{ height: 200 }} alt="map image" />
-              </div>
-              <div className="absolute text-3xl bottom-[2vh] left-[50%] transform -translate-x-1/2">
-                {slide.caption}
+              <div
+                className={`flex flex-col ${
+                  curIdx === idx && "border-solid rounded-xl border-blue-500 glow-pulse2"
+                } mx-auto p-10`}
+              >
+                <img
+                  className="mx-auto mb-8"
+                  src={slide.content}
+                  style={{ height: 200 }}
+                  alt="map image"
+                />
+                <div className="text-3xl mx-auto">{slide.caption}</div>
               </div>
             </div>
           </>
         );
       })
     );
-  }, []);
+  }, [curIdx]);
 
   return (
     <>
