@@ -59,7 +59,7 @@ const Home = ({ userId, userRole, userName }) => {
                 <h1>Welcome to MazED</h1>
               </div>
               <div className="mt-10 text-blue-400 text-3xl w-[70%] text-center">
-                Making learning fun through an multiplayer maze game
+                Making learning fun through a multiplayer maze game
               </div>
             </div>
             <div>
@@ -131,13 +131,19 @@ const Home = ({ userId, userRole, userName }) => {
                     <div class="text-[4vw] text-blue-100 mt-8 ml-8 md:text-[3vw]">Why MazED?</div>
                     <div className="pt-4 pl-8 pr-8 flex rounded-lg items-center text-gray-900">
                       <p className="leading-8">
-                        MazED not only only offers students a fun and engaging way to learn but also
+                        {/* MazED not only only offers students a fun and engaging way to learn but also
                         provides game analyses that help teachers understand which questions
                         students struggle with and tailor to their needs. MazED enables teachers to
                         create unique flashcards sets and helps students improve by targeting
                         problems that students miss more frequently. With multiple competitive game
                         modes and highly customizable characters, students are encouraged to learn
-                        the material to win the game!
+                        the material to win the game! */}
+                        MazED transforms learning into a thrilling adventure through its multiplayer
+                        tag-style maze game. With the ability for teachers to create flashcard sets
+                        and launch lobbies, students are challenged to navigate through a virtual
+                        world while mastering the material. Customizable characters and real-time
+                        adaptive learning algorithms make each session exciting and improve
+                        retention, turning studying into a game that's too fun to put down.
                       </p>
                     </div>
                     <div className="pt-16 text-center mb-10">
