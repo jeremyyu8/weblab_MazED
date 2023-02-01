@@ -134,7 +134,7 @@ const Home = ({ userId, userRole, userName }) => {
                         MazED not only only offers students a fun and engaging way to learn but also
                         provides game analyses that help teachers understand which questions
                         students struggle with and tailor to their needs. MazED enables teachers to
-                        create unique flashcards sets and helps students improve by targeting on
+                        create unique flashcards sets and helps students improve by targeting
                         problems that students miss more frequently. With multiple competitive game
                         modes and highly customizable characters, students are encouraged to learn
                         the material to win the game!
